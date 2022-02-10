@@ -1,19 +1,20 @@
 package sgf.model;
 
 /**
- * Indicates the position of an enemy or a turret.
+ * Represents a pair of numerical coordinates. 
+ * @param <T> The type of the coordinates.
  */
-public class Position {
+public class Position<T extends Number> {
 
-    private double x;
-    private double y;
+    private T x;
+    private T y;
 
     /**
      * Set the initial positions.
      * @param x
      * @param y
      */
-    public Position(final double x, final double y) {
+    public Position(final T x, final T y) {
         super();
         this.x = x;
         this.y = y;
@@ -22,7 +23,7 @@ public class Position {
     /**
      * @return x position.
      */
-    public double getX() {
+    public T getX() {
         return this.x;
     }
 
@@ -30,14 +31,14 @@ public class Position {
      * Sets x position.
      * @param x
      */
-    public void setX(final double x) {
+    public void setX(final T x) {
         this.x = x;
     }
 
     /**
      * @return y position.
      */
-    public double getY() {
+    public T getY() {
         return this.y;
     }
 
@@ -45,7 +46,7 @@ public class Position {
      * Sets y position.
      * @param y
      */
-    public void setY(final double y) {
+    public void setY(final T y) {
         this.y = y;
     }
 
@@ -54,7 +55,7 @@ public class Position {
      * @param x
      * @param y
      */
-    public void setCoordinates(final double x, final double y) {
+    public void setCoordinates(final T x, final T y) {
         this.setX(x);
         this.setY(y);
     }
