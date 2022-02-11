@@ -1,5 +1,4 @@
 BulletFactory
-Coordinate
 Direction
 [FixedDirectionBullet]
 [FixedTargetBullet]
@@ -11,7 +10,6 @@ GameView
 LevelLoader
 LevelController
 Map
-Shop
 Tile
 TileType
 Turret
