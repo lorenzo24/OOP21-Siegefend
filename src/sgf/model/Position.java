@@ -1,20 +1,19 @@
 package sgf.model;
 
 /**
- * Represents a pair of numerical coordinates. 
- * @param <T> The type of the coordinates.
+ * Represents a pair of spatial coordinates on the map. 
  */
-public class Position<T extends Number> {
+public class Position {
 
-    private T x;
-    private T y;
+    private double x;
+    private double y;
 
     /**
      * Set the initial positions.
      * @param x
      * @param y
      */
-    public Position(final T x, final T y) {
+    public Position(final double x, final double y) {
         super();
         this.x = x;
         this.y = y;
@@ -23,7 +22,7 @@ public class Position<T extends Number> {
     /**
      * @return x position.
      */
-    public T getX() {
+    public double getX() {
         return this.x;
     }
 
@@ -31,14 +30,14 @@ public class Position<T extends Number> {
      * Sets x position.
      * @param x
      */
-    public void setX(final T x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
     /**
      * @return y position.
      */
-    public T getY() {
+    public double getY() {
         return this.y;
     }
 
@@ -46,7 +45,7 @@ public class Position<T extends Number> {
      * Sets y position.
      * @param y
      */
-    public void setY(final T y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
@@ -55,7 +54,7 @@ public class Position<T extends Number> {
      * @param x
      * @param y
      */
-    public void setCoordinates(final T x, final T y) {
+    public void setCoordinates(final double x, final double y) {
         this.setX(x);
         this.setY(y);
     }
