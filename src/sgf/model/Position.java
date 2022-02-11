@@ -9,9 +9,9 @@ public class Position {
     private double y;
 
     /**
-     * Set the initial positions.
-     * @param x
-     * @param y
+     * Creates a new instance of {@code Position}.
+     * @param x The x coordinate of the position.
+     * @param y The y coordinate of the position.
      */
     public Position(final double x, final double y) {
         super();
@@ -20,21 +20,23 @@ public class Position {
     }
 
     /**
-     * @return x position.
+     * Returns the x coordinate of the position.
+     * @return the x coordinate of the position
      */
     public double getX() {
         return this.x;
     }
 
     /**
-     * Sets x position.
-     * @param x
+     * Sets the x coordinate of the position.
+     * @param x The new value for the x coordinate
      */
     public void setX(final double x) {
         this.x = x;
     }
 
     /**
+     * Returns the y coordinate of the position.
      * @return y position.
      */
     public double getY() {
@@ -42,17 +44,17 @@ public class Position {
     }
 
     /**
-     * Sets y position.
-     * @param y
+     * Sets the y coordinate of the position.
+     * @param y The new value for the y coordinate
      */
     public void setY(final double y) {
         this.y = y;
     }
 
     /**
-     * Sets both positions of an enemy.
-     * @param x
-     * @param y
+     * Sets both coordinates of the position.
+     * @param x The x coordinate of the position
+     * @param y The y coordinate of the position
      */
     public void setCoordinates(final double x, final double y) {
         this.setX(x);
