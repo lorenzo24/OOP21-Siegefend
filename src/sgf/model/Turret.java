@@ -67,8 +67,8 @@ public interface Turret {
     Optional<Enemy> getTarget();
 
     /**
-     * Returns the {@link TurretManager} object associated with the turret.
+     * Returns the {@link TurretController} object associated with the turret.
      * @return an instance of {@code TurretManager}
      */
-    TurretManager getTurretManager();
+    TurretController getTurretManager();
 }
