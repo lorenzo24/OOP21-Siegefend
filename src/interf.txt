@@ -1,5 +1,4 @@
 BulletFactory
-Direction
 [FixedDirectionBullet]
 [FixedTargetBullet]
 [MovingTargetBullet]
@@ -9,8 +8,5 @@ GameStatus
 GameView
 LevelLoader
 LevelController
-Map
-Tile
-TileType
 Turret
 TurretController
