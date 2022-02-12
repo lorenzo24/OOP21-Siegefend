@@ -4,7 +4,6 @@ BulletFactory
 [MovingTargetBullet]
 GameApp
 GameController
-GameStatus
 GameView
 LevelLoader
 LevelController
