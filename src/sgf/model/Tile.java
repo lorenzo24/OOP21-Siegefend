@@ -3,33 +3,29 @@ package sgf.model;
 import java.util.Optional;
 
 /**
- * 
- * Represent a single tile. All the tiles together form the {@link Map}. 
- *
+ * Represent a single tile on the map.
  */
 public interface Tile {
     /**
-     * All tiles have a type. This method returns the type of a specific tile.
-     * @return the tile's type.
+     * Returns the tile's type.
+     * @return the {@link TileType} associated with the tile
      */
     TileType getTileType();
     /**
-     * Many tiles could have a {@link Direction}, a parameter that helps the enemies
-     * movement. This method returns the direction of a specific tile. 
-     * @return the {@link Optional} {@link Direction} of the tile. This optional could be 
-     * empty, in fact if the tile doesn't compose the path it doesn't have any direction.
+     * Returns the direction of movement on the tile. If there is none, an empty {@link Optional}
+     * is returned.
+     * @return an {@link Optional} containing the {@link Direction} if present, {@code Optional.empty}
+     * otherwise
      */
     Optional<Direction> getTileDirection();
     /**
-     * Every tile has a specific {@link Position} in the map, so this method helps getting
-     * it.
-     * @return the tile's {@link Position} in the map.
+     * Returns the position of the tile on the map.
+     * @return the tile's {@link Position} in the map
      */
     Position getPosition();
     /**
-     * The {@link Player} can place a {@link Turret} only in specific tiles, not
-     * everywhere he wants. This method indicates if the tile can contain a turret.
-     * @return true if the tile can contain a {@link Turret}, otherwise returns false.
+     * Indicates whether a {@link Turret} can be placed on the current tile.
+     * @return {@code true} if the tile can contain a {@link Turret}, otherwise {@code false}
      */
     boolean canContainTurret();
 }
