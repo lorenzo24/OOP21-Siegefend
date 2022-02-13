@@ -6,11 +6,11 @@ package sgf.model;
  */
 public interface Map {
     /**
-     * This method helps getting a {@link Tile} from a given coordinates.
-     * @param pos Is the coordinates of the interested {@link Tile}.
-     * @return the tile from the given coordinates.
+     * This method helps getting a {@link Tile} from a grid position.
+     * @param position Is the position in the grid of the interested {@link Tile}.
+     * @return the tile from the given grid position.
      */
-    Tile getTileFromPosition(GridPosition pos);
+    Tile getTileFromGridPosition(GridPosition position);
     /**
      * This method helps getting a {@link Tile} from a given {@link Position}.
      * @param position Is the position of the interested {@link Tile}.
