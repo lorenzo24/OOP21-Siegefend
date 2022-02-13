@@ -1,26 +1,28 @@
 package sgf.model;
 
 import java.util.List;
-
 /**
+ * Implementation of a level.
  *
  */
 public class LevelImp implements Level {
 
     private final List<Wave> waves;
+    private final Map map;
 
     /**
      * Creation of a level.
      * @param waves Are the waves in the level.
+     * @param map Is the level map.
      */
-    public LevelImp(final List<Wave> waves) {
+    public LevelImp(final List<Wave> waves, final Map map) {
         this.waves = waves;
+        this.map = map;
     }
 
     @Override
     public Map getMap() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.map;
     }
 
     @Override
