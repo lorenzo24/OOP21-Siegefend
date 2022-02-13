@@ -1,4 +1,6 @@
-package sgf.model;
+package sgf.controller;
+
+import sgf.model.Turret;
 
 /**
  * Handles upgrades and selling of turrets.

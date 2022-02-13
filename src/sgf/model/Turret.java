@@ -2,6 +2,8 @@ package sgf.model;
 
 import java.util.Optional;
 
+import sgf.controller.TurretController;
+
 /**
  * Represents a turret that can be placed on the map.
  */
