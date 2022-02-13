@@ -12,6 +12,17 @@ public interface TurretController {
      * around that.
      */
 
+    /*
+     * Most likely the GameController will not work directly with turrets but just with the TurretController,
+     * and if it needs the turret itself it can just use a method to retrieve it.
+     */
+
+    /**
+     * Returns the {@link Turret} associated with the {@code TurretController}.
+     * @return the turret associated with the controller.
+     */
+    Turret getTurret();
+
     /**
      * Returns the current level of the {@link Turret}.
      * @return the current level of the turret.

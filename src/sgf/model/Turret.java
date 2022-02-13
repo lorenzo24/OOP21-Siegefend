@@ -68,7 +68,10 @@ public interface Turret {
 
     /**
      * Returns the {@link TurretController} object associated with the turret.
+     * <br />
+     * <br />
+     * This method should be removed.
      * @return an instance of {@code TurretManager}
      */
-    TurretController getTurretManager();
+    TurretController getTurretController();
 }
