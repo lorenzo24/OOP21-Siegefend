@@ -5,7 +5,7 @@ import sgf.view.MenuStarter;
 /**
  * Class starter the game.
  */
-public class StrartMenu {
+public class StartMenu {
 
     /**
      * 
