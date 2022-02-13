@@ -5,7 +5,7 @@ import java.util.List;
  * Implementation of a level.
  *
  */
-public class LevelImp implements Level {
+public class LevelImpl implements Level {
 
     private final List<Wave> waves;
     private int currentWave = 0;
@@ -16,7 +16,7 @@ public class LevelImp implements Level {
      * @param waves Are the waves in the level.
      * @param map Is the level map.
      */
-    public LevelImp(final List<Wave> waves, final Map map) {
+    public LevelImpl(final List<Wave> waves, final Map map) {
         this.waves = waves;
         this.map = map;
     }
