@@ -1,5 +1,7 @@
 package sgf.model;
 
+import java.util.List;
+
 /**
  * Represents a level of play.
  */
@@ -10,4 +12,10 @@ public interface Level {
      * @return the level's {@link Map}.
      */
     Map getMap();
+
+    /**
+     * Returns a list containing all the waves of enemies in the level.
+     * @return a {@link List} containing all the waves.
+     */
+    List<Wave> getWaves();
 }
