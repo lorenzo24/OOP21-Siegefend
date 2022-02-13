@@ -8,6 +8,7 @@ import java.util.List;
 public class LevelImp implements Level {
 
     private final List<Wave> waves;
+    private int currentWave = 0;
     private final Map map;
 
     /**
