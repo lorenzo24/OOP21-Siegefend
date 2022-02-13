@@ -50,9 +50,9 @@ public interface Turret {
 
     /**
      * Returns the speed at which the turret fires bullets (specified in bullets/second).
-     * @return the firerate of the turret
+     * @return the fire rate of the turret
      */
-    double getFirerate();
+    double getFireRate();
 
     /**
      * Tries to find a target {@link Enemy} within the range of the turret.
