@@ -10,8 +10,9 @@ import sgf.view.ScreenGame;
 public class StartGame {
     /**
      * Starting point for the game.
+     * @param args is the default parameter for main method.
      */
-    public static void main(String[] args) {
-       ScreenGame screen = new ScreenGame();
+    public static void main(final String[] args) {
+       final ScreenGame screen = new ScreenGame();
     }
 }
