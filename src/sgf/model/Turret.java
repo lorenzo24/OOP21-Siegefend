@@ -65,7 +65,7 @@ public interface Turret {
      * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise.
      */
     Optional<Enemy> getTarget();
-    
+
     /**
      * Returns the price of the turret.
      * @return the price of the turret

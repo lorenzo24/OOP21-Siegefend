@@ -30,15 +30,12 @@ public class ShopImpl implements Shop {
     @Override
     public boolean purchase(final Turret t) {
         /*
-         * Probably better to add a getPrice() method in Turret.
          * In hindsight, TurretController will probably need to have a reference to the current Turret
          * and its next level, so we may need a new class which holds a list of all the upgrades of a turret,
          * something like TurretUpgradeList.
          */
         if (this.turrets.containsKey(t)) {
-            // getTurretController() should be removed from Turret since only in-game turrets have one.
-            return player.getCurrentMoney() >= t.getTurretController().getCurrentUpgradePrice();
-            // return player.getCurrentMoney() >= t.getPrice();
+            return player.getCurrentMoney() >= t.getPrice();
         } else {
             return false; // Maybe exception?
         }
