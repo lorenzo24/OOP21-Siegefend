@@ -2,8 +2,6 @@ package sgf.model;
 
 import java.util.Optional;
 
-import sgf.controller.TurretController;
-
 /**
  * Represents a turret that can be placed on the map.
  */
@@ -67,13 +65,10 @@ public interface Turret {
      * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise.
      */
     Optional<Enemy> getTarget();
-
+    
     /**
-     * Returns the {@link TurretController} object associated with the turret.
-     * <br />
-     * <br />
-     * This method should be removed.
-     * @return an instance of {@code TurretManager}
+     * Returns the price of the turret.
+     * @return the price of the turret
      */
-    TurretController getTurretController();
+    int getPrice();
 }
