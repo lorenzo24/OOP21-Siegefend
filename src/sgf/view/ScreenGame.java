@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 /**
  * 
- * This class represent a simple screen game.
+ * This class represents a simple screen game.
  *
  */
 public class ScreenGame {
