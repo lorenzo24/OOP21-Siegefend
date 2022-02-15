@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Represents a turret that can be placed on the map.
  */
-public interface Turret {
+public interface Turret extends Cloneable {
     /**
      * Returns the ID of the turret.
      * @return the ID of the turret
@@ -65,10 +65,19 @@ public interface Turret {
      * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise.
      */
     Optional<Enemy> getTarget();
-    
+
     /**
      * Returns the price of the turret.
      * @return the price of the turret
      */
     int getPrice();
+
+    /**
+     * Creates a clone of the turret. <br />
+     * Internally, the clone should be created by calling super.clone() and then
+     * setting all the attributes by cloning them from the initial turret.
+     * @return the cloned {@link Turret}
+     * @throws CloneNotSupportedException
+     */
+    Turret clone() throws CloneNotSupportedException;
 }
