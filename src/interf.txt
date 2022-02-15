@@ -2,5 +2,4 @@
 [FixedTargetBullet]
 [MovingTargetBullet]
 GameApp
-GameController
 GameView
