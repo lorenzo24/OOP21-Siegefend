@@ -1,7 +1,5 @@
 package sgf.controller;
 
-import sgf.view.ScreenGame;
-
 /**
  * 
  * Class which goal is to start the game.
@@ -13,6 +11,6 @@ public class StartGame {
      * @param args is the default parameter for main method.
      */
     public static void main(final String[] args) {
-       final ScreenGame screen = new ScreenGame();
+       new MapController();
     }
 }
