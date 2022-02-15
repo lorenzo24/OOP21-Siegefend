@@ -3,32 +3,33 @@ package sgf.controller;
 import sgf.view.ScreenGame;
 
 /**
- * 
- * @author fabio
+ * This class is responsible for the map's multithreading management.
  *
  */
 public class MapController {
-    private Thread gameThread;
-    final ScreenGame screen;
-    
+    private static final int SLEEP_TIME = 50;
+    private final ScreenGame screen;
+
+    /**
+     * Constructor that also start thread loop.
+     */
     public MapController() {
         screen = new ScreenGame();
         this.startGameThread();
     }
 
     private void startGameThread() {
-        gameThread = new Thread(new Runnable() {
-
+        final Thread gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     try {
                         screen.getMapCreator().paintComponentProva();
-                        Thread.sleep(50);
+                        Thread.sleep(SLEEP_TIME);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.print(1000/50+"fps \n");
+                    System.out.print(1000 / SLEEP_TIME + " fps\n");
                 }
             }
         });
