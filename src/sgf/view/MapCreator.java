@@ -2,14 +2,13 @@ package sgf.view;
 
 import java.awt.image.BufferedImage;
 import java.awt.Image;
-import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 /**
  * 
  * This class is responsible for the process of map's creation and showing.
@@ -18,13 +17,10 @@ import javax.swing.JPanel;
 public class MapCreator extends JPanel {
     private static final long serialVersionUID = -7141712951441617040L;
     private static final int MATRIX_SIZE = 20;
-    private BufferedImage grassImage;
-    private BufferedImage waterImage;
-    private BufferedImage sandImage;
     private BufferedImage[] imagesArray = new BufferedImage[3];
 
     /**
-     * Constructor for a map creator.
+     * Constructor for a map creator. It also fill an array with all images in res folder.
      */
     public MapCreator() {
         try {
@@ -37,8 +33,8 @@ public class MapCreator extends JPanel {
     }
 
     /**
-     * Auto-called method that loads and show a simple image from res folder.
-     * @param graphic Is the argument for this method.
+     * Method that loads and show a random image from the array of images.
+     * 
      */
     public void paintComponentProva() {
         final int widthImage = this.sizeImage(this.getWidth());
@@ -52,7 +48,7 @@ public class MapCreator extends JPanel {
     }
 
     private Image dinamicResize(final int widthImage, final int heightImage) {
-        Random r = new Random();
+        final Random r = new Random();
         return imagesArray[r.nextInt(3)].getScaledInstance(widthImage, heightImage, Image.SCALE_SMOOTH);
     }
 
