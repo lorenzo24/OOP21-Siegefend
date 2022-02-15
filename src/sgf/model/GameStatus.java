@@ -1,7 +1,7 @@
 package sgf.model;
 
 /**
- * Represents the game state.
+ * Represents the game's state.
  */
 public enum GameStatus {
     /**
