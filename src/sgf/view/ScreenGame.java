@@ -28,8 +28,8 @@ public class ScreenGame {
     }
 
     private void setFrameSize() {
-        final var width = this.screenSize.getWidth();
-        final var height = this.screenSize.getHeight();
+        final double width = this.screenSize.getWidth();
+        final double height = this.screenSize.getHeight();
         final Dimension minimumSize = new Dimension((int) (width * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
         this.frame.setMinimumSize(minimumSize);
         this.frame.setSize((int) (this.screenSize.getWidth() * SIZE_PERC), (int) (this.screenSize.getHeight() * SIZE_PERC));
@@ -38,9 +38,6 @@ public class ScreenGame {
 
     private void windowClosing() {
         this.frame.addWindowListener(new WindowAdapter() {
-            /**
-             * 
-             */
             @Override
             public void windowClosing(final WindowEvent e) {
                 final int choise = JOptionPane.showConfirmDialog(frame, 
