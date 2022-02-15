@@ -8,6 +8,7 @@ import sgf.view.ScreenGame;
  */
 public class MapController {
     private static final int SLEEP_TIME = 50;
+    private static final int A_SECOND_IN_MILLIS = 1000;
     private final ScreenGame screen;
 
     /**
@@ -29,7 +30,7 @@ public class MapController {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    System.out.print(1000 / SLEEP_TIME + " fps\n");
+                    System.out.print(A_SECOND_IN_MILLIS / SLEEP_TIME + " fps\n");
                 }
             }
         });
