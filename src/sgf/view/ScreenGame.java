@@ -38,11 +38,16 @@ public class ScreenGame {
 
     private void windowClosing() {
         this.frame.addWindowListener(new WindowAdapter() {
+            /**
+             * 
+             */
+            @Override
             public void windowClosing(final WindowEvent e) {
                 final int choise = JOptionPane.showConfirmDialog(frame, 
                         "Do you really want to quit?", "QUITTING", JOptionPane.YES_NO_OPTION);
                 if (choise == JOptionPane.YES_OPTION) {
-                    System.exit(0);     // Find an alternative to System.exit.
+                    frame.setVisible(false);
+                    frame.dispose();
                 }
             }
         });
