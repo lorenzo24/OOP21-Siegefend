@@ -10,8 +10,8 @@ import java.awt.event.*;
  *
  */
 public class ScreenGame {
-    private static final double WIDTH_PERC = 0.5;
-    private static final double HEIGHT_PERC = 0.5;
+    private static final double SIZE_PERC = 0.5;
+    private static final double MIN_SIZE_PERC = 0.3;
     private final JFrame frame = new JFrame();
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -21,10 +21,19 @@ public class ScreenGame {
     public ScreenGame() {
         this.frame.setTitle("SIEGEFEND");
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.frame.setSize((int) (this.screenSize.getWidth() * WIDTH_PERC), (int) (this.screenSize.getHeight() * HEIGHT_PERC));
+        this.setFrameSize();
         this.frame.getContentPane().add(new MapCreator());
         this.windowClosing();
         this.frame.setVisible(true);
+    }
+
+    private void setFrameSize() {
+        final var width = this.screenSize.getWidth();
+        final var height = this.screenSize.getHeight();
+        final Dimension minimumSize = new Dimension((int) (width * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
+        this.frame.setMinimumSize(minimumSize);
+        this.frame.setSize((int) (this.screenSize.getWidth() * SIZE_PERC), (int) (this.screenSize.getHeight() * SIZE_PERC));
+
     }
 
     private void windowClosing() {
