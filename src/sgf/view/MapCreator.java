@@ -14,8 +14,8 @@ import javax.swing.JPanel;
  *
  */
 public class MapCreator extends JPanel {
-    private static final int NUMBER_OF_CELLS = 25;
     private static final long serialVersionUID = -7141712951441617040L;
+    private static final int MATRIX_SIZE = 20;
     private BufferedImage grassImage;
 
     /**
@@ -28,17 +28,18 @@ public class MapCreator extends JPanel {
             e.printStackTrace();
         }
     }
+
     /**
      * Auto-called method that loads and show a simple image from res folder.
      * @param graphic Is the argument for this method.
      */
     public void paintComponent(final Graphics graphic) {
         super.paintComponent(graphic);
-        final int widthImage = sizeImage(this.getWidth());
-        final int heightImage =  sizeImage(this.getHeight());
+        final int widthImage = this.sizeImage(this.getWidth());
+        final int heightImage =  this.sizeImage(this.getHeight());
         final Image modifiedImage = this.dinamicResize(widthImage, heightImage);
-        for (int x = 0; x < NUMBER_OF_CELLS; x++) {
-            for (int y = 0; y < NUMBER_OF_CELLS; y++) {
+        for (int x = 0; x < MATRIX_SIZE; x++) {
+            for (int y = 0; y < MATRIX_SIZE; y++) {
                 graphic.drawImage(modifiedImage, x * widthImage, y * heightImage, null);
             }
         }
@@ -47,7 +48,8 @@ public class MapCreator extends JPanel {
     private Image dinamicResize(final int widthImage, final int heightImage) {
         return  grassImage.getScaledInstance(widthImage, heightImage, Image.SCALE_SMOOTH);
     }
+
     private int sizeImage(final double dimension) {
-        return (int) Math.round(dimension / NUMBER_OF_CELLS);
+        return (int) Math.round(dimension / MATRIX_SIZE);
     }
 }
