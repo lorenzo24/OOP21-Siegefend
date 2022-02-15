@@ -23,12 +23,15 @@ public class ScreenGame {
         this.frame.setTitle("SIEGEFEND");
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setFrameSize();
-        
         this.frame.getContentPane().add(mapCreator);
         this.windowClosing();
         this.frame.setVisible(true);
     }
 
+    /**
+     * Getter for the field mapCreator.
+     * @return mapCreator field.
+     */
     public MapCreator getMapCreator() {
         return this.mapCreator;
     }
