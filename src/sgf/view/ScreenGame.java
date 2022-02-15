@@ -14,6 +14,7 @@ public class ScreenGame {
     private static final double MIN_SIZE_PERC = 0.3;
     private final JFrame frame = new JFrame();
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private final MapCreator mapCreator = new MapCreator();
 
     /**
      * Constructor.
@@ -22,9 +23,14 @@ public class ScreenGame {
         this.frame.setTitle("SIEGEFEND");
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setFrameSize();
-        this.frame.getContentPane().add(new MapCreator());
+        
+        this.frame.getContentPane().add(mapCreator);
         this.windowClosing();
         this.frame.setVisible(true);
+    }
+
+    public MapCreator getMapCreator() {
+        return this.mapCreator;
     }
 
     private void setFrameSize() {
@@ -43,8 +49,7 @@ public class ScreenGame {
                 final int choise = JOptionPane.showConfirmDialog(frame, 
                         "Do you really want to quit?", "QUITTING", JOptionPane.YES_NO_OPTION);
                 if (choise == JOptionPane.YES_OPTION) {
-                    frame.setVisible(false);
-                    frame.dispose();
+                    System.exit(0);
                 }
             }
         });
