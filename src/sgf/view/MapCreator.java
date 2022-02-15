@@ -40,18 +40,15 @@ public class MapCreator extends JPanel {
      * Auto-called method that loads and show a simple image from res folder.
      * @param graphic Is the argument for this method.
      */
-    public void paintComponent(final Graphics graphic) {
-        super.paintComponent(graphic);
+    public void paintComponentProva() {
         final int widthImage = this.sizeImage(this.getWidth());
         final int heightImage =  this.sizeImage(this.getHeight());
         final Image modifiedImage = this.dinamicResize(widthImage, heightImage);
         for (int x = 0; x < MATRIX_SIZE; x++) {
             for (int y = 0; y < MATRIX_SIZE; y++) {
-                
-                graphic.drawImage(modifiedImage, x * widthImage, y * heightImage, null);
+                this.getGraphics().drawImage(modifiedImage, x * widthImage, y * heightImage, null);
             }
         }
-        repaint();
     }
 
     private Image dinamicResize(final int widthImage, final int heightImage) {
