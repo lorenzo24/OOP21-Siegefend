@@ -7,7 +7,7 @@ import sgf.view.ScreenGame;
  *
  */
 public class MapController {
-    private static final int SLEEP_TIME = 50;
+    private static final int SLEEP_TIME = 50;   // Modify this value in order to make the animation slower or faster.
     private static final int A_SECOND_IN_MILLIS = 1000;
     private final ScreenGame screen;
 
@@ -25,7 +25,7 @@ public class MapController {
             public void run() {
                 while (true) {
                     try {
-                        screen.getMapCreator().paintComponentProva();
+                        screen.getMapCreator().showGridImage();
                         Thread.sleep(SLEEP_TIME);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
