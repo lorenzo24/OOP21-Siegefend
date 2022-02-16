@@ -36,7 +36,7 @@ public class MapCreator extends JPanel {
      * Method that loads and show a random image from the array of images.
      * 
      */
-    public void paintComponentProva() {
+    public void showGridImage() {
         final int widthImage = this.sizeImage(this.getWidth());
         final int heightImage =  this.sizeImage(this.getHeight());
         final Image modifiedImage = this.dinamicResize(widthImage, heightImage);
