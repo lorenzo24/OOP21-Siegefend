@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Represents a turret that can be placed on the map.
  */
-public interface Turret {
+public interface Turret extends Cloneable {
     /**
      * Returns the ID of the turret.
      * @return the ID of the turret
