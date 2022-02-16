@@ -10,12 +10,14 @@ public class MapController {
     private static final int SLEEP_TIME = 50;   // Modify this value in order to make the animation slower or faster.
     private static final int A_SECOND_IN_MILLIS = 1000;
     private final ScreenGame screen;
+    private final TileController tileController;
 
     /**
      * Constructor that also start thread loop.
      */
     public MapController() {
         screen = new ScreenGame();
+        this.tileController = new TileController();
         this.startGameThread();
     }
 
