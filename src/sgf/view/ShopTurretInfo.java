@@ -9,13 +9,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import sgf.model.Turret;
 
 /**
  *
  */
-public class ShopTurretInfo extends JPanel {
+public final class ShopTurretInfo extends JPanel {
 
     /**
      * 
@@ -40,7 +41,7 @@ public class ShopTurretInfo extends JPanel {
             this.turretImg = new JLabel("No Image Found");
         }
         this.turretBuy = new JButton("Buy");
-        this.turretPrice = new JLabel(Integer.toString(t.getPrice()));
+        this.turretPrice = new JLabel(Integer.toString(t.getPrice()), SwingConstants.CENTER);
         /*
          * 
          */
