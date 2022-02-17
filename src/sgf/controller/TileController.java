@@ -2,28 +2,27 @@ package sgf.controller;
 
 import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.awt.*;
-import sgf.model.Tile;
-import sgf.model.TileImpl;
 import sgf.model.TileType;
 
 /**
  * This class is responsible for the creation of all tile types.
- *
  */
 public class TileController {
-    private final List<Tile> tilesList;
-    private final List<Tile> cacheTilesList;    // This is a copy useful for a more performed way to load images.
-
+    private final Map<TileType, Image> imageTileSelector;       // Map that contains all the correspondences betwenn TileType and the specific images.
+    private final Map<TileType, Image> cacheMap;        // Copy of the principal map useful to improve performance.
+    
     /**
      * Constructor that fills the arrays with all types of tiles.
      */
     public TileController() {
-        this.tilesList = new ArrayList<>();
-        this.cacheTilesList = new ArrayList<>();
-        this.fillBothLists();
+        this.imageTileSelector = new HashMap<>();
+        this.cacheMap = new HashMap<>();
+        this.fillMap(this.imageTileSelector); // Method that fills the primary map.
+        this.fillMap(this.cacheMap); // Method that fills the cache copy.
     }
 
     /**
@@ -32,7 +31,13 @@ public class TileController {
      * @return the image of the specific type of tile.
      */
     public Image getImage(final int type) {
-        return this.tilesList.get(type).getTileSprite();
+        if (type == 0) {
+            return this.imageTileSelector.get(TileType.GRASS);
+        } else if (type == 2) {
+            return this.imageTileSelector.get(TileType.WATER);
+        } else {
+            return this.imageTileSelector.get(TileType.PATH);
+        }
     }
 
     /**
@@ -41,30 +46,21 @@ public class TileController {
      * @param newHeight Is the new height that the image must have.
      */
     public void correctImagesSize(final int newWidth, final int newHeight) {
-        // Every tile in original array updates its field containing the image with the correspondent copy in cache array.
-        for (int i = 0; i < this.tilesList.size(); i++) {
-            final Image newResizedImage = this.cacheTilesList.get(i).getTileSprite().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH); 
-            this.tilesList.get(i).setTileSprite(newResizedImage);
+        // Every tile in original map updates its value (the image of the tile type).
+        for (final Entry<TileType, Image> element : this.imageTileSelector.entrySet()) {
+            final Image newResizedImage = this.cacheMap.get(element.getKey()).getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH); 
+            element.setValue(newResizedImage);
         }
     }
 
-    private void fillBothLists() {
-        // TODO improve this method, instead of String paramether we could add in TileType the
-        // types Grass and water, and pass a TileType as paramether and check in the method
-        // loadRightImage using a switch, which png has to be loaded.
-        // Other TODO, add paramethers Position and Direction for every Tile.
-        this.fillList(tilesList);
-        this.fillList(cacheTilesList);
-    }
-
-    // TODO Find a way to remove the return null.
+    // This method loads from res folder the right png file.
     private Image loadRightImage(final String pngFile) {
         return Toolkit.getDefaultToolkit().createImage("res" + File.separator + pngFile);
     }
 
-    private void fillList(final List<Tile> list) {
-        list.add(new TileImpl(TileType.BUILD, null, null, loadRightImage("grass.png")));
-        list.add(new TileImpl(TileType.PATH, null, null, loadRightImage("sand.png")));
-        list.add(new TileImpl(TileType.NO_BUILD, null, null, loadRightImage("water.png")));
+    private void fillMap(final Map<TileType, Image> mapToBeFilled) {
+        mapToBeFilled.put(TileType.GRASS, this.loadRightImage("grass.png"));
+        mapToBeFilled.put(TileType.PATH, this.loadRightImage("sand.png"));
+        mapToBeFilled.put(TileType.WATER, this.loadRightImage("water.png"));
     }
 }

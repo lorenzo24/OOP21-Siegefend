@@ -1,7 +1,6 @@
 package sgf.model;
 
 import java.util.Optional;
-import java.awt.Image;
 
 /**
  * Represents a single tile on the map.
@@ -26,18 +25,6 @@ public interface Tile {
      * @return the tile's {@link Position} in the map
      */
     Position getPosition();
-
-    /**
-     * Method that returns the tile's sprite.
-     * @return the tile's BufferedImage field.
-     */
-    Image getTileSprite();
-
-    /**
-     * Changes the tile's image.
-     * @param inputImage Is the new tile image.
-     */
-    void setTileSprite(Image inputImage);
 
     /**
      * Indicates whether a {@link Turret} can be placed on the current tile.
