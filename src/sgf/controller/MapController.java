@@ -12,6 +12,7 @@ public class MapController {
     private static final int SLEEP_TIME = 75;   // Modify this value in order to make the animation slower or faster.
     private final ScreenGame screen;
     private final Map map = new MapImpl();
+    private volatile boolean threadRun = true;
 
     /**
      * Constructor that sets up the screen and also start thread loop.
@@ -29,7 +30,7 @@ public class MapController {
                 int ups = 0;
                 long lastTime = System.currentTimeMillis();
 
-                while (true) {
+                while (threadRun) {
                     // Print how many update has been done in 1 second.
                     if (System.currentTimeMillis() - lastTime >= 1000) {
                         System.out.print("UPS:" + ups + "\n");
@@ -49,5 +50,19 @@ public class MapController {
             }
         });
         gameThread.start();
+    }
+    // TODO pause and resume thread must change following game status.
+    /**
+     * Temporary stops the thread.
+     */
+    public void pauseMapThread() {
+        this.threadRun = false;
+    }
+
+    /**
+     * Resume the thread.
+     */
+    public void resumeMapThread() {
+        this.threadRun = true;
     }
 }
