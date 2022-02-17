@@ -20,11 +20,11 @@ public enum TileType {
      */
     END_PATH,
     /**
-     * This type denotes that on the {@link Tile} you can place a {@link Turret}.
+     * This type denotes that on the {@link Tile} there is grass, so you can place a {@link Turret}.
      */
-    BUILD,
+    GRASS,
     /**
-     * This type denotes that on the {@link Tile} you cannot place a {@link Turret}.
+     * This type denotes that the {@link Tile} is made of water, so you cannot place a {@link Turret}.
      */
-    NO_BUILD;
+    WATER
 }
