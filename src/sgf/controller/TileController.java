@@ -63,8 +63,8 @@ public class TileController {
     }
 
     private void fillList(final List<Tile> list) {
-        list.add(new TileImpl(TileType.OTHER, null, null, loadRightImage("grass.png")));
+        list.add(new TileImpl(TileType.BUILD, null, null, loadRightImage("grass.png")));
         list.add(new TileImpl(TileType.PATH, null, null, loadRightImage("sand.png")));
-        list.add(new TileImpl(TileType.OTHER, null, null, loadRightImage("water.png")));
+        list.add(new TileImpl(TileType.NO_BUILD, null, null, loadRightImage("water.png")));
     }
 }

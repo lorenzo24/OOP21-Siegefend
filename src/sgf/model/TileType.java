@@ -20,7 +20,11 @@ public enum TileType {
      */
     END_PATH,
     /**
-     * This type denotes that the {@link Tile} doesn't compose the path.
+     * This type denotes that on the {@link Tile} you can place a {@link Turret}.
      */
-    OTHER
+    BUILD,
+    /**
+     * This type denotes that on the {@link Tile} you cannot place a {@link Turret}.
+     */
+    NO_BUILD;
 }

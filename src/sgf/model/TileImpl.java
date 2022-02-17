@@ -54,6 +54,6 @@ public class TileImpl implements Tile {
 
     @Override
     public boolean canContainTurret() {
-        return this.tileType == TileType.OTHER;
+        return this.tileType == TileType.BUILD;
     }
 }
