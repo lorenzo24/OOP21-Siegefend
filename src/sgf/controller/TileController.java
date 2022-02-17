@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.awt.*;
+
+import sgf.model.Tile;
 import sgf.model.TileType;
 
 /**
@@ -30,14 +32,8 @@ public class TileController {
      * @param type Represents the type of the image we want the sprite.
      * @return the image of the specific type of tile.
      */
-    public Image getImage(final int type) {
-        if (type == 0) {
-            return this.imageTileSelector.get(TileType.GRASS);
-        } else if (type == 2) {
-            return this.imageTileSelector.get(TileType.WATER);
-        } else {
-            return this.imageTileSelector.get(TileType.PATH);
-        }
+    public Image getImage(final Tile tile) {
+        return this.imageTileSelector.get(tile.getTileType());
     }
 
     /**

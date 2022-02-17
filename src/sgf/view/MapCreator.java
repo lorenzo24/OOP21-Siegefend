@@ -5,6 +5,8 @@ import java.awt.event.*;
 import javax.swing.JPanel;
 
 import sgf.controller.TileController;
+import sgf.model.GridPosition;
+import sgf.model.Map;
 
 /**
  * 
@@ -13,7 +15,7 @@ import sgf.controller.TileController;
  */
 public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
-    private static final int MATRIX_SIZE = 20;
+    private static final int MATRIX_SIZE = 20;  // Instead of constant, can be calculated with getter of field matrix.length in MapImpl.
     private final TileController tileController = new TileController();
 
     /**
@@ -25,15 +27,15 @@ public class MapCreator extends JPanel implements ComponentListener {
 
     /**
      * Method that reads the given matrix and draws the correspondent grid of tiles.
-     * @param matrixToBeShowed Is the matrix given in  input as map structure.
+     * @param mapToBeShowed Is the matrix given in  input as map structure.
      */
-    public void showGridImage(final int[][] matrixToBeShowed) {
+    public void showGridImage(final Map mapToBeShowed) {
         final int imageWidth = this.adaptImageSize(this.getWidth());
         final int imageHeight =  this.adaptImageSize(this.getHeight());
         for (int row = 0; row < MATRIX_SIZE; row++) {
             for (int column = 0; column < MATRIX_SIZE; column++) {
                 // Get from TileController the correct image from matrix and displays it.
-                final Image img = tileController.getImage(matrixToBeShowed[row][column]);
+                final Image img = tileController.getImage(mapToBeShowed.getTileFromGridPosition(new GridPosition(column, row)));
                 this.getGraphics().drawImage(img, column * imageWidth, row * imageHeight, null);
             }
         }

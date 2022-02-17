@@ -18,10 +18,4 @@ public interface Map {
      * @return the tile from the given {@link Position}.
      */
     Tile getTileFromPosition(Position position);
-
-    /**
-     * This method returns the 2D array that represents the map.
-     * @return a 2D array which is the tiles grid.
-     */
-    int[][] getMapComposition();
 }

@@ -39,7 +39,7 @@ public class MapController {
                     try {
                         // Taken the input matrix, show the correspondent map (grid of tiles), by
                         // first creating an array of tile from which load the images.
-                        screen.getMapCreator().showGridImage(map.getMapComposition());
+                        screen.getMapCreator().showGridImage(map);
                         ups++;
                         Thread.sleep(SLEEP_TIME);
                     } catch (InterruptedException e) {
