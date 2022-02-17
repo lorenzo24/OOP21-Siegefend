@@ -48,10 +48,7 @@ public class MapCreator extends JPanel implements ComponentListener {
         return (int) Math.round(dimension / MATRIX_SIZE);
     }
 
-    /**
-     * This method manages the component resizing.
-     * @param e Is the event.
-     */
+    @Override
     public void componentResized(final ComponentEvent e) {
         this.tileController.correctImagesSize(this.adaptImageSize(this.getWidth()), this.adaptImageSize(this.getHeight()));
     }

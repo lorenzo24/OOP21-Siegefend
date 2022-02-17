@@ -1,7 +1,7 @@
 package sgf.model;
 
 import java.util.Optional;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 /**
  * 
  * Class representing the implementation a {@link Map}'s {@link Tile}.
@@ -11,16 +11,16 @@ public class TileImpl implements Tile {
     private final TileType tileType;
     private final Position position;
     private final Optional<Direction> tileDirection;
-    private final BufferedImage tileSprite;
+    private Image tileSprite;
 
     /**
      * Constructor for the creation of a {@link Tile}.
      * @param tileType Is the type that describes the tile.
      * @param position Is the tile's {@link Position} in the {@link Map}. 
      * @param tileDirection Describes in which {@link Direction} must proceed the {@link Enemy}'s movement.
-     * @param sprite Is the BufferedImage given to constructor for this tile.
+     * @param sprite Is the image given to constructor for this tile.
      */
-    public TileImpl(final TileType tileType, final Position position, final Optional<Direction> tileDirection, final BufferedImage sprite) {
+    public TileImpl(final TileType tileType, final Position position, final Optional<Direction> tileDirection, final Image sprite) {
         this.tileType = tileType;
         this.position = position;
         this.tileDirection = tileDirection;
@@ -43,8 +43,13 @@ public class TileImpl implements Tile {
     }
 
     @Override
-    public BufferedImage getTileSprite() {
+    public Image getTileSprite() {
         return this.tileSprite;
+    }
+
+    @Override
+    public void setTileSprite(final Image inputImage) {
+        this.tileSprite = inputImage;
     }
 
     @Override

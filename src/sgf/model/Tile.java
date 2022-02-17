@@ -1,10 +1,10 @@
 package sgf.model;
 
 import java.util.Optional;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 /**
- * Represent a single tile on the map.
+ * Represents a single tile on the map.
  */
 public interface Tile {
     /**
@@ -12,6 +12,7 @@ public interface Tile {
      * @return the {@link TileType} associated with the tile
      */
     TileType getTileType();
+
     /**
      * Returns the direction of movement on the tile. If there is none, an empty {@link Optional}
      * is returned.
@@ -19,16 +20,25 @@ public interface Tile {
      * otherwise
      */
     Optional<Direction> getTileDirection();
+
     /**
      * Returns the position of the tile on the map.
      * @return the tile's {@link Position} in the map
      */
     Position getPosition();
+
     /**
      * Method that returns the tile's sprite.
      * @return the tile's BufferedImage field.
      */
-    BufferedImage getTileSprite();
+    Image getTileSprite();
+
+    /**
+     * Changes the tile's image.
+     * @param inputImage Is the new tile image.
+     */
+    void setTileSprite(Image inputImage);
+
     /**
      * Indicates whether a {@link Turret} can be placed on the current tile.
      * @return {@code true} if the tile can contain a {@link Turret}, otherwise {@code false}
