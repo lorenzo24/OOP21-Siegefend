@@ -1,63 +1,70 @@
 package sgf.controller;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-
+import java.awt.*;
 import sgf.model.Tile;
 import sgf.model.TileImpl;
 import sgf.model.TileType;
+
 /**
  * This class is responsible for the creation of all tile types.
  *
  */
 public class TileController {
     private final List<Tile> tilesList;
+    private final List<Tile> cacheTilesList;    // This is a copy useful for a more performed way to load images.
 
     /**
-     * Constructor that fill the array field with all types of tiles.
+     * Constructor that fills the arrays with all types of tiles.
      */
     public TileController() {
         this.tilesList = new ArrayList<>();
-        this.fillList();
+        this.cacheTilesList = new ArrayList<>();
+        this.fillBothLists();
     }
 
     /**
-     * This method return the image of a given tile type.
+     * This method returns the image of a given tile type.
      * @param type Represents the type of the image we want the sprite.
-     * @return the BufferedImage of the specific type of tile.
+     * @return the image of the specific type of tile.
      */
-    public BufferedImage getImage(final int type) {
+    public Image getImage(final int type) {
         return this.tilesList.get(type).getTileSprite();
     }
 
-    private void fillList() {
-        // To improve this method, instead of String paramether we could add in TileType the
+    /**
+     * This method is called after a window resizing and manages to the resizing of the tiles.
+     * @param newWidth Is the new width that the image must have.
+     * @param newHeight Is the new height that the image must have.
+     */
+    public void correctImagesSize(final int newWidth, final int newHeight) {
+        // Every tile in original array updates its field containing the image with the correspondent copy in cache array.
+        for (int i = 0; i < this.tilesList.size(); i++) {
+            final Image newResizedImage = this.cacheTilesList.get(i).getTileSprite().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH); 
+            this.tilesList.get(i).setTileSprite(newResizedImage);
+        }
+    }
+
+    private void fillBothLists() {
+        // TODO improve this method, instead of String paramether we could add in TileType the
         // types Grass and water, and pass a TileType as paramether and check in the method
         // loadRightImage using a switch, which png has to be loaded.
-
         // Other TODO, add paramethers Position and Direction for every Tile.
-        final Tile grass = new TileImpl(TileType.OTHER, null, null, loadRightImage("grass.png"));
-        final Tile sand = new TileImpl(TileType.OTHER, null, null, loadRightImage("sand.png"));
-        final Tile water = new TileImpl(TileType.OTHER, null, null, loadRightImage("water.png"));
-        this.tilesList.add(grass);
-        this.tilesList.add(sand);
-        this.tilesList.add(water);
+        this.fillList(tilesList);
+        this.fillList(cacheTilesList);
     }
 
     // TODO Find a way to remove the return null.
-    private BufferedImage loadRightImage(final String pngFile) {
-        try {
-            return ImageIO.read(new FileInputStream("res" + File.separator + pngFile));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
+    private Image loadRightImage(final String pngFile) {
+        return Toolkit.getDefaultToolkit().createImage("res" + File.separator + pngFile);
+    }
+
+    private void fillList(final List<Tile> list) {
+        list.add(new TileImpl(TileType.OTHER, null, null, loadRightImage("grass.png")));
+        list.add(new TileImpl(TileType.PATH, null, null, loadRightImage("sand.png")));
+        list.add(new TileImpl(TileType.OTHER, null, null, loadRightImage("water.png")));
     }
 }
