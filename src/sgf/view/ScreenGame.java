@@ -53,7 +53,7 @@ public class ScreenGame {
                 final int choise = JOptionPane.showConfirmDialog(frame, 
                         "Do you really want to quit?", "QUITTING", JOptionPane.YES_NO_OPTION);
                 if (choise == JOptionPane.YES_OPTION) {
-                    System.exit(0);
+                    System.exit(0);     // TODO find an alternative to avoid warning.
                 }
             }
         });

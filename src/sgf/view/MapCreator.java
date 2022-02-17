@@ -1,7 +1,5 @@
 package sgf.view;
 
-import java.awt.image.BufferedImage;
-
 import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.JPanel;
@@ -10,54 +8,67 @@ import sgf.controller.TileController;
 
 /**
  * 
- * This class is responsible for the process of map's creation and showing.
+ * This class is responsible for the process of map showing.
  *
  */
-public class MapCreator extends JPanel implements ComponentListener{
+public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
     private static final int MATRIX_SIZE = 20;
     private final TileController tileController = new TileController();
-    private int[][] internalMatrix;
+
+    /**
+     * Constructor that link this component in such a way that it can be listened.
+     */
     public MapCreator() {
         this.addComponentListener(this);
     }
+
     /**
-     * Method that loads and show a random image from the array of images.
-     * 
+     * Method that reads the given matrix and draws the correspondent grid of tiles.
+     * @param matrixToBeShowed Is the matrix given in  input as map structure.
      */
-    public void showGridImage(int[][] mapToBeShowed) {
-      
-        final int widthImage = this.sizeImage(this.getWidth());
-        final int heightImage =  this.sizeImage(this.getHeight());
-        
-        for (int x = 0; x < MATRIX_SIZE; x++) {
-            for (int y = 0; y < MATRIX_SIZE; y++) {
-                final Image img = tileController.getImage(mapToBeShowed[y][x]);
-                this.getGraphics().drawImage(img, x * widthImage, y * heightImage, null);
+    public void showGridImage(final int[][] matrixToBeShowed) {
+        final int imageWidth = this.adaptImageSize(this.getWidth());
+        final int imageHeight =  this.adaptImageSize(this.getHeight());
+        for (int row = 0; row < MATRIX_SIZE; row++) {
+            for (int column = 0; column < MATRIX_SIZE; column++) {
+                // Get from TileController the correct image from matrix and displays it.
+                final Image img = tileController.getImage(matrixToBeShowed[row][column]);
+                this.getGraphics().drawImage(img, column * imageWidth, row * imageHeight, null);
             }
         }
     }
-    public void componentResized(ComponentEvent e) {
-        this.tileController.correctImagesSize(this.sizeImage(this.getWidth()), this.sizeImage(this.getHeight()));
-        
-    }
 
-    private int sizeImage(final double dimension) {
+    /**
+     * This method adapts the image's size to the panel.
+     * @param dimension Is the panel size.
+     * @return an integer that denotes the best-fit dimension.
+     */
+    private int adaptImageSize(final double dimension) {
         return (int) Math.round(dimension / MATRIX_SIZE);
     }
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
-        
+
+    /**
+     * This method manages the component resizing.
+     * @param e Is the event.
+     */
+    public void componentResized(final ComponentEvent e) {
+        this.tileController.correctImagesSize(this.adaptImageSize(this.getWidth()), this.adaptImageSize(this.getHeight()));
     }
+
     @Override
-    public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
-        
+    public void componentMoved(final ComponentEvent e) {
+
     }
+
     @Override
-    public void componentHidden(ComponentEvent e) {
-        // TODO Auto-generated method stub
-        
+    public void componentShown(final ComponentEvent e) {
+
     }
+
+    @Override
+    public void componentHidden(final ComponentEvent e) {
+
+    }
+    // TODO Find a way to remove this void methods that compares after implementin interface.
 }
