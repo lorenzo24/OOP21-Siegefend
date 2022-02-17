@@ -9,7 +9,7 @@ import sgf.view.ScreenGame;
  *
  */
 public class MapController {
-    private static final int SLEEP_TIME = 100;   // Modify this value in order to make the animation slower or faster.
+    private static final int SLEEP_TIME = 75;   // Modify this value in order to make the animation slower or faster.
     private final ScreenGame screen;
     private final Map map = new MapImpl();
 
@@ -23,13 +23,24 @@ public class MapController {
 
     private void startMapThread() {
         final Thread gameThread = new Thread(new Runnable() {
+
             @Override
             public void run() {
+                int ups = 0;
+                long lastTime = System.currentTimeMillis();
+
                 while (true) {
+                    // Print how many update has been done in 1 second.
+                    if (System.currentTimeMillis() - lastTime >= 1000) {
+                        System.out.print("UPS:" + ups + "\n");
+                        ups = 0;
+                        lastTime = System.currentTimeMillis();
+                    }
                     try {
                         // Taken the input matrix, show the correspondent map (grid of tiles), by
                         // first creating an array of tile from which load the images.
                         screen.getMapCreator().showGridImage(map.getMapComposition());
+                        ups++;
                         Thread.sleep(SLEEP_TIME);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -39,5 +50,4 @@ public class MapController {
         });
         gameThread.start();
     }
-    // TODO Show fps in old way and reload image every x seconds to avoid "sgranatura".
 }
