@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.*;
+
 /**
  * 
  * This class represents a simple screen game.
@@ -17,14 +18,14 @@ public class ScreenGame {
     private final MapCreator mapCreator = new MapCreator();
 
     /**
-     * Constructor.
+     * Window constructor..
      */
     public ScreenGame() {
         this.frame.setTitle("SIEGEFEND");
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setFrameSize();
+        this.setFrameSize();    // Private method that sets up minimum and initial window size.
         this.frame.getContentPane().add(mapCreator);
-        this.windowClosing();
+        this.windowClosing();   // Private method that manage the window closing by showing a confirm dialog.
         this.frame.setVisible(true);
     }
 
