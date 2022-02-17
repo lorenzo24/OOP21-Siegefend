@@ -4,6 +4,8 @@ import java.awt.Dimension;
 //import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 //import java.awt.Toolkit;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +30,9 @@ public class ShopView extends JFrame {
      */
     private static final long serialVersionUID = 1L;
     private static final double WIDTH_PERC = 0.4;
-    private static final double HEIGHT_PERC = 0.4;
+    private static final double HEIGHT_PERC = 0.23;
     private List<ShopTurretInfo> turretInfo;
+    private ShopTurretInfo selected;
 
     /**
      * 
@@ -40,7 +43,23 @@ public class ShopView extends JFrame {
         this.setSize((int) (screenSize.getWidth() * WIDTH_PERC), (int) (screenSize.getHeight() * HEIGHT_PERC));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.turretInfo = turrets.stream().map(t -> ShopTurretInfo.from(t)).collect(Collectors.toList());
+        this.turretInfo = turrets.stream().map(t -> ShopTurretInfo.from(t))
+                                          .peek(v -> v.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(final ActionEvent e) {
+                                                if (selected == null || !selected.isSelected()) {
+                                                    v.setSelected(true);
+                                                    v.setCancelMode();
+                                                    selected = v;
+                                                    disableAll();
+                                                } else if (selected == v) {
+                                                    v.setSelected(false);
+                                                    v.setBuyMode();
+                                                    enableAll();
+                                                    selected = null;
+                                                }
+                                            }
+                                        })).collect(Collectors.toList());
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.turretInfo.forEach((t) -> panel.add(t));
         final JScrollPane scrollpane = new JScrollPane(panel);
@@ -58,8 +77,21 @@ public class ShopView extends JFrame {
     public static void main(final String... args) {
         final List<Turret> turrets = Stream.iterate(0, i -> i + 1)
                             .limit(10)
-                            .map(i -> new ShopView.SimpleTurretImpl(i)).collect(Collectors.toList());
+                            .map(i -> new ShopView.SimpleTurretImpl(i))
+                            .collect(Collectors.toList());
         new ShopView(turrets);
+    }
+
+    private void disableAll() {
+        this.turretInfo.stream()
+                       .filter(i -> i != selected)
+                       .forEach(i -> i.setButtonEnabled(false));
+    }
+
+    private void enableAll() {
+        this.turretInfo.stream()
+                       .filter(i -> i != selected)
+                       .forEach(i -> i.setButtonEnabled(true));
     }
 
     /**
