@@ -9,7 +9,7 @@ import sgf.view.ScreenGame;
  *
  */
 public class MapController {
-    private static final int SLEEP_TIME = 16;   // Modify this value in order to make the animation slower or faster.
+    private static final int SLEEP_TIME = 10;   // Modify this value in order to make the animation slower or faster.
     private final ScreenGame screen;
     private final Map map = new MapImpl();
     private volatile boolean threadRun = true;
@@ -28,10 +28,8 @@ public class MapController {
             @Override
             public void run() {
                 screen.getMapCreator().createMapImage(map);
-
                 int ups = 0;
                 long lastTime = System.currentTimeMillis();
-
                 while (threadRun) {
                     // Print how many update has been done in 1 second.
                     if (System.currentTimeMillis() - lastTime >= 1000) {

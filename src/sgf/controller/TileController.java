@@ -15,16 +15,13 @@ import sgf.model.TileType;
  */
 public class TileController {
     private final Map<TileType, Image> imageTileSelector;       // Map that contains all the correspondences betwenn TileType and the specific images.
-    private final Map<TileType, Image> cacheMap;        // Copy of the principal map useful to improve performance.
 
     /**
      * Constructor that fills the arrays with all types of tiles.
      */
     public TileController() {
         this.imageTileSelector = new HashMap<>();
-        this.cacheMap = new HashMap<>();
         this.fillMap(this.imageTileSelector); // Method that fills the primary map.
-        this.fillMap(this.cacheMap); // Method that fills the cache copy.
     }
 
     /**
@@ -34,19 +31,6 @@ public class TileController {
      */
     public Image getImage(final Tile tile) {
         return this.imageTileSelector.get(tile.getTileType());
-    }
-
-    /**
-     * This method is called after a window resizing and manages to the resizing of the tiles.
-     * @param newWidth Is the new width that the image must have.
-     * @param newHeight Is the new height that the image must have.
-     */
-    public void correctImagesSize(final int newWidth, final int newHeight) {
-        // Every tile in original map updates its value (the image of the tile type).
-        for (final Entry<TileType, Image> element : this.imageTileSelector.entrySet()) {
-            final Image newResizedImage = this.cacheMap.get(element.getKey()).getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH); 
-            element.setValue(newResizedImage);
-        }
     }
 
     // This method loads from res folder the right png file.

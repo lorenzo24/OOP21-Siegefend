@@ -1,6 +1,5 @@
 package sgf.view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
@@ -22,13 +21,9 @@ import sgf.model.Map;
  */
 public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
-    private static final int MATRIX_SIZE = 20;  // Instead of constant, can be calculated with getter of field matrix.length in MapImpl.
+    private static final int MATRIX_SIZE = 20; // Image's nunmber.
     private final TileController tileController = new TileController();
-//    private int imageWidth = this.adaptImageSize(this.getWidth());
-//    private int imageHeight =  this.adaptImageSize(this.getHeight());
-
-    private static final int IMAGE_SIZE = 20;
-    private BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * IMAGE_SIZE, MATRIX_SIZE * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+    private final BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * MATRIX_SIZE, MATRIX_SIZE * MATRIX_SIZE, BufferedImage.TYPE_INT_RGB);
     private boolean mapCreated;
     private boolean needUpdate;
 
@@ -50,7 +45,7 @@ public class MapCreator extends JPanel implements ComponentListener {
         for (int row = 0; row < MATRIX_SIZE; row++) {
             for (int column = 0; column < MATRIX_SIZE; column++) {
                 final Image i = tileController.getImage(mapToBeShowed.getTileFromGridPosition(new GridPosition(column, row)));
-                g.drawImage(i, column * IMAGE_SIZE, row * IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE, null);
+                g.drawImage(i, column * MATRIX_SIZE, row * MATRIX_SIZE, MATRIX_SIZE, MATRIX_SIZE, null);
             }
         }
         try {
@@ -75,15 +70,6 @@ public class MapCreator extends JPanel implements ComponentListener {
     }
 
     /**
-     * This method adapts the image's size to the panel.
-     * @param dimension Is the panel size.
-     * @return an integer that denotes the best-fit dimension.
-     */
-    private int adaptImageSize(final double dimension) {
-        return (int) Math.round(dimension / MATRIX_SIZE);
-    }
-
-    /**
      * Checks whether the window with the map has been updated and needs to be redrawn.
      * @return a boolean
      */
@@ -93,9 +79,6 @@ public class MapCreator extends JPanel implements ComponentListener {
 
     @Override
     public void componentResized(final ComponentEvent e) {
-//        this.imageWidth = this.adaptImageSize(this.getWidth());
-//        this.imageHeight = this.adaptImageSize(this.getHeight());
-//        this.tileController.correctImagesSize(this.imageWidth, this.imageHeight);
         this.needUpdate = true;
     }
 
