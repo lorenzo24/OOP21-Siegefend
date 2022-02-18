@@ -3,9 +3,12 @@ package sgf.controller;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
 
 import sgf.model.Tile;
 import sgf.model.TileType;
@@ -35,7 +38,13 @@ public class TileController {
 
     // This method loads from res folder the right png file.
     private Image loadRightImage(final String pngFile) {
-        return Toolkit.getDefaultToolkit().createImage("res" + File.separator + pngFile);
+        try {
+            return ImageIO.read(new File("res" + File.separator + pngFile));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void fillMap(final Map<TileType, Image> mapToBeFilled) {
