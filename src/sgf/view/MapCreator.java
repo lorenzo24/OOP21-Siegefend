@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import sgf.controller.MouseController;
 import sgf.controller.TileController;
 import sgf.model.GridPosition;
 import sgf.model.Map;
@@ -33,6 +34,7 @@ public class MapCreator extends JPanel implements ComponentListener {
      */
     public MapCreator() {
         this.addComponentListener(this);
+        this.addMouseListener(new MouseController());   // Links this panel with a controller of mouse events.
         this.mapCreated = false;
         this.needUpdate = true;
     }
@@ -97,5 +99,5 @@ public class MapCreator extends JPanel implements ComponentListener {
     public void componentHidden(final ComponentEvent e) {
         this.needUpdate = true;
     }
-    // TODO Find a way to remove this void methods that compares after implementin interface.
+    // TODO Find a way to remove this void methods that compares after implementing interface.
 }
