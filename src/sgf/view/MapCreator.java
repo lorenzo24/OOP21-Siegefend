@@ -22,8 +22,9 @@ import sgf.model.Map;
 public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
     private static final int MATRIX_SIZE = 20; // Image's nunmber.
+    private static final int IMAGE_SIZE = 80;
     private final TileController tileController = new TileController();
-    private final BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * MATRIX_SIZE, MATRIX_SIZE * MATRIX_SIZE, BufferedImage.TYPE_INT_RGB);
+    private final BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * IMAGE_SIZE, MATRIX_SIZE * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
     private boolean mapCreated;
     private boolean needUpdate;
 
@@ -45,7 +46,7 @@ public class MapCreator extends JPanel implements ComponentListener {
         for (int row = 0; row < MATRIX_SIZE; row++) {
             for (int column = 0; column < MATRIX_SIZE; column++) {
                 final Image i = tileController.getImage(mapToBeShowed.getTileFromGridPosition(new GridPosition(column, row)));
-                g.drawImage(i, column * MATRIX_SIZE, row * MATRIX_SIZE, MATRIX_SIZE, MATRIX_SIZE, null);
+                g.drawImage(i, column * IMAGE_SIZE, row * IMAGE_SIZE, IMAGE_SIZE, IMAGE_SIZE, null);
             }
         }
         try {
@@ -84,17 +85,17 @@ public class MapCreator extends JPanel implements ComponentListener {
 
     @Override
     public void componentMoved(final ComponentEvent e) {
-
+        this.needUpdate = true;
     }
 
     @Override
     public void componentShown(final ComponentEvent e) {
-
+        this.needUpdate = true;
     }
 
     @Override
     public void componentHidden(final ComponentEvent e) {
-
+        this.needUpdate = true;
     }
     // TODO Find a way to remove this void methods that compares after implementin interface.
 }
