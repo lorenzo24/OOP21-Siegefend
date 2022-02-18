@@ -30,6 +30,7 @@ public class MapCreator extends JPanel implements ComponentListener {
     private static final int IMAGE_SIZE = 20;
     private BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * IMAGE_SIZE, MATRIX_SIZE * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
     private boolean mapCreated;
+    private boolean needUpdate;
 
     /**
      * Constructor that link this component in such a way that it can be listened.
@@ -37,6 +38,7 @@ public class MapCreator extends JPanel implements ComponentListener {
     public MapCreator() {
         this.addComponentListener(this);
         this.mapCreated = false;
+        this.needUpdate = true;
     }
 
     /**
@@ -69,6 +71,7 @@ public class MapCreator extends JPanel implements ComponentListener {
             this.createMapImage(mapToBeShowed);
         }
         this.getGraphics().drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+        this.needUpdate = false;
     }
 
     /**
@@ -80,11 +83,20 @@ public class MapCreator extends JPanel implements ComponentListener {
         return (int) Math.round(dimension / MATRIX_SIZE);
     }
 
+    /**
+     * Checks whether the window with the map has been updated and needs to be redrawn.
+     * @return a boolean
+     */
+    public boolean isUpdateNeeded() {
+        return needUpdate;
+    }
+
     @Override
     public void componentResized(final ComponentEvent e) {
 //        this.imageWidth = this.adaptImageSize(this.getWidth());
 //        this.imageHeight = this.adaptImageSize(this.getHeight());
 //        this.tileController.correctImagesSize(this.imageWidth, this.imageHeight);
+        this.needUpdate = true;
     }
 
     @Override
