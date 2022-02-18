@@ -43,7 +43,6 @@ public class ScreenGame {
         final Dimension minimumSize = new Dimension((int) (width * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
         this.frame.setMinimumSize(minimumSize);
         this.frame.setSize((int) (this.screenSize.getWidth() * SIZE_PERC), (int) (this.screenSize.getHeight() * SIZE_PERC));
-
     }
 
     private void windowClosing() {

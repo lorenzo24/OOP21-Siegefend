@@ -17,6 +17,8 @@ public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
     private static final int MATRIX_SIZE = 20;  // Instead of constant, can be calculated with getter of field matrix.length in MapImpl.
     private final TileController tileController = new TileController();
+    private int imageWidth = this.adaptImageSize(this.getWidth());
+    private int imageHeight =  this.adaptImageSize(this.getHeight());
 
     /**
      * Constructor that link this component in such a way that it can be listened.
@@ -30,8 +32,6 @@ public class MapCreator extends JPanel implements ComponentListener {
      * @param mapToBeShowed Is the matrix given in  input as map structure.
      */
     public void showGridImage(final Map mapToBeShowed) {
-        final int imageWidth = this.adaptImageSize(this.getWidth());
-        final int imageHeight =  this.adaptImageSize(this.getHeight());
         for (int row = 0; row < MATRIX_SIZE; row++) {
             for (int column = 0; column < MATRIX_SIZE; column++) {
                 // Get from TileController the correct image from matrix and displays it.
@@ -52,7 +52,9 @@ public class MapCreator extends JPanel implements ComponentListener {
 
     @Override
     public void componentResized(final ComponentEvent e) {
-        this.tileController.correctImagesSize(this.adaptImageSize(this.getWidth()), this.adaptImageSize(this.getHeight()));
+        this.imageWidth = this.adaptImageSize(this.getWidth());
+        this.imageHeight = this.adaptImageSize(this.getHeight());
+        this.tileController.correctImagesSize(this.imageWidth, this.imageHeight);
     }
 
     @Override
