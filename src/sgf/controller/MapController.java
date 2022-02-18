@@ -27,6 +27,8 @@ public class MapController {
 
             @Override
             public void run() {
+                screen.getMapCreator().createMapImage(map);
+
                 int ups = 0;
                 long lastTime = System.currentTimeMillis();
 

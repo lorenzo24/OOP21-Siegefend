@@ -1,11 +1,11 @@
 package sgf.controller;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.awt.*;
 
 import sgf.model.Tile;
 import sgf.model.TileType;
@@ -16,7 +16,7 @@ import sgf.model.TileType;
 public class TileController {
     private final Map<TileType, Image> imageTileSelector;       // Map that contains all the correspondences betwenn TileType and the specific images.
     private final Map<TileType, Image> cacheMap;        // Copy of the principal map useful to improve performance.
-    
+
     /**
      * Constructor that fills the arrays with all types of tiles.
      */
@@ -29,7 +29,7 @@ public class TileController {
 
     /**
      * This method returns the image of a given tile type.
-     * @param type Represents the type of the image we want the sprite.
+     * @param tile Represents the type of the image we want the sprite.
      * @return the image of the specific type of tile.
      */
     public Image getImage(final Tile tile) {
