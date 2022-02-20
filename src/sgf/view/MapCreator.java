@@ -2,7 +2,8 @@ package sgf.view;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +23,10 @@ import sgf.model.Map;
  */
 public class MapCreator extends JPanel implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
-    private static final int MATRIX_SIZE = 20; // Image's nunmber.
+    private static final int MATRIX_SIZE = 20;
     private static final int IMAGE_SIZE = 80;
-    private final TileController tileController = new TileController();
-    private final BufferedImage completeMap = new BufferedImage(MATRIX_SIZE * IMAGE_SIZE, MATRIX_SIZE * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+    private final TileController tileController;
+    private final BufferedImage completeMap;
     private boolean mapCreated;
     private boolean needUpdate;
 
@@ -33,6 +34,8 @@ public class MapCreator extends JPanel implements ComponentListener {
      * Constructor that link this component in such a way that it can be listened.
      */
     public MapCreator() {
+        this.completeMap = new BufferedImage(MATRIX_SIZE * IMAGE_SIZE, MATRIX_SIZE * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+        this.tileController = new TileController();
         this.addComponentListener(this);
         this.addMouseListener(new MouseController());   // Links this panel with a controller of mouse events.
         this.mapCreated = false;
