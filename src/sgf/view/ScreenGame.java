@@ -2,30 +2,28 @@ package sgf.view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import sgf.controller.MouseController;
-
+import sgf.model.Map;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 
  * This class represents a simple screen game.
- *
  */
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
     private static final double SIZE_PERC = 0.5;
     private static final double MIN_SIZE_PERC = 0.3;
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final MapCreator mapCreator = new MapCreator();
+    private final MapCreator mapCreator;
 
     /**
-     * Window constructor..
+     * Window constructor.
+     * @param map
      */
-    public ScreenGame() {
+    public ScreenGame(final Map map) {
         this.setTitle("SIEGEFEND");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.mapCreator = new MapCreator(map);
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
         this.getContentPane().add(mapCreator);
         this.windowClosing();   // Private method that manage the window closing by showing a confirm dialog.

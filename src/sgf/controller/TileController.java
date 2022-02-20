@@ -39,7 +39,6 @@ public class TileController {
         try {
             return ImageIO.read(new File("res" + File.separator + pngFile));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }
