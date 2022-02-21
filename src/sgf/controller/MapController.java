@@ -18,7 +18,7 @@ public class MapController {
      * Constructor that sets up the screen and also start thread loop.
      */
     public MapController() {
-        this.map = new MapImpl();
+        this.map = new MapImpl(1);      // 1 denotes to create the map for the first level.
         screen = new ScreenGame(this.map);      // The map is passed in order to create a MapCreator into ScreenGame.
         this.obtainTileFromMouseClick();        // Method that return the correspondent Tile of a click on the screen.
         this.startMapThread();

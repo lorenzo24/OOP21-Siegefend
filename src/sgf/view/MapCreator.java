@@ -22,7 +22,7 @@ import sgf.model.Map;
 public class MapCreator extends JPanel implements ComponentListener, MouseListener {
     private static final long serialVersionUID = -7141712951441617040L;
     private static final int IMAGE_SIZE = 80;
-    private final int matrixSize = 20;
+    private final int matrixSize;
     private final TileController tileController;
     private final BufferedImage completeMap;
     private final Map map;
@@ -35,6 +35,7 @@ public class MapCreator extends JPanel implements ComponentListener, MouseListen
      * @param map Initializes the internal map.
      */
     public MapCreator(final Map map) {
+        this.matrixSize = map.getMatrixSize();
         this.completeMap = new BufferedImage(matrixSize * IMAGE_SIZE, matrixSize * IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
         this.tileController = new TileController();
         this.addComponentListener(this);
