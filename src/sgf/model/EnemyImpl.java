@@ -4,22 +4,27 @@ package sgf.model;
  *
  */
 public class EnemyImpl implements Enemy {
-
+    private final int iD;
     private Position position;
     private double hp;
-    private double completionPercentage = 0;
+    private double completionPercentage = 0; // NON SERVE
     private double speed;
+    private int enemyType;
 
     /**
-     * Constructor for an enemy.
-     * @param position Denotes the enemy's initial position.
-     * @param hp Are enemy's initial health points 
-     * @param speed Is the enemy's moving speed.
+     * 
+     * @param iD
+     * @param position
+     * @param hp
+     * @param speed
+     * @param enemyType
      */
-    public EnemyImpl(final Position position, final double hp, final double speed) {
+    public EnemyImpl(final int iD, final Position position, final double hp, final double speed, final int enemyType) {
+        this.iD = iD;
         this.position = position;
         this.hp = hp;
         this.speed = speed;
+        this.enemyType = enemyType;
     }
 
     @Override
