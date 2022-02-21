@@ -57,13 +57,13 @@ public class MapImpl implements Map {
                 switch (this.basicMap[row][column]) {
                     case 0:
                         // TODO Ask Giacomo how to fill the Position argument. Maybe through row and column?
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.GRASS, null, null));
+                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.GRASS, null));
                         break;
                     case 2:
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.WATER, null, null));
+                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.WATER, null));
                         break;
                     default:    // If there, the case is 1 and the tile is path.
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.PATH, null, null));
+                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.PATH, null));
                         break;
                 }
             }

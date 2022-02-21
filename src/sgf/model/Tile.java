@@ -21,12 +21,6 @@ public interface Tile {
     Optional<Direction> getTileDirection();
 
     /**
-     * Returns the position of the tile on the map.
-     * @return the tile's {@link Position} in the map
-     */
-    Position getPosition();
-
-    /**
      * Indicates whether a {@link Turret} can be placed on the current tile.
      * @return {@code true} if the tile can contain a {@link Turret}, otherwise {@code false}
      */
