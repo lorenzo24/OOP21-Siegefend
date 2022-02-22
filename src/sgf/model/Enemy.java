@@ -11,6 +11,12 @@ public interface Enemy {
      */
     Position getPosition();
 
+    /**
+     * Set the new position of an enemy.
+     * @param position Is the position of the enemy.
+     */
+    void setPosition(Position position);
+
     /** 
      * Returns the amount of health points the enemy has left.
      * @return the health points of the enemy

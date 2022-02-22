@@ -37,7 +37,7 @@ public class EnemyController {
                     // Print how many update has been done in 1 second.
                     if (System.currentTimeMillis() - lastTime >= 1000) {
                         enemyView.drawEnemy(enemy);
-                        //System.err.print("UPS:" + ups + "\n");
+                        enemy.setPosition(new Position(enemy.getPosition().getX()+1, enemy.getPosition().getY()+1 ));
                         ups = 0;
                         lastTime = System.currentTimeMillis();
                     }

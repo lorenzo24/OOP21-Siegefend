@@ -33,6 +33,11 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
+    public void setPosition(final Position position) {
+        this.position = position;
+    }
+
+    @Override
     public double getHP() {
         return this.hp;
     }
