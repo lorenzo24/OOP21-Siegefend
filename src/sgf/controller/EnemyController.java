@@ -1,5 +1,7 @@
 package sgf.controller;
 
+import javax.swing.JPanel;
+
 import sgf.model.Enemy;
 import sgf.model.EnemyImpl;
 import sgf.model.Position;
@@ -11,11 +13,16 @@ import sgf.view.EnemyView;
 public class EnemyController {
     private static final int SLEEP_TIME = 10;
     private volatile boolean threadRun = true;
-    private EnemyView enemyView; // aggiungere il pannello
+    private EnemyView enemyView;
+
+    private Enemy enemy = new EnemyImpl(0, new Position(50, 50), 100, 0, 0);
+
     /**
      * 
+     * @param pannel
      */
-    public EnemyController() {
+    public EnemyController(final JPanel pannel) {
+        this.enemyView = new EnemyView(pannel);
         this.startEnemyThread();
     }
 
@@ -28,7 +35,8 @@ public class EnemyController {
                 while (threadRun) {
                     // Print how many update has been done in 1 second.
                     if (System.currentTimeMillis() - lastTime >= 1000) {
-                        System.out.print("UPS:" + ups + "\n");
+                        enemyView.drawEnemy(enemy);
+                        //System.err.print("UPS:" + ups + "\n");
                         ups = 0;
                         lastTime = System.currentTimeMillis();
                     }

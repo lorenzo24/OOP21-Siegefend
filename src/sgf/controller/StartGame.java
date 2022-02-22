@@ -12,5 +12,6 @@ public class StartGame {
      */
     public static void main(final String[] args) {
        final MapController map =  new MapController();
+       final EnemyController enemy = new EnemyController(map.getjPannel());
     }
 }
