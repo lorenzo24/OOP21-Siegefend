@@ -12,7 +12,7 @@ import sgf.view.MapCreator;
  *
  */
 public class EnemyController {
-    private static final int SLEEP_TIME = 10;
+    private static final int SLEEP_TIME = 100;
     private volatile boolean threadRun = true;
     private EnemyView enemyView;
 
@@ -36,11 +36,12 @@ public class EnemyController {
                 while (threadRun) {
                     // Print how many update has been done in 1 second.
                     if (System.currentTimeMillis() - lastTime >= 1000) {
-                        enemyView.drawEnemy(enemy);
-                        enemy.setPosition(new Position(enemy.getPosition().getX()+1, enemy.getPosition().getY()+1 ));
-                        ups = 0;
+                        System.err.println("UPS: " + ups);
                         lastTime = System.currentTimeMillis();
                     }
+                    ups++;
+                    enemyView.drawEnemy(enemy);
+                    enemy.move();
                     try {
                         Thread.sleep(SLEEP_TIME);
                     } catch (InterruptedException e) {

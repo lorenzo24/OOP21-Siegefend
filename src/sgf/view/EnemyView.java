@@ -2,6 +2,7 @@ package sgf.view;
 
 import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
+import java.awt.*;
 
 /**
  *
@@ -31,6 +32,5 @@ public class EnemyView {
         final var width = this.imgControl.tileSize(this.pannel.getWidth());
         final var height = this.imgControl.tileSize(this.pannel.getHeight());
         g.drawImage(this.imgControl.spriteImage(0), (int) x, (int) y, width, height, null);
-        g.dispose();
     }
 }

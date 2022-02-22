@@ -32,9 +32,8 @@ public class EnemyImpl implements Enemy {
         return this.position;
     }
 
-    @Override
-    public void setPosition(final Position position) {
-        this.position = position;
+    private void setPosition(final double x, final double y) {
+        this.position = new Position(x, y);
     }
 
     @Override
@@ -54,6 +53,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void move() {
+        this.setPosition(this.position.getX(), this.position.getY() + 1);
     }
 
 }
