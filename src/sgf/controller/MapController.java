@@ -3,6 +3,7 @@ package sgf.controller;
 import sgf.model.GridPosition;
 import sgf.model.Map;
 import sgf.model.MapImpl;
+import sgf.view.MapCreator;
 import sgf.view.ScreenGame;
 
 /**
@@ -13,7 +14,6 @@ public class MapController {
     private final ScreenGame screen;    // View field.
     private final Map map;      // Model field.
     private volatile boolean threadRun = true;
-
     /**
      * Constructor that sets up the screen and also start thread loop.
      */
@@ -22,6 +22,14 @@ public class MapController {
         screen = new ScreenGame(this.map);      // The map is passed in order to create a MapCreator into ScreenGame.
         this.obtainTileFromMouseClick();        // Method that return the correspondent Tile of a click on the screen.
         this.startMapThread();
+    }
+
+    /**
+     * Take the JPannel from the view.
+     * @return the JPannel of the view 
+     */
+    public MapCreator getjPannel() {
+        return screen.getMapCreator();
     }
 
     /**
@@ -75,7 +83,7 @@ public class MapController {
         });
         gameThread.start();
     }
-
+    
     // TODO pause and resume thread must change following game status.
     /**
      * Temporary stops the thread.
