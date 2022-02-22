@@ -34,4 +34,13 @@ public class EnemyImageController {
             return null;
         }
     }
+
+    /**
+     * 
+     * @param id
+     * @return Ciao pino.
+     */
+    public Image spriteImage(final int id) {
+        return this.enemySprite.get(id);
+    }
 }

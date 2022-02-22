@@ -1,20 +1,20 @@
 package sgf.view;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
+import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
+
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 /**
  *
  */
-public class EnemyView {
+public class EnemyView implements ComponentListener {
 
-    private JPanel pannel;
+    private final JPanel pannel;
+    private final EnemyImageController imgControl = new EnemyImageController();
 
     /**
      * 
@@ -22,16 +22,7 @@ public class EnemyView {
      */
     public EnemyView(final JPanel pannel) {
         this.pannel = pannel;
-    }
-
- // This method loads from res folder the right png file.
-    private Image loadRightImage(final String pngFile) {
-        try {
-            return ImageIO.read(new File("res" + File.separator + pngFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        this.pannel.addComponentListener(this);
     }
 
     /**
@@ -39,9 +30,32 @@ public class EnemyView {
      * @param enemy
      */
     public void drawEnemy(final Enemy enemy) {
-        var g = pannel.getGraphics();
-        var image = loadRightImage("tank.png");
-        g.drawImage(image, 50, 50, 50, 50, null);
+        final var g = pannel.getGraphics();
+        g.drawImage(imgControl.spriteImage(0), 50, 50, pannel.getWidth()/20, pannel.getHeight()/20, null);
         g.dispose();
-    }    
+    }
+
+    @Override
+    public void componentResized(final ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
 }
