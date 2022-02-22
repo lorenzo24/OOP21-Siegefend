@@ -12,18 +12,11 @@ public class EnemyController {
     private static final int SLEEP_TIME = 10;
     private volatile boolean threadRun = true;
     private EnemyView enemyView; // aggiungere il pannello
-    private Enemy fistEnemyType ;
     /**
      * 
      */
     public EnemyController() {
         this.startEnemyThread();
-        this.createEnemy();
-        enemyView = new EnemyView(fistEnemyType); // aggiungere il pannello
-    }
-
-    private void createEnemy() {
-        fistEnemyType = new EnemyImpl(1, new Position(50, 50), 100, 1, 0);
     }
 
     private void startEnemyThread() {
