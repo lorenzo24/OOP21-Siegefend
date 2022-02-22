@@ -13,12 +13,15 @@ import javax.imageio.ImageIO;
  */
 public class EnemyImageController {
     private final List<Image> enemySprite = new ArrayList<>();
+    private final int matrixSize;
 
     /**
      * 
+     * @param matrixSize
      */
-    public EnemyImageController() {
+    public EnemyImageController(final int matrixSize) {
         this.fillSprite();
+        this.matrixSize = matrixSize;
     }
 
     private void fillSprite() {
@@ -33,6 +36,15 @@ public class EnemyImageController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 
+     * @param size
+     * @return Ciao Pino
+     */
+    public int tileSize(final int size) {
+        return size / matrixSize;
     }
 
     /**

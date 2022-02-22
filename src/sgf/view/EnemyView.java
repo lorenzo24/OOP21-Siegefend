@@ -1,28 +1,23 @@
 package sgf.view;
 
-
-import javax.swing.JPanel;
 import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
-
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 /**
  *
  */
-public class EnemyView implements ComponentListener {
+public class EnemyView {
 
-    private final JPanel pannel;
-    private final EnemyImageController imgControl = new EnemyImageController();
+    private final MapCreator pannel;
+    private final EnemyImageController imgControl;
 
     /**
      * 
      * @param pannel
      */
-    public EnemyView(final JPanel pannel) {
+    public EnemyView(final MapCreator pannel) {
         this.pannel = pannel;
-        this.pannel.addComponentListener(this);
+        this.imgControl = new EnemyImageController(this.pannel.getMatrixSize());
     }
 
     /**
@@ -30,32 +25,12 @@ public class EnemyView implements ComponentListener {
      * @param enemy
      */
     public void drawEnemy(final Enemy enemy) {
-        final var g = pannel.getGraphics();
-        g.drawImage(imgControl.spriteImage(0), 50, 50, pannel.getWidth()/20, pannel.getHeight()/20, null);
+        final var g = this.pannel.getGraphics();
+        final var x = enemy.getPosition().getX();
+        final var y = enemy.getPosition().getY();
+        final var width = this.imgControl.tileSize(this.pannel.getWidth());
+        final var height = this.imgControl.tileSize(this.pannel.getHeight());
+        g.drawImage(this.imgControl.spriteImage(0), (int) x, (int) y, width, height, null);
         g.dispose();
-    }
-
-    @Override
-    public void componentResized(final ComponentEvent e) {
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 }

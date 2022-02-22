@@ -6,6 +6,7 @@ import sgf.model.Enemy;
 import sgf.model.EnemyImpl;
 import sgf.model.Position;
 import sgf.view.EnemyView;
+import sgf.view.MapCreator;
 
 /**
  *
@@ -21,7 +22,7 @@ public class EnemyController {
      * 
      * @param pannel
      */
-    public EnemyController(final JPanel pannel) {
+    public EnemyController(final MapCreator pannel) {
         this.enemyView = new EnemyView(pannel);
         this.startEnemyThread();
     }
