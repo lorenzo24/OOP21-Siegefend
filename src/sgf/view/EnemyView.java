@@ -4,59 +4,48 @@ import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+import  java.util.List;
 import javax.swing.JPanel;
 
 /**
  *
  */
-public class EnemyView extends JPanel{
+public class EnemyView extends JPanel {
 
-    private static final int IMAGE_SIZE = 80;
-    private final MapCreator pannel;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6345414040020937047L;
     private final EnemyImageController imgControl;
     private BufferedImage field;
+    private List<Enemy> enemyList;
 
     /**
      * 
-     * @param pannel
+     * @param size
+     * @param matrixSize
+     * @param enemyList
      */
-    public EnemyView(final MapCreator pannel) {
-        this.pannel = pannel;
-        this.field = new BufferedImage(this.pannel.getMatrixSize() * IMAGE_SIZE, this.pannel.getMatrixSize() * IMAGE_SIZE, BufferedImage.TYPE_INT_ARGB);
-        this.imgControl = new EnemyImageController(this.pannel.getMatrixSize());
-        pannel.setLayout(new BorderLayout());
-        pannel.add(this, BorderLayout.CENTER);
-        this.setOpaque(false);
-        this.setVisible(true);
-        pannel.validate();
+    public EnemyView(final int size, final int matrixSize, final List<Enemy> enemyList) {
+        this.field = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        this.imgControl = new EnemyImageController(matrixSize);
+        this.enemyList = enemyList;
     }
 
-    /**
-     * 
-     * @param enemy
-     */
-    public void drawEnemy(final Enemy enemy) {
-        final var g = this.getGraphics();
-        final var gImage = this.field.getGraphics();
-        final var x = enemy.getPosition().getX();
-        final var y = enemy.getPosition().getY();
-        final var width = this.imgControl.tileSize(this.field.getWidth());
-        final var height = this.imgControl.tileSize(this.field.getHeight());
-        gImage.drawImage(this.imgControl.spriteImage(0), (int) x, (int) y, width, height, null);
-        g.drawImage(field, 0, 0, this.pannel.getWidth(), this.pannel.getHeight(), null);
-    }
-
-    public void clear() {
-        //final var g = this.enemyPanel.getGraphics();
-        //g.clearRect(0, 0, this.enemyPanel.getWidth(), this.enemyPanel.getHeight());
-        //this.field.getGraphics().clearRect(0, 0, this.enemyPanel.getWidth(), this.enemyPanel.getHeight());
-        
-    }
-    
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        
+        final var gImage = (Graphics2D) this.field.getGraphics();
+        final var width = this.imgControl.tileSize(this.field.getWidth());
+        final var height = this.imgControl.tileSize(this.field.getHeight());
+        gImage.setBackground(new Color(255,255,255,0));
+        gImage.clearRect(0, 0, this.field.getWidth(), this.field.getHeight());
+        for (final Enemy enemy : enemyList) {
+            final var x = enemy.getPosition().getX();
+            final var y = enemy.getPosition().getY();
+            enemy.move();
+            gImage.drawImage(this.imgControl.spriteImage(0), (int) x, (int) y, width, height, null);
+        }
+        g.drawImage(field, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 }

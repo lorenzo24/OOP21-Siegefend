@@ -14,18 +14,18 @@ public class ScreenGame extends JFrame {
     private static final double SIZE_PERC = 0.5;
     private static final double MIN_SIZE_PERC = 0.3;
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final MapCreator mapCreator;
+    private final GameView gameView;
 
     /**
      * Window constructor.
      * @param map
      */
-    public ScreenGame(final Map map) {
+    public ScreenGame(final GameView view) {
         this.setTitle("SIEGEFEND");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.mapCreator = new MapCreator(map);
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
-        this.getContentPane().add(mapCreator);
+        this.gameView = view;
+        this.getContentPane().add(this.gameView);
         this.windowClosing();   // Private method that manage the window closing by showing a confirm dialog.
         this.setVisible(true);
     }
@@ -34,9 +34,9 @@ public class ScreenGame extends JFrame {
      * Getter for the field mapCreator.
      * @return mapCreator field.
      */
-    public MapCreator getMapCreator() {
+    /*public MapView getMapCreator() {
         return this.mapCreator;
-    }
+    }*/
 
     private void setFrameSize() {
         final double width = this.screenSize.getWidth();

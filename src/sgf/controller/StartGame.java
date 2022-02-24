@@ -11,7 +11,8 @@ public class StartGame {
      * @param args is the default parameter for main method.
      */
     public static void main(final String[] args) {
-       final MapController map =  new MapController();
-       final EnemyController enemy = new EnemyController(map.getjPannel());
+       //final MapController map =  new MapController();
+       //final EnemyController enemy = new EnemyController(map.getjPannel());
+       final GameController gController = new GameController(); 
     }
 }
