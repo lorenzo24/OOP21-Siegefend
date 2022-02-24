@@ -40,6 +40,7 @@ public class EnemyController {
                         lastTime = System.currentTimeMillis();
                     }
                     ups++;
+                    enemyView.clear();
                     enemyView.drawEnemy(enemy);
                     enemy.move();
                     try {

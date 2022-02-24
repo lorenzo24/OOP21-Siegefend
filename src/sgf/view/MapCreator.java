@@ -2,6 +2,7 @@ package sgf.view;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicGraphicsUtils;
+
 import sgf.controller.TileController;
 import sgf.model.GridPosition;
 import sgf.model.Map;
@@ -41,7 +44,7 @@ public class MapCreator extends JPanel implements ComponentListener, MouseListen
         this.addComponentListener(this);
         this.addMouseListener(this);   // Links this panel with a controller of mouse events.
         this.mapCreated = false;
-        this.needUpdate = true;
+        //this.needUpdate = true;
         this.map = map;
     }
 
@@ -61,8 +64,9 @@ public class MapCreator extends JPanel implements ComponentListener, MouseListen
             mapCreated = true;
             this.createMapImage();
         }
-        this.getGraphics().drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
-        this.needUpdate = false;
+        this.repaint();
+        this.revalidate();
+        //this.needUpdate = false;
     }
 
     /**
@@ -81,7 +85,7 @@ public class MapCreator extends JPanel implements ComponentListener, MouseListen
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g.dispose();
+        //g.dispose();
     }
 
     /**
@@ -150,5 +154,13 @@ public class MapCreator extends JPanel implements ComponentListener, MouseListen
     @Override
     public void mouseExited(final MouseEvent e) {
 
+    }
+
+    @Override
+    public void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        if (mapCreated) {
+            g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+        }
     }
 }
