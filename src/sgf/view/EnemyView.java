@@ -4,6 +4,8 @@ import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
 import java.awt.*;
 
+import javax.swing.JPanel;
+
 /**
  *
  */
@@ -11,6 +13,7 @@ public class EnemyView {
 
     private final MapCreator pannel;
     private final EnemyImageController imgControl;
+    private final JPanel enemyPanel;
 
     /**
      * 
@@ -19,6 +22,11 @@ public class EnemyView {
     public EnemyView(final MapCreator pannel) {
         this.pannel = pannel;
         this.imgControl = new EnemyImageController(this.pannel.getMatrixSize());
+        pannel.setLayout(new BorderLayout());
+        enemyPanel = new JPanel();
+        pannel.add(enemyPanel, BorderLayout.CENTER);
+        enemyPanel.setVisible(true);
+        pannel.validate();
     }
 
     /**
@@ -26,7 +34,7 @@ public class EnemyView {
      * @param enemy
      */
     public void drawEnemy(final Enemy enemy) {
-        final var g = this.pannel.getGraphics();
+        final var g = this.enemyPanel.getGraphics();
         final var x = enemy.getPosition().getX();
         final var y = enemy.getPosition().getY();
         final var width = this.imgControl.tileSize(this.pannel.getWidth());
