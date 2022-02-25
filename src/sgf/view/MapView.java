@@ -56,9 +56,6 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
         this.mouseHandler = m;
     }
 
-
-
-
     /**
      * This method, reading the internal field map, calculates the correspondent grid of cells that will be composing the map.
      */
@@ -117,8 +114,18 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
     public void mouseClicked(final MouseEvent e) {
         // Simple way to obtain and print mouse position when clicking.
         if (e.getButton() == MouseEvent.BUTTON1) {
-            this.mouseHandler.accept(e);
+            //this.mouseHandler.accept(e);
+            final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
+            final int gridRow = this.convertCoordinate(e.getY(), this.getHeight());
+            System.err.println(gridRow + ": " + gridColumn);
+            System.out.println(this.map.getTileFromGridPosition(new GridPosition(gridColumn, gridRow)).getTileType());
         }
+    }
+    
+    // Taken a value and the dimension in refers to, it returns an integer value that is the corresponding tile position in the dimension.
+    private int convertCoordinate(final int x, final double dimension) {
+        final double sizeOfASingleTile = dimension / this.getMatrixSize();
+        return (int) (x / sizeOfASingleTile);
     }
 
  // TODO Find a way to remove this following void methods that compares after implementing interface.

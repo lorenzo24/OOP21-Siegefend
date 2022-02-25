@@ -14,11 +14,11 @@ import sgf.model.Position;
  * 
  * 
  */
-public class GameView extends JPanel{
-    
+public class GameView extends JPanel {
+
     final MapView mapPanel;
     final EnemyView enemyPanel;
-    
+
     /**
      * 
      * @param map
