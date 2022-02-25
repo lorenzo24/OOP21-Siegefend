@@ -121,7 +121,7 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
             System.out.println(this.map.getTileFromGridPosition(new GridPosition(gridColumn, gridRow)).getTileType());
         }
     }
-    
+
     // Taken a value and the dimension in refers to, it returns an integer value that is the corresponding tile position in the dimension.
     private int convertCoordinate(final int x, final double dimension) {
         final double sizeOfASingleTile = dimension / this.getMatrixSize();

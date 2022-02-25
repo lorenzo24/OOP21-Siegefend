@@ -1,8 +1,6 @@
 package sgf.model;
 
 /**
- * 
- * @author andre
  *
  */
 public interface UrlImage {

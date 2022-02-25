@@ -15,7 +15,7 @@ import sgf.model.TileType;
 /**
  * This class is responsible for the creation of all tile types.
  */
-public class TileController extends ImageLoader<TileType> {
+public class TileController extends AbstractImageLoader<TileType> {
     private final Map<TileType, Image> imageTileSelector;       // Map that contains all the correspondences betwenn TileType and the specific images.
 
     /**
@@ -23,13 +23,12 @@ public class TileController extends ImageLoader<TileType> {
      */
     public TileController() {
         this.imageTileSelector = new HashMap<>();
-        //this.fillMap(this.imageTileSelector); // Method that fills the primary map.
-        this.fillMap(super.getPippo().getTileMap());
+        this.fillMap(super.getPathImage().getTileMap());
     }
 
     /**
      * This method returns the image of a given tile type.
-     * @param tile Represents the type of the image we want the sprite.
+     * @param type Represents the type of the image we want the sprite.
      * @return the image of the specific type of tile.
      */
     public Image getImage(final Tile type) {
@@ -37,9 +36,8 @@ public class TileController extends ImageLoader<TileType> {
     }
 
     @Override
-    public void fillMap(final Map elems) {
-        Map<TileType, String> map = elems;
-        for (final var elem : map.entrySet()) {
+    public void fillMap(final Map<TileType, String> elems) {
+        for (final var elem : elems.entrySet()) {
             this.imageTileSelector.put(elem.getKey(), this.loadRightImage(elem.getValue()));
         }
     }

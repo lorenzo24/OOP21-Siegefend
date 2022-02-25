@@ -1,11 +1,5 @@
 package sgf.controller;
 
-import sgf.model.GridPosition;
-import sgf.model.Map;
-import sgf.model.MapImpl;
-import sgf.model.Tile;
-import sgf.view.MapView;
-import sgf.view.ScreenGame;
 
 /**
  * This class is responsible for the map's multithreading management and also to show it.
