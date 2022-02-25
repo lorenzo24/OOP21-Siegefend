@@ -2,50 +2,42 @@ package sgf.view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import sgf.model.Map;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * This class represents a simple screen game.
+ * This class represents a simple screen game (JFrame).
  */
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
-    private static final double SIZE_PERC = 0.5;
-    private static final double MIN_SIZE_PERC = 0.3;
+    private static final double INITIAL_SIZE_PERC = 0.7;        // Initial frame size compared to the screen.
+    private static final double MIN_SIZE_PERC = 0.3;    // Minimum resizing acceptable size compared to the screen.
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final GameView gameView;
 
     /**
      * Window constructor.
-     * @param map
+     * @param view Is the game panel.
      */
     public ScreenGame(final GameView view) {
         this.setTitle("SIEGEFEND");
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);      // Window closing will be managed with a JDialog.
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
         this.gameView = view;
-        this.getContentPane().add(this.gameView);
-        this.windowClosing();   // Private method that manage the window closing by showing a confirm dialog.
+        this.getContentPane().add(this.gameView);       // Add main game panel to this frame.
+        this.windowClosing();   // Private method that manages the window closing by showing a confirm dialog.
         this.setVisible(true);
     }
-
-    /**
-     * Getter for the field mapCreator.
-     * @return mapCreator field.
-     */
-    /*public MapView getMapCreator() {
-        return this.mapCreator;
-    }*/
 
     private void setFrameSize() {
         final double width = this.screenSize.getWidth();
         final double height = this.screenSize.getHeight();
         final Dimension minimumSize = new Dimension((int) (width * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
         this.setMinimumSize(minimumSize);
-        this.setSize((int) (this.screenSize.getWidth() * SIZE_PERC), (int) (this.screenSize.getHeight() * SIZE_PERC));
+        this.setSize((int) (this.screenSize.getWidth() * INITIAL_SIZE_PERC), (int) (this.screenSize.getHeight() * INITIAL_SIZE_PERC));
     }
 
+    // Methods that shows a JDialog when the user tries to close the game.
     private void windowClosing() {
         this.addWindowListener(new WindowAdapter() {
             @Override

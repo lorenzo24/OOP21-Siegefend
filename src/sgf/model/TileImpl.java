@@ -3,12 +3,10 @@ package sgf.model;
 import java.util.Optional;
 
 /**
- * 
  * Class representing the implementation a {@link Map}'s {@link Tile}.
- *
  */
 public class TileImpl implements Tile {
-    private final TileType tileType;
+    private final TileType tileType;    // Type of the tile (grass, water, path...).
     private final Optional<Direction> tileDirection;
 
     /**

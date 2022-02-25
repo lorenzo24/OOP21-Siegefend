@@ -1,4 +1,4 @@
-package sgf.controller;
+package sgf.controller.map;
 
 
 /**

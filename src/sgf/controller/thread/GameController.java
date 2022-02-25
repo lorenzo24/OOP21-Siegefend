@@ -1,17 +1,17 @@
-package sgf.controller.Thread;
+package sgf.controller.thread;
 
 /**
- *
+ * This interface manages the game thread.
  */
 public interface GameController {
 
     /**
-     * Stop the thread.
+     * Stops the thread.
      */
     void stopThread();
 
     /**
-     * Restart the thread.
+     * Restarts the thread.
      */
     void resumeThread();
 

@@ -1,33 +1,30 @@
 package sgf.model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 
+
 /**
- * This class represents a simple map logic with its structure.
+ * This class represents a simple map logic with its grid structure.
  */
 public class MapImpl implements Map {
-    private final java.util.Map<GridPosition, Tile> tiles;
-    private final int[][] mapStructure;
-    private final int matrixSize;
+    private final java.util.Map<GridPosition, Tile> tiles;      // Contains the links between all the grid positions and the correspondent tiles.
+    private int mapSize;        // Is the number of tiles that a side of the grid has.
 
     /**
-     * Constructor that reads int matrix from file and converts it into a tile matrix.
-     * @param levelId Is the level whose map has to be loaded.
+     * Simple constructor.
      */
-    public MapImpl(final int levelId) {
+    public MapImpl() {
         this.tiles = new HashMap<>();
-        this.mapStructure = this.readMapStructureFromFile(levelId);     // This methods reads the int matrix from file.
-        this.matrixSize = this.mapStructure.length;     // Once read from file, the matrix size is known.
-        this.convertMatrix();   // This method converts the field matrix into a matrix of type Tile .
     }
 
     @Override
-    public int getMatrixSize() {
-        return this.matrixSize;
+    public int getMapSize() {
+        return this.mapSize;
+    }
+
+    @Override
+    public java.util.Map<GridPosition, Tile> getTiles() {
+        return tiles;
     }
 
     @Override
@@ -41,46 +38,8 @@ public class MapImpl implements Map {
         return null;
     }
 
-    private int[][] readMapStructureFromFile(final int levelId) {
-        int[][] resultedMatrix;
-        String lineRead;
-        try (BufferedReader reader = new BufferedReader(new FileReader("res" + File.separator + "mapLevel" + levelId + ".txt"))) {
-            final int matrixSize = Integer.valueOf(reader.readLine());  // The first line of the file contains the matrix size.
-            resultedMatrix = new int [matrixSize][matrixSize];
-            // Read all the lines and the extract by splitting all values and insert them into the resulted matrix.
-            for (int row = 0; row < matrixSize; row++) {
-                lineRead = reader.readLine();
-                final String[] splited = lineRead.split("\\s+");
-                for (int column = 0; column < matrixSize; column++) {
-                    resultedMatrix[row][column] = Integer.valueOf(splited[column]);
-                }
-            }
-            return resultedMatrix;
-        } catch (IOException e1) {
-                e1.printStackTrace();
-                return null;
-        }
+    @Override
+    public void setMapSize(final int newMapSize) {
+        this.mapSize = newMapSize;
     }
-
-    private void convertMatrix() {
-        for (int row = 0; row < this.mapStructure.length; row++) {
-            for (int column = 0; column < this.mapStructure.length; column++) {
-                switch (this.mapStructure[row][column]) {
-                    case 0:
-                        // TODO Ask Giacomo how to fill the Position argument. Maybe through row and column?
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.GRASS, null));
-                        break;
-                    case 2:
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.WATER, null));
-                        break;
-                    default:    // If there, the case is 1 and the tile is path.
-                        this.tiles.put(new GridPosition(column, row), new TileImpl(TileType.PATH, null));
-                        break;
-                }
-            }
-        }
-    }
-
-
-
 }

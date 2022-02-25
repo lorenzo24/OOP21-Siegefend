@@ -1,11 +1,9 @@
 package sgf.controller;
 
-import sgf.controller.Thread.GameControllerImpl;
+import sgf.controller.thread.GameControllerImpl;
 
 /**
- * 
  * Class which goal is to start the game.
- *
  */
 public class StartGame {
     /**

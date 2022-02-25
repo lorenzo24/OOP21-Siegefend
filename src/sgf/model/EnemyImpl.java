@@ -1,23 +1,23 @@
 package sgf.model;
 
 /**
- *
+ * This class represents the implementation of the interface Enemy.
  */
 public class EnemyImpl implements Enemy {
-    private final int iD;
+    private final int iD;       // Still not used.
     private Position position;
     private double hp;
-    private double completionPercentage = 0; // NON SERVE
     private double speed;
     private int enemyType;
+    private double completionPercentage = 0; // To be implemented soon.
 
     /**
-     * 
-     * @param iD
-     * @param position
-     * @param hp
-     * @param speed
-     * @param enemyType
+     * Constructor for an enemy.
+     * @param iD Is the identifier for the enemy.
+     * @param position Is the position in pixel occupied by the enemy.
+     * @param hp Is the enemy's health.
+     * @param speed Is the movement speed parameter.
+     * @param enemyType Denotes the type of the enemy.
      */
     public EnemyImpl(final int iD, final Position position, final double hp, final double speed, final int enemyType) {
         this.iD = iD;
@@ -53,7 +53,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void move() {
-        this.setPosition(this.position.getX(), this.position.getY() + 1);
+        this.setPosition(this.position.getX(), this.position.getY() + 1); 
     }
 
 }

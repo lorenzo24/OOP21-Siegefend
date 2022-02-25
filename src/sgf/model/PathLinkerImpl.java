@@ -4,17 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * This class is the implementation of the interface PathLinker, which links some entities with images path name.
  */
-public class UrlImageImpl implements UrlImage {
-
+public class PathLinkerImpl implements PathLinker {
     private final Map<EnemyType, String> mapEnemy = new HashMap<>();
     private final Map<TileType, String> mapTile = new HashMap<>();
 
     /**
-     * 
+     * Simple constructor that class methods to fill its fields.
      */
-    public UrlImageImpl() {
+    public PathLinkerImpl() {
         this.createEnemyMap();
         this.createTileMap();
     }
@@ -26,7 +25,7 @@ public class UrlImageImpl implements UrlImage {
     }
 
     private void createEnemyMap() {
-        this.mapEnemy.put(EnemyType.TANK, "tank.png"); // TODO Togliere png???
+        this.mapEnemy.put(EnemyType.TANK, "tank.png");
 
     }
 

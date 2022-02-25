@@ -2,7 +2,6 @@ package sgf.view;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
@@ -13,34 +12,34 @@ import java.io.IOException;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
-
-import sgf.controller.LoadImage.TileController;
+import sgf.controller.loading.TileImageController;
 import sgf.model.GridPosition;
 import sgf.model.Map;
 
 /**
- * This class is responsible for the process of map showing.
+ * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
+ * and composition of a grid and the creation and appearance of the corresponding final map image.
  */
 public class MapView extends JPanel implements ComponentListener, MouseListener {
     private static final long serialVersionUID = -7141712951441617040L;
-    private final int matrixSize;
-    private final TileController tileController;
-    private final BufferedImage completeMap;
-    private final Map map;
-    private Consumer<MouseEvent> mouseHandler;
+    private final int matrixSize;       // Number of tiles in each grid size.
+    private final TileImageController tileController;   // Field that contains all the links between tile types and corresponding images.
+    private final BufferedImage completeMap;    // Map to be showed after creation process.
+    private final Map map;      // Model field into View. Is it correct??? Remember to remove from here.
+    private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private final int size;
-    private boolean mapCreated;
-    private boolean needUpdate;
+    private boolean mapCreated; // Checks if the map has already been created.
+    private boolean needUpdate; // Checks if the map needs an update after resizing.
 
     /**
-     * Constructor that link this component in such a way that it can be listened.
-     * @param map Initializes the internal map.
+     * Constructor that initializes fields and links this panel with mouse listener.
+     * @param map
+     * @param size
      */
     public MapView(final Map map, final int size) {
-        this.matrixSize = map.getMatrixSize();
-        this.completeMap = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
-        this.tileController = new TileController();
+        this.matrixSize = map.getMapSize();
+        this.completeMap = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);   // Final map is empty at the beginning.
+        this.tileController = new TileImageController();
         this.addComponentListener(this);
         this.addMouseListener(this);   // Links this panel with a controller of mouse events.
         this.size = size;
@@ -69,7 +68,7 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
             }
         }
         try {
-            ImageIO.write(completeMap, "PNG", new File("res" + File.separator + "testimage.png"));
+            ImageIO.write(completeMap, "PNG", new File("res" + File.separator + "testimage.png"));      // Creates the final map. It will be showed as game interactive background.
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,7 +111,7 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
 
     @Override
     public void mouseClicked(final MouseEvent e) {
-        // Simple way to obtain and print mouse position when clicking.
+        // Simple way to obtain and print mouse position and tile type when clicking.
         if (e.getButton() == MouseEvent.BUTTON1) {
             //this.mouseHandler.accept(e);
             final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
@@ -128,7 +127,7 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
         return (int) (x / sizeOfASingleTile);
     }
 
- // TODO Find a way to remove this following void methods that compares after implementing interface.
+    // TODO Find a way to remove this following void methods that compares after implementing interface.
 
     @Override
     public void mousePressed(final MouseEvent e) {
