@@ -1,6 +1,6 @@
 package sgf.view;
 
-import sgf.controller.EnemyImageController;
+import sgf.controller.LoadImage.EnemyImageController;
 import sgf.model.Enemy;
 import sgf.model.EnemyType;
 

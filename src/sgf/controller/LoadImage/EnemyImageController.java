@@ -1,8 +1,9 @@
-package sgf.controller;
+package sgf.controller.LoadImage;
 
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
+
 import sgf.model.EnemyType;
 
 /**

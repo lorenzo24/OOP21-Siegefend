@@ -1,4 +1,4 @@
-package sgf.controller;
+package sgf.controller.LoadImage;
 
 import java.awt.Image;
 import java.io.File;

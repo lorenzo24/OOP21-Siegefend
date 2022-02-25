@@ -1,5 +1,7 @@
 package sgf.controller;
 
+import sgf.controller.Thread.GameControllerImpl;
+
 /**
  * 
  * Class which goal is to start the game.
@@ -11,6 +13,6 @@ public class StartGame {
      * @param args is the default parameter for main method.
      */
     public static void main(final String[] args) {
-       final GameController gController = new GameController(); 
+       final GameControllerImpl gController = new GameControllerImpl(); 
     }
 }

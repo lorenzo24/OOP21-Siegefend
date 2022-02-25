@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
 
-import sgf.controller.TileController;
+import sgf.controller.LoadImage.TileController;
 import sgf.model.GridPosition;
 import sgf.model.Map;
 
