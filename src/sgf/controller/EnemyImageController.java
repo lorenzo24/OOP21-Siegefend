@@ -1,18 +1,15 @@
 package sgf.controller;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.imageio.ImageIO;
+import java.util.HashMap;
+import java.util.Map;
+import sgf.model.EnemyType;
 
 /**
  *
  */
-public class EnemyImageController {
-    private final List<Image> enemySprite = new ArrayList<>();
+public class EnemyImageController extends AbstractImageLoader<EnemyType> {
+    private final Map<EnemyType, Image> enemySprite = new HashMap<>();
     private final int matrixSize;
 
     /**
@@ -20,22 +17,8 @@ public class EnemyImageController {
      * @param matrixSize
      */
     public EnemyImageController(final int matrixSize) {
-        this.fillSprite();
+        this.fillMap(super.getPathImage().getEnemyMap());
         this.matrixSize = matrixSize;
-    }
-
-    private void fillSprite() {
-        this.enemySprite.add(loadRightImage("tank.png"));
-    }
-
-    // This method loads from res folder the right png file.
-    private Image loadRightImage(final String pngFile) {
-        try {
-            return ImageIO.read(new File("res" + File.separator + pngFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     /**
@@ -49,10 +32,17 @@ public class EnemyImageController {
 
     /**
      * 
-     * @param id
-     * @return Ciao pino.
+     * @param type
+     * @return
      */
-    public Image spriteImage(final int id) {
-        return this.enemySprite.get(id);
+    public Image spriteImage(final EnemyType type) {
+        return this.enemySprite.get(type);
+    }
+
+    @Override
+    public void fillMap(final Map<EnemyType, String> elems) {
+        for (final var elem : elems.entrySet()) {
+            this.enemySprite.put(elem.getKey(), this.loadRightImage(elem.getValue()));
+        }
     }
 }

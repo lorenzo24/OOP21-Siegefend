@@ -2,6 +2,8 @@ package sgf.view;
 
 import sgf.controller.EnemyImageController;
 import sgf.model.Enemy;
+import sgf.model.EnemyType;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import  java.util.List;
@@ -17,8 +19,8 @@ public class EnemyView extends JPanel {
      */
     private static final long serialVersionUID = 6345414040020937047L;
     private final EnemyImageController imgControl;
-    private BufferedImage field;
-    private List<Enemy> enemyList;
+    private final BufferedImage field;
+    private final List<Enemy> enemyList;
 
     /**
      * 
@@ -44,7 +46,7 @@ public class EnemyView extends JPanel {
             final var x = enemy.getPosition().getX();
             final var y = enemy.getPosition().getY();
             enemy.move();
-            gImage.drawImage(this.imgControl.spriteImage(0), (int) x, (int) y, width, height, null);
+            gImage.drawImage(this.imgControl.spriteImage(EnemyType.TANK), (int) x, (int) y, width, height, null);
         }
         g.drawImage(field, 0, 0, this.getWidth(), this.getHeight(), null);
     }
