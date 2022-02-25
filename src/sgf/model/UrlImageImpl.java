@@ -21,7 +21,7 @@ public class UrlImageImpl implements UrlImage {
 
     private void createTileMap() {
         this.mapTile.put(TileType.GRASS, "grass.png");
-        this.mapTile.put(TileType.PATH, "path.png");
+        this.mapTile.put(TileType.PATH, "sand.png");
         this.mapTile.put(TileType.WATER, "water.png");
     }
 
