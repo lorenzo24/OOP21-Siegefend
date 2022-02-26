@@ -1,6 +1,13 @@
 package sgf.controller.thread;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sgf.controller.map.MapFileLoader;
+import sgf.model.Enemy;
+import sgf.model.EnemyImpl;
+import sgf.model.EnemyType;
+import sgf.model.Position;
 import sgf.view.GameView;
 import sgf.view.ScreenGame;
 
@@ -9,17 +16,32 @@ import sgf.view.ScreenGame;
  * The goal of this class is to manage the whole game thread.
  */
 public class GameControllerImpl implements GameController {
-    private final MapFileLoader mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
-    private final GameView gameView = new GameView(this.mapLoader.getMap(), 500); // cambia numero.
+    private final MapFileLoader mapLoader;
+    private final GameView gameView;
     private final ScreenGame gameFrame; // Window JFrame.
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
+
+    private final List<Enemy> enemyList = new ArrayList<>(); // TO DELETE
+    private final EnemyThreadController enemyThread; // TO DELETE
+
 
     /**
      * Constructor that starts the thread.
      */
     public GameControllerImpl() {
-        gameFrame = new ScreenGame(this.gameView);      // The panle gameView is passed to the frame.
+        this.mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
+        this.gameView = new GameView(this.mapLoader.getMap(), 500, this.enemyList); // cambia numero.
+        this.gameFrame = new ScreenGame(this.gameView);      // The panle gameView is passed to the frame.
+        this.fillEnemyList(); // TO DELETE
+        this.enemyThread = new EnemyThreadController(this.enemyList); // TO DELETE
         this.startGameThread();
+    }
+
+    private void fillEnemyList() { // TO DELETE
+        this.enemyList.add(new EnemyImpl(0, new Position(20, 20), 100, 100, EnemyType.TANK));
+        this.enemyList.add(new EnemyImpl(0, new Position(50, 50), 100, 100, EnemyType.TANK));
+        this.enemyList.add(new EnemyImpl(0, new Position(80, 80), 100, 100, EnemyType.TANK));
+        this.enemyList.add(new EnemyImpl(0, new Position(110, 110), 100, 100, EnemyType.TANK));
     }
 
     private void startGameThread() {
@@ -38,7 +60,7 @@ public class GameControllerImpl implements GameController {
                     ups++;
                     try {
                         gameView.repaint();     // Thread core job. This is an automatic method that redraws the main panel content.
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

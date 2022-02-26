@@ -39,11 +39,10 @@ public class EnemyView extends JPanel {
         gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
         gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clear the image area before repaint in another position.
 
-        // For each enemy in the list move and repaint it.
+        // For each enemy in the list repaint it.
         for (final Enemy enemy : enemyList) {
             final var x = enemy.getPosition().getX();
             final var y = enemy.getPosition().getY();
-            enemy.move();
             gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()), (int) x, (int) y, width, height, null);
         }
 

@@ -1,5 +1,4 @@
 package sgf.model;
-
 import java.util.List;
 /**
  * Implementation of a level.
@@ -30,5 +29,4 @@ public class LevelImpl implements Level {
     public List<Wave> getWaves() {
         return List.copyOf(this.waves);
     }
-
 }
