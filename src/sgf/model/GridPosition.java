@@ -3,7 +3,7 @@ package sgf.model;
 import java.util.Objects;
 
 /**
- * Represents a pair of integer coordinates on a grid.
+ * Represents a pair of integer coordinates on a grid (row and column).
  */
 public class GridPosition {
     private int column;
@@ -24,7 +24,7 @@ public class GridPosition {
      * @return the current column of the position
      */
     public int getColumn() {
-        return column;
+        return this.column;
     }
 
     /**
@@ -40,7 +40,7 @@ public class GridPosition {
      * @return the current row of the position
      */
     public int getRow() {
-        return row;
+        return this.row;
     }
 
     /**
@@ -61,6 +61,7 @@ public class GridPosition {
         this.setRow(row);
     }
 
+    // Standard methods to compare grid positions.
     @Override
     public int hashCode() {
         return Objects.hash(column, row);

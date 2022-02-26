@@ -30,6 +30,18 @@ public interface Enemy {
     double getSpeed();
 
     /**
+     * Returns the type of the enemy.
+     * @return the enemy type.
+     */
+    EnemyType getEnemyType();
+
+    /**
+     * Returns the enemy id.
+     * @return the enemy id.
+     */
+    int getID();
+
+    /**
      *  Triggers the enemy to start moving.
      */
     void move();
