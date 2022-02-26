@@ -1,7 +1,6 @@
 package sgf.view;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,7 @@ import sgf.model.Turret;
 /**
  *
  */
-public final class ShopTurretInfo extends JPanel {
+public final class ShopItemView extends JPanel {
 
     /**
      * 
@@ -34,7 +33,7 @@ public final class ShopTurretInfo extends JPanel {
 
     private boolean isSelected;
 
-    private ShopTurretInfo() {
+    private ShopItemView() {
         this.turretImg = new JLabel();
         this.turretPrice = new JLabel("Failed to load turret");
         this.turretBuy = new JButton("");
@@ -42,13 +41,13 @@ public final class ShopTurretInfo extends JPanel {
         isSelected = false;
     }
 
-    private ShopTurretInfo(final Turret t) {
+    private ShopItemView(final Turret t) {
         try {
             this.turretImg = new JLabel(new ImageIcon(ImageIO.read(new File("res/test/vuoto.png"))));
         } catch (IOException e) {
             this.turretImg = new JLabel("No Image Found");
         }
-        this.turretBuy = new JButton(ShopTurretInfo.BUY);
+        this.turretBuy = new JButton(ShopItemView.BUY);
         this.turretPrice = new JLabel(Integer.toString(t.getPrice()), SwingConstants.CENTER);
         isSelected = false;
         // Setup panel
@@ -66,8 +65,8 @@ public final class ShopTurretInfo extends JPanel {
      * @param t The turret
      * @return a new {@code ShopTurretInfo} instance
      */
-    public static ShopTurretInfo from(final Turret t) {
-        return new ShopTurretInfo(t);
+    public static ShopItemView from(final Turret t) {
+        return new ShopItemView(t);
     }
 
     /**
@@ -99,7 +98,7 @@ public final class ShopTurretInfo extends JPanel {
      */
     public void setBuyMode() {
         if (isButtonEnabled()) {
-            this.turretBuy.setText(ShopTurretInfo.BUY);
+            this.turretBuy.setText(ShopItemView.BUY);
         }
     }
 
@@ -108,7 +107,7 @@ public final class ShopTurretInfo extends JPanel {
      */
     public void setCancelMode() {
         if (isButtonEnabled()) {
-            this.turretBuy.setText(ShopTurretInfo.CANCEL);
+            this.turretBuy.setText(ShopItemView.CANCEL);
         }
     }
 
