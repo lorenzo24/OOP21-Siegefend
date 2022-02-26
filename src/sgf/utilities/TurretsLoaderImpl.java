@@ -12,7 +12,7 @@ import sgf.model.Turret;
 /**
  *
  */
-public class TurretLoaderImpl implements TurretsLoader {
+public class TurretsLoaderImpl implements TurretsLoader {
 
     @Override
     public List<Turret> getTurrets() {
