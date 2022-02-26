@@ -73,7 +73,7 @@ public class MapFileLoader {
                 break;
             case 4:     // If reads a 4, the tile is the end of enemies movement.
                 this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.END_PATH, null));
-                this.map.setStartTile(row, column);     // If there, the tile is the start of enemy's movement.
+                this.map.setEndTile(row, column);     // If there, the tile is the start of enemy's movement.
                 break;
             default:    // If there, the case is 1 and the tile type is path.
                 this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.PATH, null));

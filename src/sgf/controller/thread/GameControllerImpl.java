@@ -7,6 +7,8 @@ import sgf.controller.map.MapFileLoader;
 import sgf.model.Enemy;
 import sgf.model.EnemyImpl;
 import sgf.model.EnemyType;
+import sgf.model.GridPosition;
+import sgf.model.Map;
 import sgf.model.Position;
 import sgf.view.GameView;
 import sgf.view.ScreenGame;
@@ -38,10 +40,17 @@ public class GameControllerImpl implements GameController {
     }
 
     private void fillEnemyList() { // TO DELETE
-        this.enemyList.add(new EnemyImpl(0, new Position(20, 20), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(50, 50), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(80, 80), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(110, 110), 100, 100, EnemyType.TANK));
+        this.enemyList.add(new EnemyImpl(0, this.initialPosition(), 100, 100, EnemyType.TANK));
+    }
+
+    private Position initialPosition() { // Static or not ?????????????????????????????
+        final Map map = mapLoader.getMap();
+        final GridPosition gridPos = map.getStartTile();
+        final double widthTile = this.gameView.getWidth() / map.getMapSize();
+        final double heightTile = this.gameView.getHeight() / map.getMapSize();
+        final double width = widthTile * gridPos.getColumn() - widthTile;
+        final double height = heightTile * gridPos.getRow() - heightTile;
+        return new Position(width, height);
     }
 
     private void startGameThread() {
