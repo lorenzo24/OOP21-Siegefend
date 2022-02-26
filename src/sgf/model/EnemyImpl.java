@@ -8,7 +8,7 @@ public class EnemyImpl implements Enemy {
     private Position position;
     private double hp;
     private double speed;
-    private int enemyType;
+    private EnemyType enemyType;
     private double completionPercentage = 0; // To be implemented soon.
 
     /**
@@ -19,7 +19,7 @@ public class EnemyImpl implements Enemy {
      * @param speed Is the movement speed parameter.
      * @param enemyType Denotes the type of the enemy.
      */
-    public EnemyImpl(final int iD, final Position position, final double hp, final double speed, final int enemyType) {
+    public EnemyImpl(final int iD, final Position position, final double hp, final double speed, final EnemyType enemyType) {
         this.iD = iD;
         this.position = position;
         this.hp = hp;
@@ -53,7 +53,17 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void move() {
-        this.setPosition(this.position.getX(), this.position.getY() + 1); 
+        this.setPosition(this.position.getX() + 1, this.position.getY()); 
+    }
+
+    @Override
+    public EnemyType getEnemyType() {
+        return this.enemyType;
+    }
+
+    @Override
+    public int getID() {
+        return this.iD;
     }
 
 }
