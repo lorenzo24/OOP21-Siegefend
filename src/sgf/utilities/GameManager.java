@@ -1,9 +1,21 @@
-package sgf.model;
+package sgf.utilities;
+
+import sgf.model.GameStatus;
+import sgf.model.Level;
+import sgf.model.Turret;
+import sgf.model.Wave;
 
 /**
  * Handles the coordination of the various game components.
  */
-public interface GameController {
+public interface GameManager {
+
+    /**
+     * Returns the associated {@link PlayerManager}.
+     * @return the associated {@code PlayerController}
+     */
+    PlayerManager getPlayerManager();
+
     /**
      * Starts the {@link Level} to play.
      * @param l the level to play
