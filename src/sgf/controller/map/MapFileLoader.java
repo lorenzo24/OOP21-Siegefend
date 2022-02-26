@@ -61,13 +61,21 @@ public class MapFileLoader {
     // This method checks the parameter in input and puts the correct tile type into the map.
     private void addNewElement(final int tileType, final int row, final int column) {
         switch (tileType) {
-            case 0:
+            case 0:     // If reads a 0, the tile is a grass type tile..
                 this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.GRASS, null));
                 break;
-            case 2:
+            case 2:     // If reads a 2, the tile is a water type tile.
                 this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.WATER, null));
                 break;
-            default:    // If there, the case is 1 and the tile is path.
+            case 3:     // If reads a 3, the tile is the start of enemies movement.
+                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.START_PATH, null));
+                this.map.setStartTile(row, column);
+                break;
+            case 4:     // If reads a 4, the tile is the end of enemies movement.
+                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.END_PATH, null));
+                this.map.setStartTile(row, column);     // If there, the tile is the start of enemy's movement.
+                break;
+            default:    // If there, the case is 1 and the tile type is path.
                 this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.PATH, null));
                 break;
         }

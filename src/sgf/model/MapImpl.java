@@ -9,6 +9,9 @@ import java.util.HashMap;
 public class MapImpl implements Map {
     private final java.util.Map<GridPosition, Tile> tiles;      // Contains the links between all the grid positions and the correspondent tiles.
     private int mapSize;        // Is the number of tiles that a side of the grid has.
+    // Tiles useful to manage enemies movement in the path.
+    private GridPosition startTile;
+    private GridPosition endTile;
 
     /**
      * Simple constructor.
@@ -39,7 +42,27 @@ public class MapImpl implements Map {
     }
 
     @Override
+    public GridPosition getStartTile() {
+        return this.startTile;
+    }
+
+    @Override
+    public GridPosition getEndTile() {
+        return this.endTile;
+    }
+
+    @Override
     public void setMapSize(final int newMapSize) {
         this.mapSize = newMapSize;
+    }
+
+    @Override
+    public void setStartTile(final int row, final int column) {
+        this.startTile = new GridPosition(column, row);
+    }
+
+    @Override
+    public void setEndTile(final int row, final int column) {
+        this.endTile = new GridPosition(column, row);
     }
 }
