@@ -19,7 +19,7 @@ public class GameView extends JPanel {
      * Constructor that initializes both enemy and map panels.
      * @param map The map of the current level.
      * @param size The cell images size.
-     * @param enemyList The enemys list that have to be draw. 
+     * @param enemyList The enemies list that have to be draw. 
      */
     public GameView(final Map map, final int size, final List<Enemy> enemyList) {
         this.mapPanel = new MapView(map, size);
@@ -30,7 +30,7 @@ public class GameView extends JPanel {
         this.mapPanel.add(enemyPanel);
         this.enemyPanel.setOpaque(false);       // The enemy's empty panel has no opacity so it cannot cover the map's panel.
     }
-
+    
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);

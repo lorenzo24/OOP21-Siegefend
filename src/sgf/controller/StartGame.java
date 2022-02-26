@@ -3,7 +3,7 @@ package sgf.controller;
 import sgf.controller.thread.GameControllerImpl;
 
 /**
- * Class which goal is to start the game.
+ * Class with the task of starting the game.
  */
 public class StartGame {
     /**
