@@ -16,7 +16,7 @@ public class EnemyView extends JPanel {
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
     private final EnemyImageController imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
-    private final List<Enemy> enemyList;        // List of enemies to be showed.
+    private final List<Enemy> enemyList;       // List of enemies to be showed.
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
@@ -33,7 +33,7 @@ public class EnemyView extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        final var gImage = (Graphics2D) this.image.getGraphics();       // Cast useful in order to avoid "trail effect" in movement.
+        final var gImage = (Graphics2D) this.image.getGraphics();
         final var width = this.imageController.tileSize(this.image.getWidth());
         final var height = this.imageController.tileSize(this.image.getHeight());
         gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
@@ -44,7 +44,7 @@ public class EnemyView extends JPanel {
             final var x = enemy.getPosition().getX();
             final var y = enemy.getPosition().getY();
             enemy.move();
-            gImage.drawImage(this.imageController.spriteImage(EnemyType.TANK), (int) x, (int) y, width, height, null);
+            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()), (int) x, (int) y, width, height, null);
         }
 
         // The panel is covered with an empty image in order to hide the previous enemy image displayed.

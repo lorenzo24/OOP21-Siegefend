@@ -26,15 +26,15 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
     private final TileImageController tileController;   // Field that contains all the links between tile types and corresponding images.
     private final BufferedImage completeMap;    // Map to be showed after creation process.
     private final Map map;      // Model field into View. Is it correct??? Remember to remove from here.
-    private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
+    //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private final int size;
     private boolean mapCreated; // Checks if the map has already been created.
     private boolean needUpdate; // Checks if the map needs an update after resizing.
 
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
-     * @param map
-     * @param size
+     * @param map The logic map of the current level.
+     * @param size The tile images size.
      */
     public MapView(final Map map, final int size) {
         this.matrixSize = map.getMapSize();
@@ -51,9 +51,9 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
      * Initializes the internal field mouse handler.
      * @param m
      */
-    public void addMouseHandler(final Consumer<MouseEvent> m) {
+    /*public void addMouseHandler(final Consumer<MouseEvent> m) {
         this.mouseHandler = m;
-    }
+    }*/
 
     /**
      * This method, reading the internal field map, calculates the correspondent grid of cells that will be composing the map.
@@ -95,20 +95,6 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
         this.needUpdate = true;
     }
 
-    // TODO Find a way to remove this following void methods that compares after implementing interface.
-
-    @Override
-    public void componentMoved(final ComponentEvent e) {
-    }
-
-    @Override
-    public void componentShown(final ComponentEvent e) {
-    }
-
-    @Override
-    public void componentHidden(final ComponentEvent e) {
-    }
-
     @Override
     public void mouseClicked(final MouseEvent e) {
         // Simple way to obtain and print mouse position and tile type when clicking.
@@ -127,7 +113,29 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
         return (int) (x / sizeOfASingleTile);
     }
 
+    @Override
+    public void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        if (!mapCreated) {
+            mapCreated = true;
+            this.createMapImage();
+        }
+        g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+    }
+
     // TODO Find a way to remove this following void methods that compares after implementing interface.
+
+    @Override
+    public void componentMoved(final ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(final ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(final ComponentEvent e) {
+    }
 
     @Override
     public void mousePressed(final MouseEvent e) {
@@ -147,15 +155,5 @@ public class MapView extends JPanel implements ComponentListener, MouseListener 
     @Override
     public void mouseExited(final MouseEvent e) {
 
-    }
-
-    @Override
-    public void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        if (!mapCreated) {
-            mapCreated = true;
-            this.createMapImage();
-        }
-        g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
     }
 }
