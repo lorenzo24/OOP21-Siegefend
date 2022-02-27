@@ -1,11 +1,11 @@
-package sgf.controller;
+package sgf.utilities;
 
 import sgf.model.Turret;
 
 /**
  * Handles upgrades and selling of turrets.
  */
-public interface TurretController {
+public interface TurretManager {
 
     /*
      * It might be better to have a different class/interface named Upgrade which
