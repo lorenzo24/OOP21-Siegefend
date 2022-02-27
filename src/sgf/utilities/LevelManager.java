@@ -10,7 +10,7 @@ import sgf.model.Wave;
 /**
  * Handles levels and their continuation.
  */
-public interface LevelController {
+public interface LevelManager {
     /**
      * Starts the game using the given {@link Level}.
      * @param l the level to start
