@@ -22,6 +22,7 @@ public final class AppStart {
     public static void main(final String[] args) {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
+        final LevelManager levelManager = null;
         final GameController gameController = null;
         final GameView gameView = null;
         final MapController mapController = null;
