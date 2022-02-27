@@ -20,9 +20,8 @@ public final class AppStart {
      * @param args
      */
     public static void main(final String[] args) {
-        GameManager gameManager = null;
-        PlayerManager playerManager = null;
-        LevelManager levelManager = null;
+        final GameManager gameManager = null;
+        final PlayerManager playerManager = null;
         final GameController gameController = null;
         final GameView gameView = null;
         final MapController mapController = null;
