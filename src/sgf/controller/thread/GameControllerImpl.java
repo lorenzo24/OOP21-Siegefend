@@ -9,6 +9,7 @@ import sgf.model.EnemyImpl;
 import sgf.model.EnemyType;
 import sgf.model.Position;
 import sgf.view.GameView;
+import sgf.view.GameViewImpl;
 import sgf.view.ScreenGame;
 
 /**
@@ -17,7 +18,7 @@ import sgf.view.ScreenGame;
  */
 public class GameControllerImpl implements GameController {
     private final MapFileLoader mapLoader;
-    private final GameView gameView;
+    private final GameViewImpl gameView;
     private final ScreenGame gameFrame; // Window JFrame.
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
 
@@ -30,7 +31,7 @@ public class GameControllerImpl implements GameController {
      */
     public GameControllerImpl() {
         this.mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
-        this.gameView = new GameView(this.mapLoader.getMap(), 500, this.enemyList); // cambia numero.
+        this.gameView = new GameViewImpl(this.mapLoader.getMap(), 500, this.enemyList); // cambia numero.
         this.gameFrame = new ScreenGame(this.gameView);      // The panle gameView is passed to the frame.
         this.fillEnemyList(); // TO DELETE
         this.enemyThread = new EnemyThreadController(this.enemyList); // TO DELETE
@@ -78,5 +79,11 @@ public class GameControllerImpl implements GameController {
     @Override
     public void resumeThread() {
         this.threadRun = true;
+    }
+
+    @Override
+    public void setView(GameView gv) {
+        // TODO Auto-generated method stub
+        
     }
 }
