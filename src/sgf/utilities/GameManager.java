@@ -9,6 +9,13 @@ import sgf.model.Wave;
  * Handles the coordination of the various game components.
  */
 public interface GameManager {
+
+    /**
+     * Returns the associated {@link PlayerManager}.
+     * @return the associated {@code PlayerController}
+     */
+    PlayerManager getPlayerManager();
+
     /**
      * Starts the {@link Level} to play.
      * @param l the level to play
