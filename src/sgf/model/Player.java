@@ -6,11 +6,25 @@ package sgf.model;
  */
 public interface Player {
     /**
-     * @return Player current HP.
+     * Returns the current HP.
+     * @return the current HP.
      */
     int getCurrentHP();
+
     /**
-     * @return Player current HP.
+     * Sets a new HP amount.
+     * @param hp the new HP amount
+     */
+    void setCurrentHP(int hp);
+
+    /**
+     * @return the current money amount.
      */
     int getCurrentMoney();
+
+    /**
+     * Sets a new money amount.
+     * @param money the new money amount
+     */
+    void setCurrentMoney(int money);
 }

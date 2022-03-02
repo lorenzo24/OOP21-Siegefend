@@ -1,9 +1,12 @@
 package sgf.view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  * This class represents a simple screen game (JFrame).
@@ -13,18 +16,18 @@ public class ScreenGame extends JFrame {
     private static final double INITIAL_SIZE_PERC = 0.7;        // Initial frame size compared to the screen.
     private static final double MIN_SIZE_PERC = 0.3;    // Minimum resizing acceptable size compared to the screen.
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final GameView gameView;
+    private final AbstractPlayingView playingView;
 
     /**
      * Window constructor.
      * @param view Is the game panel.
      */
-    public ScreenGame(final GameView view) {
+    public ScreenGame(final AbstractPlayingView view) {
         this.setTitle("SIEGEFEND");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);      // Window closing will be managed with a JDialog.
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
-        this.gameView = view;
-        this.getContentPane().add(this.gameView);       // Add main game panel to this frame.
+        this.playingView = view;
+        this.getContentPane().add(this.playingView);       // Add main game panel to this frame.
         this.windowClosing();   // Private method that manages the window closing by showing a confirm dialog.
         this.setVisible(true);
     }

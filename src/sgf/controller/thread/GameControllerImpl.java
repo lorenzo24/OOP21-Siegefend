@@ -11,20 +11,18 @@ import sgf.model.GridPosition;
 import sgf.model.Map;
 import sgf.model.Position;
 import sgf.view.GameView;
-import sgf.view.ScreenGame;
 
 /**
  * This class refers to the implementation of the interface GameController.
  * The goal of this class is to manage the whole game thread.
  */
 public class GameControllerImpl implements GameController {
+    private GameView gameView;
     private final MapFileLoader mapLoader;
-    private final GameView gameView;
-    private final ScreenGame gameFrame; // Window JFrame.
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
-
     private final List<Enemy> enemyList = new ArrayList<>(); // TO DELETE
     private final EnemyThreadController enemyThread; // TO DELETE
+    private boolean isControllerSet;
 
 
     /**
@@ -32,8 +30,6 @@ public class GameControllerImpl implements GameController {
      */
     public GameControllerImpl() {
         this.mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
-        this.gameView = new GameView(this.mapLoader.getMap(), 500, this.enemyList); // cambia numero.
-        this.gameFrame = new ScreenGame(this.gameView);      // The panle gameView is passed to the frame.
         this.fillEnemyList(); // TO DELETE
         this.enemyThread = new EnemyThreadController(this.enemyList); // TO DELETE
         this.startGameThread();
@@ -68,7 +64,7 @@ public class GameControllerImpl implements GameController {
                     }
                     ups++;
                     try {
-                        gameView.repaint();     // Thread core job. This is an automatic method that redraws the main panel content.
+                        gameView.update();
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -87,5 +83,13 @@ public class GameControllerImpl implements GameController {
     @Override
     public void resumeThread() {
         this.threadRun = true;
+    }
+
+    @Override
+    public void setView(final GameView view) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.gameView = view;
+        }
     }
 }
