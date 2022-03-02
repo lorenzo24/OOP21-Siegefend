@@ -1,5 +1,9 @@
 package sgf.utilities;
 
+import java.util.List;
+
+import sgf.controller.EnemyController;
+import sgf.controller.EnemyControllerImpl;
 import sgf.controller.PlayingController;
 import sgf.controller.PlayingControllerImpl;
 import sgf.controller.ShopController;
@@ -14,12 +18,8 @@ import sgf.view.AbstractGameView;
 import sgf.view.AbstractMapView;
 import sgf.view.AbstractPlayingView;
 import sgf.view.AbstractShopView;
-import sgf.view.EnemyController;
-import sgf.view.EnemyView;
 import sgf.view.EnemyViewImpl;
-import sgf.view.GameView;
 import sgf.view.GameViewImpl;
-import sgf.view.MapView;
 import sgf.view.MapViewImpl;
 import sgf.view.PlayingViewImpl;
 import sgf.view.ScreenGame;
@@ -54,7 +54,7 @@ public final class AppStart {
 
         final MapController mapController = new MapControllerImpl();
         final AbstractMapView mapView = new MapViewImpl(m, CELL_SIZE);
-        final EnemyController enemyController = null;   // TODO: urgent
+        final EnemyController enemyController = new EnemyControllerImpl(List.of());
         final AbstractEnemyView enemyView = new EnemyViewImpl(m.getMapSize(), CELL_SIZE);
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);

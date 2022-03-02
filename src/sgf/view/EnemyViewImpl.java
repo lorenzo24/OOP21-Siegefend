@@ -1,5 +1,6 @@
 package sgf.view;
 
+import sgf.controller.EnemyController;
 import sgf.controller.loading.EnemyImageManager;
 import sgf.model.Enemy;
 
@@ -19,7 +20,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private EnemyController enemyController;
     private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
-    private final List<Enemy> enemyList;       // List of enemies to be showed.
+    private List<Enemy> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
 
     /**
@@ -33,12 +34,9 @@ public class EnemyViewImpl extends AbstractEnemyView {
         this.enemyList = new ArrayList<>();
     }
 
-    /**
-     * 
-     * @param enemy
-     */
-    public void addEnemy(final Enemy enemy) {
-        this.enemyList.add(enemy);
+    @Override
+    public void setList(final List<Enemy> enemies) {
+        this.enemyList = enemies;
     }
 
     @Override
