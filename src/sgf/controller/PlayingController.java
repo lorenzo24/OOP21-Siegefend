@@ -3,11 +3,12 @@ package sgf.controller;
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
+import sgf.view.PlayingView;
 
 /**
  * Manages the view containing the game, the shop (and the upgrade shop).
  */
-public interface PlayingController {
+public interface PlayingController extends Controller<PlayingView> {
 
     /**
      * Returns the {@link GameManager}.

@@ -3,23 +3,26 @@ package sgf.controller;
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
+import sgf.view.PlayingView;
 
 /**
  * 
  */
 public class PlayingControllerImpl implements PlayingController {
 
+    private PlayingView playingView;
     private final GameManager gameManager;
     private final PlayerManager playerManager;
+    private boolean isControllerSet;
 
     /**
      * 
+     * @param gameManager
+     * @param playerManager
      */
-    public PlayingControllerImpl() {
-        this.gameManager = null;
-        // this.gameManager = new GameManagerImpl();
-        this.playerManager = null;
-        // this.playerManager = new PlayerManagerImpl();
+    public PlayingControllerImpl(final GameManager gameManager, final PlayerManager playerManager) {
+        this.gameManager = gameManager;
+        this.playerManager = playerManager;
     }
 
     @Override
@@ -54,5 +57,13 @@ public class PlayingControllerImpl implements PlayingController {
     public boolean upgradeTurret(final Turret upgrade) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public void setView(PlayingView view) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.playingView = view;
+        }
     }
 }

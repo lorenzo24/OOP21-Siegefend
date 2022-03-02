@@ -13,10 +13,4 @@ public interface MapView extends View<MapController> {
      */
     int getMatrixSize();
 
-    /**
-     * Checks whether the window with the map has been updated and needs to be redrawn.
-     * @return a boolean
-     */
-    boolean isUpdateNeeded();
-
 }
