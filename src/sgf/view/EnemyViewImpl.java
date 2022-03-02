@@ -22,6 +22,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
     private List<Enemy> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
+    private final int tileSize;
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
@@ -29,6 +30,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
      * @param tileSize Is the size of a single tile in the map.
      */
     public EnemyViewImpl(final int matrixSize, final int tileSize) { // TODO: pass Level instead of first argument(?).
+        this.tileSize = tileSize;
         this.image = new BufferedImage(matrixSize * tileSize, matrixSize * tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageController = new EnemyImageManager(tileSize);
         this.enemyList = new ArrayList<>();
@@ -52,7 +54,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         for (final Enemy enemy : enemyList) {
             final var x = enemy.getPosition().getX();
             final var y = enemy.getPosition().getY();
-            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()), (int) x, (int) y, width, height, null);
+            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()), (int) x, (int) y, this.tileSize, this.tileSize, null);
         }
 
         // The panel is covered with an empty image in order to hide the previous enemy image displayed.

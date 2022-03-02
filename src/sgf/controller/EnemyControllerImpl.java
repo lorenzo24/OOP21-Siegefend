@@ -55,6 +55,7 @@ public class EnemyControllerImpl implements EnemyController {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyView = view;
+            this.enemyView.setList(this.enemyList);
         }
     }
 }

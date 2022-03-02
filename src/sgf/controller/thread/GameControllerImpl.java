@@ -1,6 +1,5 @@
 package sgf.controller.thread;
 
-import sgf.controller.map.MapFileLoader;
 import sgf.view.AbstractGameView;
 import sgf.view.GameView;
 
@@ -10,18 +9,8 @@ import sgf.view.GameView;
  */
 public class GameControllerImpl implements GameController {
     private AbstractGameView gameView;
-    private final MapFileLoader mapLoader;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private boolean isControllerSet;
-
-
-    /**
-     * Constructor that starts the thread.
-     */
-    public GameControllerImpl() {
-        this.mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
-        this.startGameThread();
-    }
 
    /*private Position initialPosition() {
         final Map map = mapLoader.getMap();
@@ -75,6 +64,7 @@ public class GameControllerImpl implements GameController {
             if (view instanceof AbstractGameView) {
                 this.isControllerSet = true;
                 this.gameView = (AbstractGameView) view;
+                this.startGameThread();
             } else {
                 throw new IllegalArgumentException("Argument must be subclass of AbstractGameView");
             }

@@ -9,27 +9,26 @@ import sgf.model.Map;
 import sgf.model.MapImpl;
 import sgf.model.TileImpl;
 import sgf.model.TileType;
+import sgf.utilities.MapLoader;
 
 /**
  * This is a class of utility that reads a matrix from file which represents the map structure. 
  * After that, it can fill correctly the map implementation field that links every grid position to the correspondent tile..
  */
-public class MapFileLoader {
+public class MapLoaderImpl implements MapLoader {
     private final Map map;
 
     /**
      * Simple constructor.
      * @param levelId Denotes, according to the level, which map file has to be loaded.
      */
-    public MapFileLoader(final int levelId) {
+    public MapLoaderImpl(final int levelId) {
         this.map = new MapImpl();
         this.readMapStructureFromFile(levelId); // Methods that reads map structure from file and create the map.
     }
 
-    /**
-     * Simple getter for the field map.
-     * @return the field of type map.
-     */
+
+    @Override
     public Map getMap() {
         return this.map;
     }
