@@ -45,8 +45,6 @@ public class EnemyViewImpl extends AbstractEnemyView {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         final var gImage = (Graphics2D) this.image.getGraphics();
-        final var width = this.imageController.tileSize(this.image.getWidth());
-        final var height = this.imageController.tileSize(this.image.getHeight());
         gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
         gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clear the image area before repaint in another position.
 

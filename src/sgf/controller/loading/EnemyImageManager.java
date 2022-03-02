@@ -23,15 +23,6 @@ public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
     }
 
     /**
-     * Mathematical method that calculates the size of a single tile having in input the map size.
-     * @param size Is the tiles present in a grid map side.
-     * @return the size of a single tile.
-     */
-    public int tileSize(final int size) {
-        return size / this.matrixSize;
-    }
-
-    /**
      * Method that returns the image corresponding the given enemy type.
      * @param type Is the enemy type we want the image.
      * @return the correct image.
