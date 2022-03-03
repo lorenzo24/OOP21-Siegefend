@@ -8,7 +8,7 @@ public class EnemyImpl implements Enemy {
     private Position position;
     private double hp;
     private double speed;
-    private EnemyType enemyType;
+    private final EnemyType enemyType;
     private double completionPercentage = 0; // To be implemented soon.
 
     /**
@@ -64,6 +64,61 @@ public class EnemyImpl implements Enemy {
     @Override
     public int getID() {
         return this.iD;
+    }
+
+    /**
+     * Class to create a new Enemy.
+     */
+    public static class Builder {
+        private static final double DEFAULT_NUMBER = 100;
+        private final int iD;       // Still not used.
+        private final Position position;
+        private double hp = DEFAULT_NUMBER;
+        private double speed = DEFAULT_NUMBER;
+        private final EnemyType enemyType;
+
+        /**
+         * Set the principal not otional atribute.
+         * @param iD Number to identify.
+         * @param position Is the position on the map.
+         * @param enemyType Is the type of an enemy.
+         */
+        public Builder(final int iD, final Position position, final EnemyType enemyType) {
+            this.iD = iD;
+            this.position = position;
+            this.enemyType = enemyType;
+        }
+
+        /**
+         * Set the life of an enemy.
+         * @param life Is the life of an enemy.
+         * @return the builder. 
+         */
+        public Builder hp(final double life) {
+            this.hp = life;
+            return this;
+        }
+
+        /**
+         * Set the speed of an enemy.
+         * @param fast Is the speed of one enemy.
+         * @return the builder. 
+         */
+        public Builder speed(final double fast) {
+            this.speed = fast;
+            return this;
+        }
+
+        /**
+         * Create the complete enemy.
+         * @return The enemy enetity.
+         */
+        public Enemy build() {
+            if (this.position == null || this.enemyType == null) {
+                throw new IllegalStateException();
+            }
+            return new EnemyImpl(this.iD, this.position, this.hp, this.speed, this.enemyType);
+        }
     }
 
 }

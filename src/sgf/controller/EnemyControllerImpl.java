@@ -27,7 +27,10 @@ public class EnemyControllerImpl implements EnemyController {
     public EnemyControllerImpl(final List<Enemy> enemylist) {
         //this.mapController = mapController;
         this.enemyList = enemylist;
-        enemylist.add(new EnemyImpl(0, new Position(20, 50), 100, 100, EnemyType.TANK)); // TO DELETE.
+        enemylist.add(new EnemyImpl.Builder(0, new Position(20, 50), EnemyType.TANK)
+                .hp(100)
+                .speed(100)
+                .build());
         this.startEnemyThread();
     }
 
