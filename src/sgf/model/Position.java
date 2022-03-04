@@ -60,4 +60,9 @@ public class Position {
         this.setX(x);
         this.setY(y);
     }
+
+    @Override
+    public String toString() {
+        return "Position [x=" + x + ", y=" + y + "]";
+    }
 }

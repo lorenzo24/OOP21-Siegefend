@@ -36,14 +36,13 @@ public class MapControllerImpl implements MapController {
         return this.map;
     }
 
-    /**
-     * Nested static class for position conversion.     TODO Insert the following methods into the static nested class.
-     */
-    public static class PositionConverter {
+    @Override
+    public Position convertToPosition(final GridPosition position) {
+        return new Position(position.getColumn() * this.cellSize, position.getRow() * this.cellSize);
     }
 
     @Override
-    public Position convertAGridPosition(final GridPosition position) {
-        return new Position(position.getColumn() * this.cellSize, position.getRow() * this.cellSize);
+    public GridPosition convertToGridPosition(final Position position) {
+        return new GridPosition((int) position.getY() / cellSize, (int) position.getX() / cellSize);
     }
 }

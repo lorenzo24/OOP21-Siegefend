@@ -1,10 +1,13 @@
 package sgf.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import sgf.controller.map.MapController;
 import sgf.model.Enemy;
 import sgf.model.EnemyImpl;
 import sgf.model.EnemyType;
+import sgf.utilities.EnemyManager;
+import sgf.utilities.EnemyManagerImpl;
 import sgf.view.EnemyView;
 
 /**
@@ -12,45 +15,23 @@ import sgf.view.EnemyView;
  */
 public class EnemyControllerImpl implements EnemyController {
 
-    private final List<Enemy> enemyList;
-    private static final int CELL_SIZE = 80;
     private boolean isControllerSet;
-    private final MapController mapController;
     private EnemyView enemyView;
+    private List<Enemy> enemyList;
+    private final EnemyManager enemyManager;
 
     /**
      * 
-     * @param enemylist
      * @param mapController
      */
-    public EnemyControllerImpl(final List<Enemy> enemylist, final MapController mapController) {
-        this.enemyList = enemylist;
-        this.mapController = mapController;
-        enemylist.add(new EnemyImpl.Builder(0, EnemyType.TANK)
-                .position(mapController.convertAGridPosition(mapController.getMap().getStartTile())) // prendere direttamente la posizione iniziale in map controller.
+    public EnemyControllerImpl(final MapController mapController) {
+        this.enemyList = new ArrayList<>();
+        enemyList.add(new EnemyImpl.Builder(0, EnemyType.TANK)
+                .position(mapController.convertToPosition(mapController.getMap().getStartTile())) // prendere direttamente la posizione iniziale in map controller.
                 .hp(100)
                 .speed(100)
                 .build());
-        this.startEnemyThread();
-    }
-
-    private void startEnemyThread() {
-        final Thread gameThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        for (final var enemy : enemyList) {
-                            enemy.move();
-                        }
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        gameThread.start();
+        this.enemyManager = new EnemyManagerImpl(this.enemyList.get(0), mapController);
     }
 
     @Override

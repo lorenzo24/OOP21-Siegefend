@@ -23,6 +23,13 @@ public interface MapController extends Controller<MapView> {
      * @param position Is the position expressed as GridPosition.
      * @return the equivalent position expressed as Position.
      */
-    Position convertAGridPosition(GridPosition position);
+    Position convertToPosition(GridPosition position);
+
+    /**
+     * Method to convert a Position into a GridPosition.
+     * @param position Is the position expressed as Position.
+     * @return the equivalent position expressed as GridPosition.
+     */
+    GridPosition convertToGridPosition(Position position);
 
 }
