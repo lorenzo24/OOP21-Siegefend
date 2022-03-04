@@ -12,16 +12,6 @@ public class GameControllerImpl implements GameController {
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private boolean isControllerSet;
 
-   /*private Position initialPosition() {
-        final Map map = mapLoader.getMap();
-        final GridPosition gridPos = map.getStartTile();
-        final double widthTile = this.gameView.getWidth() / map.getMapSize();
-        final double heightTile = this.gameView.getHeight() / map.getMapSize();
-        final double width = widthTile * gridPos.getColumn() - widthTile;
-        final double height = heightTile * gridPos.getRow() - heightTile;
-        return new Position(width, height);
-    }*/
-
     private void startGameThread() {
         final Thread gameThread = new Thread(new Runnable() {
             @Override

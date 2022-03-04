@@ -1,13 +1,13 @@
 package sgf.controller;
 import java.util.List;
 
-import sgf.controller.map.MapController;
 import sgf.model.Enemy;
 import sgf.model.EnemyImpl;
 import sgf.model.EnemyType;
 import sgf.model.GridPosition;
 import sgf.model.Map;
 import sgf.model.Position;
+import sgf.utilities.MapLoader;
 import sgf.view.EnemyView;
 
 /**
@@ -16,22 +16,29 @@ import sgf.view.EnemyView;
 public class EnemyControllerImpl implements EnemyController {
 
     private final List<Enemy> enemyList;
+    private static final int CELL_SIZE = 80;
     private boolean isControllerSet;
-    //private final MapController mapController;
+    private final MapLoader mapLoader;
     private EnemyView enemyView;
 
     /**
      * 
      * @param enemylist
+     * @param mapLoader
      */
-    public EnemyControllerImpl(final List<Enemy> enemylist) {
-        //this.mapController = mapController;
+    public EnemyControllerImpl(final List<Enemy> enemylist, final MapLoader mapLoader) {
         this.enemyList = enemylist;
-        enemylist.add(new EnemyImpl.Builder(0, new Position(20, 50), EnemyType.TANK)
+        this.mapLoader = mapLoader;
+        enemylist.add(new EnemyImpl.Builder(0, this.initialPosition(mapLoader.getMap().getStartTile()), EnemyType.TANK)
                 .hp(100)
                 .speed(100)
                 .build());
         this.startEnemyThread();
+    }
+
+    private Position initialPosition( final GridPosition p) {
+    final Map map = mapLoader.getMap();
+    return new Position(p.getColumn()*CELL_SIZE, p.getRow()*CELL_SIZE);
     }
 
     private void startEnemyThread() {

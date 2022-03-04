@@ -1,4 +1,4 @@
-package sgf.controller.map;
+package sgf.utilities;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +9,6 @@ import sgf.model.Map;
 import sgf.model.MapImpl;
 import sgf.model.TileImpl;
 import sgf.model.TileType;
-import sgf.utilities.MapLoader;
 
 /**
  * This is a class of utility that reads a matrix from file which represents the map structure. 

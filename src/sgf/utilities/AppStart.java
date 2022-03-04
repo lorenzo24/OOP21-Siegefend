@@ -11,7 +11,6 @@ import sgf.controller.ShopController;
 import sgf.controller.ShopControllerImpl;
 import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
-import sgf.controller.map.MapLoaderImpl;
 import sgf.controller.thread.GameController;
 import sgf.controller.thread.GameControllerImpl;
 import sgf.model.Enemy;
@@ -57,7 +56,7 @@ public final class AppStart {
 
         final MapController mapController = new MapControllerImpl();
         final AbstractMapView mapView = new MapViewImpl(map, CELL_SIZE);
-        final EnemyController enemyController = new EnemyControllerImpl(new ArrayList<Enemy>());
+        final EnemyController enemyController = new EnemyControllerImpl(new ArrayList<Enemy>(), mapLoader);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getMapSize(), CELL_SIZE);
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
