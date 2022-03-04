@@ -55,7 +55,7 @@ public final class AppStart {
 
         final MapController mapController = new MapControllerImpl(CELL_SIZE);
         final AbstractMapView mapView = new MapViewImpl(mapController.getMap(), CELL_SIZE);
-        final EnemyController enemyController = new EnemyControllerImpl(new ArrayList<Enemy>(), mapLoader);
+        final EnemyController enemyController = new EnemyControllerImpl(new ArrayList<Enemy>(), mapController);
         final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize(), CELL_SIZE);
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);

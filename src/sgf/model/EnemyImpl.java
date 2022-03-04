@@ -72,7 +72,7 @@ public class EnemyImpl implements Enemy {
     public static class Builder {
         private static final double DEFAULT_NUMBER = 100;
         private final int iD;       // Still not used.
-        private final Position position;
+        private Position position;
         private double hp = DEFAULT_NUMBER;
         private double speed = DEFAULT_NUMBER;
         private final EnemyType enemyType;
@@ -80,13 +80,21 @@ public class EnemyImpl implements Enemy {
         /**
          * Set the principal not otional atribute.
          * @param iD Number to identify.
-         * @param position Is the position on the map.
          * @param enemyType Is the type of an enemy.
          */
-        public Builder(final int iD, final Position position, final EnemyType enemyType) {
+        public Builder(final int iD, final EnemyType enemyType) {
             this.iD = iD;
-            this.position = position;
             this.enemyType = enemyType;
+        }
+
+        /**
+         * Set the position of an enemy.
+         * @param position Is the position on the map.
+         * @return the builder. 
+         */
+        public Builder position(final Position position) {
+            this.position = position;
+            return this;
         }
 
         /**
