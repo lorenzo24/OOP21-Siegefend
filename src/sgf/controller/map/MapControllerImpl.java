@@ -43,6 +43,6 @@ public class MapControllerImpl implements MapController {
 
     @Override
     public GridPosition convertToGridPosition(final Position position) {
-        return new GridPosition((int) position.getY() / cellSize, (int) position.getX() / cellSize);
+        return new GridPosition((int) position.getX() / cellSize, (int) position.getY() / cellSize);
     }
 }

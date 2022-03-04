@@ -81,4 +81,9 @@ public class GridPosition {
         final GridPosition other = (GridPosition) obj;
         return column == other.column && row == other.row;
     }
+
+    @Override
+    public String toString() {
+        return "GridPosition [column=" + column + ", row=" + row + "]";
+    }
 }
