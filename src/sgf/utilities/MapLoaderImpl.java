@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import sgf.model.Direction;
 import sgf.model.GridPosition;
 import sgf.model.Map;
 import sgf.model.MapImpl;
@@ -16,6 +20,7 @@ import sgf.model.TileType;
  */
 public class MapLoaderImpl implements MapLoader {
     private final Map map;
+    private final java.util.Map<Integer, TileType> numersToTypes;
 
     /**
      * Simple constructor.
@@ -23,13 +28,24 @@ public class MapLoaderImpl implements MapLoader {
      */
     public MapLoaderImpl(final int levelId) {
         this.map = new MapImpl();
+        numersToTypes = new HashMap<>();
+        this.createLinks();
         this.readMapStructureFromFile(levelId); // Methods that reads map structure from file and create the map.
+        this.findMovementPath();        // Method that fills the field Direction in every tile.
     }
-
 
     @Override
     public Map getMap() {
         return this.map;
+    }
+
+    // Method that links every integer number with a correspondent tile type.
+    private void createLinks() {
+        this.numersToTypes.put(0, TileType.GRASS);
+        this.numersToTypes.put(1, TileType.PATH);
+        this.numersToTypes.put(2, TileType.WATER);
+        this.numersToTypes.put(3, TileType.START_PATH);
+        this.numersToTypes.put(4, TileType.END_PATH);
     }
 
     // This method is the file effective reader.
@@ -47,7 +63,13 @@ public class MapLoaderImpl implements MapLoader {
                     final String[] splitted = lineRead.split("\\s+");
                     for (int column = 0; column < splitted.length; column++) {
                         // At the end, the method adds a new element (GridPosition and correspondent Tile) into the effective map.
-                        this.addNewElement(Integer.parseInt(splitted[column]), row, column);
+                        final int valueRead = Integer.parseInt(splitted[column]);
+                        if (valueRead == 3) {
+                            this.map.setStartTile(row, column);
+                        } else if (valueRead == 4) {
+                            this.map.setEndTile(row, column);
+                        }
+                        this.map.getTiles().put(new GridPosition(column, row), new TileImpl(this.numersToTypes.get(valueRead)));
                     }
                 }
             }
@@ -56,26 +78,48 @@ public class MapLoaderImpl implements MapLoader {
         }
     }
 
-    // This method checks the parameter in input and puts the correct tile type into the map.
-    private void addNewElement(final int tileType, final int row, final int column) {
-        switch (tileType) {
-            case 0:     // If reads a 0, the tile is a grass type tile..
-                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.GRASS, null));
-                break;
-            case 2:     // If reads a 2, the tile is a water type tile.
-                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.WATER, null));
-                break;
-            case 3:     // If reads a 3, the tile is the start of enemies movement.
-                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.START_PATH, null));
-                this.map.setStartTile(row, column);
-                break;
-            case 4:     // If reads a 4, the tile is the end of enemies movement.
-                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.END_PATH, null));
-                this.map.setEndTile(row, column);     // If there, the tile is the start of enemy's movement.
-                break;
-            default:    // If there, the case is 1 and the tile type is path.
-                this.map.getTiles().put(new GridPosition(column, row), new TileImpl(TileType.PATH, null));
-                break;
+    // Method that, by observing the path, fill the field Direction of the path tiles.
+    private void findMovementPath() {
+        GridPosition actualTile = this.map.getStartTile();
+        final List<GridPosition> alreadyChecked = new ArrayList<>();    // Contains the tiles already checked, so that we can ignore them.
+        Direction lastDirection = null; // It saves the last direction set, so we can have the direction also for the very last tile of the path.
+
+        // For every tile of the path we check its neighbors to find which one is path. Then, by a simple compare we can set up the field direction of ebery path tile.
+        while (!actualTile.equals(this.map.getEndTile())) {
+            for (final var neighbor : this.findNeighbors(actualTile).entrySet()) {
+                // For every neighbor tile that has not been already checked we check if its type is Path.
+                if (!alreadyChecked.contains(neighbor.getKey()) && this.checkIfIsPath(neighbor.getKey())) {
+                    // We found the next tile. So we have to set the direction of the current tile and update the list of already checked tiles.
+                    this.map.getTiles().get(actualTile).setDirection(neighbor.getValue());
+                    alreadyChecked.add(actualTile);
+                    actualTile = neighbor.getKey();
+                    lastDirection = neighbor.getValue();
+                    break;
+                }
+            }
+        }
+        this.map.getTiles().get(this.map.getEndTile()).setDirection(lastDirection);     // Also the very last tile direction is set.
+    }
+
+    // Method that calculate the neighbors of a given grid position and fill a map with the corresponding direction.
+    private java.util.Map<GridPosition, Direction> findNeighbors(final GridPosition actualTile) {
+        final java.util.Map<GridPosition, Direction> result = new HashMap<>();
+        result.put(new GridPosition(actualTile.getColumn(), actualTile.getRow() - 1), Direction.UP);
+        result.put(new GridPosition(actualTile.getColumn() + 1, actualTile.getRow()), Direction.RIGHT);
+        result.put(new GridPosition(actualTile.getColumn(), actualTile.getRow() + 1), Direction.DOWN);
+        result.put(new GridPosition(actualTile.getColumn() - 1, actualTile.getRow()), Direction.LEFT);
+        return result;
+    }
+
+    // Method that check if a given grid position is acceptable (in matrix size limits) and if it corresponds to a path tile.
+    private boolean checkIfIsPath(final GridPosition neighbour) {
+        if (neighbour.getRow() < 0 || neighbour.getColumn() < 0 || neighbour.getRow() >= this.map.getMapSize() 
+                || neighbour.getColumn() >= this.map.getMapSize()) {    // If given grid position not into the map's size limits.
+            return false;
+        } else {
+            // We check if its type is path.
+            return this.map.getTiles().get(neighbour).getTileType() != TileType.WATER
+                    && this.map.getTiles().get(neighbour).getTileType() != TileType.GRASS;
         }
     }
 }

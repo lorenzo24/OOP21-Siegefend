@@ -23,4 +23,10 @@ public interface Tile {
      * @return {@code true} if the tile can contain a {@link Turret}, {@code false} otherwise.
      */
     boolean canContainTurret();
+
+    /**
+     * Method that sets up the tile's direction. It will be useful to enemy's movement pathfinding.
+     * @param direction Is the direction that the interested tile must have.
+     */
+    void setDirection(Direction direction);
 }
