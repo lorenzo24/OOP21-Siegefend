@@ -36,10 +36,7 @@ public class EnemyControllerImpl implements EnemyController {
         this.startEnemyThread();
     }
 
-    private Position initialPosition( final GridPosition p) {
-    final Map map = mapLoader.getMap();
-    return new Position(p.getColumn()*CELL_SIZE, p.getRow()*CELL_SIZE);
-    }
+    
 
     private void startEnemyThread() {
         final Thread gameThread = new Thread(new Runnable() {

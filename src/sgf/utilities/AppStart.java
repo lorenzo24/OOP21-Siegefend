@@ -46,18 +46,17 @@ public final class AppStart {
         final PlayerManager playerManager = null;
         final LevelManager levelManager = null;
 
-        final MapLoader mapLoader = new MapLoaderImpl(1);
-        final Map map = mapLoader.getMap();
+        
 
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
 
-        final MapController mapController = new MapControllerImpl();
-        final AbstractMapView mapView = new MapViewImpl(map, CELL_SIZE);
+        final MapController mapController = new MapControllerImpl(CELL_SIZE);
+        final AbstractMapView mapView = new MapViewImpl(mapController.getMap(), CELL_SIZE);
         final EnemyController enemyController = new EnemyControllerImpl(new ArrayList<Enemy>(), mapLoader);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getMapSize(), CELL_SIZE);
+        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize(), CELL_SIZE);
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager);
