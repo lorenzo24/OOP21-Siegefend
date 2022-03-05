@@ -21,6 +21,9 @@ import sgf.model.TileType;
 public class MapLoaderImpl implements MapLoader {
     private final Map map;
     private final java.util.Map<Integer, TileType> numersToTypes;
+    // Two boolean variable to check if the given map has a start and a end.
+    private boolean isSetStart;
+    private boolean isSetEnd;
 
     /**
      * Simple constructor.
@@ -66,8 +69,10 @@ public class MapLoaderImpl implements MapLoader {
                         final int valueRead = Integer.parseInt(splitted[column]);
                         if (valueRead == 3) {
                             this.map.setStartTile(row, column);
+                            this.isSetStart = true;
                         } else if (valueRead == 4) {
                             this.map.setEndTile(row, column);
+                            this.isSetEnd = true;
                         }
                         this.map.getTiles().put(new GridPosition(column, row), new TileImpl(this.numersToTypes.get(valueRead)));
                     }
@@ -75,6 +80,9 @@ public class MapLoaderImpl implements MapLoader {
             }
         } catch (IOException e1) {
                 e1.printStackTrace();
+        }
+        if (!this.isSetStart || !this.isSetEnd) {
+            throw new IllegalStateException("Given matrix has no start or end tile!");
         }
     }
 

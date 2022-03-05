@@ -59,7 +59,6 @@ public class MapImpl implements Map {
     @Override
     public void setStartTile(final int row, final int column) {
         this.startTile = new GridPosition(column, row);
-        System.out.println(startTile);
     }
 
     @Override

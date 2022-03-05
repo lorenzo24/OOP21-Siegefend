@@ -49,14 +49,6 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     }
 
     /**
-     * Initializes the internal field mouse handler.
-     * @param m
-     */
-    /*public void addMouseHandler(final Consumer<MouseEvent> m) {
-        this.mouseHandler = m;
-    }*/
-
-    /**
      * This method, reading the internal field map, calculates the correspondent grid of cells that will be composing the map.
      */
     private void createMapImage() {

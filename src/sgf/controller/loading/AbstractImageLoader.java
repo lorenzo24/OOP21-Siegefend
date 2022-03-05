@@ -17,6 +17,7 @@ public abstract class AbstractImageLoader<T> implements ImageLoader<T> {
      * This method loads from res folder the right png file.
      * @param pngFile Is the image file name.
      * @return the correct image from res folder.
+     * @throws IOException 
      */
     public Image loadRightImage(final String pngFile) {
         try {
