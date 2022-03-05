@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 import sgf.controller.loading.TileImageController;
 import sgf.controller.map.MapController;
 import sgf.model.GridPosition;
@@ -20,31 +19,33 @@ import sgf.model.Map;
  * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
  * and composition of a grid and the creation and appearance of the corresponding final map image.
  */
-public class MapViewImpl extends JPanel implements MapView, ComponentListener, MouseListener {
+public class MapViewImpl extends AbstractMapView implements ComponentListener, MouseListener {
     private static final long serialVersionUID = -7141712951441617040L;
+
+    private MapController mapController;
+    private final Map map;      // Model field into View. Is it correct??? Remember to remove from here.
     private final int matrixSize;       // Number of tiles in each grid size.
+    private final int tileSize;
     private final TileImageController tileController;   // Field that contains all the links between tile types and corresponding images.
     private final BufferedImage completeMap;    // Map to be showed after creation process.
-    private final Map map;      // Model field into View. Is it correct??? Remember to remove from here.
     //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
-    private final int size;
     private boolean mapCreated; // Checks if the map has already been created.
-    private boolean needUpdate; // Checks if the map needs an update after resizing.
+    private boolean isControllerSet;
 
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
-     * @param map The logic map of the current level.
-     * @param size The tile images size.
+     * @param map The logic map of the current level
+     * @param tileSize the size of a tile's image
      */
-    public MapViewImpl(final Map map, final int size) {
+    public MapViewImpl(final Map map, final int tileSize) {
+        this.map = map;
+        this.tileSize = tileSize;
         this.matrixSize = map.getMapSize();
-        this.completeMap = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);   // Final map is empty at the beginning.
+        this.mapCreated = false;
+        this.completeMap = new BufferedImage(this.matrixSize * this.tileSize, this.matrixSize * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Final map is empty at the beginning.
         this.tileController = new TileImageController();
         this.addComponentListener(this);
         this.addMouseListener(this);   // Links this panel with a controller of mouse events.
-        this.size = size;
-        this.mapCreated = false;
-        this.map = map;
     }
 
     /**
@@ -60,11 +61,10 @@ public class MapViewImpl extends JPanel implements MapView, ComponentListener, M
      */
     private void createMapImage() {
         final Graphics g = completeMap.getGraphics();
-        final int tileSize = this.size / this.matrixSize;
         for (int row = 0; row < matrixSize; row++) {
             for (int column = 0; column < matrixSize; column++) {
                 final Image i = tileController.getImage(this.map.getTileFromGridPosition(new GridPosition(column, row)));
-                g.drawImage(i, column * tileSize, row *  tileSize,  tileSize,  tileSize, null);
+                g.drawImage(i, column * this.tileSize, row *  this.tileSize,  this.tileSize,  this.tileSize, null);
             }
         }
         try {
@@ -83,18 +83,8 @@ public class MapViewImpl extends JPanel implements MapView, ComponentListener, M
         return this.matrixSize;
     }
 
-    /**
-     * Checks whether the window with the map has been updated and needs to be redrawn.
-     * @return a boolean
-     */
-    @Override
-    public boolean isUpdateNeeded() {
-        return needUpdate;
-    }
-
     @Override
     public void componentResized(final ComponentEvent e) {
-        this.needUpdate = true;
     }
 
     @Override
@@ -123,6 +113,14 @@ public class MapViewImpl extends JPanel implements MapView, ComponentListener, M
             this.createMapImage();
         }
         g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+    }
+
+    @Override
+    public void setController(final MapController controller) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.mapController = controller;
+        }
     }
 
     // TODO Find a way to remove this following void methods that compares after implementing interface.
@@ -157,11 +155,5 @@ public class MapViewImpl extends JPanel implements MapView, ComponentListener, M
     @Override
     public void mouseExited(final MouseEvent e) {
 
-    }
-
-    @Override
-    public void setController(MapController controller) {
-        // TODO Auto-generated method stub
-        
     }
 }

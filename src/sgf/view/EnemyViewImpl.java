@@ -1,35 +1,44 @@
 package sgf.view;
 
-import sgf.controller.loading.EnemyImageController;
+import sgf.controller.loading.EnemyImageManager;
 import sgf.model.Enemy;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import  java.util.List;
-import javax.swing.JPanel;
 
 /**
  * Panel for enemy's movement and appearance.
  */
-public class EnemyViewImpl extends JPanel implements EnemyView {
+public class EnemyViewImpl extends AbstractEnemyView {
     private static final long serialVersionUID = 6345414040020937047L;
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
-    private final EnemyImageController imageController;      // Contains the links between enemy type and images.
+    private EnemyController enemyController;
+    private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
     private final List<Enemy> enemyList;       // List of enemies to be showed.
+    private boolean isControllerSet;
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
-     * @param size Is the size that the enemy's image must have.
+     * @param matrixSize Is the size that the enemy's image must have.
      * @param tileSize Is the size of a single tile in the map.
-     * @param enemyList Is the list of enemies to be showed.
      */
-    public EnemyViewImpl(final int size, final int tileSize, final List<Enemy> enemyList) {
-        this.image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-        this.imageController = new EnemyImageController(tileSize);
-        this.enemyList = enemyList;
+    public EnemyViewImpl(final int matrixSize, final int tileSize) { // TODO: pass Level instead of first argument(?).
+        this.image = new BufferedImage(matrixSize * tileSize, matrixSize * tileSize, BufferedImage.TYPE_INT_ARGB);
+        this.imageController = new EnemyImageManager(tileSize);
+        this.enemyList = new ArrayList<>();
+    }
+
+    /**
+     * 
+     * @param enemy
+     */
+    public void addEnemy(final Enemy enemy) {
+        this.enemyList.add(enemy);
     }
 
     @Override
@@ -53,8 +62,10 @@ public class EnemyViewImpl extends JPanel implements EnemyView {
     }
 
     @Override
-    public void setController(EnemyController controller) {
-        // TODO Auto-generated method stub
-        
+    public void setController(final EnemyController controller) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.enemyController = controller;
+        }
     }
 }

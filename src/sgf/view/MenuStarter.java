@@ -1,11 +1,12 @@
 package sgf.view;
 
-import javax.swing.*;
-import javax.swing.border.Border;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * Initial menu.
@@ -27,7 +28,7 @@ public class MenuStarter extends JFrame {
     public MenuStarter() {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) (screenSize.getWidth() * WIDTH_PERC), (int) (screenSize.getHeight() * HEIGHT_PERC));
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final JPanel panel = new JPanel();
         panel.add(display);
         final JButton stop = new JButton("stop");

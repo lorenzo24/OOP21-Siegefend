@@ -6,6 +6,7 @@ import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
 import sgf.utilities.TurretsLoaderImpl;
+import sgf.view.ShopView;
 
 /**
  *
@@ -15,6 +16,8 @@ public class ShopControllerImpl implements ShopController {
     private final GameManager gameController;
     private final List<Turret> turrets;
     private Turret selectedTurret;
+    private ShopView shopView;
+    private boolean isControllerSet;
     /**
      * Creates a new shop controller instance.
      * @param gameController the game controller
@@ -60,6 +63,14 @@ public class ShopControllerImpl implements ShopController {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setView(ShopView view) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.shopView = view;
+        }
     }
 
 }

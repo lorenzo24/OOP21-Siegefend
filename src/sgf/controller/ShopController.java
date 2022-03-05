@@ -4,11 +4,12 @@ import java.util.List;
 
 import sgf.model.Turret;
 import sgf.utilities.PlayerManager;
+import sgf.view.ShopView;
 
 /**
  * Manages the shop.
  */
-public interface ShopController {
+public interface ShopController extends Controller<ShopView> {
 
     /**
      * Returns the associated {@link PlayerManager}.

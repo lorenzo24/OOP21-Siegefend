@@ -9,7 +9,7 @@ import sgf.model.EnemyType;
 /**
  * This class loads enemy images.
  */
-public class EnemyImageController extends AbstractImageLoader<EnemyType> {
+public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
     private final Map<EnemyType, Image> enemySprite = new HashMap<>();
     private final int matrixSize;
 
@@ -17,7 +17,7 @@ public class EnemyImageController extends AbstractImageLoader<EnemyType> {
      * Simple constructor that takes the enemies path names useful for the loading.
      * @param matrixSize Is useful in order to calculate the size of a single tile, which is also the enemy sprite's size.
      */
-    public EnemyImageController(final int matrixSize) {
+    public EnemyImageManager(final int matrixSize) {
         this.fillMap(super.getPathImage().getEnemyMap());
         this.matrixSize = matrixSize;
     }
