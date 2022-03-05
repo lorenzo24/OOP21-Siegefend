@@ -6,15 +6,15 @@ import java.util.Objects;
  * Represents a pair of integer coordinates on a grid (row and column).
  */
 public class GridPosition {
-    private int column;
     private int row;
+    private int column;
 
     /**
      * Creates a new instance of {@code GridPosition}.
      * @param column The column in the grid
      * @param row The row in the grid
      */
-    public GridPosition(final int column, final int row) {
+    public GridPosition(final int row, final int column) {
         this.row = row;
         this.column = column;
     }
@@ -56,7 +56,7 @@ public class GridPosition {
      * @param column The new value for the column
      * @param row The new value for the row
      */
-    public void setCoordinates(final int column, final int row) {
+    public void setCoordinates(final int row, final int column) {
         this.setColumn(column);
         this.setRow(row);
     }
@@ -86,4 +86,5 @@ public class GridPosition {
     public String toString() {
         return "GridPosition [column=" + column + ", row=" + row + "]";
     }
+
 }

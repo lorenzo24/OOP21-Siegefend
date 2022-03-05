@@ -58,11 +58,11 @@ public class MapImpl implements Map {
 
     @Override
     public void setStartTile(final int row, final int column) {
-        this.startTile = new GridPosition(column, row);
+        this.startTile = new GridPosition(row, column);
     }
 
     @Override
     public void setEndTile(final int row, final int column) {
-        this.endTile = new GridPosition(column, row);
+        this.endTile = new GridPosition(row, column);
     }
 }

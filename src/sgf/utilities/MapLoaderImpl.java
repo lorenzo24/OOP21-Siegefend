@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import sgf.model.Direction;
-import sgf.model.GridPosition;
 import sgf.model.Map;
 import sgf.model.MapImpl;
+import sgf.model.GridPosition;
 import sgf.model.TileImpl;
 import sgf.model.TileType;
 
@@ -74,7 +74,7 @@ public class MapLoaderImpl implements MapLoader {
                             this.map.setEndTile(row, column);
                             this.isSetEnd = true;
                         }
-                        this.map.getTiles().put(new GridPosition(column, row), new TileImpl(this.numersToTypes.get(valueRead)));
+                        this.map.getTiles().put(new GridPosition(row, column), new TileImpl(this.numersToTypes.get(valueRead)));
                     }
                 }
             }
@@ -112,10 +112,10 @@ public class MapLoaderImpl implements MapLoader {
     // Method that calculate the neighbors of a given grid position and fill a map with the corresponding direction.
     private java.util.Map<GridPosition, Direction> findNeighbors(final GridPosition actualTile) {
         final java.util.Map<GridPosition, Direction> result = new HashMap<>();
-        result.put(new GridPosition(actualTile.getColumn(), actualTile.getRow() - 1), Direction.UP);
-        result.put(new GridPosition(actualTile.getColumn() + 1, actualTile.getRow()), Direction.RIGHT);
-        result.put(new GridPosition(actualTile.getColumn(), actualTile.getRow() + 1), Direction.DOWN);
-        result.put(new GridPosition(actualTile.getColumn() - 1, actualTile.getRow()), Direction.LEFT);
+        result.put(new GridPosition(actualTile.getRow() - 1, actualTile.getColumn()), Direction.UP);
+        result.put(new GridPosition(actualTile.getRow(), actualTile.getColumn() + 1), Direction.RIGHT);
+        result.put(new GridPosition(actualTile.getRow() + 1, actualTile.getColumn()), Direction.DOWN);
+        result.put(new GridPosition(actualTile.getRow(), actualTile.getColumn() - 1), Direction.LEFT);
         return result;
     }
 

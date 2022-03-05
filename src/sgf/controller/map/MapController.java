@@ -2,8 +2,8 @@ package sgf.controller.map;
 
 
 import sgf.controller.Controller;
-import sgf.model.GridPosition;
 import sgf.model.Map;
+import sgf.model.GridPosition;
 import sgf.model.Position;
 import sgf.view.MapView;
 

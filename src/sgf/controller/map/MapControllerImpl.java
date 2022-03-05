@@ -1,8 +1,8 @@
 package sgf.controller.map;
 
-import sgf.model.GridPosition;
 import sgf.model.ImgTileSize;
 import sgf.model.Map;
+import sgf.model.GridPosition;
 import sgf.model.Position;
 import sgf.utilities.MapLoader;
 import sgf.utilities.MapLoaderImpl;
@@ -43,6 +43,6 @@ public class MapControllerImpl implements MapController {
 
     @Override
     public GridPosition convertToGridPosition(final Position position) {
-        return new GridPosition((int) position.getX() / cellSize, (int) position.getY() / cellSize);
+        return new GridPosition((int) position.getY() / cellSize, (int) position.getX() / cellSize);
     }
 }

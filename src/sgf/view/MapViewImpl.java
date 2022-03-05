@@ -12,9 +12,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import sgf.controller.loading.TileImageController;
 import sgf.controller.map.MapController;
-import sgf.model.GridPosition;
 import sgf.model.ImgTileSize;
 import sgf.model.Map;
+import sgf.model.GridPosition;
 
 /**
  * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
@@ -55,7 +55,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
         final Graphics g = completeMap.getGraphics();
         for (int row = 0; row < matrixSize; row++) {
             for (int column = 0; column < matrixSize; column++) {
-                final Image i = tileController.getImage(this.map.getTileFromGridPosition(new GridPosition(column, row)));
+                final Image i = tileController.getImage(this.map.getTileFromGridPosition(new GridPosition(row, column)));
                 g.drawImage(i, column * this.tileSize, row *  this.tileSize,  this.tileSize,  this.tileSize, null);
             }
         }
@@ -87,7 +87,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
             final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
             final int gridRow = this.convertCoordinate(e.getY(), this.getHeight());
             System.err.println(gridRow + ": " + gridColumn);
-            System.out.println(this.map.getTileFromGridPosition(new GridPosition(gridColumn, gridRow)).getTileType());
+            System.out.println(this.map.getTileFromGridPosition(new GridPosition(gridRow, gridColumn)).getTileType());
         }
     }
 

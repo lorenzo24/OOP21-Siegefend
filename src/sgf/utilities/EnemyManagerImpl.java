@@ -4,8 +4,8 @@ import java.util.Optional;
 import sgf.controller.map.MapController;
 import sgf.model.Direction;
 import sgf.model.Enemy;
-import sgf.model.GridPosition;
 import sgf.model.ImgTileSize;
+import sgf.model.GridPosition;
 import sgf.model.Position;
 
 /**
