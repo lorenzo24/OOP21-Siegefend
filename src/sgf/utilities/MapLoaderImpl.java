@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import sgf.model.Direction;
 import sgf.model.Map;
 import sgf.model.MapImpl;
@@ -88,19 +91,19 @@ public class MapLoaderImpl implements MapLoader {
 
     // Method that, by observing the path, fill the field Direction of the path tiles.
     private void findMovementPath() {
-        GridPosition actualTile = this.map.getStartTile();
-        final List<GridPosition> alreadyChecked = new ArrayList<>();    // Contains the tiles already checked, so that we can ignore them.
+        GridPosition currentTile = this.map.getStartTile();
+        final Set<GridPosition> tilesAlreadyChecked = new HashSet<>();    // Contains the tiles already checked, so that we can ignore them.
         Direction lastDirection = null; // It saves the last direction set, so we can have the direction also for the very last tile of the path.
 
         // For every tile of the path we check its neighbors to find which one is path. Then, by a simple compare we can set up the field direction of ebery path tile.
-        while (!actualTile.equals(this.map.getEndTile())) {
-            for (final var neighbor : this.findNeighbors(actualTile).entrySet()) {
+        while (!currentTile.equals(this.map.getEndTile())) {
+            for (final var neighbor : this.findNeighbors(currentTile).entrySet()) {
                 // For every neighbor tile that has not been already checked we check if its type is Path.
-                if (!alreadyChecked.contains(neighbor.getKey()) && this.checkIfIsPath(neighbor.getKey())) {
+                if (!tilesAlreadyChecked.contains(neighbor.getKey()) && this.isPath(neighbor.getKey())) {
                     // We found the next tile. So we have to set the direction of the current tile and update the list of already checked tiles.
-                    this.map.getTiles().get(actualTile).setDirection(neighbor.getValue());
-                    alreadyChecked.add(actualTile);
-                    actualTile = neighbor.getKey();
+                    this.map.getTiles().get(currentTile).setDirection(neighbor.getValue());
+                    tilesAlreadyChecked.add(currentTile);
+                    currentTile = neighbor.getKey();
                     lastDirection = neighbor.getValue();
                     break;
                 }
@@ -120,7 +123,7 @@ public class MapLoaderImpl implements MapLoader {
     }
 
     // Method that check if a given grid position is acceptable (in matrix size limits) and if it corresponds to a path tile.
-    private boolean checkIfIsPath(final GridPosition neighbour) {
+    private boolean isPath(final GridPosition neighbour) {
         if (neighbour.getRow() < 0 || neighbour.getColumn() < 0 || neighbour.getRow() >= this.map.getMapSize() 
                 || neighbour.getColumn() >= this.map.getMapSize()) {    // If given grid position not into the map's size limits.
             return false;
