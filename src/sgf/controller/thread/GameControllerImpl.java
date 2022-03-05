@@ -1,13 +1,6 @@
 package sgf.controller.thread;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import sgf.controller.map.MapFileLoader;
-import sgf.model.Enemy;
-import sgf.model.EnemyImpl;
-import sgf.model.EnemyType;
-import sgf.model.Position;
+import sgf.view.AbstractGameView;
 import sgf.view.GameView;
 
 /**
@@ -15,30 +8,9 @@ import sgf.view.GameView;
  * The goal of this class is to manage the whole game thread.
  */
 public class GameControllerImpl implements GameController {
-    private GameView gameView;
-    private final MapFileLoader mapLoader;
+    private AbstractGameView gameView;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
-    private final List<Enemy> enemyList = new ArrayList<>(); // TO DELETE
-    private final EnemyThreadController enemyThread; // TO DELETE
     private boolean isControllerSet;
-
-
-    /**
-     * Constructor that starts the thread.
-     */
-    public GameControllerImpl() {
-        this.mapLoader = new MapFileLoader(1);       // Loads the correct map according to the current level.
-        this.fillEnemyList(); // TO DELETE
-        this.enemyThread = new EnemyThreadController(this.enemyList); // TO DELETE
-        this.startGameThread();
-    }
-
-    private void fillEnemyList() { // TO DELETE
-        this.enemyList.add(new EnemyImpl(0, new Position(20, 20), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(50, 50), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(80, 80), 100, 100, EnemyType.TANK));
-        this.enemyList.add(new EnemyImpl(0, new Position(110, 110), 100, 100, EnemyType.TANK));
-    }
 
     private void startGameThread() {
         final Thread gameThread = new Thread(new Runnable() {
@@ -79,8 +51,13 @@ public class GameControllerImpl implements GameController {
     @Override
     public void setView(final GameView view) {
         if (!isControllerSet) {
-            this.isControllerSet = true;
-            this.gameView = view;
+            if (view instanceof AbstractGameView) {
+                this.isControllerSet = true;
+                this.gameView = (AbstractGameView) view;
+                this.startGameThread();
+            } else {
+                throw new IllegalArgumentException("Argument must be subclass of AbstractGameView");
+            }
         }
     }
 }

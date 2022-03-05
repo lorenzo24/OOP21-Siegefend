@@ -1,6 +1,6 @@
-package sgf.view;
+package sgf.controller;
 
-import sgf.controller.Controller;
+import sgf.view.EnemyView;
 
 /**
  *

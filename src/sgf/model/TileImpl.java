@@ -7,16 +7,15 @@ import java.util.Optional;
  */
 public class TileImpl implements Tile {
     private final TileType tileType;    // Type of the tile (grass, water, path...).
-    private final Optional<Direction> tileDirection;
+    private Optional<Direction> tileDirection;
 
     /**
      * Constructor for the creation of a {@link Tile}.
      * @param tileType Is the type that describes the tile.
-     * @param tileDirection Describes in which {@link Direction} must proceed the {@link Enemy}'s movement.
      */
-    public TileImpl(final TileType tileType, final Optional<Direction> tileDirection) {
+    public TileImpl(final TileType tileType) {
         this.tileType = tileType;
-        this.tileDirection = tileDirection;
+        this.tileDirection = Optional.empty();
     }
 
     @Override
@@ -32,5 +31,10 @@ public class TileImpl implements Tile {
     @Override
     public boolean canContainTurret() {
         return this.tileType == TileType.GRASS;
+    }
+
+    @Override
+    public void setDirection(final Direction direction) {
+        this.tileDirection = Optional.of(direction);
     }
 }

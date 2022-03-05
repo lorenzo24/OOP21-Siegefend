@@ -1,5 +1,10 @@
 package sgf.utilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import sgf.controller.EnemyController;
+import sgf.controller.EnemyControllerImpl;
 import sgf.controller.PlayingController;
 import sgf.controller.PlayingControllerImpl;
 import sgf.controller.ShopController;
@@ -8,18 +13,15 @@ import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.thread.GameController;
 import sgf.controller.thread.GameControllerImpl;
+import sgf.model.Enemy;
 import sgf.model.Map;
 import sgf.view.AbstractEnemyView;
 import sgf.view.AbstractGameView;
 import sgf.view.AbstractMapView;
 import sgf.view.AbstractPlayingView;
 import sgf.view.AbstractShopView;
-import sgf.view.EnemyController;
-import sgf.view.EnemyView;
 import sgf.view.EnemyViewImpl;
-import sgf.view.GameView;
 import sgf.view.GameViewImpl;
-import sgf.view.MapView;
 import sgf.view.MapViewImpl;
 import sgf.view.PlayingViewImpl;
 import sgf.view.ScreenGame;
@@ -44,18 +46,17 @@ public final class AppStart {
         final PlayerManager playerManager = null;
         final LevelManager levelManager = null;
 
-        final MapLoader mapLoader = null;       // TODO: urgent
-        final Map m = mapLoader.getMap();
+        
 
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
 
-        final MapController mapController = new MapControllerImpl();
-        final AbstractMapView mapView = new MapViewImpl(m, CELL_SIZE);
-        final EnemyController enemyController = null;   // TODO: urgent
-        final AbstractEnemyView enemyView = new EnemyViewImpl(m.getMapSize(), CELL_SIZE);
+        final MapController mapController = new MapControllerImpl(CELL_SIZE);
+        final AbstractMapView mapView = new MapViewImpl(mapController.getMap(), CELL_SIZE);
+        final EnemyController enemyController = new EnemyControllerImpl(mapController);
+        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize(), CELL_SIZE);
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager);

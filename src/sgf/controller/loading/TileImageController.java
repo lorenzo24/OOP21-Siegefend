@@ -22,11 +22,11 @@ public class TileImageController extends AbstractImageLoader<TileType> {
 
     /**
      * This method returns the image of a given tile type.
-     * @param type Represents the type of the image we want the sprite.
+     * @param tile Represents the type of the image we want the sprite.
      * @return the image of the specific type of tile.
      */
-    public Image getImage(final Tile type) {
-        return this.imageTileSelector.get(type.getTileType());
+    public Image getImage(final Tile tile) {
+        return this.imageTileSelector.get(tile.getTileType());
     }
 
     @Override

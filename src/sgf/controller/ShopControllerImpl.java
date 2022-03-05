@@ -66,7 +66,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
-    public void setView(ShopView view) {
+    public void setView(final ShopView view) {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.shopView = view;
