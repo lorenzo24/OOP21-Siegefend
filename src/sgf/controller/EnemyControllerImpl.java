@@ -29,7 +29,7 @@ public class EnemyControllerImpl implements EnemyController {
         enemyList.add(new EnemyImpl.Builder(0, EnemyType.TANK)
                 .position(mapController.convertToPosition(mapController.getMap().getStartTile())) // prendere direttamente la posizione iniziale in map controller.
                 .hp(100)
-                .speed(100)
+                .speed(1)
                 .build());
         this.enemyManager = new EnemyManagerImpl(this.enemyList.get(0), mapController);
     }
