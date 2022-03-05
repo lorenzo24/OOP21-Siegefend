@@ -1,6 +1,11 @@
 package sgf.utilities;
+import java.util.Optional;
+
 import sgf.controller.map.MapController;
+import sgf.model.Direction;
 import sgf.model.Enemy;
+import sgf.model.GridPosition;
+import sgf.model.Direction;
 
 /**
  *
@@ -37,8 +42,33 @@ public class EnemyManagerImpl implements EnemyManager {
         });
         gameThread.start();
     }
-    
+
     private void nextMovement() {
-        System.out.println(mapController.convertToGridPosition(enemy.getPosition()));        
+        GridPosition p = mapController.convertToGridPosition(this.enemy.getPosition());
+        Optional<Direction> d = mapController.getMap().getTiles().get(p).getTileDirection();
+        System.out.println(d);
+        this.movement(d);
     }
+
+    private void movement(final Optional<Direction> d) {
+        if (d.isEmpty()) {
+            throw new IllegalStateException();
+        }
+        
+        switch (d.get()) {
+        case UP :
+            enemy.move(enemy.getPosition().getX(), enemy.getPosition().getY() - 1);
+            break;
+        case DOWN :
+            enemy.move(enemy.getPosition().getX(), enemy.getPosition().getY() + 1);
+            break;
+        case LEFT :
+            enemy.move(enemy.getPosition().getX() - 1, enemy.getPosition().getY());
+            break;
+        default:
+            enemy.move(enemy.getPosition().getX() + 1, enemy.getPosition().getY());
+            break;
+        }
+    }
+
 }

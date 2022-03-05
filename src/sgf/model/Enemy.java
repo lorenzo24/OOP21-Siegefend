@@ -42,7 +42,9 @@ public interface Enemy {
     int getID();
 
     /**
-     *  Triggers the enemy to start moving.
+     * Triggers the enemy to start moving.
+     * @param x coordinate.
+     * @param y coordinate.
      */
-    void move();
+    void move(double x, double y);
 }
