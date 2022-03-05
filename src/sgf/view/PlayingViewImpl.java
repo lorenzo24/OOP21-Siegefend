@@ -1,6 +1,9 @@
 package sgf.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import sgf.controller.PlayingController;
 
@@ -30,6 +33,22 @@ public class PlayingViewImpl extends AbstractPlayingView {
         this.setLayout(new BorderLayout());
         this.add(this.gameView, BorderLayout.CENTER);
         this.add(shopView, BorderLayout.SOUTH);
+        this.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentShown(final ComponentEvent e) {}
+
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                final int size = (int) (PlayingViewImpl.this.getSize().getHeight() / 7);
+                PlayingViewImpl.this.shopView.setItemImgSize(new Dimension(size, size));
+            }
+
+            @Override
+            public void componentMoved(final ComponentEvent e) {}
+
+            @Override
+            public void componentHidden(final ComponentEvent e) {}
+        });
     }
 
     @Override

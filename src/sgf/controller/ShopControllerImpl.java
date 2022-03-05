@@ -5,7 +5,7 @@ import java.util.List;
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
-import sgf.utilities.TurretsLoaderImpl;
+import sgf.utilities.SimpleTurretsLoader;
 import sgf.view.ShopView;
 
 /**
@@ -20,11 +20,11 @@ public class ShopControllerImpl implements ShopController {
     private boolean isControllerSet;
     /**
      * Creates a new shop controller instance.
-     * @param gameController the game controller
+     * @param gameManager the game controller
      */
-    public ShopControllerImpl(final GameManager gameController) {
-        this.gameController = gameController;
-        this.turrets = new TurretsLoaderImpl().getTurrets();
+    public ShopControllerImpl(final GameManager gameManager) {
+        this.gameController = gameManager;
+        this.turrets = new SimpleTurretsLoader().getTurrets();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class ShopControllerImpl implements ShopController {
         if (this.selectedTurret != null) {
             this.gameController.getPlayerManager().changeMoney(-this.selectedTurret.getPrice());
             this.selectedTurret = null;
+            this.shopView.enableAll();
             return true;
         }
         return false;

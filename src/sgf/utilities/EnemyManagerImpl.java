@@ -17,7 +17,7 @@ public class EnemyManagerImpl implements EnemyManager {
 
     /**
      * 
-     * @param enemylist
+     * @param enemy
      * @param mapController
      */
     public EnemyManagerImpl(final Enemy enemy, final MapController mapController) {
@@ -46,7 +46,7 @@ public class EnemyManagerImpl implements EnemyManager {
     private void nextMovement() {
         GridPosition p = mapController.convertToGridPosition(this.enemy.getPosition());
         Optional<Direction> d = mapController.getMap().getTiles().get(p).getTileDirection();
-        System.out.println(d);
+        // System.out.println(d);
         this.movement(d);
     }
 

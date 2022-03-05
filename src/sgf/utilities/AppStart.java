@@ -46,8 +46,6 @@ public final class AppStart {
         final PlayerManager playerManager = null;
         final LevelManager levelManager = null;
 
-        
-
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
