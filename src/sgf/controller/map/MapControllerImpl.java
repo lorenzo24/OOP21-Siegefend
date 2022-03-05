@@ -1,6 +1,7 @@
 package sgf.controller.map;
 
 import sgf.model.GridPosition;
+import sgf.model.ImgTileSize;
 import sgf.model.Map;
 import sgf.model.Position;
 import sgf.utilities.MapLoader;
@@ -17,12 +18,11 @@ public class MapControllerImpl implements MapController {
 
     /**
      * Constructor that sets up the screen and also start thread loop.
-     * @param cellSize Is the dimension of a single tile image.
      */
-    public MapControllerImpl(final int cellSize) {
+    public MapControllerImpl() {
         this.mapLoader = new MapLoaderImpl(1);
         this.map = mapLoader.getMap();
-        this.cellSize = cellSize;
+        this.cellSize = ImgTileSize.getTileSize();
     }
 
     @Override

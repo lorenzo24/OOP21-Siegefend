@@ -1,8 +1,4 @@
 package sgf.utilities;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import sgf.controller.EnemyController;
 import sgf.controller.EnemyControllerImpl;
 import sgf.controller.PlayingController;
@@ -13,8 +9,6 @@ import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.thread.GameController;
 import sgf.controller.thread.GameControllerImpl;
-import sgf.model.Enemy;
-import sgf.model.Map;
 import sgf.view.AbstractEnemyView;
 import sgf.view.AbstractGameView;
 import sgf.view.AbstractMapView;
@@ -32,8 +26,6 @@ import sgf.view.ShopViewImpl;
  */
 public final class AppStart {
 
-    private static final int CELL_SIZE = 80;
-
     private AppStart() {
     }
 
@@ -46,17 +38,15 @@ public final class AppStart {
         final PlayerManager playerManager = null;
         final LevelManager levelManager = null;
 
-        
-
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
 
-        final MapController mapController = new MapControllerImpl(CELL_SIZE);
-        final AbstractMapView mapView = new MapViewImpl(mapController.getMap(), CELL_SIZE);
+        final MapController mapController = new MapControllerImpl();
+        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
         final EnemyController enemyController = new EnemyControllerImpl(mapController);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize(), CELL_SIZE);
+        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager);

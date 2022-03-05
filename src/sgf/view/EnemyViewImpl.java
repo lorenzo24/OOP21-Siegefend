@@ -3,6 +3,7 @@ package sgf.view;
 import sgf.controller.EnemyController;
 import sgf.controller.loading.EnemyImageManager;
 import sgf.model.Enemy;
+import sgf.model.ImgTileSize;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,12 +28,11 @@ public class EnemyViewImpl extends AbstractEnemyView {
     /**
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
-     * @param tileSize Is the size of a single tile in the map.
      */
-    public EnemyViewImpl(final int matrixSize, final int tileSize) { // TODO: pass Level instead of first argument(?).
-        this.tileSize = tileSize;
-        this.image = new BufferedImage(matrixSize * tileSize, matrixSize * tileSize, BufferedImage.TYPE_INT_ARGB);
-        this.imageController = new EnemyImageManager(tileSize);
+    public EnemyViewImpl(final int matrixSize) { // TODO: pass Level instead of first argument(?).
+        this.tileSize = ImgTileSize.getTileSize();
+        this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
+        this.imageController = new EnemyImageManager(this.tileSize);
         this.enemyList = new ArrayList<>();
     }
 

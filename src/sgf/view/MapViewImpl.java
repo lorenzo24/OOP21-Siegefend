@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import sgf.controller.loading.TileImageController;
 import sgf.controller.map.MapController;
 import sgf.model.GridPosition;
+import sgf.model.ImgTileSize;
 import sgf.model.Map;
 
 /**
@@ -35,11 +36,10 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
      * @param map The logic map of the current level
-     * @param tileSize the size of a tile's image
      */
-    public MapViewImpl(final Map map, final int tileSize) {
+    public MapViewImpl(final Map map) {
         this.map = map;
-        this.tileSize = tileSize;
+        this.tileSize = ImgTileSize.getTileSize();
         this.matrixSize = map.getMapSize();
         this.mapCreated = false;
         this.completeMap = new BufferedImage(this.matrixSize * this.tileSize, this.matrixSize * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Final map is empty at the beginning.
