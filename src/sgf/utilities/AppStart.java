@@ -9,6 +9,8 @@ import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.thread.GameController;
 import sgf.controller.thread.GameControllerImpl;
+import sgf.model.Level;
+import sgf.model.LevelImpl;
 import sgf.view.AbstractEnemyView;
 import sgf.view.AbstractGameView;
 import sgf.view.AbstractMapView;
@@ -36,7 +38,10 @@ public final class AppStart {
     public static void main(final String[] args) {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
-        final LevelManager levelManager = null;
+        
+        //final Level level = new LevelImpl();
+        
+        final LevelManager levelManager = new LevelManagerImpl();
 
         /*
          * At the start only the menu, settings and levels view will be created.

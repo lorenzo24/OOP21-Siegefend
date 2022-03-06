@@ -26,7 +26,7 @@ public class EnemyControllerImpl implements EnemyController {
      */
     public EnemyControllerImpl(final MapController mapController) {
         this.enemyList = new ArrayList<>();
-        enemyList.add(new EnemyImpl.Builder(0, EnemyType.TANK)
+        enemyList.add(new EnemyImpl.Builder(0, EnemyType.HELICOPTER)
                 .position(mapController.convertToPosition(mapController.getMap().getStartTile())) // prendere direttamente la posizione iniziale in map controller.
                 .hp(100)
                 .speed(1)

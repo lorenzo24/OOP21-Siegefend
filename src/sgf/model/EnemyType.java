@@ -7,5 +7,9 @@ public enum EnemyType {
     /**
      * Denotes the type tank.
      */
-    TANK;
+    TANK,
+    /**
+     * Denotes the type elicopter.
+     */
+    HELICOPTER
 }
