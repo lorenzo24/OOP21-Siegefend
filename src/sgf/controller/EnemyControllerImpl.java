@@ -1,13 +1,11 @@
 package sgf.controller;
-import java.util.ArrayList;
 import java.util.List;
 
 import sgf.controller.map.MapController;
 import sgf.model.Enemy;
-import sgf.model.EnemyImpl;
-import sgf.model.EnemyType;
 import sgf.utilities.EnemyManager;
 import sgf.utilities.EnemyManagerImpl;
+import sgf.utilities.LevelManager;
 import sgf.view.EnemyView;
 
 /**
@@ -19,18 +17,15 @@ public class EnemyControllerImpl implements EnemyController {
     private EnemyView enemyView;
     private List<Enemy> enemyList;
     private final EnemyManager enemyManager;
+    private final LevelManager levelManager;
 
     /**
      * 
      * @param mapController
+     * @param levelManager
      */
-    public EnemyControllerImpl(final MapController mapController) {
-        this.enemyList = new ArrayList<>();
-        enemyList.add(new EnemyImpl.Builder(0, EnemyType.HELICOPTER)
-                .position(mapController.convertToPosition(mapController.getMap().getStartTile())) // prendere direttamente la posizione iniziale in map controller.
-                .hp(100)
-                .speed(1)
-                .build());
+    public EnemyControllerImpl(final MapController mapController, final LevelManager levelManager) {
+        this.levelManager = levelManager;
         this.enemyManager = new EnemyManagerImpl(this.enemyList.get(0), mapController);
     }
 

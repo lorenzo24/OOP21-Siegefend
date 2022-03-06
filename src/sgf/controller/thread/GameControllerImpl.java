@@ -16,16 +16,7 @@ public class GameControllerImpl implements GameController {
         final Thread gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                int ups = 0;    // Updates per second.
-                long lastTime = System.currentTimeMillis();
                 while (threadRun) {
-                    // Print how many updates has been done in 1 second.
-                    if (System.currentTimeMillis() - lastTime >= 1000) {
-                        System.out.print("UPS:" + ups + "\n");
-                        ups = 0;
-                        lastTime = System.currentTimeMillis();
-                    }
-                    ups++;
                     try {
                         gameView.update();
                         Thread.sleep(100);

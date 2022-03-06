@@ -13,9 +13,19 @@ import sgf.model.Wave;
  */
 public class LevelManagerImpl implements LevelManager {
 
-    @Override
-    public void startLevel(Level l) {
+    private final Level level; 
 
+    /**
+     * 
+     * @param level
+     */
+    public LevelManagerImpl(final Level level) {
+        this.level = level;
+    }
+
+    @Override
+    public void startLevel() {
+        // DELETE
     }
 
     @Override
@@ -61,15 +71,15 @@ public class LevelManagerImpl implements LevelManager {
     }
 
     @Override
-    public void spawnNextEnemy() {
+    public Optional<Enemy> getNextEnemy() {
         // TODO Auto-generated method stub
-
+        return null;
     }
 
     @Override
-    public void removeEnemy(Enemy e) {
+    public boolean hasNextEnemy() {
         // TODO Auto-generated method stub
-
+        return false;
     }
 
 }

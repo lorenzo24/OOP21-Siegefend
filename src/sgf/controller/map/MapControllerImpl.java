@@ -12,16 +12,14 @@ import sgf.view.MapView;
  * This class is responsible for the map's multithreading management and also to show it.
  */
 public class MapControllerImpl implements MapController {
-    private final MapLoader mapLoader;
     private final Map map;
     private final int cellSize;
 
     /**
      * Constructor that sets up the screen and also start thread loop.
      */
-    public MapControllerImpl() {
-        this.mapLoader = new MapLoaderImpl(1);
-        this.map = mapLoader.getMap();
+    public MapControllerImpl(final Map map) {
+        this.map = map;
         this.cellSize = ImgTileSize.getTileSize();
     }
 

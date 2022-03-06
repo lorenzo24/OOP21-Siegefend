@@ -13,9 +13,8 @@ import sgf.model.Wave;
 public interface LevelManager {
     /**
      * Starts the game using the given {@link Level}.
-     * @param l the level to start
      */
-    void startLevel(Level l);
+    void startLevel();
 
     /**
      * Returns a list containing all the waves in the level.
@@ -59,17 +58,18 @@ public interface LevelManager {
      */
     boolean hasNextWave();
 
+
     /**
      * Triggers the spawning of a new {@link Enemy}, using the informations in the current wave.
+     * @return the next enemy.
      */
-    void spawnNextEnemy();
+    Optional<Enemy> getNextEnemy();
 
     /**
-     * Removes an enemy from the field.
-     * @param e the enemy to remove
+     * Checks if there is a next {@link Wave} in the level.
+     * @return {@code true} if a wave is present, {@code false} otherwise
      */
-    void removeEnemy(Enemy e);
-
+    boolean hasNextEnemy();
     // spawnNextEnemy and removeEnemy may not be needed here, but rather the GameController can ask for the next
     // enemy to spawn and handle the rest.
     // Optional<Enemy> getNextEnemy();

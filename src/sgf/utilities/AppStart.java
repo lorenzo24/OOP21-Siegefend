@@ -1,4 +1,6 @@
 package sgf.utilities;
+import java.util.List;
+
 import sgf.controller.EnemyController;
 import sgf.controller.EnemyControllerImpl;
 import sgf.controller.PlayingController;
@@ -11,6 +13,8 @@ import sgf.controller.thread.GameController;
 import sgf.controller.thread.GameControllerImpl;
 import sgf.model.Level;
 import sgf.model.LevelImpl;
+import sgf.model.Map;
+import sgf.model.Wave;
 import sgf.view.AbstractEnemyView;
 import sgf.view.AbstractGameView;
 import sgf.view.AbstractMapView;
@@ -38,19 +42,21 @@ public final class AppStart {
     public static void main(final String[] args) {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
-        
-        //final Level level = new LevelImpl();
-        
-        final LevelManager levelManager = new LevelManagerImpl();
+
+        final Map map = new MapLoaderImpl(1).getMap();
+        final MapController mapController = new MapControllerImpl(map);
+        final List<Wave> waves = new WavesLoaderImpl(mapController).getWaves();
+        // Carica ondate tramite classe.
+
+        final Level level = new LevelImpl(waves, map);
+        final LevelManager levelManager = new LevelManagerImpl(level);
 
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
-
-        final MapController mapController = new MapControllerImpl();
         final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
-        final EnemyController enemyController = new EnemyControllerImpl(mapController);
+        final EnemyController enemyController = new EnemyControllerImpl(mapController, levelManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
