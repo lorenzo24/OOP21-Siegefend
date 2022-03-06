@@ -1,5 +1,6 @@
 package sgf.utilities;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,78 +9,73 @@ import sgf.model.Level;
 import sgf.model.Wave;
 
 /**
- * 
- *
+ * Manager of one level it say what is the next wave and the next enemy of the single wave.
  */
 public class LevelManagerImpl implements LevelManager {
 
-    private final Level level; 
+    private final Level level;
+    private final List<Wave> waveList;
+    private final Iterator<Wave> waveIter;
+    private Iterator<Enemy> enemyIter;
+    private Optional<Wave> currentWave;
 
     /**
-     * 
-     * @param level
+     * Initialize the fild for the single level. 
+     * @param level Is the current level.
      */
     public LevelManagerImpl(final Level level) {
         this.level = level;
-    }
-
-    @Override
-    public void startLevel() {
-        // DELETE
+        this.waveList = level.getWaves();
+        waveIter = waveList.iterator();
     }
 
     @Override
     public List<Wave> getWaves() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.level.getWaves();
     }
 
     @Override
     public int getTotalWaves() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.waveList.size();
     }
 
     @Override
     public Level getCurrentLevel() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.level;
     }
 
     @Override
     public Wave getCurrentWave() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public int getCurrentWaveNumber() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.currentWave.get();
     }
 
     @Override
     public Optional<Wave> getNextWave() {
-        // TODO Auto-generated method stub
-        return null;
+        if (waveIter.hasNext()) {
+            this.currentWave = Optional.of(this.waveIter.next());
+            this.enemyIter = this.getCurrentWave().getEnemies().iterator();
+        } else {
+            this.currentWave = Optional.empty();
+        }
+        return this.currentWave;
     }
 
     @Override
     public boolean hasNextWave() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.waveIter.hasNext();
     }
 
     @Override
     public Optional<Enemy> getNextEnemy() {
-        // TODO Auto-generated method stub
-        return null;
+        if (this.hasNextEnemy()) {
+            return Optional.of(this.enemyIter.next());
+        }
+        return Optional.empty(); 
+
     }
 
     @Override
     public boolean hasNextEnemy() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.enemyIter.hasNext();
     }
-
 }

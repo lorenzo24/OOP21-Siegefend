@@ -3,7 +3,7 @@ package sgf.model;
 import java.util.List;
 
 /**
- *
+ * Wave class.
  */
 public class WaveImpl implements Wave {
 
@@ -11,7 +11,7 @@ public class WaveImpl implements Wave {
     private int enemiesCount;
 
     /**
-     * 
+     * Initialize the thi list of enemies.
      * @param enemies
      */
     public WaveImpl(final List<Enemy> enemies) {

@@ -11,11 +11,7 @@ import sgf.model.Wave;
  * Handles levels and their continuation.
  */
 public interface LevelManager {
-    /**
-     * Starts the game using the given {@link Level}.
-     */
-    void startLevel();
-
+    
     /**
      * Returns a list containing all the waves in the level.
      * @return a list containing all the waves in the level
@@ -44,7 +40,7 @@ public interface LevelManager {
      * Returns the number of the wave currently being played.
      * @return the number of the wave currently being played
      */
-    int getCurrentWaveNumber();
+    /*int getCurrentWaveNumber();*/
 
     /**
      * Checks if there is a next {@link Wave} and returns it.

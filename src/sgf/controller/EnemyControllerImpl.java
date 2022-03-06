@@ -16,7 +16,7 @@ public class EnemyControllerImpl implements EnemyController {
     private boolean isControllerSet;
     private EnemyView enemyView;
     private List<Enemy> enemyList;
-    private final EnemyManager enemyManager;
+    //private final EnemyManager enemyManager;
     private final LevelManager levelManager;
 
     /**
@@ -26,7 +26,7 @@ public class EnemyControllerImpl implements EnemyController {
      */
     public EnemyControllerImpl(final MapController mapController, final LevelManager levelManager) {
         this.levelManager = levelManager;
-        this.enemyManager = new EnemyManagerImpl(this.enemyList.get(0), mapController);
+        //this.enemyManager = new EnemyManagerImpl(null, mapController);
     }
 
     @Override
