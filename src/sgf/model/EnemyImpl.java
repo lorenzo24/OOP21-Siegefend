@@ -9,7 +9,7 @@ public class EnemyImpl implements Enemy {
     private double hp;
     private double speed;
     private final EnemyType enemyType;
-    private double completionPercentage = 0; // To be implemented soon.
+    private boolean win; // To be implemented soon.
 
     /**
      * Constructor for an enemy.
@@ -42,8 +42,13 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public double getCompletionPercentage() {
-        return this.completionPercentage;
+    public boolean isWin() {
+        return this.win;
+    }
+
+    @Override
+    public void setWin(final boolean win) {
+        this.win = win;
     }
 
     @Override

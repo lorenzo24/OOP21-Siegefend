@@ -14,6 +14,7 @@ import sgf.model.Position;
 public class EnemyManagerImpl implements EnemyManager {
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
+    private boolean win;
     private final Enemy enemy;
     private final MapController mapController;
     private int stepsDone;
@@ -53,6 +54,8 @@ public class EnemyManagerImpl implements EnemyManager {
         final double y = this.enemy.getPosition().getY();
         if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) {
             this.threadRun = false;
+            this.enemy.setWin(true);
+            this.win = true;
         }
     }
 
@@ -107,6 +110,11 @@ public class EnemyManagerImpl implements EnemyManager {
         default:
             throw new IllegalArgumentException("Enemy direction not correct");
         }
+    }
+
+    @Override
+    public boolean isWin() {
+        return this.win;
     }
 
     @Override

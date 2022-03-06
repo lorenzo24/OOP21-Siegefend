@@ -11,7 +11,7 @@ import sgf.model.Wave;
 import sgf.model.WaveImpl;
 
 /**
- *
+ * Loads waves from file.
  */
 public class WavesLoaderImpl implements WavesLoader {
 
@@ -28,15 +28,16 @@ public class WavesLoaderImpl implements WavesLoader {
     }
 
     private void generateWave() {
-        final List<Enemy> list = new ArrayList<>();
+        List<Enemy> list = new ArrayList<>();
         list.add(new EnemyImpl(1, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
         list.add(new EnemyImpl(2, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.HELICOPTER));
         list.add(new EnemyImpl(3, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
-        list.add(new EnemyImpl(4, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.HELICOPTER));
-        waves.add(new WaveImpl(List.copyOf(list)));
-        waves.add(new WaveImpl(List.copyOf(list)));
-        waves.add(new WaveImpl(List.copyOf(list)));
-
+        waves.add(new WaveImpl(list));
+        list = new ArrayList<>();
+        list.add(new EnemyImpl(1, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
+        list.add(new EnemyImpl(2, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.HELICOPTER));
+        list.add(new EnemyImpl(3, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
+        waves.add(new WaveImpl(list));
     }
 
     @Override

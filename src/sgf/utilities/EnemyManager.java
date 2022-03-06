@@ -14,4 +14,10 @@ public interface EnemyManager {
      * Restarts the thread.
      */
     void resumeThread();
+
+    /**
+     * If the enemy is arrived at the end of the path.
+     * @return if the enemy is arrived at the end.
+     */
+    boolean isWin();
 }

@@ -18,10 +18,16 @@ public interface Enemy {
     double getHP();
 
     /**
-     * Returns how much of the route has already been covered by the enemy.
-     * @return the percentage of the completed route
+     * Returns If an enemy has reached the path destination.
+     * @return If an enemy has reached the path destination.
      */
-    double getCompletionPercentage();
+    boolean isWin();
+
+    /**
+     * Set when an enemy win.
+     * @param win set the field true.
+     */
+    void setWin(boolean win);
 
     /**
      * Returns the speed at which the enemy moves on the map.
