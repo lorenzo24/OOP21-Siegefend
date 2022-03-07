@@ -36,7 +36,6 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public int getTotalWaves() {
-        
         return this.waveList.size();
     }
 
@@ -68,13 +67,10 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public Optional<Enemy> getNextEnemy() {
-        System.out.print("Ciao");
         if (this.hasNextEnemy()) {
-            
             return Optional.of(this.enemyIter.next());
         }
         return Optional.empty(); 
-
     }
 
     @Override
