@@ -8,7 +8,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+
 import sgf.controller.map.MapController;
+import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
 import sgf.model.enemies.Enemy;
@@ -21,28 +24,27 @@ import sgf.model.enemies.Tank;
 public class WavesLoaderImpl implements WavesLoader {
 
     private final MapController mapController;
+    private final Position startPosition;
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
-    
 
     /**
-     * 
+     * ciao.
      * @param mapController
+     * @param levelId
      */
     public WavesLoaderImpl(final MapController mapController, final int levelId) {
         this.waveEnemies = new ArrayList<>();
         this.mapController = mapController;
+        this.startPosition = this.mapController.convertToPosition(mapController.getMap().getStartTile());
         this.generateWave(levelId);
     }
 
     private void generateWave(final int levelId) {
-        
-        
         final String file = "res" + File.separator + "level" + levelId + ".txt";
         final Path p = FileSystems.getDefault().getPath(file);
         try {
             Files.lines(p).forEach(x -> read(x));
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,20 +58,17 @@ public class WavesLoaderImpl implements WavesLoader {
     }
 
     private void addEnemyToWave(final String enemy) {
-        
         // Pensare se al posto dello switch usare mappa <Integer, EnemyType>.
         switch (enemy) {
         case "1":
-            
-            this.waveEnemies.add(new Tank(mapController.convertToPosition(mapController.getMap().getStartTile())));
+            this.waveEnemies.add(new Tank(startPosition));
             break;
         case "2":
-            this.waveEnemies.add(new Helicopter(mapController.convertToPosition(mapController.getMap().getStartTile())));
+            this.waveEnemies.add(new Helicopter(startPosition));
             break;
         default:
             break;
         }
-        
     }
 
     @Override
