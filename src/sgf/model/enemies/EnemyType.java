@@ -11,5 +11,5 @@ public enum EnemyType {
     /**
      * Denotes the type elicopter.
      */
-    HELICOPTER
+    PLANE
 }

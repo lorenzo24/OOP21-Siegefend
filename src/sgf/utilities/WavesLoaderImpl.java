@@ -15,7 +15,7 @@ import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
 import sgf.model.enemies.Enemy;
-import sgf.model.enemies.Helicopter;
+import sgf.model.enemies.Plane;
 import sgf.model.enemies.Tank;
 
 /**
@@ -64,7 +64,7 @@ public class WavesLoaderImpl implements WavesLoader {
             this.waveEnemies.add(new Tank(startPosition));
             break;
         case "2":
-            this.waveEnemies.add(new Helicopter(startPosition));
+            this.waveEnemies.add(new Plane(startPosition));
             break;
         default:
             break;

@@ -30,8 +30,8 @@ public class PathLinkerImpl implements PathLinker {
     }
 
     private void createEnemyMap() {
-        this.mapEnemy.put(EnemyType.TANK, "tank.png");
-        this.mapEnemy.put(EnemyType.HELICOPTER, "helicopter.jpg");
+        this.mapEnemy.put(EnemyType.TANK, "tank2.png");
+        this.mapEnemy.put(EnemyType.PLANE, "plane.png");
 
     }
 
