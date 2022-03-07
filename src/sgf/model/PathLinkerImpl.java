@@ -3,6 +3,8 @@ package sgf.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import sgf.model.enemies.EnemyType;
+
 /**
  * This class is the implementation of the interface PathLinker, which links some entities with images path name.
  */

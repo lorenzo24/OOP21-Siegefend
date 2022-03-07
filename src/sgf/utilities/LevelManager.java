@@ -3,15 +3,15 @@ package sgf.utilities;
 import java.util.List;
 import java.util.Optional;
 
-import sgf.model.Enemy;
 import sgf.model.Level;
 import sgf.model.Wave;
+import sgf.model.enemies.Enemy;
 
 /**
  * Handles levels and their continuation.
  */
 public interface LevelManager {
-    
+
     /**
      * Returns a list containing all the waves in the level.
      * @return a list containing all the waves in the level

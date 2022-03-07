@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 
-import sgf.model.EnemyType;
+import sgf.model.enemies.EnemyType;
 
 /**
  * This class loads enemy images.

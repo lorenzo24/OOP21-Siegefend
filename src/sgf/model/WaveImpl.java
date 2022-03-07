@@ -2,6 +2,8 @@ package sgf.model;
 
 import java.util.List;
 
+import sgf.model.enemies.Enemy;
+
 /**
  * Wave class.
  */

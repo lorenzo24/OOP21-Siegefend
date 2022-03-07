@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import sgf.model.Enemy;
 import sgf.model.Level;
 import sgf.model.Wave;
+import sgf.model.enemies.Enemy;
 
 /**
  * Manager of one level it say what is the next wave and the next enemy of the single wave.

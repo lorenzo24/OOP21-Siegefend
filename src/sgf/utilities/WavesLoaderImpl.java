@@ -2,13 +2,12 @@ package sgf.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.controller.map.MapController;
-import sgf.model.Enemy;
-import sgf.model.EnemyImpl;
-import sgf.model.EnemyType;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
+import sgf.model.enemies.Enemy;
+import sgf.model.enemies.Helicopter;
+import sgf.model.enemies.Tank;
 
 /**
  * Loads waves from file.
@@ -29,14 +28,15 @@ public class WavesLoaderImpl implements WavesLoader {
 
     private void generateWave() {
         List<Enemy> list = new ArrayList<>();
-        list.add(new EnemyImpl(1, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
-        list.add(new EnemyImpl(2, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.HELICOPTER));
-        list.add(new EnemyImpl(3, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
+        
+        list.add(new Tank(mapController.convertToPosition(mapController.getMap().getStartTile())));
+        list.add(new Helicopter(mapController.convertToPosition(mapController.getMap().getStartTile())));
+        list.add(new Tank(mapController.convertToPosition(mapController.getMap().getStartTile())));
         waves.add(new WaveImpl(list));
         list = new ArrayList<>();
-        list.add(new EnemyImpl(1, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
-        list.add(new EnemyImpl(2, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.HELICOPTER));
-        list.add(new EnemyImpl(3, mapController.convertToPosition(mapController.getMap().getStartTile()), 100, 1, EnemyType.TANK));
+        list.add(new Helicopter(mapController.convertToPosition(mapController.getMap().getStartTile())));
+        list.add(new Tank(mapController.convertToPosition(mapController.getMap().getStartTile())));
+        list.add(new Tank(mapController.convertToPosition(mapController.getMap().getStartTile())));
         waves.add(new WaveImpl(list));
     }
 

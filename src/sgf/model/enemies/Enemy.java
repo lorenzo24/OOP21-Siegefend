@@ -1,4 +1,6 @@
-package sgf.model;
+package sgf.model.enemies;
+
+import sgf.model.Position;
 
 /**
  * Represents an enemy that can spawn on the map.
@@ -40,12 +42,6 @@ public interface Enemy {
      * @return the enemy type.
      */
     EnemyType getEnemyType();
-
-    /**
-     * Returns the enemy id.
-     * @return the enemy id.
-     */
-    int getID();
 
     /**
      * Triggers the enemy to start moving.

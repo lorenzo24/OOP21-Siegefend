@@ -1,12 +1,11 @@
 package sgf.utilities;
 import java.util.Optional;
-
 import sgf.controller.map.MapController;
 import sgf.model.Direction;
-import sgf.model.Enemy;
 import sgf.model.ImgTileSize;
 import sgf.model.GridPosition;
 import sgf.model.Position;
+import sgf.model.enemies.Enemy;
 
 /**
  * Class that manage each single enemy.
@@ -39,7 +38,7 @@ public class EnemyManagerImpl implements EnemyManager {
                     try {
                         nextMovement();
                         checkFinalDestination();
-                        Thread.sleep(1);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

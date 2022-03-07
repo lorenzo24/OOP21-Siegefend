@@ -1,4 +1,4 @@
-package sgf.model;
+package sgf.model.enemies;
 
 /**
  * Enumeration that denotes the possible enemy types.

@@ -5,9 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import sgf.model.Enemy;
 import sgf.model.Position;
 import sgf.model.Turret;
+import sgf.model.enemies.Enemy;
 
 /**
  *

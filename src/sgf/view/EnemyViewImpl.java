@@ -2,8 +2,8 @@ package sgf.view;
 
 import sgf.controller.EnemyController;
 import sgf.controller.loading.EnemyImageManager;
-import sgf.model.Enemy;
 import sgf.model.ImgTileSize;
+import sgf.model.enemies.Enemy;
 
 import java.awt.Color;
 import java.awt.Graphics;

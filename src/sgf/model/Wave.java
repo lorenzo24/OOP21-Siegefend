@@ -2,6 +2,8 @@ package sgf.model;
 
 import java.util.List;
 
+import sgf.model.enemies.Enemy;
+
 /**
  * Representation of a group of {@link Enemy} objects.
  */

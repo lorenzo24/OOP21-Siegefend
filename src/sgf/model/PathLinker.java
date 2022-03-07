@@ -1,5 +1,7 @@
 package sgf.model;
 
+import sgf.model.enemies.EnemyType;
+
 /**
  * This interfaces links every type (both of enemy and tile) to the correspondent image file in the res folder.
  */

@@ -1,9 +1,8 @@
 package sgf.view;
 
 import java.util.List;
-
 import sgf.controller.EnemyController;
-import sgf.model.Enemy;
+import sgf.model.enemies.Enemy;
 
 /**
  * 

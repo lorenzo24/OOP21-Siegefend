@@ -1,9 +1,8 @@
 package sgf.controller;
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.controller.map.MapController;
-import sgf.model.Enemy;
+import sgf.model.enemies.Enemy;
 import sgf.utilities.EnemyManager;
 import sgf.utilities.EnemyManagerImpl;
 import sgf.utilities.LevelManager;
@@ -73,7 +72,7 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     private void loadNextEnemy() {
-        final Enemy enemy = this.levelManager.getNextEnemy().get();
+        final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
         this.enemyList.add(enemy);
         this.managerList.add(new EnemyManagerImpl(enemy, this.mapController));
     }
