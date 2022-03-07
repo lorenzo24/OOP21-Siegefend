@@ -1,10 +1,11 @@
 package sgf.utilities;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,7 @@ public class MapLoaderImpl implements MapLoader {
     // Two boolean variable to check if the given map has a start and a end.
     private boolean isSetStart;
     private boolean isSetEnd;
+    private int mapRows;
 
     /**
      * Simple constructor.
@@ -38,6 +40,7 @@ public class MapLoaderImpl implements MapLoader {
         this.createLinks();
         this.readMapStructureFromFile(levelId); // Methods that reads map structure from file and create the map.
         this.findMovementPath();        // Method that fills the field Direction in every tile.
+        this.mapRows = 0;
     }
 
     @Override
@@ -56,37 +59,35 @@ public class MapLoaderImpl implements MapLoader {
 
     // This method is the file effective reader.
     private void readMapStructureFromFile(final int levelId) {
-        String lineRead;
-        // The method start trying to open the map file with the structure.
-        try (BufferedReader reader = new BufferedReader(new FileReader("res" + File.separator + "mapLevel" + levelId + ".txt"))) {
-            this.map.setMapSize(Integer.parseInt(reader.readLine()));   // The first line of the file denotes the grid size.
-
-            // Read all the next lines.
-            for (int row = 0; row < this.map.getMapSize(); row++) {
-                lineRead = reader.readLine();
-                if (lineRead != null) {
-                    // Each line has to be splitted by space in order to obtain all the single values.
-                    final String[] splitted = lineRead.split("\\s+");
-                    for (int column = 0; column < splitted.length; column++) {
-                        // At the end, the method adds a new element (GridPosition and correspondent Tile) into the effective map.
-                        final int valueRead = Integer.parseInt(splitted[column]);
-                        if (valueRead == 3) {
-                            this.map.setStartTile(row, column);
-                            this.isSetStart = true;
-                        } else if (valueRead == 4) {
-                            this.map.setEndTile(row, column);
-                            this.isSetEnd = true;
-                        }
-                        this.map.getTiles().put(new GridPosition(row, column), new TileImpl(this.numersToTypes.get(valueRead)));
-                    }
-                }
-            }
-        } catch (IOException e1) {
-                e1.printStackTrace();
+        final String file = "res" + File.separator + "mapLevel" + levelId + ".txt";
+        final Path p = FileSystems.getDefault().getPath(file);
+        try {
+            Files.lines(p).forEach(s -> read(s));
+            this.map.setMapSize(this.mapRows);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         if (!this.isSetStart || !this.isSetEnd) {
             throw new IllegalStateException("Given matrix has no start or end tile!");
         }
+    }
+
+    private void read(final String text) {
+        final List<String> lineRead = Arrays.asList(text.split("\\s+"));
+        int column = 0;
+        for (final String element : lineRead) {
+            final int value = Integer.parseInt(element);
+            if (value == 3) {
+                this.map.setStartTile(mapRows, column);
+                this.isSetStart = true;
+            } else if (value == 4) {
+                this.map.setEndTile(mapRows, column);
+                this.isSetEnd = true;
+            }
+            this.map.getTiles().put(new GridPosition(mapRows, column), new TileImpl(this.numersToTypes.get(value)));
+            column++;
+        }
+        this.mapRows++;
     }
 
     // Method that, by observing the path, fill the field Direction of the path tiles.
