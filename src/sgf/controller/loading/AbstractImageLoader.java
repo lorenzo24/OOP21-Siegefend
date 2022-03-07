@@ -8,16 +8,18 @@ import sgf.model.PathLinker;
 import sgf.model.PathLinkerImpl;
 
 /**
- * Class that manages the image loading.
- * @param <T> Is the entity (tile or enemy) type whose image must be loaded in the correct view.
+ * Class that manages the image loading from file.
+ * @param <T> Is the entity (Tile or Enemy) type whose image must be loaded in the correct view.
  */
 public abstract class AbstractImageLoader<T> implements ImageLoader<T> {
-    private final PathLinker imagePaths = new PathLinkerImpl();
+    // A path linker contains all associations between enemy or tile type and its correspondent image.
+    private final PathLinker imagePaths = new PathLinkerImpl(); 
+
     /**
-     * This method loads from res folder the right png file.
+     * This method loads from res folder the right .png file given as parameter.
      * @param pngFile Is the image file name.
      * @return the correct image from res folder.
-     * @throws IOException 
+     * @throws IOException if file is not found.
      */
     public Image loadRightImage(final String pngFile) {
         try {

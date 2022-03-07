@@ -43,9 +43,9 @@ public final class AppStart {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
 
-        final Map map = new MapLoaderImpl(1).getMap();
+        final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final MapController mapController = new MapControllerImpl(map);
-        final List<Wave> waves = new WavesLoaderImpl(mapController).getWaves();
+        final List<Wave> waves = new WavesLoaderImpl(mapController, 1).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
         final LevelManager levelManager = new LevelManagerImpl(level);
 

@@ -18,4 +18,10 @@ public interface Level {
      * @return a {@link List} containing all the waves.
      */
     List<Wave> getWaves();
+
+    /**
+     * Simple getter for the field that contains the level ID.
+     * @return the ID of the level.
+     */
+    int getLevelId();
 }

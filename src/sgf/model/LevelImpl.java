@@ -9,6 +9,7 @@ public class LevelImpl implements Level {
     private final List<Wave> waves;
     private int currentWave = 0;
     private final Map map;
+    private final int levelID;
 
     /**
      * Creation of a level.
@@ -18,6 +19,7 @@ public class LevelImpl implements Level {
     public LevelImpl(final List<Wave> waves, final Map map) {
         this.waves = waves;
         this.map = map;
+        this.levelID = 1;
     }
 
     @Override
@@ -28,5 +30,10 @@ public class LevelImpl implements Level {
     @Override
     public List<Wave> getWaves() {
         return List.copyOf(this.waves);
+    }
+
+    @Override
+    public int getLevelId() {
+        return this.levelID;
     }
 }
