@@ -42,18 +42,12 @@ public class EnemyControllerImpl implements EnemyController {
             public void run() {
                 while (threadRun) {
                     if (levelManager.hasNextEnemy()) {
-                        final Enemy enemy = levelManager.getNextEnemy().get();
-                        enemyList.add(enemy);
-                        managerList.add(new EnemyManagerImpl(enemy, mapController));
+                        loadNextEnemy();
                     } else {
-                        if (levelManager.hasNextWave()) {
-                            levelManager.getNextWave();
-                        }
-                        if (enemyList.isEmpty()) {
-                            threadRun = false;
-                        }
+                        loadNextWave();
+                        checkIfStopThread();
                     }
-                    checkFinish();
+                    checkEnemyFinish();
                     try {
                         Thread.sleep(4000);
                     } catch (InterruptedException e) {
@@ -63,6 +57,25 @@ public class EnemyControllerImpl implements EnemyController {
             }
         });
         waveThread.start();
+    }
+
+    private void checkIfStopThread() {
+        if (!this.levelManager.hasNextWave() && this.enemyList.isEmpty()) {
+            this.threadRun = false;
+        }
+    }
+
+    private void loadNextWave() {
+        if (this.enemyList.isEmpty() && this.levelManager.hasNextWave()) {
+            this.levelManager.getNextWave();
+            this.loadNextEnemy();
+        }
+    }
+
+    private void loadNextEnemy() {
+        final Enemy enemy = this.levelManager.getNextEnemy().get();
+        this.enemyList.add(enemy);
+        this.managerList.add(new EnemyManagerImpl(enemy, this.mapController));
     }
 
     @Override
@@ -75,7 +88,7 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     // TODO CHiedi a bertu come migliorare.
-    private void checkFinish() {
+    private void checkEnemyFinish() {
         final List<Enemy> list = new ArrayList<>();
         for (final Enemy enemy : this.enemyList) {
             if (enemy.isWin()) {
