@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import sgf.model.Level;
+import sgf.model.Map;
 import sgf.model.Wave;
 import sgf.model.enemies.Enemy;
 
@@ -16,6 +17,7 @@ public class LevelManagerImpl implements LevelManager {
 
     private final Level level;
     private final List<Wave> waveList;
+    private final Map map;
     private final Iterator<Wave> waveIter;
     private Iterator<Enemy> enemyIter;
     private Optional<Wave> currentWave;
@@ -26,6 +28,7 @@ public class LevelManagerImpl implements LevelManager {
      */
     public LevelManagerImpl(final Level level) {
         this.level = level;
+        this.map = level.getMap();
         this.waveList = level.getWaves();
         waveIter = waveList.iterator();
     }
@@ -77,5 +80,10 @@ public class LevelManagerImpl implements LevelManager {
     @Override
     public boolean hasNextEnemy() {
         return this.enemyIter.hasNext();
+    }
+
+    @Override
+    public Map getMap() {
+        return this.map;
     }
 }

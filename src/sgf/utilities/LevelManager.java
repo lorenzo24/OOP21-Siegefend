@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import sgf.model.Level;
+import sgf.model.Map;
 import sgf.model.Wave;
 import sgf.model.enemies.Enemy;
 
@@ -17,6 +18,12 @@ public interface LevelManager {
      * @return a list containing all the waves in the level
      */
     List<Wave> getWaves();
+
+    /**
+     * Return the map of the level.
+     * @return the map of the level.
+     */
+    Map getMap();
 
     /**
      * Returns the total number of waves in the level.
@@ -65,7 +72,4 @@ public interface LevelManager {
      * @return {@code true} if a wave is present, {@code false} otherwise
      */
     boolean hasNextEnemy();
-    // spawnNextEnemy and removeEnemy may not be needed here, but rather the GameController can ask for the next
-    // enemy to spawn and handle the rest.
-    // Optional<Enemy> getNextEnemy();
 }

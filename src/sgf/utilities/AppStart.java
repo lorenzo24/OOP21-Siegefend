@@ -54,7 +54,7 @@ public final class AppStart {
          * All these other views and controllers will be created when someone clicks on a level.
          */
         final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, mapController);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getMapSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);

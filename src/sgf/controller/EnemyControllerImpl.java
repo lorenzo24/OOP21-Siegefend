@@ -14,7 +14,6 @@ import sgf.view.EnemyView;
 public class EnemyControllerImpl implements EnemyController {
     private boolean isControllerSet;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
-    private final MapController mapController;
     private EnemyView enemyView;
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList;
@@ -22,13 +21,11 @@ public class EnemyControllerImpl implements EnemyController {
     /**
      * 
      * @param levelManager
-     * @param mapController
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final MapController mapController) {
+    public EnemyControllerImpl(final LevelManager levelManager) {
         this.levelManager = levelManager;
         this.levelManager.nextWave();
         this.managerList = new ArrayList<>();
-        this.mapController = mapController;
         this.startRunWaves();
     }
 
@@ -70,7 +67,7 @@ public class EnemyControllerImpl implements EnemyController {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.managerList.add(new EnemyManagerImpl(enemy, this.mapController, this));
+        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this));
     }
 
     @Override
