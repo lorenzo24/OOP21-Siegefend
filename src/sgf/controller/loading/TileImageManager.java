@@ -9,13 +9,13 @@ import sgf.model.TileType;
 /**
  * This class contains the links between tile types and corresponding images.
  */
-public class TileImageController extends AbstractImageLoader<TileType> {
+public class TileImageManager extends AbstractImageLoader<TileType> {
     private final Map<TileType, Image> imageTileSelector;       // Map that contains all the correspondences between tile types and the corresponding images.
 
     /**
      * Constructor that fills the field with all correspondences between tile types and images path.
      */
-    public TileImageController() {
+    public TileImageManager() {
         this.imageTileSelector = new HashMap<>();
         this.fillMap(super.getPathImage().getTileMap()); 
     }

@@ -1,6 +1,8 @@
 package sgf.controller.map;
 
 
+import java.awt.image.BufferedImage;
+
 import sgf.controller.Controller;
 import sgf.model.Map;
 import sgf.model.GridPosition;
@@ -31,5 +33,11 @@ public interface MapController extends Controller<MapView> {
      * @return the equivalent position expressed as GridPosition.
      */
     GridPosition convertToGridPosition(Position position);
+    
+    /**
+     * kfd
+     * @return kjsdb.
+     */
+    BufferedImage getMapImage();
 
 }

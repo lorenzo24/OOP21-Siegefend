@@ -1,6 +1,7 @@
 package sgf.controller.loading;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -26,7 +27,7 @@ public abstract class AbstractImageLoader<T> implements ImageLoader<T> {
             return ImageIO.read(new File("res" + File.separator + pngFile));
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB); // In case of error.
         }
     }
 
