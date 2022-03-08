@@ -8,16 +8,13 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
 import sgf.controller.map.MapController;
 import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
 import sgf.model.enemies.Enemy;
-import sgf.model.enemies.Helicopter;
-import sgf.model.enemies.Plane;
-import sgf.model.enemies.Tank;
+import sgf.model.enemies.EnemyFactory;
+import sgf.model.enemies.EnemyFactoryImpl;
 
 /**
  * Loads waves from file.
@@ -27,6 +24,7 @@ public class WavesLoaderImpl implements WavesLoader {
     private final Position startPosition;
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
+    private EnemyFactory enemyFactory;
 
     /**
      * ciao.
@@ -35,6 +33,7 @@ public class WavesLoaderImpl implements WavesLoader {
      */
     public WavesLoaderImpl(final MapController mapController, final int levelId) {
         this.waveEnemies = new ArrayList<>();
+        this.enemyFactory = new EnemyFactoryImpl();
         this.startPosition = mapController.convertToPosition(mapController.getMap().getStartTile());
         this.generateWave(levelId);
     }
@@ -60,13 +59,13 @@ public class WavesLoaderImpl implements WavesLoader {
         // Pensare se al posto dello switch usare mappa <Integer, EnemyType>.
         switch (enemy) {
         case "1":
-            this.waveEnemies.add(new Tank(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createTank(startPosition));
             break;
         case "2":
-            this.waveEnemies.add(new Plane(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createPlane(startPosition));
             break;
         case "3":
-            this.waveEnemies.add(new Helicopter(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createHelicopter(startPosition));
             break;
         default:
             break;
