@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
     private static final double INITIAL_SIZE_PERC = 0.7;        // Initial frame size compared to the screen.
-    private static final double MIN_SIZE_PERC = 0.3;    // Minimum resizing acceptable size compared to the screen.
+    private static final double MIN_SIZE_PERC = 0.9;    // Minimum resizing acceptable size compared to the screen.
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final AbstractPlayingView playingView;
 
