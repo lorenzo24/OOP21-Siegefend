@@ -4,8 +4,6 @@ import sgf.model.ImgTileSize;
 import sgf.model.Map;
 import sgf.model.GridPosition;
 import sgf.model.Position;
-import sgf.utilities.MapLoader;
-import sgf.utilities.MapLoaderImpl;
 import sgf.view.MapView;
 
 /**
@@ -17,6 +15,7 @@ public class MapControllerImpl implements MapController {
 
     /**
      * Constructor that sets up the screen and also start thread loop.
+     * @param map
      */
     public MapControllerImpl(final Map map) {
         this.map = map;

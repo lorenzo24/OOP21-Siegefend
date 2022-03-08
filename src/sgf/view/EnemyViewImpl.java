@@ -48,11 +48,10 @@ public class EnemyViewImpl extends AbstractEnemyView {
         gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clear the image area before repaint in another position.
 
         // For each enemy in the list repaint it.
-        for (final EnemyManager enemy : enemyList) {
-            final var x = enemy.getEnemy().getPosition().getX();
-            final var y = enemy.getEnemy().getPosition().getY();
-            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemy().getEnemyType()), (int) x, (int) y, this.tileSize, this.tileSize, null);
-        }
+        this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
+                (int) x.getEnemy().getPosition().getX(),
+                (int) x.getEnemy().getPosition().getY(),
+                this.tileSize, this.tileSize, null));
 
         // The panel is covered with an empty image in order to hide the previous enemy image displayed.
         g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);

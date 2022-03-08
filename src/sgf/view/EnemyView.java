@@ -2,7 +2,6 @@ package sgf.view;
 
 import java.util.List;
 import sgf.controller.EnemyController;
-import sgf.model.enemies.Enemy;
 import sgf.utilities.EnemyManager;
 
 /**

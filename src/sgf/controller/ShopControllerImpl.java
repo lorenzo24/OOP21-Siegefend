@@ -1,7 +1,6 @@
 package sgf.controller;
 
 import java.util.List;
-
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
