@@ -1,18 +1,20 @@
 package sgf.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.util.Optional;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import sgf.controller.PlayingController;
 import sgf.model.Turret;
+import sgf.utilities.SimpleTurretsImageLoader;
 
 /**
  *
@@ -27,14 +29,14 @@ public final class ShopItemView extends JPanel {
     private static final String BUY = "Buy";
     private static final String CANCEL = "Cancel";
 
-    private JLabel turretImg;
+    private final ImageCanvas turretCanvas;
     private final JButton turretBuy;
     private final JLabel turretPrice;
 
     private boolean isSelected;
 
     private ShopItemView() {
-        this.turretImg = new JLabel();
+        this.turretCanvas = null;
         this.turretPrice = new JLabel("Failed to load turret");
         this.turretBuy = new JButton("");
         this.turretBuy.setEnabled(false);
@@ -42,18 +44,14 @@ public final class ShopItemView extends JPanel {
     }
 
     private ShopItemView(final Turret t) {
-        try {
-            this.turretImg = new JLabel(new ImageIcon(ImageIO.read(new File("res/test/vuoto.png"))));
-        } catch (IOException e) {
-            this.turretImg = new JLabel("No Image Found");
-        }
+        this.turretCanvas = new ImageCanvas(new SimpleTurretsImageLoader().getTurretImage("sample").orElse(null));
         this.turretBuy = new JButton(ShopItemView.BUY);
         this.turretPrice = new JLabel(Integer.toString(t.getPrice()), SwingConstants.CENTER);
         isSelected = false;
         // Setup panel
         final JPanel panel = new JPanel(new BorderLayout());
         final JPanel intPanel = new JPanel(new BorderLayout());
-        panel.add(turretImg, BorderLayout.CENTER);
+        panel.add(turretCanvas, BorderLayout.CENTER);
         intPanel.add(turretPrice, BorderLayout.CENTER);
         intPanel.add(turretBuy, BorderLayout.SOUTH);
         panel.add(intPanel, BorderLayout.SOUTH);
@@ -75,6 +73,16 @@ public final class ShopItemView extends JPanel {
      */
     public void addActionListener(final ActionListener l) {
         this.turretBuy.addActionListener(l);
+    }
+
+    /**
+     * Changes the size of the image canvas.
+     * @param d the new size
+     */
+    public void setCanvasSize(final Dimension d) {
+        final Dimension cloned = new Dimension(d);
+        this.turretCanvas.setSize(cloned);
+        this.turretCanvas.setPreferredSize(cloned);
     }
 
     /**

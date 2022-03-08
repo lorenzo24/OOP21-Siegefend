@@ -1,5 +1,7 @@
 package sgf.view;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import sgf.controller.PlayingController;
 import sgf.controller.ShopController;
 import sgf.controller.ShopControllerImpl;
 import sgf.model.Turret;
@@ -23,9 +26,10 @@ public class ShopViewImpl extends AbstractShopView {
      * 
      */
     private static final long serialVersionUID = 6030584324069338830L;
-    private final List<ShopItemView> turretInfo;
+    private List<ShopItemView> turretInfo;
     private ShopItemView selected;
     private transient ShopController shopController;
+    private final GameManager gameManager;
     private boolean isControllerSet;
 
     /**
@@ -33,18 +37,29 @@ public class ShopViewImpl extends AbstractShopView {
      * @param gm
      */
     public ShopViewImpl(final GameManager gm) {
-        this.shopController = new ShopControllerImpl(gm);
+        this.setLayout(new BorderLayout());
+        this.gameManager = gm;
+
+        this.setVisible(true);
+    }
+
+    @Override
+    protected void update() {
+        this.turretInfo.stream()
+                       .forEach(t -> t.setCanvasSize(this.getItemImgSize()));
+        this.revalidate();
+    }
+
+    private void setup() {
         this.turretInfo = this.shopController.getTurretList()
-                                          .stream().map(this::createShopItemView)
-                                          .collect(Collectors.toList());
+                .stream().map(this::createShopItemView)
+                .collect(Collectors.toList());
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.turretInfo.forEach((t) -> panel.add(t));
         final JScrollPane scrollpane = new JScrollPane(panel);
         scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        this.add(scrollpane);
-
-        this.setVisible(true);
+        this.add(scrollpane, BorderLayout.CENTER);
     }
 
     private ShopItemView createShopItemView(final Turret t) {
@@ -88,6 +103,7 @@ public class ShopViewImpl extends AbstractShopView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.shopController = controller;
+            this.setup();
         }
     }
 }

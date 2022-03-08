@@ -1,5 +1,7 @@
 package sgf.controller;
 
+import java.awt.Dimension;
+
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
@@ -21,6 +23,12 @@ public interface PlayingController extends Controller<PlayingView> {
      * @return the manager for the player
      */
     PlayerManager getPlayerManager();
+
+    /**
+     * Returns the size of the view. 
+     * @return the size of the view
+     */
+    Dimension getViewSize();
 
     /**
      * Returns the controller for the shop.

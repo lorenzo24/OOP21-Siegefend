@@ -12,7 +12,7 @@ import sgf.model.enemies.Enemy;
 /**
  *
  */
-public class TurretsLoaderImpl implements TurretsLoader {
+public class SimpleTurretsLoader implements TurretsLoader {
 
     @Override
     public List<Turret> getTurrets() {
@@ -20,6 +20,11 @@ public class TurretsLoaderImpl implements TurretsLoader {
                   .limit(10)
                   .map(i -> new SimpleTurretImpl(i))
                   .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getTurretNames() {
+        return List.of("sample");
     }
 
     /**

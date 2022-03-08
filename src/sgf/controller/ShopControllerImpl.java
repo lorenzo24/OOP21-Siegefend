@@ -4,7 +4,7 @@ import java.util.List;
 import sgf.model.Turret;
 import sgf.utilities.GameManager;
 import sgf.utilities.PlayerManager;
-import sgf.utilities.TurretsLoaderImpl;
+import sgf.utilities.SimpleTurretsLoader;
 import sgf.view.ShopView;
 
 /**
@@ -12,23 +12,23 @@ import sgf.view.ShopView;
  */
 public class ShopControllerImpl implements ShopController {
 
-    private final GameManager gameController;
+    private final GameManager gameManager;
     private final List<Turret> turrets;
     private Turret selectedTurret;
     private ShopView shopView;
     private boolean isControllerSet;
     /**
      * Creates a new shop controller instance.
-     * @param gameController the game controller
+     * @param gameManager the game controller
      */
-    public ShopControllerImpl(final GameManager gameController) {
-        this.gameController = gameController;
-        this.turrets = new TurretsLoaderImpl().getTurrets();
+    public ShopControllerImpl(final GameManager gameManager) {
+        this.gameManager = gameManager;
+        this.turrets = new SimpleTurretsLoader().getTurrets();
     }
 
     @Override
     public PlayerManager getPlayerController() {
-        return this.gameController.getPlayerManager();
+        return this.gameManager.getPlayerManager();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public boolean buy(final Turret t) {
-        if (this.turrets.contains(t) && this.gameController.getPlayerManager().getPlayer().getCurrentMoney() >= t.getPrice()) {
+        if (this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getCurrentMoney() >= t.getPrice()) {
             this.selectedTurret = t;
             return true;
         }
@@ -49,6 +49,7 @@ public class ShopControllerImpl implements ShopController {
     public boolean cancel() {
         if (this.selectedTurret != null) {
             this.selectedTurret = null;
+            this.completePurchase();
             return true;
         }
         return false;
@@ -57,8 +58,9 @@ public class ShopControllerImpl implements ShopController {
     @Override
     public boolean completePurchase() {
         if (this.selectedTurret != null) {
-            this.gameController.getPlayerManager().changeMoney(-this.selectedTurret.getPrice());
+            this.gameManager.getPlayerManager().changeMoney(-this.selectedTurret.getPrice());
             this.selectedTurret = null;
+            this.shopView.enableAll();
             return true;
         }
         return false;
