@@ -15,6 +15,7 @@ import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
 import sgf.model.enemies.Enemy;
+import sgf.model.enemies.Helicopter;
 import sgf.model.enemies.Plane;
 import sgf.model.enemies.Tank;
 
@@ -23,7 +24,6 @@ import sgf.model.enemies.Tank;
  */
 public class WavesLoaderImpl implements WavesLoader {
 
-    private final MapController mapController;
     private final Position startPosition;
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
@@ -35,8 +35,7 @@ public class WavesLoaderImpl implements WavesLoader {
      */
     public WavesLoaderImpl(final MapController mapController, final int levelId) {
         this.waveEnemies = new ArrayList<>();
-        this.mapController = mapController;
-        this.startPosition = this.mapController.convertToPosition(mapController.getMap().getStartTile());
+        this.startPosition = mapController.convertToPosition(mapController.getMap().getStartTile());
         this.generateWave(levelId);
     }
 
@@ -65,6 +64,9 @@ public class WavesLoaderImpl implements WavesLoader {
             break;
         case "2":
             this.waveEnemies.add(new Plane(startPosition));
+            break;
+        case "3":
+            this.waveEnemies.add(new Helicopter(startPosition));
             break;
         default:
             break;
