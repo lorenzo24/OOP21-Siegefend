@@ -47,6 +47,7 @@ public class ShopViewImpl extends AbstractShopView {
     protected void update() {
         this.turretInfo.stream()
                        .forEach(t -> t.setCanvasSize(this.getItemImgSize()));
+        this.revalidate();
     }
 
     private void setup() {

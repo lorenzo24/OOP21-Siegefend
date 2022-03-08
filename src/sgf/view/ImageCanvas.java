@@ -23,7 +23,6 @@ public class ImageCanvas extends JLabel {
     /**
      * 
      * @param image
-     * @param pg
      */
     public ImageCanvas(final BufferedImage image) {
         this.image = image;
