@@ -4,7 +4,7 @@ import sgf.model.Position;
 /**
  * Class that create an Tank enemy.
  */
-public class Helicopter extends AbstractEnemy {
+public class Helicopter extends EnemyImpl {
     static final double HP = 50;
     static final double SPEED = 1;
 

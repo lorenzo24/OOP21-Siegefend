@@ -5,12 +5,11 @@ import sgf.model.Position;
 /**
  * This class represents the implementation of the interface Enemy.
  */
-public abstract class AbstractEnemy implements Enemy {
+public class EnemyImpl implements Enemy {
     private Position position;
     private double hp;
     private final double speed;
     private final EnemyType enemyType;
-    private boolean win;
 
     /**
      * Creates an enemy.
@@ -19,7 +18,7 @@ public abstract class AbstractEnemy implements Enemy {
      * @param speed Is the movement speed parameter.
      * @param enemyType Denotes the type of the enemy.
      */
-    public AbstractEnemy(final Position position, final double hp, final double speed, final EnemyType enemyType) {
+    public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
         this.position = position;
         this.hp = hp;
         this.speed = speed;
