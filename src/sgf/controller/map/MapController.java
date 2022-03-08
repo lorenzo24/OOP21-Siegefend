@@ -21,21 +21,7 @@ public interface MapController extends Controller<MapView> {
     Map getMap();
 
     /**
-     * Method to convert a GridPosition into a Position.
-     * @param position Is the position expressed as GridPosition.
-     * @return the equivalent position expressed as Position.
-     */
-    Position convertToPosition(GridPosition position);
-
-    /**
-     * Method to convert a Position into a GridPosition.
-     * @param position Is the position expressed as Position.
-     * @return the equivalent position expressed as GridPosition.
-     */
-    GridPosition convertToGridPosition(Position position);
-    
-    /**
-     * kfd
+     * kfd.
      * @return kjsdb.
      */
     BufferedImage getMapImage();

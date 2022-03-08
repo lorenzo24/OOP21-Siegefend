@@ -20,6 +20,7 @@ public class EnemyManagerImpl implements EnemyManager {
     private final EnemyController enemyController;
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
+    private final PositionConverter converter;
 
     /**
      * Create an managerImpl that controll the movement of the enemy.
@@ -31,6 +32,7 @@ public class EnemyManagerImpl implements EnemyManager {
         this.enemy = enemy;
         this.mapController = mapController;
         this.enemyController = enemyController;
+        this.converter = new PositionConverter(ImgTileSize.getTileSize());
         this.startEnemyThread();
     }
 
@@ -81,7 +83,7 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private void takeDirection() {
-        final GridPosition p = mapController.convertToGridPosition(this.enemy.getPosition());
+        final GridPosition p = this.converter.convertToGridPosition(this.enemy.getPosition());
         final Optional<Direction> d = mapController.getMap().getTiles().get(p).getTileDirection();
         this.lastDir = d;
     }

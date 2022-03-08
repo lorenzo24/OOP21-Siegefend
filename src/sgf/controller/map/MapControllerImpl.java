@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import sgf.controller.loading.TileImageManager;
 import sgf.model.GridPosition;
 import sgf.model.Position;
+import sgf.utilities.PositionConverter;
 import sgf.view.MapView;
 
 /**
@@ -26,7 +27,6 @@ public class MapControllerImpl implements MapController {
     private final TileImageManager tileManager;   // Field that contains all the links between tile types and corresponding images.
     private MapView mapView;
     private boolean isControllerSet;
-    
 
     /**
      * Constructor that sets up the screen and also start thread loop.
@@ -54,16 +54,6 @@ public class MapControllerImpl implements MapController {
     }
 
     @Override
-    public Position convertToPosition(final GridPosition position) {
-        return new Position(position.getColumn() * this.tileSize, position.getRow() * this.tileSize);
-    }
-
-    @Override
-    public GridPosition convertToGridPosition(final Position position) {
-        return new GridPosition((int) position.getY() / tileSize, (int) position.getX() / tileSize);
-    }
-
-    @Override
     public BufferedImage getMapImage() {
         return this.mapImage;
     }
@@ -74,11 +64,6 @@ public class MapControllerImpl implements MapController {
                 final Image i = tileManager.getImage(this.map.getTileFromGridPosition(new GridPosition(row, column)));
                 g.drawImage(i, column * this.tileSize, row *  this.tileSize,  this.tileSize,  this.tileSize, null);
             }
-        }
-        try {
-            ImageIO.write(this.mapImage, "PNG", new File("res" + File.separator + "testimage.png"));      // Creates the final map. It will be showed as game interactive background.
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

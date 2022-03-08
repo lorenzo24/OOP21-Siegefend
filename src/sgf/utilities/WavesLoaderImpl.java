@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import sgf.controller.map.MapController;
+import sgf.model.ImgTileSize;
 import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
@@ -25,6 +26,7 @@ public class WavesLoaderImpl implements WavesLoader {
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
     private EnemyFactory enemyFactory;
+    private final PositionConverter converter;
 
     /**
      * ciao.
@@ -34,7 +36,8 @@ public class WavesLoaderImpl implements WavesLoader {
     public WavesLoaderImpl(final MapController mapController, final int levelId) {
         this.waveEnemies = new ArrayList<>();
         this.enemyFactory = new EnemyFactoryImpl();
-        this.startPosition = mapController.convertToPosition(mapController.getMap().getStartTile());
+        this.converter = new PositionConverter(ImgTileSize.getTileSize());
+        this.startPosition = this.converter.convertToPosition(mapController.getMap().getStartTile());
         this.generateWave(levelId);
     }
 
