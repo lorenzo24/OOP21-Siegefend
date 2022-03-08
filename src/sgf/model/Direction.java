@@ -1,5 +1,7 @@
 package sgf.model;
 
+import sgf.utilities.Pair;
+
 /**
  * Represents a cardinal direction.
  */
@@ -32,6 +34,21 @@ public enum Direction {
             return values()[dir];
         } else {
             throw new IllegalArgumentException("Invalid value for direction");
+        }
+    }
+
+    public Pair<Integer, Integer> toUnitVector() {
+        switch (this) {
+        case UP :
+            return Pair.from(0, -1);
+        case RIGHT:
+            return Pair.from(1, 0);
+        case DOWN :
+            return Pair.from(0, 1);
+        case LEFT :
+            return Pair.from(-1, 0);
+        default :
+            throw new IllegalArgumentException("Enemy direction not correct");
         }
     }
 

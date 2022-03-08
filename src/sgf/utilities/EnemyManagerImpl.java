@@ -96,24 +96,9 @@ public class EnemyManagerImpl implements EnemyManager {
     private void enemyMovement(final Direction dir) {
         final Position p =  this.enemy.getPosition();
         final double speed = this.enemy.getSpeed();
-        switch (dir) {
-        case UP :
-            enemy.move(p.getX(), p.getY() - speed);
-            break;
-        case DOWN :
-            enemy.move(p.getX(), p.getY() + speed);
-            break;
-        case LEFT :
-            enemy.move(p.getX() - speed, p.getY());
-            break;
-        case RIGHT:
-            enemy.move(p.getX() + speed, p.getY());
-            break;
-        default:
-            throw new IllegalArgumentException("Enemy direction not correct");
-        }
+        final Pair<Integer, Integer> vec = dir.toUnitVector();
+        enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed);
     }
-
 
     @Override
     public void stopThread() {
