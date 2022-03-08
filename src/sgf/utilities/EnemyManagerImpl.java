@@ -1,5 +1,7 @@
 package sgf.utilities;
 import java.util.Optional;
+
+import sgf.controller.EnemyController;
 import sgf.controller.map.MapController;
 import sgf.model.Direction;
 import sgf.model.ImgTileSize;
@@ -13,9 +15,9 @@ import sgf.model.enemies.Enemy;
 public class EnemyManagerImpl implements EnemyManager {
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
-    private boolean win;
     private final Enemy enemy;
     private final MapController mapController;
+    private final EnemyController enemyController;
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
 
@@ -23,10 +25,12 @@ public class EnemyManagerImpl implements EnemyManager {
      * Create an managerImpl that controll the movement of the enemy.
      * @param enemy a single enemy.
      * @param mapController the controller of the map that say what is the direction.
+     * @param enemyController the controller of the enemies.
      */
-    public EnemyManagerImpl(final Enemy enemy, final MapController mapController) {
+    public EnemyManagerImpl(final Enemy enemy, final MapController mapController, final EnemyController enemyController) {
         this.enemy = enemy;
         this.mapController = mapController;
+        this.enemyController = enemyController;
         this.startEnemyThread();
     }
 
@@ -53,8 +57,7 @@ public class EnemyManagerImpl implements EnemyManager {
         final double y = this.enemy.getPosition().getY();
         if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) {
             this.threadRun = false;
-            this.enemy.setWin(true);
-            this.win = true;
+            this.complete();
         }
     }
 
@@ -111,10 +114,6 @@ public class EnemyManagerImpl implements EnemyManager {
         }
     }
 
-    @Override
-    public boolean isWin() {
-        return this.win;
-    }
 
     @Override
     public void stopThread() {
@@ -126,4 +125,13 @@ public class EnemyManagerImpl implements EnemyManager {
         this.threadRun = true;
     }
 
+    @Override
+    public Enemy getEnemy() {
+        return this.enemy;
+    }
+
+    @Override
+    public void complete() {
+        this.enemyController.removeEnemy(this);
+    }
 }

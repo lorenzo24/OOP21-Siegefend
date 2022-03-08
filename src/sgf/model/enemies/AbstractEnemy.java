@@ -41,16 +41,6 @@ public abstract class AbstractEnemy implements Enemy {
     }
 
     @Override
-    public boolean isWin() {
-        return this.win;
-    }
-
-    @Override
-    public void setWin(final boolean win) {
-        this.win = win;
-    }
-
-    @Override
     public double getSpeed() {
         return this.speed;
     }

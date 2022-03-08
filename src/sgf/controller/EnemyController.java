@@ -1,5 +1,6 @@
 package sgf.controller;
 
+import sgf.utilities.EnemyManager;
 import sgf.view.EnemyView;
 
 /**
@@ -16,4 +17,10 @@ public interface EnemyController extends Controller<EnemyView> {
      * Restart the thread of the waves.
      */
     void resumeThread();
+    
+    /**
+     * 
+     * @param enemyManager
+     */
+    void removeEnemy(EnemyManager enemyManager);
 }

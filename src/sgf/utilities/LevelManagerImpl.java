@@ -2,6 +2,7 @@ package sgf.utilities;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import sgf.model.Level;
@@ -31,7 +32,7 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public List<Wave> getWaves() {
-        return this.level.getWaves();
+        return List.copyOf(this.level.getWaves());
     }
 
     @Override
@@ -50,14 +51,14 @@ public class LevelManagerImpl implements LevelManager {
     }
 
     @Override
-    public Optional<Wave> getNextWave() {
+    public void nextWave() {
         if (waveIter.hasNext()) {
             this.currentWave = Optional.of(this.waveIter.next());
             this.enemyIter = this.getCurrentWave().getEnemies().iterator();
         } else {
             this.currentWave = Optional.empty();
+            throw new NoSuchElementException();
         }
-        return this.currentWave;
     }
 
     @Override

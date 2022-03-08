@@ -43,10 +43,9 @@ public interface LevelManager {
     /*int getCurrentWaveNumber();*/
 
     /**
-     * Checks if there is a next {@link Wave} and returns it.
-     * @return an {@code Optional} containing the next wave if present, {@code Optional.empty()} otherwise
+     * Checks if there is a next {@link Wave} and sets it as active.
      */
-    Optional<Wave> getNextWave();
+    void nextWave();
 
     /**
      * Checks if there is a next {@link Wave} in the level.

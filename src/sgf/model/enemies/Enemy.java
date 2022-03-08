@@ -20,18 +20,6 @@ public interface Enemy {
     double getHP();
 
     /**
-     * Returns If an enemy has reached the path destination.
-     * @return If an enemy has reached the path destination.
-     */
-    boolean isWin();
-
-    /**
-     * Set when an enemy win.
-     * @param win set the field true.
-     */
-    void setWin(boolean win);
-
-    /**
      * Returns the speed at which the enemy moves on the map.
      * @return the speed of the enemy
      */

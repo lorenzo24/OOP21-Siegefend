@@ -16,7 +16,6 @@ public class EnemyControllerImpl implements EnemyController {
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private final MapController mapController;
     private EnemyView enemyView;
-    private final List<Enemy> enemyList;
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList;
 
@@ -27,8 +26,7 @@ public class EnemyControllerImpl implements EnemyController {
      */
     public EnemyControllerImpl(final LevelManager levelManager, final MapController mapController) {
         this.levelManager = levelManager;
-        this.levelManager.getNextWave();
-        this.enemyList = new ArrayList<>();
+        this.levelManager.nextWave();
         this.managerList = new ArrayList<>();
         this.mapController = mapController;
         this.startRunWaves();
@@ -46,7 +44,6 @@ public class EnemyControllerImpl implements EnemyController {
                         loadNextWave();
                         checkIfStopThread();
                     }
-                    checkEnemyFinish();
                     try {
                         Thread.sleep(4000);
                     } catch (InterruptedException e) {
@@ -59,22 +56,21 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     private void checkIfStopThread() {
-        if (!this.levelManager.hasNextWave() && this.enemyList.isEmpty()) {
+        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty()) {
             this.threadRun = false;
         }
     }
 
     private void loadNextWave() {
-        if (this.enemyList.isEmpty() && this.levelManager.hasNextWave()) {
-            this.levelManager.getNextWave();
+        if (this.managerList.isEmpty() && this.levelManager.hasNextWave()) {
+            this.levelManager.nextWave();
             this.loadNextEnemy();
         }
     }
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.enemyList.add(enemy);
-        this.managerList.add(new EnemyManagerImpl(enemy, this.mapController));
+        this.managerList.add(new EnemyManagerImpl(enemy, this.mapController, this));
     }
 
     @Override
@@ -82,27 +78,13 @@ public class EnemyControllerImpl implements EnemyController {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyView = view;
-            this.enemyView.setList(this.enemyList);
+            this.enemyView.setList(this.managerList);
         }
     }
 
-    // TODO CHiedi a bertu come migliorare.
-    private void checkEnemyFinish() {
-        final List<Enemy> list = new ArrayList<>();
-        for (final Enemy enemy : this.enemyList) {
-            if (enemy.isWin()) {
-                list.add(enemy);
-            }
-        }
-        this.enemyList.removeAll(list);
-
-        final List<EnemyManager> list2 = new ArrayList<>();
-        for (final EnemyManager enemy : this.managerList) {
-            if (enemy.isWin()) {
-                list2.add(enemy);
-            }
-        }
-        this.managerList.removeAll(list2);
+    @Override
+    public void removeEnemy(final EnemyManager enemyManager) {
+        this.managerList.remove(enemyManager);
     }
 
     @Override

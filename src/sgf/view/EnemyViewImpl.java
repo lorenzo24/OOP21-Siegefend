@@ -3,8 +3,7 @@ package sgf.view;
 import sgf.controller.EnemyController;
 import sgf.controller.loading.EnemyImageManager;
 import sgf.model.ImgTileSize;
-import sgf.model.enemies.Enemy;
-
+import sgf.utilities.EnemyManager;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,7 +20,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private EnemyController enemyController;
     private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
-    private List<Enemy> enemyList;       // List of enemies to be showed.
+    private List<EnemyManager> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
     private final int tileSize;
 
@@ -37,7 +36,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     }
 
     @Override
-    public void setList(final List<Enemy> enemies) {
+    public void setList(final List<EnemyManager> enemies) {
         this.enemyList = enemies;
     }
 
@@ -49,10 +48,10 @@ public class EnemyViewImpl extends AbstractEnemyView {
         gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clear the image area before repaint in another position.
 
         // For each enemy in the list repaint it.
-        for (final Enemy enemy : enemyList) {
-            final var x = enemy.getPosition().getX();
-            final var y = enemy.getPosition().getY();
-            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()), (int) x, (int) y, this.tileSize, this.tileSize, null);
+        for (final EnemyManager enemy : enemyList) {
+            final var x = enemy.getEnemy().getPosition().getX();
+            final var y = enemy.getEnemy().getPosition().getY();
+            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemy().getEnemyType()), (int) x, (int) y, this.tileSize, this.tileSize, null);
         }
 
         // The panel is covered with an empty image in order to hide the previous enemy image displayed.

@@ -1,10 +1,17 @@
 package sgf.utilities;
 
+import sgf.model.enemies.Enemy;
+
 /**
  * Rapresent the single enemy.
  */
 public interface EnemyManager {
 
+    /**
+     * Return the enemy.
+     * @return the enemy.
+     */
+    Enemy getEnemy();
     /**
      * Stops the thread.
      */
@@ -16,8 +23,7 @@ public interface EnemyManager {
     void resumeThread();
 
     /**
-     * If the enemy is arrived at the end of the path.
-     * @return if the enemy is arrived at the end.
+     * Delete the enemy in the list of the enemyController.
      */
-    boolean isWin();
+    void complete();
 }
