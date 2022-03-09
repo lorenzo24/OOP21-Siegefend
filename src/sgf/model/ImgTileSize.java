@@ -8,6 +8,7 @@ public final class ImgTileSize {
     private static final int CELL_SIZE = 80;
 
     private ImgTileSize() { }
+
     /**
      * The image size.
      * @return image size.

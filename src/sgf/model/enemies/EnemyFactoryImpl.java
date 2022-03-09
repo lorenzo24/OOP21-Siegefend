@@ -6,6 +6,7 @@ import sgf.model.Position;
  * Class that create varios enemy type.
  */
 public class EnemyFactoryImpl implements EnemyFactory {
+    // Constant of parameters of the enemies.
     static final double HP_PLANE = 100;
     static final double SPEED_PLANE = 1;
     static final double HP_HELICOPTER = 50;

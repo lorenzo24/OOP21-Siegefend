@@ -30,6 +30,7 @@ public class EnemyImpl implements Enemy {
         return this.position;
     }
 
+    // Set the new position of one enemy.
     private void setPosition(final double x, final double y) {
         this.position = new Position(x, y);
     }

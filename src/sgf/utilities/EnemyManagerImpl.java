@@ -1,8 +1,6 @@
 package sgf.utilities;
 import java.util.Optional;
-
 import sgf.controller.EnemyController;
-import sgf.controller.map.MapController;
 import sgf.model.Direction;
 import sgf.model.ImgTileSize;
 import sgf.model.Map;
@@ -14,6 +12,7 @@ import sgf.model.enemies.Enemy;
  * Class that manage each single enemy.
  */
 public class EnemyManagerImpl implements EnemyManager {
+    private static final int ENEMY_SPEED = 10;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private final Enemy enemy;
@@ -21,7 +20,7 @@ public class EnemyManagerImpl implements EnemyManager {
     private final EnemyController enemyController;
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
-    private final PositionConverter converter;
+    private final PositionConverter converter; // Converter the gridPosition to Position.
 
     /**
      * Create an managerImpl that controll the movement of the enemy.
@@ -45,7 +44,7 @@ public class EnemyManagerImpl implements EnemyManager {
                     try {
                         nextMovement();
                         checkFinalDestination();
-                        Thread.sleep(10);
+                        Thread.sleep(ENEMY_SPEED);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -55,17 +54,20 @@ public class EnemyManagerImpl implements EnemyManager {
         gameThread.start();
     }
 
+    /**
+     * Control if the sprite is over the screen, and in that case it call the complete methods. 
+     */
     private void checkFinalDestination() {
         final double x = this.enemy.getPosition().getX();
         final double y = this.enemy.getPosition().getY();
-        if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) {
-            this.threadRun = false;
+        if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Control if the sprite is over the screen.
+            this.threadRun = false; // Stop the thread.
             this.complete();
         }
     }
 
     private boolean endIntoMap(final double v) {
-        return this.map.getMapSize() * imgSize == v; 
+        return this.map.getMapSize() * imgSize == v; // Control if the sprite is over the screen under and right.
     }
 
     private void nextMovement() {

@@ -37,6 +37,10 @@ public enum Direction {
         }
     }
 
+    /**
+     * Methds that helps to calculate the next position of the enemy. 
+     * @return The pair of the direction that has to be calculate with the position of the enemy.
+     */
     public Pair<Integer, Integer> toUnitVector() {
         switch (this) {
         case UP :

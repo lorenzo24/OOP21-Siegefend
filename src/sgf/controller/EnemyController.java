@@ -9,18 +9,17 @@ import sgf.view.EnemyView;
 public interface EnemyController extends Controller<EnemyView> {
 
     /**
-     *  Stop the thread of the waves.
+     *  Stops the thread of the waves.
      */
     void stopThread();
 
     /**
-     * Restart the thread of the waves.
+     * Restarts the thread of the waves.
      */
     void resumeThread();
-    
     /**
-     * 
-     * @param enemyManager
+     * Removes the enmyManager from the list of one wave.
+     * @param enemyManager is the element of the list that has to be remove.
      */
     void removeEnemy(EnemyManager enemyManager);
 }

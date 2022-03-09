@@ -31,7 +31,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     public EnemyViewImpl(final int matrixSize) { // TODO: pass Level instead of first argument(?).
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
-        this.imageController = new EnemyImageManager(this.tileSize);
+        this.imageController = new EnemyImageManager();
         this.enemyList = new ArrayList<>();
     }
 

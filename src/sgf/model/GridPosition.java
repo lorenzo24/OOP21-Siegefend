@@ -11,8 +11,8 @@ public class GridPosition {
 
     /**
      * Creates a new instance of {@code GridPosition}.
-     * @param column The column in the grid
      * @param row The row in the grid
+     * @param column The column in the grid
      */
     public GridPosition(final int row, final int column) {
         this.row = row;

@@ -3,7 +3,7 @@ package sgf.model.enemies;
 import sgf.model.Position;
 
 /**
- * Interface that create enemies.
+ * Interface of factory class that create enemies.
  */
 public interface EnemyFactory {
 

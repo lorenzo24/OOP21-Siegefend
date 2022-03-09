@@ -12,6 +12,7 @@ public interface EnemyManager {
      * @return the enemy.
      */
     Enemy getEnemy();
+
     /**
      * Stops the thread.
      */
