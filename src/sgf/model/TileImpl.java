@@ -7,7 +7,7 @@ import java.util.Optional;
  */
 public class TileImpl implements Tile {
     private final TileType tileType;    // Type of the tile (grass, water, path...).
-    private Optional<Direction> tileDirection;
+    private Optional<Direction> tileDirection;  // Field to be passed to the enemy for its movement.
 
     /**
      * Constructor for the creation of a {@link Tile}.

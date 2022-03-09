@@ -4,22 +4,23 @@ import sgf.utilities.EnemyManager;
 import sgf.view.EnemyView;
 
 /**
- * This, controll all the waves and the movement of the enemies.
+ * This controls all the waves and the movement of the enemies.
  */
 public interface EnemyController extends Controller<EnemyView> {
 
     /**
-     *  Stops the thread of the waves.
+     * Stops the waves thread.
      */
     void stopThread();
 
     /**
-     * Restarts the thread of the waves.
+     * Restarts the waves thread.
      */
     void resumeThread();
+
     /**
-     * Removes the enmyManager from the list of one wave.
-     * @param enemyManager is the element of the list that has to be remove.
+     * Removes the enemyManager from the list of a wave.
+     * @param enemyManager is the element of the list that has to be removed.
      */
     void removeEnemy(EnemyManager enemyManager);
 }

@@ -1,7 +1,7 @@
 package sgf.model;
 
 /**
- * Represents the game map. The map is made of tiles.
+ * Represents the game map. The map is made has a structure of matrix of tiles.
  */
 public interface Map {
     /**
@@ -12,7 +12,7 @@ public interface Map {
 
     /**
      * The map has a field that contains the links between grid positions and tiles. This method returns it.
-     * @return The field tiles in map implementation class.
+     * @return the field tiles in map implementation class.
      */
     java.util.Map<GridPosition, Tile> getTiles();
 
@@ -57,7 +57,7 @@ public interface Map {
     void setEndTile(int row, int column);
 
     /**
-     * This methods sets up the map size.
+     * This method sets up the map size.
      * @param newMapSize Is the new size that the map must have.
      */
     void setMapSize(int newMapSize);

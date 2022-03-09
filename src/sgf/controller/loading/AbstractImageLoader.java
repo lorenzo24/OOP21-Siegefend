@@ -27,7 +27,7 @@ public abstract class AbstractImageLoader<T> implements ImageLoader<T> {
             return ImageIO.read(new File("res" + File.separator + pngFile));
         } catch (IOException e) {
             e.printStackTrace();
-            return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB); // In case of error.
+            return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB); // In case of error, returns an empty image.
         }
     }
 

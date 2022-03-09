@@ -13,7 +13,7 @@ public interface Tile {
     TileType getTileType();
 
     /**
-     * Every tile denotes the direction of movement. If there is none, in contains an empty {@link Optional} anyway.
+     * Every tile denotes the direction of movement. If there is none, it contains an empty {@link Optional}.
      * @return an {@link Optional} containing the {@link Direction} if present, {@code Optional.empty} otherwise.
      */
     Optional<Direction> getTileDirection();
@@ -25,7 +25,7 @@ public interface Tile {
     boolean canContainTurret();
 
     /**
-     * Method that sets up the tile's direction. It will be useful to enemy's movement pathfinding.
+     * Method that sets up the tile's direction. It is useful to enemy's movement path finding.
      * @param direction Is the direction that the interested tile must have.
      */
     void setDirection(Direction direction);

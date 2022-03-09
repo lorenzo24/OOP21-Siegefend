@@ -16,11 +16,10 @@ import sgf.model.GridPosition;
  */
 public class MapViewImpl extends AbstractMapView implements ComponentListener, MouseListener {
     private static final long serialVersionUID = -7141712951441617040L;
-
     private MapController mapController;
-    private final Map map;      // Model field into View. Is it correct??? Remember to remove from here.
+    private final Map map;
     private final int matrixSize;       // Number of tiles in each grid size.
-    private BufferedImage completeMap;    // Map to be showed after creation process.
+    private BufferedImage completeMap;    // Map to be shown after creation process.
     //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private boolean isControllerSet;
 
@@ -80,8 +79,6 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
             this.completeMap = this.mapController.getMapImage();
         }
     }
-
-    // TODO Find a way to remove this following void methods that compares after implementing interface.
 
     @Override
     public void componentMoved(final ComponentEvent e) {

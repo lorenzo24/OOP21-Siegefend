@@ -2,14 +2,13 @@ package sgf.model;
 
 import java.util.HashMap;
 
-
 /**
  * This class represents a simple map logic with its grid structure.
  */
 public class MapImpl implements Map {
     private final java.util.Map<GridPosition, Tile> tiles;      // Contains the links between all the grid positions and the correspondent tiles.
-    private int mapSize;        // Is the number of tiles that a side of the grid has.
-    // Tiles useful to manage enemies movement in the path.
+    private int mapSize;        // Is the number of tiles that form a side of the grid.
+    // Tiles useful to create enemies.
     private GridPosition startTile;
     private GridPosition endTile;
 
@@ -27,7 +26,7 @@ public class MapImpl implements Map {
 
     @Override
     public java.util.Map<GridPosition, Tile> getTiles() {
-        return tiles;
+        return this.tiles;
     }
 
     @Override
@@ -37,7 +36,6 @@ public class MapImpl implements Map {
 
     @Override
     public Tile getTileFromPosition(final Position position) {  // TODO Maybe to be deleted?
-        // TODO Auto-generated method stub
         return null;
     }
 

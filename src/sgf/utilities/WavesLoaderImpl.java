@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import sgf.controller.map.MapController;
 import sgf.model.ImgTileSize;
 import sgf.model.Map;
 import sgf.model.Position;
@@ -19,10 +18,9 @@ import sgf.model.enemies.EnemyFactory;
 import sgf.model.enemies.EnemyFactoryImpl;
 
 /**
- * Loads waves from file.
+ * Class that loads waves by reading them from file.
  */
 public class WavesLoaderImpl implements WavesLoader {
-
     private final Position startPosition;
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
@@ -30,7 +28,7 @@ public class WavesLoaderImpl implements WavesLoader {
     private final PositionConverter converter;
 
     /**
-     * Costructor that set the initial position and level id.
+     * Constructor that sets the initial position and level id.
      * @param map Is the map of the level.
      * @param levelId Is the levelId.
      */
@@ -39,10 +37,15 @@ public class WavesLoaderImpl implements WavesLoader {
         this.enemyFactory = new EnemyFactoryImpl();
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
         this.startPosition = this.converter.convertToPosition(map.getStartTile());
-        this.generateWave(levelId);
+        this.readAllWaves(levelId);
     }
 
-    private void generateWave(final int levelId) {
+    @Override
+    public List<Wave> getWaves() {
+        return waves;
+    }
+
+    private void readAllWaves(final int levelId) {
         final String file = "res" + File.separator + "level" + levelId + ".txt";
         final Path p = FileSystems.getDefault().getPath(file);
         try {
@@ -52,15 +55,16 @@ public class WavesLoaderImpl implements WavesLoader {
         }
     }
 
+    // Method that add all the enemies specified from the read row.
     private void read(final String text) {
         final List<String> splitted = Arrays.asList(text.split("\\s+"));
-        splitted.forEach(e -> this.addEnemyToWave(e));
+        splitted.forEach(e -> this.addEnemyToWave(e));  // Each value read must be converted to the corresponding enemy type.
         this.waves.add(new WaveImpl(this.waveEnemies));
         this.waveEnemies = new ArrayList<>();
     }
 
+    // Convert the string read into the correct enemy type.
     private void addEnemyToWave(final String enemy) {
-        // Pensare se al posto dello switch usare mappa <Integer, EnemyType>.
         switch (enemy) {
         case "1":
             this.waveEnemies.add(this.enemyFactory.createTank(startPosition));
@@ -74,10 +78,5 @@ public class WavesLoaderImpl implements WavesLoader {
         default:
             break;
         }
-    }
-
-    @Override
-    public List<Wave> getWaves() {
-        return waves;
     }
 }

@@ -10,14 +10,14 @@ import java.util.Map;
 public interface ImageLoader<T> {
 
     /**
-     * Return the corresponding image from a given string that is its pathname.
+     * Returns the corresponding image from a given string that is its pathname.
      * @param pngFile Is the name of the file.
      * @return the correct image.
      */
     Image loadRightImage(String pngFile);
 
     /**
-     * Fill the map with links between types and filenames.
+     * Fills the map with links between types and filenames.
      * @param map Is the map to be filled.
      */
     void fillMap(Map<T, String> map);

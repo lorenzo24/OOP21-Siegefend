@@ -3,13 +3,13 @@ package sgf.utilities;
 import sgf.model.Map;
 
 /**
- *  Interface that Loads the map.
+ *  Interface that loads the map.
  */
 public interface MapLoader {
 
     /**
-     * Returns a map.
-     * @return a map
+     * Method that gives the map field.
+     * @return the map field.
      */
     Map getMap();
 }

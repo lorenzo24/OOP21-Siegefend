@@ -8,7 +8,7 @@ import sgf.utilities.LevelManager;
 import sgf.view.EnemyView;
 
 /**
- * Class Waves thread that spone enemies of the waves.
+ * Class Waves thread that spawns waves enemies.
  */
 public class EnemyControllerImpl implements EnemyController {
     private static final int THREAD_SPEED = 3000; 

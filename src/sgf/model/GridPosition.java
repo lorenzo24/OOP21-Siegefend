@@ -10,9 +10,9 @@ public class GridPosition {
     private int column;
 
     /**
-     * Creates a new instance of {@code GridPosition}.
-     * @param row The row in the grid
-     * @param column The column in the grid
+     * Basic constructor.
+     * @param row The coordinate as row in the grid.
+     * @param column The coordinate as column in the grid.
      */
     public GridPosition(final int row, final int column) {
         this.row = row;
@@ -20,24 +20,24 @@ public class GridPosition {
     }
 
     /**
-     * Returns the column of the position.
-     * @return the current column of the position
+     * Method that gives the column of the position.
+     * @return the current column of the position.
      */
     public int getColumn() {
         return this.column;
     }
 
     /**
-     * Sets a new value for the column of the position.
-     * @param column The new value for the column
+     * Method that sets a new value for the column of the position.
+     * @param column The new value for the column.
      */
     public void setColumn(final int column) {
         this.column = column;
     }
 
     /**
-     * Returns the row of the position.
-     * @return the current row of the position
+     * Method that gives the row of the position.
+     * @return the current row of the position.
      */
     public int getRow() {
         return this.row;

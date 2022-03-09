@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -27,7 +26,7 @@ public class ScreenGame extends JFrame {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);      // Window closing will be managed with a JDialog.
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
         this.playingView = view;
-        this.getContentPane().add(this.playingView);       // Add main game panel to this frame.
+        this.getContentPane().add(this.playingView);       // Adds main game panel to this frame.
         this.windowClosing();   // Private method that manages the window closing by showing a confirm dialog.
         this.setVisible(true);
     }

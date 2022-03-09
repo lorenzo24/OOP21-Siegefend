@@ -1,7 +1,6 @@
 package sgf.utilities;
 
 import java.util.List;
-
 import sgf.model.Wave;
 
 /**
@@ -10,8 +9,8 @@ import sgf.model.Wave;
 public interface WavesLoader {
 
     /**
-     * The list of waves.
-     * @return list of waves
+     * Getter for the list of waves.
+     * @return the list of waves.
      */
     List<Wave> getWaves();
 
