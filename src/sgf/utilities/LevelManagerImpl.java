@@ -55,9 +55,10 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public void nextWave() {
-        if (waveIter.hasNext()) { // If there is an other wave.
+        if (this.waveIter.hasNext()) { // If there is an other wave.
             this.currentWave = Optional.of(this.waveIter.next()); // Take the new wave. 
             this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Set the enemy iterator.
+            this.level.setCurrentWave(this.level.getCurrentWave() + 1); // Incrise the number of the current wave.
         } else {
             throw new NoSuchElementException();
         }

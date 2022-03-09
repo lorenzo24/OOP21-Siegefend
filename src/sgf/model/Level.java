@@ -24,4 +24,16 @@ public interface Level {
      * @return the ID of the level.
      */
     int getLevelId();
+
+    /**
+     * Get the current wave.
+     * @return the current wave.
+     */
+    int getCurrentWave();
+
+    /**
+     * Set the currentWave.
+     * @param currentWave Is the current wave.
+     */
+    void setCurrentWave(int currentWave); 
 }
