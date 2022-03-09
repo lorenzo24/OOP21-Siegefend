@@ -28,8 +28,8 @@ public class LevelManagerImpl implements LevelManager {
      */
     public LevelManagerImpl(final Level level) {
         this.level = level;
-        this.map = level.getMap();
-        this.waveList = level.getWaves();
+        this.map = level.getMap(); // Get the map from the current level.
+        this.waveList = level.getWaves(); // Get the waves from the current level.
         waveIter = waveList.iterator();
     }
 
@@ -55,11 +55,10 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public void nextWave() {
-        if (waveIter.hasNext()) {
-            this.currentWave = Optional.of(this.waveIter.next());
-            this.enemyIter = this.getCurrentWave().getEnemies().iterator();
+        if (waveIter.hasNext()) { // If there is an other wave.
+            this.currentWave = Optional.of(this.waveIter.next()); // Take the new wave. 
+            this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Set the enemy iterator.
         } else {
-            this.currentWave = Optional.empty();
             throw new NoSuchElementException();
         }
     }

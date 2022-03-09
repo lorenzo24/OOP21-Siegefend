@@ -5,7 +5,7 @@ import sgf.controller.EnemyController;
 import sgf.utilities.EnemyManager;
 
 /**
- * 
+ * Enemy view.
  */
 public interface EnemyView extends View<EnemyController> {
 

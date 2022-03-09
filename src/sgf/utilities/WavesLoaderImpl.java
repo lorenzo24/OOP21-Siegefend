@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import sgf.controller.map.MapController;
 import sgf.model.ImgTileSize;
+import sgf.model.Map;
 import sgf.model.Position;
 import sgf.model.Wave;
 import sgf.model.WaveImpl;
@@ -25,19 +26,19 @@ public class WavesLoaderImpl implements WavesLoader {
     private final Position startPosition;
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
-    private EnemyFactory enemyFactory;
+    private final EnemyFactory enemyFactory;
     private final PositionConverter converter;
 
     /**
-     * ciao.
-     * @param mapController
-     * @param levelId
+     * Costructor that set the initial position and level id.
+     * @param map Is the map of the level.
+     * @param levelId Is the levelId.
      */
-    public WavesLoaderImpl(final MapController mapController, final int levelId) {
+    public WavesLoaderImpl(final Map map, final int levelId) {
         this.waveEnemies = new ArrayList<>();
         this.enemyFactory = new EnemyFactoryImpl();
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
-        this.startPosition = this.converter.convertToPosition(mapController.getMap().getStartTile());
+        this.startPosition = this.converter.convertToPosition(map.getStartTile());
         this.generateWave(levelId);
     }
 

@@ -4,30 +4,31 @@ import sgf.model.GridPosition;
 import sgf.model.Position;
 
 /**
- * Class converter.
+ * Class converter position.
  */
 public class PositionConverter {
     private final int tileSize;
+
     /**
-     * Constructor.
-     * @param tileSize is.
+     * Constructor set the fild.
+     * @param tileSize Is the size of the tile Image.
      */
     public PositionConverter(final int tileSize) {
         this.tileSize = tileSize;
     }
 
     /**
-     * Convert.
-     * @param position
-     * @return a position.
+     * Convert from GridPosition to Position.
+     * @param position Is the position to be converter.
+     * @return a Position.
      */
     public Position convertToPosition(final GridPosition position) {
         return new Position(position.getColumn() * this.tileSize, position.getRow() * this.tileSize);
     }
 
     /**
-     * Convert.
-     * @param position
+     * Convert form Position to GridPosition.
+     * @param position Is the position to be converter.
      * @return a GridPosition.
      */
     public GridPosition convertToGridPosition(final Position position) {

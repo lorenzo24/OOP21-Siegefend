@@ -71,38 +71,33 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private void nextMovement() {
-        if (this.initialPart()) {
-            this.takeDirection();
+        if (this.initialPart()) { // It control if the enemy is at the start of the tile.
+            this.takeDirection(); // It select and setting up the direction.
         }
-        stepsDone += this.enemy.getSpeed();
-        if (stepsDone == imgSize) {
-            stepsDone = 0;
+        this.stepsDone += this.enemy.getSpeed(); // Set the step to the next position of the cell.
+        if (this.stepsDone == this.imgSize) { // If ti are at the end of the cell, it reset to zero.
+            this.stepsDone = 0;
         }
-        this.movement(lastDir);
+        this.enemyMovement(this.lastDir.orElseThrow()); // Maove the enemy.
     }
 
+    // Control if the enemy is at the start of the tile.
     private boolean initialPart() {
-        return stepsDone == 0;
+        return stepsDone == 0; 
     }
 
+    // Take the next direction.
     private void takeDirection() {
         final GridPosition p = this.converter.convertToGridPosition(this.enemy.getPosition());
         final Optional<Direction> d = this.map.getTiles().get(p).getTileDirection();
         this.lastDir = d;
     }
 
-    private void movement(final Optional<Direction> d) {
-        if (d.isEmpty()) {
-            throw new IllegalStateException("Enemy position is empty");
-        }
-        this.enemyMovement(d.get());
-    }
-
     private void enemyMovement(final Direction dir) {
-        final Position p =  this.enemy.getPosition();
-        final double speed = this.enemy.getSpeed();
-        final Pair<Integer, Integer> vec = dir.toUnitVector();
-        enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed);
+        final Position p =  this.enemy.getPosition(); // Take the current position of the enemy.
+        final double speed = this.enemy.getSpeed(); // Take the speed, advancement step, of the specific enemy.
+        final Pair<Integer, Integer> vec = dir.toUnitVector(); // Take the direction vector that permit to move the enemy to the right direction.
+        enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed); // Move the enemy to the next position.
     }
 
     @Override

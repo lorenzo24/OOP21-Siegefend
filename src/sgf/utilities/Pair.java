@@ -11,9 +11,9 @@ public class Pair<X, Y> {
     private final Y y;
 
     /**
-     * 
-     * @param x
-     * @param y
+     * Set the x and y field.
+     * @param x number.
+     * @param y number.
      */
     public Pair(final X x, final Y y) {
             super();
@@ -21,14 +21,28 @@ public class Pair<X, Y> {
             this.y = y;
     }
 
+    /**
+     * @return value of x.
+     */
     public X getX() {
             return x;
     }
 
+    /**
+     * @return value of y.
+     */
     public Y getY() {
             return y;
     }
 
+    /**
+     * Return a new istance of Pair.
+     * @param <X> type of x.
+     * @param <Y> type of y.
+     * @param x value of x.
+     * @param y value of y.
+     * @return a new istance of pair.
+     */
     public static <X, Y> Pair<X, Y> from(final X x, final Y y) {
         return new Pair<>(x, y);
     }
