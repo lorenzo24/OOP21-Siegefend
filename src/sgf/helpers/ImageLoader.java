@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Interface implemented from image loading.
- * @param <T> is the type of the entity whose image must be loaded.
+ * @param <T> Is the type of the entity whose image must be loaded.
  */
 public interface ImageLoader<T> {
 

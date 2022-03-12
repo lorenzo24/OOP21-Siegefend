@@ -3,7 +3,7 @@ package sgf.view.enemy;
 import javax.swing.JPanel;
 
 /**
- * Abstract class that extend a JPanel.
+ * Abstract class that extends a JPanel.
  */
 public abstract class AbstractEnemyView extends JPanel implements EnemyView {
 

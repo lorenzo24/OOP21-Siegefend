@@ -12,8 +12,8 @@ import sgf.view.View;
 public interface EnemyView extends View<EnemyController> {
 
     /**
-     *  Set the list with the new group of enemy.
-     * @param enemies new list of enemies Manager.
+     * Sets the list with the new group of enemy.
+     * @param enemies The new list of enemies Manager.
      */
     void setList(List<EnemyManager> enemies);
 }

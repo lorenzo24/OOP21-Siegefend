@@ -1,7 +1,7 @@
 package sgf.helpers;
 
 /**
- *  Class that have the dimension of the single images.
+ *  Class that has the dimension of a single images (tile image).
  */
 public final class ImgTileSize {
 

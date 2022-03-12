@@ -11,7 +11,7 @@ public class Pair<X, Y> {
     private final Y y;
 
     /**
-     * Set the x and y field.
+     * Sets the x and y field.
      * @param x number.
      * @param y number.
      */
@@ -36,7 +36,7 @@ public class Pair<X, Y> {
     }
 
     /**
-     * Return a new istance of Pair.
+     * Returns a new istance of Pair.
      * @param <X> type of x.
      * @param <Y> type of y.
      * @param x value of x.
@@ -91,4 +91,3 @@ public class Pair<X, Y> {
             return "Pair [x=" + x + ", y=" + y + "]";
     }
 }
-

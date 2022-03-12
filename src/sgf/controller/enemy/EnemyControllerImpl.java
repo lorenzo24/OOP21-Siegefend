@@ -9,7 +9,7 @@ import sgf.model.enemies.Enemy;
 import sgf.view.enemy.EnemyView;
 
 /**
- * Class Waves thread that spawns waves enemies.
+ * Class Waves thread that spawns enemies of the waves.
  */
 public class EnemyControllerImpl implements EnemyController {
     private static final int THREAD_SPEED = 3000; 
@@ -17,16 +17,16 @@ public class EnemyControllerImpl implements EnemyController {
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private EnemyView enemyView;
     private final LevelManager levelManager;
-    private final List<EnemyManager> managerList; // List of eenmyManager of enemy that are moving in the game.
+    private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
 
     /**
-     * Set the levelManager to loads enemies and gets map.
-     * @param levelManager Is the manager of the actual level.
+     * Sets the levelManager to load enemies and get map.
+     * @param levelManager Is the manager of the current level.
      */
     public EnemyControllerImpl(final LevelManager levelManager) {
         this.levelManager = levelManager;
         this.managerList = new ArrayList<>();
-        this.startRunWaves(); // Methods of the thread.
+        this.startRunWaves(); // Thread method.
     }
 
     private void startRunWaves() {
@@ -39,7 +39,7 @@ public class EnemyControllerImpl implements EnemyController {
                         loadNextEnemy();
                     } else {
                         loadNextWave();
-                        checkIfStopThread(); // Control if the level is finished.
+                        checkIfStopThread(); // Checks if the level is over.
                     }
                     try {
                         Thread.sleep(THREAD_SPEED);
@@ -52,7 +52,7 @@ public class EnemyControllerImpl implements EnemyController {
         waveThread.start();
     }
 
-    // Control if the level is finished.
+    // Checks if the level is finished.
     private void checkIfStopThread() {
         if (!this.levelManager.hasNextWave() && this.managerList.isEmpty()) {
             this.threadRun = false;
@@ -60,7 +60,7 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     private void loadNextWave() {
-        // Control if the previus wave is finished and load the next wave.
+        // Checks if the previous wave is over and in case loads the next wave.
         if (this.managerList.isEmpty() && this.levelManager.hasNextWave()) {
             this.levelManager.nextWave();
             this.loadNextEnemy();
@@ -69,7 +69,7 @@ public class EnemyControllerImpl implements EnemyController {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this)); // Create an managerList of the enemy that has been cretaed.
+        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this)); // Creates a managerList of the enemy that has been cretaed.
     }
 
     @Override

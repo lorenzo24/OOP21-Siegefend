@@ -3,7 +3,7 @@ package sgf.model.enemies;
 import sgf.model.map.Position;
 
 /**
- * Class that create varios enemy type.
+ * Class that creates various enemy types.
  */
 public class EnemyFactoryImpl implements EnemyFactory {
     // Constant of parameters of the enemies.
@@ -30,12 +30,12 @@ public class EnemyFactoryImpl implements EnemyFactory {
     }
 
     @Override
-    public Enemy createGeneralHelicopter(final Position position, final double hp, final double speed) {
+    public Enemy createDynamicHelicopter(final Position position, final double hp, final double speed) {
         return new EnemyImpl(position, hp, speed, EnemyType.HELICOPTER);
     }
 
     @Override
-    public Enemy createGeneralPlane(final Position position, final double hp, final double speed) {
+    public Enemy createDynamicPlane(final Position position, final double hp, final double speed) {
         return new EnemyImpl(position, hp, speed, EnemyType.PLANE);
     }
 

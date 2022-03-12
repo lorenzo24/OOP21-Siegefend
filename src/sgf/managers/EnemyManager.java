@@ -3,12 +3,12 @@ package sgf.managers;
 import sgf.model.enemies.Enemy;
 
 /**
- * Rapresent the single enemy.
+ * Rapresents a single enemy.
  */
 public interface EnemyManager {
 
     /**
-     * Return the enemy.
+     * Returns the enemy.
      * @return the enemy.
      */
     Enemy getEnemy();
@@ -24,7 +24,7 @@ public interface EnemyManager {
     void resumeThread();
 
     /**
-     * Delete the enemy in the list of the enemyController.
+     * Deletes the enemy in the list of the enemyController.
      */
     void complete();
 }

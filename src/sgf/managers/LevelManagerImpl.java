@@ -11,7 +11,7 @@ import sgf.model.level.Wave;
 import sgf.model.map.Map;
 
 /**
- * Manager of one level it say what is the next wave and the next enemy of the single wave.
+ * Manager of a level: it says what is the next wave and the next enemy of the single and current wave.
  */
 public class LevelManagerImpl implements LevelManager {
 
@@ -22,20 +22,20 @@ public class LevelManagerImpl implements LevelManager {
     private Optional<Wave> currentWave;
 
     /**
-     * Initialize the fild for the single level. 
+     * Initializes the field for the single level. 
      * @param level Is the current level.
      */
     public LevelManagerImpl(final Level level) {
         this.level = level;
-        this.map = level.getMap(); // Get the map from the current level.
-        this.waveIter = level.getWaves().iterator(); // Get the waves from the current level.
+        this.map = level.getMap(); // Gets the map from the current level.
+        this.waveIter = level.getWaves().iterator(); // Gets the waves from the current level.
         this.loadWave();
     }
 
     private void loadWave() {
         if (this.waveIter.hasNext()) { // If there is an other wave.
-            this.currentWave = Optional.of(this.waveIter.next()); // Take the new wave. 
-            this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Set the enemy iterator.
+            this.currentWave = Optional.of(this.waveIter.next()); // Takes the new wave. 
+            this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Sets up the enemy iterator.
         } else {
             throw new NoSuchElementException();
         }

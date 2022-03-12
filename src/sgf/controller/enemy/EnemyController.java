@@ -21,7 +21,7 @@ public interface EnemyController extends Controller<EnemyView> {
 
     /**
      * Removes the enemyManager from the list of a wave.
-     * @param enemyManager is the element of the list that has to be removed.
+     * @param enemyManager Is the element of the list that has to be removed.
      */
     void removeEnemy(EnemyManager enemyManager);
 }

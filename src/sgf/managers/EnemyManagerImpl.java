@@ -12,7 +12,7 @@ import sgf.utilities.Pair;
 import sgf.utilities.PositionConverter;
 
 /**
- * Class that manage each single enemy.
+ * Class that manages each single enemy.
  */
 public class EnemyManagerImpl implements EnemyManager {
     private static final int ENEMY_SPEED = 10;
@@ -23,13 +23,13 @@ public class EnemyManagerImpl implements EnemyManager {
     private final EnemyController enemyController;
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
-    private final PositionConverter converter; // Converter the gridPosition to Position.
+    private final PositionConverter converter; // Converts the gridPosition to Position.
 
     /**
-     * Create an managerImpl that control the movement of the enemy.
-     * @param enemy a single enemy.
-     * @param levelManager that gives the map the direction in which the enemy has to move.
-     * @param enemyController the controller of the enemies.
+     * Creates a managerImpl that controls the enemy's movement.
+     * @param enemy Is the interested enemy.
+     * @param levelManager Gives the map the direction in which the enemy has to move.
+     * @param enemyController Is the controller of the enemies.
      */
     public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController) {
         this.enemy = enemy;
@@ -58,38 +58,38 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     /**
-     * Control if the sprite is over the screen, and in that case it call the complete methods. 
+     * Checks if the sprite is over the screen, and in that case it calls the complete methods. 
      */
     private void checkFinalDestination() {
         final double x = this.enemy.getPosition().getX();
         final double y = this.enemy.getPosition().getY();
-        if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Control if the sprite is over the screen.
-            this.threadRun = false; // Stop the thread.
+        if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Checks if the sprite isn't in the limits of the screen (left and up).
+            this.threadRun = false; // Stops the thread.
             this.complete();
         }
     }
 
     private boolean endIntoMap(final double v) {
-        return this.map.getMapSize() * imgSize == v; // Control if the sprite is over the screen under and right.
+        return this.map.getMapSize() * imgSize == v; // Checks if the sprite isn't in the limits of the screen (right and down).
     }
 
     private void nextMovement() {
-        if (this.initialPart()) { // It control if the enemy is at the start of the tile.
-            this.takeDirection(); // It select and setting up the direction.
+        if (this.initialPart()) { // It checks if the enemy is at the start of the tile.
+            this.takeDirection(); // It selects and sets up the direction.
         }
-        this.stepsDone += this.enemy.getSpeed(); // Set the step to the next position of the cell.
-        if (this.stepsDone == this.imgSize) { // If ti are at the end of the cell, it reset to zero.
+        this.stepsDone += this.enemy.getSpeed(); // Sets the step to the next position of the cell.
+        if (this.stepsDone == this.imgSize) { // If it is at the end of the tile, it resets to zero.
             this.stepsDone = 0;
         }
-        this.enemyMovement(this.lastDir.orElseThrow()); // Maove the enemy.
+        this.enemyMovement(this.lastDir.orElseThrow()); // Moves the enemy.
     }
 
-    // Control if the enemy is at the start of the tile.
+    // Checks if the enemy is at the start of the tile.
     private boolean initialPart() {
         return stepsDone == 0; 
     }
 
-    // Take the next direction.
+    // Takes the next direction.
     private void takeDirection() {
         final GridPosition p = this.converter.convertToGridPosition(this.enemy.getPosition());
         final Optional<Direction> d = this.map.getTiles().get(p).getTileDirection();
@@ -97,10 +97,10 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private void enemyMovement(final Direction dir) {
-        final Position p =  this.enemy.getPosition(); // Take the current position of the enemy.
-        final double speed = this.enemy.getSpeed(); // Take the speed, advancement step, of the specific enemy.
-        final Pair<Integer, Integer> vec = dir.toUnitVector(); // Take the direction vector that permit to move the enemy to the right direction.
-        enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed); // Move the enemy to the next position.
+        final Position p =  this.enemy.getPosition(); // Takes the current position of the enemy.
+        final double speed = this.enemy.getSpeed(); // Takes the speed, advancement step, of the specific enemy.
+        final Pair<Integer, Integer> vec = dir.toUnitVector(); // Takes the direction vector that permits to move the enemy to the right direction.
+        enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed); // Moves the enemy to the next position.
     }
 
     @Override

@@ -56,7 +56,7 @@ public class WavesLoaderImpl implements WavesLoader {
         }
     }
 
-    // Method that add all the enemies specified from the read row.
+    // Method that adds all the enemies specified from the read row.
     private void read(final String text) {
         final List<String> splitted = Arrays.asList(text.split("\\s+"));
         splitted.forEach(e -> this.addEnemyToWave(e));  // Each value read must be converted to the corresponding enemy type.
@@ -64,7 +64,7 @@ public class WavesLoaderImpl implements WavesLoader {
         this.waveEnemies = new ArrayList<>();
     }
 
-    // Convert the string read into the correct enemy type.
+    // Converts the string read into the correct enemy type.
     private void addEnemyToWave(final String enemy) {
         switch (enemy) {
         case "1":

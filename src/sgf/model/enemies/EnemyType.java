@@ -8,12 +8,14 @@ public enum EnemyType {
      * Denotes the type tank.
      */
     TANK,
+
     /**
      * Denotes the type plane.
      */
     PLANE,
+
     /**
-     * Denotes the type elicopter.
+     * Denotes the type helicopter.
      */
     HELICOPTER
 }

@@ -29,7 +29,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
      */
-    public EnemyViewImpl(final int matrixSize) { // TODO: pass Level instead of first argument(?).
+    public EnemyViewImpl(final int matrixSize) {
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageController = new EnemyImageManager();
@@ -46,7 +46,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         super.paintComponent(g);
         final var gImage = (Graphics2D) this.image.getGraphics();
         gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
-        gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clear the image area before repaint in another position.
+        gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clears the image area before repaint in another position.
 
         // For each enemy in the list repaint it.
         this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),

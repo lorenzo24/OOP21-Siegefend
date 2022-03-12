@@ -13,7 +13,7 @@ public class WaveImpl implements Wave {
     private int enemiesCount;
 
     /**
-     * Initialize the thi list of enemies.
+     * Initializes the list of enemies.
      * @param enemies
      */
     public WaveImpl(final List<Enemy> enemies) {
@@ -40,5 +40,4 @@ public class WaveImpl implements Wave {
     public boolean isWaveOver() {
         return this.enemiesCount == 0;
     }
-
 }
