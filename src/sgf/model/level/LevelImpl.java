@@ -9,7 +9,6 @@ import sgf.model.map.Map;
 public class LevelImpl implements Level {
 
     private final List<Wave> waves;
-    private int numberOfWave = 0;
     private final Map map;
     private final int levelID;
 
@@ -40,12 +39,7 @@ public class LevelImpl implements Level {
     }
 
     @Override
-    public int getCurrentWave() {
-        return numberOfWave;
-    }
-
-    @Override
-    public void setCurrentWave(final int currentWave) {
-        this.numberOfWave = currentWave;
+    public int getNumberOfWaves() {
+        return this.waves.size();
     }
 }
