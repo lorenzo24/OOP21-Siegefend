@@ -1,6 +1,6 @@
 package sgf.model.enemies;
 
-import sgf.model.Position;
+import sgf.model.map.Position;
 
 /**
  * Represents an enemy that can spawn on the map.

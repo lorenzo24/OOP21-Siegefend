@@ -1,6 +1,6 @@
 package sgf.model.enemies;
 
-import sgf.model.Position;
+import sgf.model.map.Position;
 
 /**
  * Interface of factory class that create enemies.

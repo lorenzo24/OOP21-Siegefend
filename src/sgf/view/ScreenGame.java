@@ -7,6 +7,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import sgf.view.game.AbstractPlayingView;
+
 /**
  * This class represents a simple screen game (JFrame).
  */

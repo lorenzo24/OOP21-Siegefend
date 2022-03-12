@@ -3,11 +3,12 @@ package sgf.controller.map;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import sgf.controller.loading.TileImageManager;
-import sgf.model.GridPosition;
-import sgf.view.MapView;
-import sgf.model.ImgTileSize;
-import sgf.model.Map;
+
+import sgf.helpers.ImgTileSize;
+import sgf.managers.TileImageManager;
+import sgf.model.map.GridPosition;
+import sgf.model.map.Map;
+import sgf.view.map.MapView;
 
 /**
  * This class is responsible for the map's creation.

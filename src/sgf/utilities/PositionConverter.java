@@ -1,7 +1,7 @@
 package sgf.utilities;
 
-import sgf.model.GridPosition;
-import sgf.model.Position;
+import sgf.model.map.GridPosition;
+import sgf.model.map.Position;
 
 /**
  * Class converter position.

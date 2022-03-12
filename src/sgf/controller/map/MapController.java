@@ -2,8 +2,8 @@ package sgf.controller.map;
 
 import java.awt.image.BufferedImage;
 import sgf.controller.Controller;
-import sgf.model.Map;
-import sgf.view.MapView;
+import sgf.model.map.Map;
+import sgf.view.map.MapView;
 
 /**
  * Controller for the class Map.
