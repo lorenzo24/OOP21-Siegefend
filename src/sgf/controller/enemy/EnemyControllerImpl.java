@@ -25,9 +25,8 @@ public class EnemyControllerImpl implements EnemyController {
      */
     public EnemyControllerImpl(final LevelManager levelManager) {
         this.levelManager = levelManager;
-        this.levelManager.nextWave();
         this.managerList = new ArrayList<>();
-        this.startRunWaves(); // Methods of the tread.
+        this.startRunWaves(); // Methods of the thread.
     }
 
     private void startRunWaves() {

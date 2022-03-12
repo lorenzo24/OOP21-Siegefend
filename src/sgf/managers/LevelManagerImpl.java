@@ -16,7 +16,6 @@ import sgf.model.map.Map;
 public class LevelManagerImpl implements LevelManager {
 
     private final Level level;
-    private final List<Wave> waveList;
     private final Map map;
     private final Iterator<Wave> waveIter;
     private Iterator<Enemy> enemyIter;
@@ -29,8 +28,18 @@ public class LevelManagerImpl implements LevelManager {
     public LevelManagerImpl(final Level level) {
         this.level = level;
         this.map = level.getMap(); // Get the map from the current level.
-        this.waveList = level.getWaves(); // Get the waves from the current level.
-        waveIter = waveList.iterator();
+        this.waveIter = level.getWaves().iterator(); // Get the waves from the current level.
+        this.loadWave();
+    }
+
+    private void loadWave() {
+        if (this.waveIter.hasNext()) { // If there is an other wave.
+            this.currentWave = Optional.of(this.waveIter.next()); // Take the new wave. 
+            this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Set the enemy iterator.
+            this.level.setCurrentWave(this.level.getCurrentWave() + 1); // Incrise the number of the current wave.
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -40,7 +49,7 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public int getTotalWaves() {
-        return this.waveList.size();
+        return this.level.getWaves().size();
     }
 
     @Override
@@ -50,18 +59,12 @@ public class LevelManagerImpl implements LevelManager {
 
     @Override
     public Wave getCurrentWave() {
-        return this.currentWave.get();
+        return this.currentWave.orElseThrow();
     }
 
     @Override
     public void nextWave() {
-        if (this.waveIter.hasNext()) { // If there is an other wave.
-            this.currentWave = Optional.of(this.waveIter.next()); // Take the new wave. 
-            this.enemyIter = this.getCurrentWave().getEnemies().iterator(); // Set the enemy iterator.
-            this.level.setCurrentWave(this.level.getCurrentWave() + 1); // Incrise the number of the current wave.
-        } else {
-            throw new NoSuchElementException();
-        }
+        this.loadWave();
     }
 
     @Override
