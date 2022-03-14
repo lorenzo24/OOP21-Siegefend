@@ -28,7 +28,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
-    public PlayerManager getPlayerController() {
+    public PlayerManager getPlayerManager() {
         return this.gameManager.getPlayerManager();
     }
 

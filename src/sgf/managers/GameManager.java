@@ -17,6 +17,12 @@ public interface GameManager {
     PlayerManager getPlayerManager();
 
     /**
+     * Returns the manager for the current level.
+     * @return a {@link LevelManager}
+     */
+    LevelManager getLevelManager();
+
+    /**
      * Starts the {@link Level} to play.
      * @param l the level to play
      */

@@ -29,7 +29,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
      */
     public MapViewImpl(final Map map) {
         this.map = map;
-        this.matrixSize = map.getMapSize();
+        this.matrixSize = map.getSize();
         this.addComponentListener(this);
         this.addMouseListener(this);   // Links this panel with a controller of mouse events.
     }

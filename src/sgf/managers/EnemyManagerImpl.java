@@ -70,7 +70,7 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private boolean endIntoMap(final double v) {
-        return this.map.getMapSize() * imgSize == v; // Checks if the sprite isn't in the limits of the screen (right and down).
+        return this.map.getSize() * imgSize == v; // Checks if the sprite isn't in the limits of the screen (right and down).
     }
 
     private void nextMovement() {

@@ -132,7 +132,7 @@ public class MapLoaderImpl implements MapLoader {
         final int column = neighbour.getColumn();
 
         // If given grid position isn't into the map's size limits.
-        if (row < 0 || column < 0 || row >= this.map.getMapSize() || column >= this.map.getMapSize()) {
+        if (row < 0 || column < 0 || row >= this.map.getSize() || column >= this.map.getSize()) {
             return false;
         } else {
             // Checks if its type is path.

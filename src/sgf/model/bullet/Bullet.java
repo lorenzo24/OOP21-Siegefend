@@ -28,8 +28,10 @@ public interface Bullet {
     double getDamage();
 
     /**
-     * Moves the bullet.
+     * Moves the bullet to the given coordinate.
+     * @param x the 
+     * @param y
      */
-    void move();
+    void move(double x, double y);
 
 }

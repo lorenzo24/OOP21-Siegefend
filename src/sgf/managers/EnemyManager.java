@@ -3,7 +3,7 @@ package sgf.managers;
 import sgf.model.enemies.Enemy;
 
 /**
- * Rapresents a single enemy.
+ * Represents a single enemy.
  */
 public interface EnemyManager {
 
@@ -12,6 +12,12 @@ public interface EnemyManager {
      * @return the enemy.
      */
     Enemy getEnemy();
+
+    /**
+     * Inflicts damage on the enemy.
+     * @param damage the amount of inflicted damage
+     */
+    void damage(int damage);
 
     /**
      * Stops the thread.

@@ -8,7 +8,7 @@ public interface Map {
      * The map has a size, which is the number of tiles of each sides.
      * @return the map size.
      */
-    int getMapSize();
+    int getSize();
 
     /**
      * The map has a field that contains the links between grid positions and tiles. This method returns it.

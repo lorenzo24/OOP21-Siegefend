@@ -16,7 +16,7 @@ public interface ShopController extends Controller<ShopView> {
      * Returns the associated {@link PlayerManager}.
      * @return the associated {@code PlayerController}
      */
-    PlayerManager getPlayerController();
+    PlayerManager getPlayerManager();
 
     /**
      * Returns a list of {@link Turret}{@code s} that can be bought from the shop.

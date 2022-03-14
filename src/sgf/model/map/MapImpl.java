@@ -20,7 +20,7 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public int getMapSize() {
+    public int getSize() {
         return this.mapSize;
     }
 

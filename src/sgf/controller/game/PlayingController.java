@@ -17,13 +17,13 @@ public interface PlayingController extends Controller<PlayingView> {
      * Returns the {@link GameManager}.
      * @return the game manager
      */
-    GameManager getGameManager();
+    GameManager getGameManager();       // TODO: remove?
 
     /**
      * Returns the manager for the player.
      * @return the manager for the player
      */
-    PlayerManager getPlayerManager();
+    PlayerManager getPlayerManager();   // TODO: remove?
 
     /**
      * Returns the size of the view. 
@@ -41,24 +41,24 @@ public interface PlayingController extends Controller<PlayingView> {
      * Shows the upgrade view for the selected turret.
      * @param t The selected turret
      */
-    void showUpgrades(Turret t);
+    void showUpgrades(Turret t);        // TODO: remove?
 
     /**
      * Removes the upgrade view displayed.
      */
-    void hideUpgrades();
+    void hideUpgrades();        // TODO: remove?
 
     /**
      * Attempts to buy a turret from the shop.
      * @param t the turret to buy
      * @return {@code true} if the purchase was successful, {@code false} otherwise
      */
-    boolean buy(Turret t);
+    boolean buy(Turret t);      // TODO: remove?
 
     /**
      * Upgrades the selected turret with the chosen upgrade.
      * @param upgrade The selected upgrade
      * @return {@code true} if the purchase/upgrade was successful, {@code false} otherwise
      */
-    boolean upgradeTurret(Turret upgrade);
+    boolean upgradeTurret(Turret upgrade);      // TODO: remove?
 }

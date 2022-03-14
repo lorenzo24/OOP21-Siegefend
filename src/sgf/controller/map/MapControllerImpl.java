@@ -28,7 +28,7 @@ public class MapControllerImpl implements MapController {
     public MapControllerImpl(final Map map) {
         this.map = map;
         this.tileSize = ImgTileSize.getTileSize();
-        this.mapImage = new BufferedImage(this.map.getMapSize() * this.tileSize, this.map.getMapSize() * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Complete map is empty at the beginning.
+        this.mapImage = new BufferedImage(this.map.getSize() * this.tileSize, this.map.getSize() * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Complete map is empty at the beginning.
         this.tileManager = new TileImageManager();
         this.createImage();
     }
@@ -54,8 +54,8 @@ public class MapControllerImpl implements MapController {
     // Method that creates the complete map as a matrix of tiles reading which type each of them has supposed to be. 
     private void createImage() {
         final Graphics g = this.mapImage.getGraphics();
-        for (int row = 0; row < this.map.getMapSize(); row++) {
-            for (int column = 0; column < this.map.getMapSize(); column++) {
+        for (int row = 0; row < this.map.getSize(); row++) {
+            for (int column = 0; column < this.map.getSize(); column++) {
                 final Image i = tileManager.getImage(this.map.getTileFromGridPosition(new GridPosition(row, column)));
                 g.drawImage(i, column * this.tileSize, row *  this.tileSize,  this.tileSize,  this.tileSize, null);
             }
