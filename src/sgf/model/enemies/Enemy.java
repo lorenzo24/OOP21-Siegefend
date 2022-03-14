@@ -23,7 +23,7 @@ public interface Enemy {
      * Sets a new value for the health points of the enemy.
      * @param hp the new health points value.
      */
-    void setHP(int hp);
+    void setHP(double hp);
 
     /**
      * Returns the speed at which the enemy moves on the map.

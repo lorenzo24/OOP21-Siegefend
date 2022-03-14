@@ -104,6 +104,11 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     @Override
+    public void damage(final double damage) {
+        this.enemy.setHP(this.enemy.getHP() - damage);
+    }
+
+    @Override
     public void stopThread() {
         this.threadRun = false;
     }

@@ -54,4 +54,9 @@ public class EnemyImpl implements Enemy {
     public EnemyType getEnemyType() {
         return this.enemyType;
     }
+
+    @Override
+    public void setHP(final double hp) {
+        this.hp = hp;
+    }
 }

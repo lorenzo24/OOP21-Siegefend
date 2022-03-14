@@ -59,9 +59,9 @@ public final class AppStart {
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
-        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
+        final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
+        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager);

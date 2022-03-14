@@ -17,7 +17,7 @@ public interface EnemyManager {
      * Inflicts damage on the enemy.
      * @param damage the amount of inflicted damage
      */
-    void damage(int damage);
+    void damage(double damage);
 
     /**
      * Stops the thread.
