@@ -30,15 +30,10 @@ public interface Turret extends Cloneable {
     double getRange();
 
     /**
-     * Instructs the turret to start attacking. <br />
-     * If no target is present, the turret immediately goes into idle mode.
+     * Sets the state of the turret.
+     * @param state the new state of the turret
      */
-    void attack();
-
-    /**
-     * Puts the turret in idle mode.
-     */
-    void idle();
+    void setState(boolean state);
 
     /**
      * Checks whether the turret is attacking an {@link Enemy} or not.
@@ -47,22 +42,16 @@ public interface Turret extends Cloneable {
     boolean isAttacking();
 
     /**
-     * Instructs the turret to fire a {@link Bullet} at the targeted {@link Position}.
-     * @param target The target position
+     * Creates a new bullet that attacks the targeted enemy.
+     * @return an instance of {@code Bullet}
      */
-    void fireAt(Position target);
+    Bullet createBullet();
 
     /**
      * Returns the speed at which the turret fires bullets (specified in bullets/second).
      * @return the fire rate of the turret
      */
     double getFireRate();
-
-    /**
-     * Tries to find a target {@link Enemy} within the range of the turret.
-     * @return An {@link Optional} containing the enemy if successful, {@code Optional.empty()} otherwise.
-     */
-    Optional<Enemy> findTarget();
 
     /**
      * Returns the target of the turret.
