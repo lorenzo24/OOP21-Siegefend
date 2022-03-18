@@ -1,35 +1,24 @@
 package sgf.controller.map;
 
-
+import java.awt.image.BufferedImage;
 import sgf.controller.Controller;
-import sgf.model.Map;
-import sgf.model.GridPosition;
-import sgf.model.Position;
-import sgf.view.MapView;
-
+import sgf.model.map.Map;
+import sgf.view.map.MapView;
 
 /**
- *
+ * Controller for the class Map.
  */
 public interface MapController extends Controller<MapView> {
+
     /**
-     * Simple getter for map field.
-     * @return the map.
+     * Simple getter for field of type Map..
+     * @return the game map intended as correspondences between GridPositions and Tiles.
      */
     Map getMap();
 
     /**
-     * Method to convert a GridPosition into a Position.
-     * @param position Is the position expressed as GridPosition.
-     * @return the equivalent position expressed as Position.
+     * Simple getter for the image representing the whole map.
+     * @return a BufferedImage representing the complete map.
      */
-    Position convertToPosition(GridPosition position);
-
-    /**
-     * Method to convert a Position into a GridPosition.
-     * @param position Is the position expressed as Position.
-     * @return the equivalent position expressed as GridPosition.
-     */
-    GridPosition convertToGridPosition(Position position);
-
+    BufferedImage getMapImage();
 }
