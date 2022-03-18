@@ -30,11 +30,6 @@ public class EnemyImpl implements Enemy {
         return this.position;
     }
 
-    // Set the new position of an enemy.
-    private void setPosition(final double x, final double y) {
-        this.position = new Position(x, y);
-    }
-
     @Override
     public double getHP() {
         return this.hp;
