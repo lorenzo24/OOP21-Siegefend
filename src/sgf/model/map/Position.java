@@ -20,6 +20,15 @@ public class Position {
     }
 
     /**
+     * Creates a new instance of {@code Position} from another
+     * instance of position.
+     * @param pos
+     */
+    public Position(final Position pos) {
+        this(pos.x, pos.y);
+    }
+
+    /**
      * Returns the x coordinate of the position.
      * @return the x coordinate of the position
      */
