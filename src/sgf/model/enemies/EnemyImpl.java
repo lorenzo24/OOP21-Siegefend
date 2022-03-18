@@ -19,7 +19,7 @@ public class EnemyImpl implements Enemy {
      * @param enemyType Denotes the type of the enemy.
      */
     public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
-        this.position = position;
+        this.position = new Position(position);
         this.hp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
@@ -28,11 +28,6 @@ public class EnemyImpl implements Enemy {
     @Override
     public Position getPosition() {
         return this.position;
-    }
-
-    // Set the new position of an enemy.
-    private void setPosition(final double x, final double y) {
-        this.position = new Position(x, y);
     }
 
     @Override
@@ -47,7 +42,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void move(final double x, final double y) {
-        this.setPosition(x, y); 
+        this.position.setCoordinates(x, y);
     }
 
     @Override
