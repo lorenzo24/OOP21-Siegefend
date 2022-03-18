@@ -10,8 +10,8 @@ public class Position {
 
     /**
      * Creates a new instance of {@code Position}.
-     * @param x The x coordinate of the position.
-     * @param y The y coordinate of the position.
+     * @param x The x coordinate of the position
+     * @param y The y coordinate of the position
      */
     public Position(final double x, final double y) {
         super();
@@ -22,7 +22,7 @@ public class Position {
     /**
      * Creates a new instance of {@code Position} from another
      * instance of position.
-     * @param pos
+     * @param pos the instance of position to copy
      */
     public Position(final Position pos) {
         this(pos.x, pos.y);
