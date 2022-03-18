@@ -47,7 +47,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void move(final double x, final double y) {
-        this.setPosition(x, y); 
+        this.position.setCoordinates(x, y);
     }
 
     @Override
