@@ -15,4 +15,9 @@ public interface Classification {
      * Write the score of the player in the file.
      */
     void writeScore();
+
+    /**
+     * Read the score of the older player in the file.
+     */
+    void readScore();
 }
