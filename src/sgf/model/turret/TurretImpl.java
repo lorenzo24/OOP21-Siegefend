@@ -11,7 +11,7 @@ public class TurretImpl implements Turret {
 
     private final int id;
     private final Position position;
-    private double range;
+    private final double range;
     private final int price;
     private final double fireRate;
     private Enemy target;
