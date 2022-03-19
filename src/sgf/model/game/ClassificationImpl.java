@@ -6,17 +6,17 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * Class that managed the classification.
  */
 public class ClassificationImpl implements Classification {
     private int actualScore = 0;
-    private final Map<Date, Integer> listScore = new HashMap<>();
-    private final String file = "res" + File.separator + "classification.txt";
+    private final Map<String, String> mapScore = new HashMap<>();
+    private final Path p = FileSystems.getDefault().getPath("res" + File.separator + "classification.txt");
 
     @Override
     public void updateScore(final int score) {
@@ -25,23 +25,27 @@ public class ClassificationImpl implements Classification {
 
     @Override
     public void writeScore() {
-        final Path p = FileSystems.getDefault().getPath(file);
         try {
-            Files.writeString(p, "ciao", StandardOpenOption.WRITE);
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.p.toFile().delete();
+            this.p.toFile().createNewFile();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
+        mapScore.entrySet().stream().sorted((x, y) -> Integer.parseInt(y.getValue()) - Integer.parseInt(x.getValue())).forEach(x -> {
+            try {
+                Files.writeString(this.p, x.getKey() + ":" + x.getValue() + "\n", StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void readScore() {
-        /*final Path p = FileSystems.getDefault().getPath(file);
         try {
-            Files.lines(p).forEach(s -> read(s));
-            this.map.setMapSize(this.mapRows);
+            Files.lines(this.p).forEach(x -> mapScore.put(x.split(":")[0], x.split(":")[1]));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
-
 }
