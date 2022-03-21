@@ -19,11 +19,11 @@ import sgf.model.map.Map;
 import sgf.model.map.Position;
 
 /**
- * Class of test for enmey.
+ * Testing class for enemy behavior.
  */
 public class TestEnemy {
 
-    private static final double DELTA = 0.1;  // Delta for double number.
+    private static final double DELTA = 0.1;  // Delta for double numbers.
     private static final int PLANE_LIFE  = 50;
     private static final int TANK_LIFE  = 200;
     private static final int HELICOPTER_LIFE  = 100;
@@ -31,7 +31,7 @@ public class TestEnemy {
     private final EnemyFactory factory = new  EnemyFactoryImpl();
 
     /**
-     * Test of life of one enemy.
+     * Checks the correct initial health of enemies.
      */
     @Test
     public void lifeTests() {
@@ -44,7 +44,7 @@ public class TestEnemy {
     }
 
     /**
-     * Test for movement of one enemy.
+     * Checks a simple movement example.
      */
     @Test
     public void moveTests() {
@@ -54,7 +54,7 @@ public class TestEnemy {
     }
 
     /**
-     * Test for movement of one enemy.
+     * File loaded has a number 9 on it and this number doesn't correspond to an enemy.
      */
     @SuppressWarnings("unused")
     @Test(expected = IllegalArgumentException.class)
@@ -64,7 +64,7 @@ public class TestEnemy {
     }
 
     /**
-     * Test check number of waves.
+     * Checks the correct number of waves read from file.
      */
     @Test
     public void numberWaveTests() {
@@ -74,7 +74,7 @@ public class TestEnemy {
     }
 
     /**
-     * Test check the exception if the next wave there isn't.
+     * Checks the behavior when we try to load a non existent wave.
      */
     @Test (expected = NoSuchElementException.class)
     public void nextWaveTests() {
@@ -88,7 +88,7 @@ public class TestEnemy {
     }
 
     /**
-     * Test check the next enemy.
+     * Checks the correct enemy getting.
      */
     @Test
     public void nextEnemyTests() {
