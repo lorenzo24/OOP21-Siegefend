@@ -78,6 +78,9 @@ public class MapLoaderImpl implements MapLoader {
         int column = 0;
         for (final String element : lineRead) {
             final int value = Integer.parseInt(element);
+            if (value > 4) {
+                throw new IllegalArgumentException();   // Check number read consistency.
+            }
             if (value == 3) {
                 this.map.setStartTile(mapRows, column);
                 this.isSetStart = true;

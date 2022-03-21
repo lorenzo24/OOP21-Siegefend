@@ -77,7 +77,7 @@ public class WavesLoaderImpl implements WavesLoader {
             this.waveEnemies.add(this.enemyFactory.createHelicopter(startPosition));
             break;
         default:
-            break;
+            throw new IllegalArgumentException("Enemy code read in file cannot be encoded");
         }
     }
 }
