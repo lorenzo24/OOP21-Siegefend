@@ -31,25 +31,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView) {
         this.gameView = gameView;
         this.shopView = shopView;
-        this.setLayout(new BorderLayout());
-        this.add(this.gameView, BorderLayout.CENTER);
-        this.add(shopView, BorderLayout.SOUTH);
-        this.addComponentListener(new ComponentListener() {
-            @Override
-            public void componentShown(final ComponentEvent e) {}
-
-            @Override
-            public void componentResized(final ComponentEvent e) {
-                final int size = (int) (PlayingViewImpl.this.getSize().getHeight() / 7);
-                PlayingViewImpl.this.shopView.setItemImgSize(new Dimension(size, size));
-            }
-
-            @Override
-            public void componentMoved(final ComponentEvent e) {}
-
-            @Override
-            public void componentHidden(final ComponentEvent e) {}
-        });
+        this.setVisible(false);
     }
 
     @Override
@@ -57,6 +39,34 @@ public class PlayingViewImpl extends AbstractPlayingView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.playingController = controller;
+        }
+    }
+
+    @Override
+    public void start() {
+        if (isControllerSet) {
+            this.setLayout(new BorderLayout());
+            this.add(this.gameView, BorderLayout.CENTER);
+            this.add(shopView, BorderLayout.SOUTH);
+            this.addComponentListener(new ComponentListener() {
+                @Override
+                public void componentShown(final ComponentEvent e) { }
+
+                @Override
+                public void componentResized(final ComponentEvent e) {
+                    final int size = (int) (PlayingViewImpl.this.getSize().getHeight() / 7);
+                    PlayingViewImpl.this.shopView.setItemImgSize(new Dimension(size, size));
+                }
+
+                @Override
+                public void componentMoved(final ComponentEvent e) { }
+
+                @Override
+                public void componentHidden(final ComponentEvent e) { }
+            });
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 }

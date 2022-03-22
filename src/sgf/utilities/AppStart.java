@@ -50,7 +50,7 @@ public final class AppStart {
     public static void main(final String[] args) {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
-        
+
         Classification cl = new ClassificationImpl();
 
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
@@ -85,6 +85,12 @@ public final class AppStart {
         shopView.setController(shopController);
         playingController.setView(playingView);
         playingView.setController(playingController);
+
+        shopView.start();
+        mapView.start();
+        enemyView.start();
+        gameView.start();
+        playingView.start();
 
         new ScreenGame(playingView);
     }

@@ -24,6 +24,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private List<EnemyManager> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
     private final int tileSize;
+    private boolean ready;
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
@@ -34,6 +35,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageController = new EnemyImageManager();
         this.enemyList = new ArrayList<>();
+        this.setVisible(false);
     }
 
     @Override
@@ -44,18 +46,20 @@ public class EnemyViewImpl extends AbstractEnemyView {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        final var gImage = (Graphics2D) this.image.getGraphics();
-        gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
-        gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clears the image area before repaint in another position.
+        if (this.ready) {
+            final var gImage = (Graphics2D) this.image.getGraphics();
+            gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
+            gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clears the image area before repaint in another position.
 
-        // For each enemy in the list repaint it.
-        this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
-                (int) x.getEnemy().getPosition().getX(),
-                (int) x.getEnemy().getPosition().getY(),
-                this.tileSize, this.tileSize, null));
+            // For each enemy in the list repaint it.
+            this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
+                    (int) x.getEnemy().getPosition().getX(),
+                    (int) x.getEnemy().getPosition().getY(),
+                    this.tileSize, this.tileSize, null));
 
-        // The panel is covered with an empty image in order to hide the previous enemy image displayed.
-        g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+            // The panel is covered with an empty image in order to hide the previous enemy image displayed.
+            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+        }
     }
 
     @Override
@@ -63,6 +67,16 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyController = controller;
+        }
+    }
+
+    @Override
+    public void start() {
+        if (isControllerSet) {
+            this.ready = true;
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 }
