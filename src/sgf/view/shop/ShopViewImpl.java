@@ -1,7 +1,6 @@
 package sgf.view.shop;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +10,7 @@ import java.util.stream.Collectors;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import sgf.controller.game.PlayingController;
 import sgf.controller.shop.ShopController;
-import sgf.controller.shop.ShopControllerImpl;
 import sgf.managers.GameManager;
 import sgf.model.turret.Turret;
 
@@ -31,6 +28,7 @@ public class ShopViewImpl extends AbstractShopView {
     private transient ShopController shopController;
     private final GameManager gameManager;
     private boolean isControllerSet;
+    private boolean ready;
 
     /**
      * 
@@ -40,14 +38,16 @@ public class ShopViewImpl extends AbstractShopView {
         this.setLayout(new BorderLayout());
         this.gameManager = gm;
 
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     @Override
     protected void update() {
-        this.turretInfo.stream()
-                       .forEach(t -> t.setCanvasSize(this.getItemImgSize()));
-        this.revalidate();
+        if (this.ready) {
+            this.turretInfo.stream()
+                           .forEach(t -> t.setCanvasSize(this.getItemImgSize()));
+            this.revalidate();
+        }
     }
 
     private void setup() {
@@ -86,16 +86,20 @@ public class ShopViewImpl extends AbstractShopView {
 
     @Override
     public void disableAll() {
-        this.turretInfo.stream()
-                       .filter(i -> i != selected)
-                       .forEach(i -> i.setButtonEnabled(false));
+        if (this.ready) {
+            this.turretInfo.stream()
+                           .filter(i -> i != selected)
+                           .forEach(i -> i.setButtonEnabled(false));
+        }
     }
 
     @Override
     public void enableAll() {
-        this.turretInfo.stream()
-                       .filter(i -> i != selected)
-                       .forEach(i -> i.setButtonEnabled(true));
+        if (this.ready) {
+            this.turretInfo.stream()
+                           .filter(i -> i != selected)
+                           .forEach(i -> i.setButtonEnabled(true));
+        }
     }
 
     @Override
@@ -103,7 +107,17 @@ public class ShopViewImpl extends AbstractShopView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.shopController = controller;
+        }
+    }
+
+    @Override
+    public void start() {
+        if (this.isControllerSet) {
             this.setup();
+            this.ready = true;
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 }

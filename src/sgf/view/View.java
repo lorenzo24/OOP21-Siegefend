@@ -13,4 +13,10 @@ public interface View<C extends Controller<?>> {
      * @param controller the controller to associate
      */
     void setController(C controller);
+
+    /**
+     * Enables the view to start working. Throws {@code IllegalStateException} if the
+     * controller has not been set
+     */
+    void start();
 }

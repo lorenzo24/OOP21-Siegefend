@@ -22,6 +22,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     private BufferedImage completeMap;    // Map to be shown after creation process.
     //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private boolean isControllerSet;
+    private boolean ready;
 
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
@@ -30,8 +31,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     public MapViewImpl(final Map map) {
         this.map = map;
         this.matrixSize = map.getSize();
-        this.addComponentListener(this);
-        this.addMouseListener(this);   // Links this panel with a controller of mouse events.
+        this.setVisible(false);
     }
 
     /**
@@ -68,7 +68,9 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+        if (this.ready) {
+            g.drawImage(completeMap, 0, 0, this.getWidth(), this.getHeight(), null);
+        }
     }
 
     @Override
@@ -77,6 +79,18 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
             this.isControllerSet = true;
             this.mapController = controller;
             this.completeMap = this.mapController.getMapImage();
+        }
+    }
+
+    @Override
+    public void start() {
+        if (isControllerSet) {
+            this.addComponentListener(this);
+            this.addMouseListener(this);   // Links this panel with a controller of mouse events.
+            this.ready = true;
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 
