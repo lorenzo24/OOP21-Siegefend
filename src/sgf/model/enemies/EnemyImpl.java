@@ -19,7 +19,7 @@ public class EnemyImpl implements Enemy {
      * @param enemyType Denotes the type of the enemy.
      */
     public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
-        this.position = position;
+        this.position = new Position(position);
         this.hp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
