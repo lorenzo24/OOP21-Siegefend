@@ -4,9 +4,13 @@ import java.util.Optional;
 
 import sgf.model.bullet.Bullet;
 import sgf.model.bullet.BulletFactory;
+import sgf.model.bullet.BulletFactoryImpl;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
+/**
+ * Class that represents a simple turret.
+ */
 public class TurretImpl implements Turret {
 
     private final int id;
@@ -16,7 +20,9 @@ public class TurretImpl implements Turret {
     private final double fireRate;
     private Enemy target;
     private boolean state;
-    private BulletFactory bulletFactory;
+    private final double bulletSpeed;
+    private final double bulletDamage;
+    private final BulletFactory bulletFactory;
     // TODO: private TurretStats stats; classe con stats delle torrette.
 
     /**
@@ -27,13 +33,15 @@ public class TurretImpl implements Turret {
      * @param price the price of the turret
      * @param fireRate the fire rate of the turret
      */
-    public TurretImpl(final int id, final Position position, final double range, final int price, final double fireRate) {
+    public TurretImpl(final int id, final Position position, final double range, final int price, final double fireRate, final double bulletSpeed, final double bulletDamage) {
         this.id = id;
         this.position = new Position(position);
         this.range = range;
         this.price = price;
         this.fireRate = fireRate;
-        this.bulletFactory = null;
+        this.bulletSpeed = bulletSpeed;
+        this.bulletDamage = bulletDamage;
+        this.bulletFactory = new BulletFactoryImpl();
     }
 
     @Override
@@ -63,7 +71,7 @@ public class TurretImpl implements Turret {
 
     @Override
     public Bullet createBullet() {
-        return this.bulletFactory.createBullet(this.position, this.target.getPosition());
+        return this.bulletFactory.createBullet(this.bulletSpeed, this.position, this.bulletDamage, this.target);
     }
 
     @Override
