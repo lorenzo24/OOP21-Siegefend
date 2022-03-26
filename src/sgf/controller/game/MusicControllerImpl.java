@@ -14,6 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class MusicControllerImpl implements MusicController {
     private static final int SONGS_NUMBER = 3;
+    private static final int  DURATION = 3000;
     private boolean musicOn;
     private Clip c;
 
@@ -61,7 +62,7 @@ public class MusicControllerImpl implements MusicController {
                         changeMusic();
                     }
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(DURATION);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
