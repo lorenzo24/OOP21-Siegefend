@@ -26,9 +26,10 @@ public class MapLoaderImpl implements MapLoader {
     private final Map map;
     private final java.util.Map<Integer, TileType> numbersToTypes;
     private int mapRows;        // At the end of the reading it will be the map size.
-    // Two boolean variable to check if the given map has a start and a end.
+    // Boolean variables to check the given map integrity (has start and end tile and has a path).
     private boolean isSetStart;
     private boolean isSetEnd;
+    private boolean isPathPresent;
 
     /**
      * Simple constructor.
@@ -69,6 +70,10 @@ public class MapLoaderImpl implements MapLoader {
         }
         if (!this.isSetStart || !this.isSetEnd) {       // If the file .txt has no 3 or 4 (start or end tile).
             throw new IllegalStateException("Given matrix has no start or end tile!");
+        }
+        final long numberOfPathTiles = this.map.getTiles().values().stream().filter(x -> x.getTileType().equals(TileType.PATH)).count();
+        if (numberOfPathTiles == 0) {
+            throw new IllegalStateException("Given matrix has no path!");
         }
     }
 

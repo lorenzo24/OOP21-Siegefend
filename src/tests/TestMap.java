@@ -14,6 +14,8 @@ public class TestMap {
     private static final int END_TILE_ROW = 19;
     private static final int END_TILE_COLUMN = 18;
     private static final int SIZE_MAP1 = 20;
+    private static final int EMPTY_FILE = -2;   // Empty file in res folder is called "mapLevel-2".
+    private static final int NO_PATH_FILE = -3;   // File in res folder without path is called "mapLevel-3".
 
     /**
      * Checks if a correct and known map (the level 1's map) sets correctly its start tile.
@@ -66,5 +68,21 @@ public class TestMap {
     @Test(expected = IllegalStateException.class)
     public void checkNoEndTile() {
         new MapLoaderImpl(-1);
+    }
+
+    /**
+     * Empty file loaded. 
+     */
+    @Test(expected = IllegalStateException.class)
+    public void checkEmptyFile() {
+        new MapLoaderImpl(EMPTY_FILE);
+    }
+
+    /**
+     * Empty file loaded. 
+     */
+    @Test(expected = IllegalStateException.class)
+    public void checkNoPathFile() {
+        new MapLoaderImpl(NO_PATH_FILE);
     }
 }
