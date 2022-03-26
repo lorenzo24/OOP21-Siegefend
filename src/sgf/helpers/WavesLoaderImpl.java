@@ -50,6 +50,9 @@ public class WavesLoaderImpl implements WavesLoader {
         final String file = "res" + File.separator + "level" + levelId + ".txt";
         final Path p = FileSystems.getDefault().getPath(file);
         try {
+            if (Files.lines(p).count() == 0L) {
+                throw new IllegalStateException();
+            }
             Files.lines(p).forEach(x -> read(x));
         } catch (IOException e) {
             e.printStackTrace();

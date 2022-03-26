@@ -64,6 +64,15 @@ public class TestEnemy {
     }
 
     /**
+     * Checks if is loaded an empty file.
+     */
+    @Test(expected = IllegalStateException.class)
+    public void loadEmptyFilesTests() {
+        final Map map = new MapLoaderImpl(1).getMap();
+        final WavesLoader loader = new WavesLoaderImpl(map, -1);
+    }
+
+    /**
      * Checks the correct number of waves read from file.
      */
     @Test
