@@ -11,7 +11,7 @@ import sgf.model.map.TileType;
 public class PathLinkerImpl implements PathLinker {
     private final Map<EnemyType, String> mapEnemy;
     private final Map<TileType, String> mapTile;
-
+    
     /**
      * Simple constructor that class methods to fill its fields.
      */
@@ -46,5 +46,10 @@ public class PathLinkerImpl implements PathLinker {
         this.mapTile.put(TileType.START_PATH, "sand.png");
         this.mapTile.put(TileType.END_PATH, "sand.png");
         this.mapTile.put(TileType.WATER, "water.png");
+    }
+
+    @Override
+    public String getLifeBar() {
+        return "lifeBar.png";
     }
 }

@@ -8,6 +8,8 @@ import sgf.managers.EnemyManager;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import  java.util.List;
@@ -35,6 +37,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageController = new EnemyImageManager();
         this.enemyList = new ArrayList<>();
+        
         this.setVisible(false);
     }
 
@@ -56,7 +59,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
                     (int) x.getEnemy().getPosition().getX(),
                     (int) x.getEnemy().getPosition().getY(),
                     this.tileSize, this.tileSize, null));
-
+            
+            
             // The panel is covered with an empty image in order to hide the previous enemy image displayed.
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
