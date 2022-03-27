@@ -37,7 +37,6 @@ public class EnemyViewImpl extends AbstractEnemyView {
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageController = new EnemyImageManager();
         this.enemyList = new ArrayList<>();
-        
         this.setVisible(false);
     }
 
@@ -53,17 +52,24 @@ public class EnemyViewImpl extends AbstractEnemyView {
             final var gImage = (Graphics2D) this.image.getGraphics();
             gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
             gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clears the image area before repaint in another position.
-
-            // For each enemy in the list repaint it.
-            this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
-                    (int) x.getEnemy().getPosition().getX(),
-                    (int) x.getEnemy().getPosition().getY(),
-                    this.tileSize, this.tileSize, null));
-            
-            
+            this.drawComponents(gImage);
             // The panel is covered with an empty image in order to hide the previous enemy image displayed.
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
+    }
+
+    private void drawComponents(final Graphics2D gImage) {
+        // For each enemy in the list repaint it.
+        this.enemyList.forEach(x -> {
+            gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
+                    (int) x.getEnemy().getPosition().getX(),
+                    (int) x.getEnemy().getPosition().getY(),
+                    this.tileSize, this.tileSize, null);
+            gImage.drawImage(this.imageController.barLife(),
+                    (int) x.getEnemy().getPosition().getX(),
+                    (int) x.getEnemy().getPosition().getY(),
+                    this.tileSize, 5, null);
+        });
     }
 
     @Override
