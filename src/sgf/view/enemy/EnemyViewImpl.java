@@ -82,6 +82,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
+        this.enemyController.stopThread();
+        this.enemyList.forEach(x -> x.stopThread());
     }
 }
