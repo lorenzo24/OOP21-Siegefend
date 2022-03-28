@@ -68,4 +68,10 @@ public class GameViewImpl extends AbstractGameView {
             throw new IllegalStateException("Cannot invoke start() if the contorller has not been set.");
         }
     }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
 }

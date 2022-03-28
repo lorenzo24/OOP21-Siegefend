@@ -120,4 +120,10 @@ public class ShopViewImpl extends AbstractShopView {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
 }
