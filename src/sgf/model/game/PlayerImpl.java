@@ -43,7 +43,7 @@ public class PlayerImpl implements Player {
 
     @Override
     public void setCurrentHP(final int hp) {
-        if (hp <= MAX_HP && hp > 0) {
+        if (hp <= MAX_HP && hp >= 0) {
             this.currentHP = hp;
         }
     }
@@ -61,12 +61,12 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void decreaseCurrentHP() {
+    public void decreaseCurrentHP() {                           //These two might be useless.
         decreaseCurrentHP(HP_REDUCTION_STEP);
     }
 
     @Override
-    public void decreaseCurrentHP(final int amount) {
+    public void decreaseCurrentHP(final int amount) {           //These two might be useless.
         if (this.currentHP >= amount) {
             this.currentHP -= amount;
         }
