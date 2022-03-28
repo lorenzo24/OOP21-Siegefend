@@ -3,7 +3,6 @@ package sgf.model.game;
 
 /**
  * 
- *
  */
 public class PlayerImpl implements Player {
     /**
@@ -14,9 +13,13 @@ public class PlayerImpl implements Player {
      * Indicates the amount of money the player starts with.
      */
     public static final int STARTING_MONEY = 500;       //TODO: set this so that the player can buy at least 1 turret.
+    /**
+     * How many HP the player looses by default each time he takes damage.
+     */
+    public static final int HP_REDUCTION_STEP = 1;
     private int currentHP;
     private int money;
-    //private int score;
+    private int score;
 
     /**
      * Default constructor, sets fields at the starting value.
@@ -46,15 +49,39 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public int getCurrentMoney() {
+    public int getMoney() {
         return this.money;
     }
 
     @Override
-    public void setCurrentMoney(final int money) {
+    public void setMoney(final int money) {
        if (money >= 0) {
            this.money = money;
        }
+    }
+
+    @Override
+    public void decreaseCurrentHP() {
+        decreaseCurrentHP(HP_REDUCTION_STEP);
+    }
+
+    @Override
+    public void decreaseCurrentHP(final int amount) {
+        if (this.currentHP >= amount) {
+            this.currentHP -= amount;
+        }
+    }
+
+    @Override
+    public int getScore() {
+        return this.score;
+    }
+
+    @Override
+    public void setScore(final int score) {
+        if (score >= 0) {
+            this.score = score;
+        }
     }
 
 }
