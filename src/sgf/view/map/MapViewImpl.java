@@ -125,4 +125,10 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     public void mouseExited(final MouseEvent e) {
 
     }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
 }

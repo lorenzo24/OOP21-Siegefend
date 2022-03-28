@@ -69,4 +69,10 @@ public class PlayingViewImpl extends AbstractPlayingView {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        
+    }
 }

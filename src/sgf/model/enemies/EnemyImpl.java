@@ -6,8 +6,10 @@ import sgf.model.map.Position;
  * This class represents the implementation of the interface Enemy.
  */
 public class EnemyImpl implements Enemy {
-    private Position position;
+    private final Position position;
     private double hp;
+    private final double maxHp;
+    private final double hpPercent;
     private final double speed;
     private final EnemyType enemyType;
 
@@ -21,8 +23,14 @@ public class EnemyImpl implements Enemy {
     public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
         this.position = new Position(position);
         this.hp = hp;
+        this.maxHp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
+        this.hpPercent = this.calculateHp();
+    }
+
+    private double calculateHp() {
+        return this.hp / this.maxHp;
     }
 
     @Override
@@ -53,5 +61,10 @@ public class EnemyImpl implements Enemy {
     @Override
     public void setHP(final double hp) {
         this.hp = hp;
+    }
+
+    @Override
+    public double getPercentHp() {
+        return this.hpPercent;
     }
 }

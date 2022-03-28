@@ -43,4 +43,10 @@ public interface Enemy {
      * @param y coordinate.
      */
     void move(double x, double y);
+
+    /**
+     * Take the percentual of enemy Life. 
+     * @return the percentual of enemy life.
+     */
+    double getPercentHp();
 }

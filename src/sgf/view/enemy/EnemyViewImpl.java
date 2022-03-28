@@ -20,6 +20,7 @@ import  java.util.List;
 public class EnemyViewImpl extends AbstractEnemyView {
     private static final long serialVersionUID = 6345414040020937047L;
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
+    private static final int BAR_HEIGHT = 5;
     private EnemyController enemyController;
     private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
@@ -61,14 +62,15 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private void drawComponents(final Graphics2D gImage) {
         // For each enemy in the list repaint it.
         this.enemyList.forEach(x -> {
-            gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
-                    (int) x.getEnemy().getPosition().getX(),
-                    (int) x.getEnemy().getPosition().getY(),
+            final var enemy = x.getEnemy();
+            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
+                    (int) enemy.getPosition().getX(),
+                    (int) enemy.getPosition().getY(),
                     this.tileSize, this.tileSize, null);
             gImage.drawImage(this.imageController.barLife(),
-                    (int) x.getEnemy().getPosition().getX(),
-                    (int) x.getEnemy().getPosition().getY(),
-                    this.tileSize, 5, null);
+                    (int) enemy.getPosition().getX(),
+                    (int) enemy.getPosition().getY(),
+                    (int) (this.tileSize * x.getEnemy().getPercentHp()), BAR_HEIGHT, null);
         });
     }
 
@@ -88,5 +90,9 @@ public class EnemyViewImpl extends AbstractEnemyView {
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
+    }
+
+    @Override
+    public void stop() {
     }
 }
