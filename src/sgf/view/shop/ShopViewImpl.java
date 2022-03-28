@@ -123,7 +123,10 @@ public class ShopViewImpl extends AbstractShopView {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-        
+        if (this.ready) {
+            this.ready = false;
+            this.removeAll();
+            this.setVisible(false);
+        }
     }
 }
