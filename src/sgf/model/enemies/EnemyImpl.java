@@ -9,7 +9,7 @@ public class EnemyImpl implements Enemy {
     private final Position position;
     private double hp;
     private final double maxHp;
-    private final double hpPercent;
+    private double hpPercent;
     private final double speed;
     private final EnemyType enemyType;
 
@@ -26,11 +26,11 @@ public class EnemyImpl implements Enemy {
         this.maxHp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
-        this.hpPercent = this.calculateHp();
+        this.calculateHp();
     }
 
-    private double calculateHp() {
-        return this.hp / this.maxHp;
+    private void calculateHp() {
+        this.hpPercent = this.hp / this.maxHp;
     }
 
     @Override
@@ -59,12 +59,13 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public void setHP(final double hp) {
-        this.hp = hp;
+    public double getPercentHp() {
+        return this.hpPercent;
     }
 
     @Override
-    public double getPercentHp() {
-        return this.hpPercent;
+    public void damageSuffered(final double damage) {
+        this.hp -= damage;
+        this.calculateHp();
     }
 }
