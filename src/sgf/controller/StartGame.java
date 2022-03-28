@@ -1,6 +1,6 @@
 package sgf.controller;
 
-import sgf.controller.thread.GameControllerImpl;
+import sgf.controller.game.GameControllerImpl;
 
 /**
  * Class with the task of starting the game.
