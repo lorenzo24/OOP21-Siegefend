@@ -43,8 +43,8 @@ public class PathLinkerImpl implements PathLinker {
         // Links every tile type with the correct image that will be shown.
         this.mapTile.put(TileType.GRASS, "grass.png");
         this.mapTile.put(TileType.PATH, "sand.png");
-        this.mapTile.put(TileType.START_PATH, "sand.png");
-        this.mapTile.put(TileType.END_PATH, "sand.png");
+        this.mapTile.put(TileType.START_PATH, "start.png");
+        this.mapTile.put(TileType.END_PATH, "end.png");
         this.mapTile.put(TileType.WATER, "water.png");
     }
 }
