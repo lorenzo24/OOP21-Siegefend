@@ -105,7 +105,7 @@ public class EnemyManagerImpl implements EnemyManager {
 
     @Override
     public void damage(final double damage) {
-        this.enemy.setHP(this.enemy.getHP() - damage);
+        this.enemy.damageSuffered(damage);
     }
 
     @Override
