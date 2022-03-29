@@ -72,6 +72,5 @@ public class GameViewImpl extends AbstractGameView {
     @Override
     public void stop() {
         // TODO Auto-generated method stub
-        
     }
 }

@@ -12,12 +12,14 @@ import sgf.model.enemies.EnemyType;
  */
 public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
     private final Map<EnemyType, Image> enemySprite = new HashMap<>();
+    private final Image lifeImage;
 
     /**
      * Simple constructor that takes the enemies path names useful for the loading.
      */
     public EnemyImageManager() {
         this.fillMap(super.getPathImage().getEnemyMap());
+        this.lifeImage = this.loadLifeImage();
     }
 
     /**
@@ -27,6 +29,18 @@ public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
      */
     public Image spriteImage(final EnemyType type) {
         return this.enemySprite.get(type);
+    }
+
+    /**
+     * Method that returns the image of the life bar.
+     * @return the correct image.
+     */
+    public Image barLife() {
+        return this.lifeImage;
+    }
+
+    private Image loadLifeImage() {
+        return this.loadRightImage(this.getPathImage().getLifeBar());
     }
 
     @Override

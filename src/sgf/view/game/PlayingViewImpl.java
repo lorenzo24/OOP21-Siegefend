@@ -73,6 +73,5 @@ public class PlayingViewImpl extends AbstractPlayingView {
     @Override
     public void stop() {
         // TODO Auto-generated method stub
-        
     }
 }

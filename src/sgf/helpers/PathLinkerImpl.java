@@ -47,4 +47,9 @@ public class PathLinkerImpl implements PathLinker {
         this.mapTile.put(TileType.END_PATH, "end.png");
         this.mapTile.put(TileType.WATER, "water.png");
     }
+
+    @Override
+    public String getLifeBar() {
+        return "lifeBar.png";
+    }
 }

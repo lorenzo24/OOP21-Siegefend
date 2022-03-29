@@ -64,8 +64,7 @@ public class EnemyManagerImpl implements EnemyManager {
         final double x = this.enemy.getPosition().getX();
         final double y = this.enemy.getPosition().getY();
         if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Checks if the sprite isn't in the limits of the screen (left and up).
-            this.threadRun = false; // Stops the thread.
-            this.complete();
+            this.disappear();
         }
     }
 
@@ -105,7 +104,10 @@ public class EnemyManagerImpl implements EnemyManager {
 
     @Override
     public void damage(final double damage) {
-        this.enemy.setHP(this.enemy.getHP() - damage);
+        if (this.enemy.getHP() - damage <= 0) {
+            this.disappear();
+        }
+        this.enemy.damageSuffered(damage);
     }
 
     @Override
@@ -124,7 +126,8 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     @Override
-    public void complete() {
+    public void disappear() {
+        this.threadRun = false; // Stops the thread.
         this.enemyController.removeEnemy(this);
     }
 }

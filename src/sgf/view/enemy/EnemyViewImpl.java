@@ -4,6 +4,7 @@ import sgf.controller.enemy.EnemyController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.model.enemies.LockClass;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import  java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Panel for enemy's movement and appearance.
@@ -18,6 +20,7 @@ import  java.util.List;
 public class EnemyViewImpl extends AbstractEnemyView {
     private static final long serialVersionUID = 6345414040020937047L;
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
+    private static final int BAR_HEIGHT = 8;
     private EnemyController enemyController;
     private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
@@ -50,16 +53,28 @@ public class EnemyViewImpl extends AbstractEnemyView {
             final var gImage = (Graphics2D) this.image.getGraphics();
             gImage.setBackground(new Color(RGB_MAX, RGB_MAX, RGB_MAX, 0));
             gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());  // Clears the image area before repaint in another position.
-
-            // For each enemy in the list repaint it.
-            this.enemyList.forEach(x -> gImage.drawImage(this.imageController.spriteImage(x.getEnemy().getEnemyType()),
-                    (int) x.getEnemy().getPosition().getX(),
-                    (int) x.getEnemy().getPosition().getY(),
-                    this.tileSize, this.tileSize, null));
-
+            this.drawComponents(gImage);
             // The panel is covered with an empty image in order to hide the previous enemy image displayed.
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
+    }
+
+    private void drawComponents(final Graphics2D gImage) {
+        // For each enemy in the list repaint it.
+            LockClass.getSemaphore().acquireUninterruptibly();
+            this.enemyList.forEach(x -> {
+            final var enemy = x.getEnemy();
+            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
+                    (int) enemy.getPosition().getX(),
+                    (int) enemy.getPosition().getY(),
+                    this.tileSize, this.tileSize, null);
+            gImage.drawImage(this.imageController.barLife(),
+                    (int) enemy.getPosition().getX(),
+                    (int) enemy.getPosition().getY(),
+                    (int) (this.tileSize * x.getEnemy().getPercentHp()), BAR_HEIGHT, null);
+            SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
+            });
+            LockClass.getSemaphore().release();
     }
 
     @Override
@@ -82,7 +97,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-        
+        this.enemyController.stopThread();
+        this.enemyList.forEach(x -> x.stopThread());
     }
 }

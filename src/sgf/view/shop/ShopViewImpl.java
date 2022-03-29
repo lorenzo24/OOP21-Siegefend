@@ -123,7 +123,6 @@ public class ShopViewImpl extends AbstractShopView {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
-        
+        // TODO Auto-generated method stub 
     }
 }
