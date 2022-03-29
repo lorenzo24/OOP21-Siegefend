@@ -4,15 +4,15 @@ import sgf.controller.enemy.EnemyController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.model.enemies.LockClass;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import  java.util.List;
+import javax.swing.SwingUtilities;
 
 /**
  * Panel for enemy's movement and appearance.
@@ -20,7 +20,7 @@ import  java.util.List;
 public class EnemyViewImpl extends AbstractEnemyView {
     private static final long serialVersionUID = 6345414040020937047L;
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
-    private static final int BAR_HEIGHT = 5;
+    private static final int BAR_HEIGHT = 8;
     private EnemyController enemyController;
     private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
@@ -61,7 +61,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     private void drawComponents(final Graphics2D gImage) {
         // For each enemy in the list repaint it.
-        this.enemyList.forEach(x -> {
+            LockClass.getSemaphore().acquireUninterruptibly();
+            this.enemyList.forEach(x -> {
             final var enemy = x.getEnemy();
             gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
                     (int) enemy.getPosition().getX(),
@@ -71,7 +72,9 @@ public class EnemyViewImpl extends AbstractEnemyView {
                     (int) enemy.getPosition().getX(),
                     (int) enemy.getPosition().getY(),
                     (int) (this.tileSize * x.getEnemy().getPercentHp()), BAR_HEIGHT, null);
-        });
+            SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
+            });
+            LockClass.getSemaphore().release();
     }
 
     @Override
