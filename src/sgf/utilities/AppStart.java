@@ -5,6 +5,8 @@ import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
 import sgf.controller.game.GameControllerImpl;
+import sgf.controller.game.MusicController;
+import sgf.controller.game.MusicControllerImpl;
 import sgf.controller.game.PlayingController;
 import sgf.controller.game.PlayingControllerImpl;
 import sgf.controller.map.MapController;
@@ -52,6 +54,7 @@ public final class AppStart {
         final PlayerManager playerManager = null;
 
         Classification cl = new ClassificationImpl();
+        final MusicController m = new MusicControllerImpl();
 
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final MapController mapController = new MapControllerImpl(map);
