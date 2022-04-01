@@ -13,11 +13,11 @@ import sgf.utilities.Pair;
  * Class that managed the classification.
  */
 public class LeaderboardImpl implements Leaderboard {
-    private final Map<Date, Pair<String, Integer>> mapScore = new HashMap<>();
+    private final Map<String, Pair<String, Integer>> mapScore = new HashMap<>();
     private final Path p = FileSystems.getDefault().getPath("res" + File.separator + "classification.txt");
 
     @Override
-    public Map<Date, Pair<String, Integer>> getMapScore() {
+    public Map<String, Pair<String, Integer>> getMapScore() {
         return this.mapScore;
     }
 
@@ -27,7 +27,7 @@ public class LeaderboardImpl implements Leaderboard {
     }
 
     @Override
-    public void addRecord(final Date date, final Pair<String, Integer> player) {
-        this.mapScore.put(date, player);
+    public void addRecord(final String date, final String name, final int score) {
+        this.mapScore.put(date, new Pair<>(name, score));
     }
 }

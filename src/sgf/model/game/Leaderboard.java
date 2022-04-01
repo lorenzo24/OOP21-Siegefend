@@ -1,7 +1,6 @@
 package sgf.model.game;
 
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.Map;
 
 import sgf.utilities.Pair;
@@ -15,14 +14,15 @@ public interface Leaderboard {
      * Map of the classification.
      * @return The classification map.
      */
-    Map<Date, Pair<String, Integer>> getMapScore();
+    Map<String, Pair<String, Integer>> getMapScore();
 
     /**
      * Add a record to the map.
      * @param date The date of the game.
-     * @param player Are the name and the score. 
+     * @param name Is the name of the player.
+     * @param score Is the score of the player. 
      */
-    void addRecord(Date date, Pair<String, Integer> player);
+    void addRecord(String date, String name, int score);
 
     /**
      * Get the path.
