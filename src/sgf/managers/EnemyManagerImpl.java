@@ -24,6 +24,7 @@ public class EnemyManagerImpl implements EnemyManager {
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
     private final PositionConverter converter; // Converts the gridPosition to Position.
+    private final PlayerManager playerManager;  //Manager of Player, used to update his stats.
 
     /**
      * Creates a managerImpl that controls the enemy's movement.
@@ -31,11 +32,12 @@ public class EnemyManagerImpl implements EnemyManager {
      * @param levelManager Gives the map the direction in which the enemy has to move.
      * @param enemyController Is the controller of the enemies.
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerManager playerManager) {
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
+        this.playerManager = playerManager;
         this.startEnemyThread();
     }
 
@@ -64,7 +66,7 @@ public class EnemyManagerImpl implements EnemyManager {
         final double x = this.enemy.getPosition().getX();
         final double y = this.enemy.getPosition().getY();
         if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Checks if the sprite isn't in the limits of the screen (left and up).
-            this.disappear();
+            endReached();
         }
     }
 
@@ -105,7 +107,7 @@ public class EnemyManagerImpl implements EnemyManager {
     @Override
     public void damage(final double damage) {
         if (this.enemy.getHP() - damage <= 0) {
-            this.disappear();
+            unitDeath();
         }
         this.enemy.damageSuffered(damage);
     }
@@ -129,5 +131,16 @@ public class EnemyManagerImpl implements EnemyManager {
     public void disappear() {
         this.threadRun = false; // Stops the thread.
         this.enemyController.removeEnemy(this);
+    }
+
+    private void endReached() {
+        this.playerManager.changeHP(-1);               //TODO: change method so that it uses PlayerImpl.DecreaseHP()
+        this.disappear();
+    }
+
+    private void unitDeath() {
+        this.playerManager.changeMoney(200);            //TODO: change these two so that each enemy has its own damage to the HP and its own score if killed.
+        this.playerManager.changeScore(1000);
+        this.disappear();
     }
 }

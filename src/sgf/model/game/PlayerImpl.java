@@ -83,5 +83,4 @@ public class PlayerImpl implements Player {
             this.score = score;
         }
     }
-
 }
