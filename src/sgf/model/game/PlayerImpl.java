@@ -17,6 +17,10 @@ public class PlayerImpl implements Player {
      * How many HP the player looses by default each time he takes damage.
      */
     public static final int HP_REDUCTION_STEP = 1;
+    /**
+     * The Score the player starts with.
+     */
+    public static final int STARTING_SCORE = 0;
     private int currentHP;
     private int money;
     private int score;
@@ -28,7 +32,7 @@ public class PlayerImpl implements Player {
         super();
         this.currentHP = MAX_HP;
         this.money = STARTING_MONEY;
-        this.score = 0;
+        this.score = STARTING_SCORE;
     }
 
     @Override

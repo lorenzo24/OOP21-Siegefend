@@ -134,13 +134,14 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private void endReached() {
-        this.playerManager.changeHP(-1);               //TODO: change method so that it uses PlayerImpl.DecreaseHP()
+        this.playerManager.changeHP(-1);                                         //TODO: change method so that it uses PlayerImpl.DecreaseHP()
+        this.playerManager.changeScore(-(int) this.enemy.getPoints());
         this.disappear();
     }
 
     private void unitDeath() {
-        this.playerManager.changeMoney(200);            //TODO: change these two so that each enemy has its own damage to the HP and its own score if killed.
-        this.playerManager.changeScore(1000);
+        this.playerManager.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
+        this.playerManager.changeScore((int) this.enemy.getPoints());
         this.disappear();
     }
 }
