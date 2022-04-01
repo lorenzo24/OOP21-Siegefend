@@ -6,12 +6,6 @@ package sgf.model.game;
 public interface Classification {
 
     /**
-     * Update the current score.
-     * @param score Is how many the score must vary.
-     */
-    void updateScore(int score);
-
-    /**
      * Write the score of the player in the file.
      */
     void writeScore();
@@ -20,4 +14,11 @@ public interface Classification {
      * Read the score of the older player in the file.
      */
     void readScore();
+
+    /**
+     * Add a player in the classification.
+     * @param name Is the name of the player.
+     * @param points Are the point of its game.
+     */
+    void addPlayer(String name, String points);
 }

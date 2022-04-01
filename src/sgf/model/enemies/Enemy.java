@@ -39,14 +39,20 @@ public interface Enemy {
     void move(double x, double y);
 
     /**
-     * Take the percentual of enemy Life. 
-     * @return the percentual of enemy life.
+     * Take the percentage of enemy Life. 
+     * @return the percentage of enemy life.
      */
     double getPercentHp();
 
     /**
-     * Method that decrise the enemy life. 
+     * Method that decrees the enemy life. 
      * @param damage Is the damage that the enemy has recived.
      */
     void damageSuffered(double damage);
+
+    /**
+     * Get the enemy score value.
+     * @return the enemy score value.
+     */
+    double getPoints();
 }
