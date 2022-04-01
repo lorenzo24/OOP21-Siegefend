@@ -14,14 +14,8 @@ import java.util.Map;
  * Class that managed the classification.
  */
 public class ClassificationImpl implements Classification {
-    private int actualScore = 0;
     private final Map<String, String> mapScore = new HashMap<>();
     private final Path p = FileSystems.getDefault().getPath("res" + File.separator + "classification.txt");
-
-    @Override
-    public void updateScore(final int score) {
-        this.actualScore += score;
-    }
 
     @Override
     public void writeScore() {
@@ -47,5 +41,10 @@ public class ClassificationImpl implements Classification {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addPlayer(final String name, final String points) {
+        this.mapScore.put(name, points);
     }
 }

@@ -11,6 +11,7 @@ public class EnemyImpl implements Enemy {
     private final double maxHp;
     private double hpPercent;
     private final double speed;
+    private final double points;
     private final EnemyType enemyType;
 
     /**
@@ -26,6 +27,7 @@ public class EnemyImpl implements Enemy {
         this.maxHp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
+        this.points = hp * speed;
         this.calculateHp();
     }
 
@@ -67,5 +69,10 @@ public class EnemyImpl implements Enemy {
     public void damageSuffered(final double damage) {
         this.hp -= damage;
         this.calculateHp();
+    }
+
+    @Override
+    public double getPoints() {
+        return this.points;
     }
 }
