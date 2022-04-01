@@ -19,8 +19,8 @@ import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
 import sgf.managers.PlayerManager;
-import sgf.model.game.Classification;
-import sgf.model.game.ClassificationImpl;
+import sgf.model.game.Leaderboard;
+import sgf.model.game.LeaderboardImpl;
 import sgf.model.level.Level;
 import sgf.model.level.LevelImpl;
 import sgf.model.level.Wave;
@@ -53,7 +53,7 @@ public final class AppStart {
         final GameManager gameManager = null;
         final PlayerManager playerManager = null;
 
-        Classification cl = new ClassificationImpl();
+        Leaderboard cl = new LeaderboardImpl();
         final MusicController m = new MusicControllerImpl();
 
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
