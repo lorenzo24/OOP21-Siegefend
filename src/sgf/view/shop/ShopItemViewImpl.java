@@ -14,12 +14,15 @@ import javax.swing.SwingConstants;
 
 import sgf.controller.game.PlayingController;
 import sgf.helpers.SimpleTurretsImageLoader;
+import sgf.helpers.SimpleTurretsLoader;
+import sgf.helpers.TurretImagesLoader;
+import sgf.helpers.TurretsLoader;
 import sgf.model.turret.Turret;
 
 /**
  *
  */
-public final class ShopItemView extends JPanel {
+public final class ShopItemViewImpl extends AbstractShopItemView {
 
     /**
      * 
@@ -29,24 +32,19 @@ public final class ShopItemView extends JPanel {
     private static final String BUY = "Buy";
     private static final String CANCEL = "Cancel";
 
-    private final ImageCanvas turretCanvas;
-    private final JButton turretBuy;
-    private final JLabel turretPrice;
-
+    private ImageCanvas turretCanvas;
+    private JButton turretBuy;
+    private JLabel turretPrice;
+    private final Turret turret;
     private boolean isSelected;
 
-    private ShopItemView() {
-        this.turretCanvas = null;
-        this.turretPrice = new JLabel("Failed to load turret");
-        this.turretBuy = new JButton("");
-        this.turretBuy.setEnabled(false);
-        isSelected = false;
-    }
-
-    private ShopItemView(final Turret t) {
-        this.turretCanvas = new ImageCanvas(new SimpleTurretsImageLoader().getTurretImage("sample").orElse(null));
-        this.turretBuy = new JButton(ShopItemView.BUY);
-        this.turretPrice = new JLabel(Integer.toString(t.getPrice()), SwingConstants.CENTER);
+    /**
+     * Creates a new instance of {@code ShopItemViewImpl}.
+     * @param t a turret
+     */
+    public ShopItemViewImpl(final Turret t) {
+        this.turret = t;
+        this.createInnerElements();
         isSelected = false;
         // Setup panel
         final JPanel panel = new JPanel(new BorderLayout());
@@ -58,80 +56,70 @@ public final class ShopItemView extends JPanel {
         this.add(panel);
     }
 
-    /**
-     * 
-     * @param t The turret
-     * @return a new {@code ShopTurretInfo} instance
-     */
-    public static ShopItemView from(final Turret t) {
-        return new ShopItemView(t);
+    private void createInnerElements() {
+        final TurretImagesLoader tLoader = new SimpleTurretsImageLoader();
+        this.turretCanvas = new ImageCanvas(tLoader.getTurretImageOrDefault(SimpleTurretsImageLoader.SAMPLE)); /* Should be this.turret.getID() */
+        this.turretBuy = new JButton(ShopItemViewImpl.BUY);
+        this.turretPrice = new JLabel(Integer.toString(this.turret.getPrice()), SwingConstants.CENTER);
     }
 
-    /**
-     * Adds the {@link ActionListener} to the buy button of the view.
-     * @param l the listener to add
-     */
+    @Override
+    public Turret getTurret() {
+        return this.turret;
+    }
+
+    @Override
     public void addActionListener(final ActionListener l) {
         this.turretBuy.addActionListener(l);
     }
 
-    /**
-     * Changes the size of the image canvas.
-     * @param d the new size
-     */
+    @Override
     public void setCanvasSize(final Dimension d) {
         final Dimension cloned = new Dimension(d);
         this.turretCanvas.setSize(cloned);
         this.turretCanvas.setPreferredSize(cloned);
     }
 
-    /**
-     * 
-     * @return a boolean
-     */
+    @Override
     public boolean isSelected() {
         return isSelected;
     }
 
-    /**
-     * 
-     * @param isSelected
-     */
+    @Override
     public void setSelected(final boolean isSelected) {
         this.isSelected = isSelected;
     }
 
-    /**
-     * 
-     */
-    public void setBuyMode() {
+    @Override
+    public void buyMode() {
         if (isButtonEnabled()) {
-            this.turretBuy.setText(ShopItemView.BUY);
+            this.turretBuy.setText(ShopItemViewImpl.BUY);
         }
     }
 
-    /**
-     * 
-     */
-    public void setCancelMode() {
+    @Override
+    public void cancelMode() {
         if (isButtonEnabled()) {
-            this.turretBuy.setText(ShopItemView.CANCEL);
+            this.turretBuy.setText(ShopItemViewImpl.CANCEL);
         }
     }
 
-    /**
-     * 
-     * @return a boolean
-     */
+    @Override
     public boolean isButtonEnabled() {
         return this.turretBuy.isEnabled();
     }
 
-    /**
-     * 
-     * @param b
-     */
+    @Override
     public void setButtonEnabled(final boolean b) {
         this.turretBuy.setEnabled(b);
+    }
+
+    /**
+     * Returns an instance of {@code ShopItemViewImpl}.
+     * @param t a turret
+     * @return an instance of {@code ShopItemViewImpl}
+     */
+    public static ShopItemViewImpl from(final Turret t) {
+        return new ShopItemViewImpl(t);
     }
 }

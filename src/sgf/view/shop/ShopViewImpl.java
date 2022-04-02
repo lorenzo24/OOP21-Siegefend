@@ -23,9 +23,9 @@ public class ShopViewImpl extends AbstractShopView {
      * 
      */
     private static final long serialVersionUID = 6030584324069338830L;
-    private List<ShopItemView> turretInfo;
-    private ShopItemView selected;
-    private transient ShopController shopController;
+    private List<AbstractShopItemView> turretInfo;
+    private AbstractShopItemView selected;
+    private ShopController shopController;
     private final GameManager gameManager;
     private boolean isControllerSet;
     private boolean ready;
@@ -53,7 +53,7 @@ public class ShopViewImpl extends AbstractShopView {
     private void setup() {
         this.turretInfo = this.shopController.getTurretList()
                 .stream().map(this::createShopItemView)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());  // Creates a list of items for the view.
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.turretInfo.forEach((t) -> panel.add(t));
         final JScrollPane scrollpane = new JScrollPane(panel);
@@ -62,21 +62,21 @@ public class ShopViewImpl extends AbstractShopView {
         this.add(scrollpane, BorderLayout.CENTER);
     }
 
-    private ShopItemView createShopItemView(final Turret t) {
-        final ShopItemView item = ShopItemView.from(t);
+    private AbstractShopItemView createShopItemView(final Turret t) {
+        final AbstractShopItemView item = ShopItemViewImpl.from(t);
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if ((selected == null || !selected.isSelected()) && ShopViewImpl.this.shopController.buy(t)) {
                     item.setSelected(true);
-                    item.setCancelMode();
+                    item.cancelMode();
                     selected = item;
-                    disableAll();
+                    disableAll();       // When the item's button is pressed, all other items become disabled.
                 } else if (selected == item) {
                     ShopViewImpl.this.shopController.cancel();
                     item.setSelected(false);
-                    item.setBuyMode();
-                    enableAll();
+                    item.buyMode();
+                    enableAll();        // When the item is deselected, all the others become enabled.
                     selected = null;
                 }
             }
