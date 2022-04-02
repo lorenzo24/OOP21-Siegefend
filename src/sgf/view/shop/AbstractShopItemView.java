@@ -10,8 +10,8 @@ import sgf.model.turret.Turret;
 /**
  * Abstract class for displaying information about a {@link Turret} inside a window frame.
  */
-public abstract class AbstractShopItemView extends JPanel {
-
+public abstract class AbstractShopItemView extends JPanel {     /* Making an interface didn't look like a smart idea because some of the public methods
+                                                                   of the class are strictly related to JPanel. */
     /**
      * 
      */
