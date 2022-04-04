@@ -15,17 +15,20 @@ import sgf.view.shop.ShopView;
 public class ShopControllerImpl implements ShopController {
 
     private final GameManager gameManager;
-    private final List<Turret> turrets;
+    /* private final Shop shop */
+    private final List<Turret> turrets; // remove
     private Turret selectedTurret;
     private ShopView shopView;
     private boolean isControllerSet;
+
     /**
      * Creates a new shop controller instance.
      * @param gameManager the game controller
      */
-    public ShopControllerImpl(final GameManager gameManager) {
+    public ShopControllerImpl(final GameManager gameManager/*, Shop shop */) {
         this.gameManager = gameManager;
-        this.turrets = new SimpleTurretsLoader().getTurrets();
+        // this.shop = shop;
+        this.turrets = new SimpleTurretsLoader().getTurrets(); // remove
     }
 
     @Override
@@ -35,7 +38,8 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public List<Turret> getTurretList() {
-        return List.copyOf(this.turrets);
+        return List.copyOf(this.turrets); // remove
+        /* return this.shop.getAvailableTurrets(); */
     }
 
     @Override

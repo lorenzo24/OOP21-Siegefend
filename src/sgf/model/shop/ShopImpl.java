@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sgf.helpers.SimpleTurretsLoader;
 import sgf.model.game.Player;
 import sgf.model.turret.Turret;
 
@@ -12,7 +13,7 @@ import sgf.model.turret.Turret;
  */
 public class ShopImpl implements Shop {
 
-    private final Map<Turret, Integer> turrets;
+    private final Map<Turret, Integer> turrets; // Invert type parameters
     private final Player player;
 
     /**
@@ -20,9 +21,10 @@ public class ShopImpl implements Shop {
      * @param turrets A map which associates a price to each turret
      * @param player The player of the game
      */
-    public ShopImpl(final Map<Turret, Integer> turrets, final Player player) {
+    public ShopImpl(final Map<Turret, Integer> turrets, final Player player) { // remove
         this.turrets = Map.copyOf(turrets);
         this.player = player;
+        /* this.turrets = new SimpleTurretsLoader().getTurrets(); */
     }
 
     @Override
