@@ -31,7 +31,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
      * 
      */
     private static final class SimpleTurretImpl implements Turret, Cloneable {
-        private final int v;
+        private int v;
 
         SimpleTurretImpl(final int v) {
             this.v = v;
@@ -91,7 +91,17 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
         @Override
         public SimpleTurretImpl clone() throws CloneNotSupportedException {
-            return (SimpleTurretImpl) super.clone();
+            final SimpleTurretImpl t = (SimpleTurretImpl) super.clone();
+            t.v = this.v;
+            return t;
+        }
+
+        @Override
+        public Turret getClone() {
+            try {
+                return this.clone();
+            } catch (CloneNotSupportedException e) { }
+            throw new UnsupportedOperationException("Class " + SimpleTurretsLoader.class.getName() + " does not support cloning.");
         }
     }
 }
