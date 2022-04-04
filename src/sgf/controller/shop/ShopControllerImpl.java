@@ -63,7 +63,7 @@ public class ShopControllerImpl implements ShopController {
     @Override
     public boolean canBuy(final Turret t) {
         if (t != null) {
-            return this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getCurrentMoney() >= t.getPrice();
+            return this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getMoney() >= t.getPrice();
         }
         throw new IllegalArgumentException("Cannot pass null as value for the parameter t.");
     }
