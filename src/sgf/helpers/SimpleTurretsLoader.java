@@ -91,9 +91,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
         @Override
         public SimpleTurretImpl clone() throws CloneNotSupportedException {
-            final SimpleTurretImpl t = (SimpleTurretImpl) super.clone();
-            t.v = this.v;
-            return t;
+            return (SimpleTurretImpl) super.clone();
         }
 
         @Override
