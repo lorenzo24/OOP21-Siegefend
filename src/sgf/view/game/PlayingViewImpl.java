@@ -2,6 +2,7 @@ package sgf.view.game;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Label;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -73,6 +74,5 @@ public class PlayingViewImpl extends AbstractPlayingView {
     @Override
     public void stop() {
         // TODO Auto-generated method stub
-        
     }
 }

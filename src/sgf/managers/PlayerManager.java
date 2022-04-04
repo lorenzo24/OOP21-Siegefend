@@ -24,4 +24,10 @@ public interface PlayerManager {
      * @param offset the change in money amount
      */
     void changeMoney(int offset);
+
+    /**
+     * Changes the player's score by an offset value.
+     * @param offset the change in score
+     */
+    void changeScore(int offset);
 }
