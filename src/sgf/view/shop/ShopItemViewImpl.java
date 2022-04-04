@@ -2,21 +2,15 @@ package sgf.view.shop;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import sgf.controller.game.PlayingController;
 import sgf.helpers.SimpleTurretsImageLoader;
-import sgf.helpers.SimpleTurretsLoader;
 import sgf.helpers.TurretImagesLoader;
-import sgf.helpers.TurretsLoader;
 import sgf.model.turret.Turret;
 
 /**
@@ -58,7 +52,7 @@ public final class ShopItemViewImpl extends AbstractShopItemView {
 
     private void createInnerElements() {
         final TurretImagesLoader tLoader = new SimpleTurretsImageLoader();
-        this.turretCanvas = new ImageCanvas(tLoader.getTurretImageOrDefault(SimpleTurretsImageLoader.SAMPLE)); /* Should be this.turret.getID() */
+        this.turretCanvas = new ImageCanvas(tLoader.getTurretImageOrDefault(SimpleTurretsImageLoader.SAMPLE)); /* TODO: Should be this.turret.getID() */
         this.turretBuy = new JButton(ShopItemViewImpl.BUY);
         this.turretPrice = new JLabel(Integer.toString(this.turret.getPrice()), SwingConstants.CENTER);
     }
