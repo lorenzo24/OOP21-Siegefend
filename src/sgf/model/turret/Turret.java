@@ -78,8 +78,7 @@ public interface Turret {
     /**
      * Creates a clone of the turret. <br />
      * Classes implementing this interface should also implement {@link Cloneable} and use its method within this one. <br />
-     * Inside the {@code clone} method, first there should be a call to {@code super.clone()} and then the other parameters of the turret
-     * should be copied in the clone.
+     * Inside the {@code clone} method a call to {@code super.clone()} should be sufficient to obtain a precise clone of the instance.
      * @return the cloned {@link Turret}
      */
     Turret getClone();
