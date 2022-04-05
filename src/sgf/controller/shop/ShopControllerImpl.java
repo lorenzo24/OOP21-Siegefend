@@ -3,7 +3,6 @@ package sgf.controller.shop;
 import java.util.List;
 import java.util.Optional;
 
-import sgf.helpers.SimpleTurretsLoader;
 import sgf.managers.GameManager;
 import sgf.managers.PlayerManager;
 import sgf.model.shop.Shop;
