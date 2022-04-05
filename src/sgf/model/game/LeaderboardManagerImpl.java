@@ -1,5 +1,6 @@
 package sgf.model.game;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -23,8 +24,14 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Override
     public void writeScore() {
         try {
-            this.leaderboard.getP().toFile().delete();
-            this.leaderboard.getP().toFile().createNewFile();
+            final File f = this.leaderboard.getP().toFile();
+            if (f.delete()) {
+                if (!f.createNewFile()) {
+                    throw new IOException("Failed to create file.");
+                }
+            } else {
+                throw new IOException("Failed to delete file.");
+            }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
