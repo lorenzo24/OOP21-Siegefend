@@ -14,6 +14,8 @@ import sgf.controller.map.MapControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.MapLoaderImpl;
+import sgf.helpers.SimpleTurretsLoader;
+import sgf.helpers.TurretsLoader;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
@@ -28,6 +30,8 @@ import sgf.model.level.Level;
 import sgf.model.level.LevelImpl;
 import sgf.model.level.Wave;
 import sgf.model.map.Map;
+import sgf.model.shop.Shop;
+import sgf.model.shop.ShopImpl;
 import sgf.view.ScreenGame;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
@@ -58,6 +62,7 @@ public final class AppStart {
         Classification cl = new ClassificationImpl();
         final MusicController m = new MusicControllerImpl();
 
+
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final MapController mapController = new MapControllerImpl(map);
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
@@ -65,6 +70,8 @@ public final class AppStart {
         final LevelManager levelManager = new LevelManagerImpl(level);
         final Player player = new PlayerImpl();
         final PlayerManager playerManager = new PlayerManagerImpl(player);
+        final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
+        final Shop shop = new ShopImpl(tLoader);
 
         /*
          * At the start only the menu, settings and levels view will be created.
@@ -75,7 +82,7 @@ public final class AppStart {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
+        final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerManager);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView);
