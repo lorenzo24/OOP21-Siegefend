@@ -6,6 +6,7 @@ import java.util.Optional;
 import sgf.helpers.SimpleTurretsLoader;
 import sgf.managers.GameManager;
 import sgf.managers.PlayerManager;
+import sgf.model.shop.Shop;
 import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
@@ -15,8 +16,7 @@ import sgf.view.shop.ShopView;
 public class ShopControllerImpl implements ShopController {
 
     private final GameManager gameManager;
-    /* private final Shop shop */
-    private final List<Turret> turrets; // remove
+    private final Shop shop;
     private Turret selectedTurret;
     private ShopView shopView;
     private boolean isControllerSet;
@@ -24,11 +24,11 @@ public class ShopControllerImpl implements ShopController {
     /**
      * Creates a new shop controller instance.
      * @param gameManager the game controller
+     * @param shop an instance of {@link Shop}
      */
-    public ShopControllerImpl(final GameManager gameManager/*, Shop shop */) {
+    public ShopControllerImpl(final GameManager gameManager, final Shop shop) {
         this.gameManager = gameManager;
-        // this.shop = shop;
-        this.turrets = new SimpleTurretsLoader().getTurrets(); // remove
+        this.shop = shop;
     }
 
     @Override
@@ -38,8 +38,7 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public List<Turret> getTurretList() {
-        return List.copyOf(this.turrets); // remove
-        /* return this.shop.getAvailableTurrets(); */
+        return this.shop.getAvailableTurrets();
     }
 
     @Override
@@ -66,10 +65,7 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public boolean canBuy(final Turret t) {
-        if (t != null) {
-            return this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getMoney() >= t.getPrice();
-        }
-        throw new IllegalArgumentException("Cannot pass null as value for the parameter t.");
+        return this.shop.canBuy(t, this.getPlayerManager().getPlayer());
     }
 
     @Override

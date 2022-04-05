@@ -1,8 +1,8 @@
 package sgf.helpers;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import sgf.model.enemies.Enemy;
@@ -15,25 +15,24 @@ import sgf.model.turret.Turret;
 public class SimpleTurretsLoader implements TurretsLoader {
 
     @Override
-    public List<Turret> getTurrets() {
-     return Stream.iterate(0, i -> i + 1)
-                  .limit(10)
-                  .map(i -> new SimpleTurretImpl(i))
-                  .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> getTurretNames() {
-        return List.of("sample");
+    public Map<Integer, Turret> getTurrets() {
+        final Map<Integer, Turret> m = new HashMap<>();
+        Stream.iterate(0, i -> i + 1)
+              .limit(10)
+              .map(i -> new SimpleTurretImpl(i, i))
+              .forEach(t -> m.put(t.getID(), t));
+        return m;
     }
 
     /**
      * 
      */
     private static final class SimpleTurretImpl implements Turret, Cloneable {
-        private int v;
+        private final int v;
+        private final int id;
 
-        SimpleTurretImpl(final int v) {
+        SimpleTurretImpl(final int id, final int v) {
+            this.id = id;
             this.v = v;
         }
 
@@ -68,7 +67,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
         @Override
         public int getID() {
-            return 0;
+            return this.id;
         }
 
         @Override
