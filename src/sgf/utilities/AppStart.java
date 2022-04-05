@@ -1,7 +1,5 @@
 package sgf.utilities;
-import java.util.Date;
 import java.util.List;
-
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -20,8 +18,6 @@ import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
 import sgf.managers.PlayerManager;
-import sgf.model.game.Leaderboard;
-import sgf.model.game.LeaderboardImpl;
 import sgf.model.game.LeaderboardManager;
 import sgf.model.game.LeaderboardManagerImpl;
 import sgf.model.level.Level;
@@ -57,6 +53,7 @@ public final class AppStart {
         final PlayerManager playerManager = null;
         
         final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+
         final MusicController m = new MusicControllerImpl();
 
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.

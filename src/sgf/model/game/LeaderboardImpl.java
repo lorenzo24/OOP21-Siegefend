@@ -14,7 +14,7 @@ import sgf.utilities.Pair;
  */
 public class LeaderboardImpl implements Leaderboard {
     private final Map<String, Pair<String, Integer>> mapScore = new HashMap<>();
-    private final Path p = FileSystems.getDefault().getPath("res" + File.separator + "classification.txt");
+    private final Path p = FileSystems.getDefault().getPath("res" + File.separator + "classification.json");
 
     @Override
     public Map<String, Pair<String, Integer>> getMapScore() {
