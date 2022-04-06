@@ -4,6 +4,7 @@ import sgf.controller.enemy.EnemyController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.model.enemies.Enemy;
 import sgf.model.enemies.LockClass;
 
 import java.awt.Color;
@@ -64,17 +65,25 @@ public class EnemyViewImpl extends AbstractEnemyView {
             LockClass.getSemaphore().acquireUninterruptibly();
             this.enemyList.forEach(x -> {
             final var enemy = x.getEnemy();
-            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
-                    (int) enemy.getPosition().getX(),
-                    (int) enemy.getPosition().getY(),
-                    this.tileSize, this.tileSize, null);
-            gImage.drawImage(this.imageController.barLife(),
-                    (int) enemy.getPosition().getX(),
-                    (int) enemy.getPosition().getY(),
-                    (int) (this.tileSize * x.getEnemy().getPercentHp()), BAR_HEIGHT, null);
+            this.drowSprite(gImage, enemy);
+            this.drowLifeBar(gImage, enemy);
             SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
             });
             LockClass.getSemaphore().release();
+    }
+
+    private void drowLifeBar(final Graphics2D gImage, final Enemy enemy) {
+        gImage.drawImage(this.imageController.barLife(),
+                (int) enemy.getPosition().getX(),
+                (int) enemy.getPosition().getY(),
+                (int) (this.tileSize * enemy.getPercentHp()), BAR_HEIGHT, null);
+    }
+
+    private void drowSprite(final Graphics2D gImage, final Enemy enemy) {
+        gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
+                (int) enemy.getPosition().getX(),
+                (int) enemy.getPosition().getY(),
+                this.tileSize, this.tileSize, null);
     }
 
     @Override

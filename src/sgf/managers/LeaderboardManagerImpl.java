@@ -48,6 +48,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Create one element of one record.
+    @SuppressWarnings("unchecked")
     private JSONObject createJsonElem(final Entry<String, Pair<String, Integer>> x) {
         final JSONObject elem = new JSONObject();
         elem.put("date", x.getKey());
@@ -57,6 +58,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Create one record of json.
+    @SuppressWarnings("unchecked")
     private JSONObject createRecord(final JSONObject elem) {
         final JSONObject record = new JSONObject(); 
         record.put("line", elem);
@@ -79,12 +81,13 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void readScore() {
         final JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(this.leaderboard.getP().toString())) {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
-            array.forEach( x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
+            array.forEach(x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
