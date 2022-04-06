@@ -1,4 +1,4 @@
-package sgf.model.game;
+package sgf.managers;
 
 /**
  * Interface that managed the leaderboard.

@@ -1,23 +1,19 @@
-package sgf.model.game;
+package sgf.managers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.text.ParseException;
 import java.util.Date;
-
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
+import java.util.Map.Entry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import netscape.javascript.JSObject;
+import sgf.model.game.Leaderboard;
+import sgf.model.game.LeaderboardImpl;
+import sgf.utilities.Pair;
 
 /**
  * Class that managed the leaderboard.
@@ -32,28 +28,18 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
         this.readScore();
-        this.writeScore();
     }
 
     @Override
     public void writeScore() {
         this.clearFile();
-        System.out.print(this.leaderboard.getMapScore().size());
-        JSONArray array = new JSONArray();
+        final JSONArray jsonElements = new JSONArray();
         this.leaderboard.getMapScore().entrySet().stream()
             .sorted((x, y) -> y.getValue().getY() - x.getValue().getY())
             .forEach(x -> {
-                final JSONObject jo = new JSONObject();
-                jo.put("date", x.getKey());
-                jo.put("name", x.getValue().getX());
-                jo.put("score", x.getValue().getY());
-                
-                JSONObject line = new JSONObject(); 
-                line.put("line", jo);
-                array.add(line);
-
+                jsonElements.add(this.createRecord(this.createJsonElem(x)));
                 try (FileWriter file = new FileWriter(this.leaderboard.getP().toString())) {
-                    file.write(array.toJSONString()); 
+                    file.write(jsonElements.toJSONString()); 
                     file.flush();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -61,7 +47,23 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         });
     }
 
-    // Clear the initial file.
+    // Create one element of one record.
+    private JSONObject createJsonElem(final Entry<String, Pair<String, Integer>> x) {
+        final JSONObject elem = new JSONObject();
+        elem.put("date", x.getKey());
+        elem.put("name", x.getValue().getX());
+        elem.put("score", x.getValue().getY());
+        return elem;
+    }
+
+    // Create one record of json.
+    private JSONObject createRecord(final JSONObject elem) {
+        final JSONObject record = new JSONObject(); 
+        record.put("line", elem);
+        return record;
+    }
+
+    // Clear the initial file delete and create new.
     private void clearFile() {
         try {
             final File f = this.leaderboard.getP().toFile();
@@ -79,13 +81,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     private void readScore() {
         final JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(this.leaderboard.getP().toString()))
-        {
-            Object obj = parser.parse(reader);
-            JSONArray array = (JSONArray) obj;
-            //Iterate over employee array
-            array.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
- 
+        try (FileReader reader = new FileReader(this.leaderboard.getP().toString())) {
+            final Object obj = parser.parse(reader);
+            final JSONArray array = (JSONArray) obj;
+            array.forEach( x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -94,25 +93,18 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             e.printStackTrace();
         }
     }
-    
-    private void parseEmployeeObject(JSONObject employee) 
-    {
-        //Get employee object within list
-        JSONObject employeeObject = (JSONObject) employee.get("line");
-         
-        //Get employee first name
-        String date = (String) employeeObject.get("date");    
-         
-        //Get employee last name
-        String name = (String) employeeObject.get("name");  
-         
-        //Get employee website name
-        int score = Integer.parseInt(employeeObject.get("score").toString());
-        this.leaderboard.addRecord(date, name, score);
+
+    // Convert an record to one element of the map.
+    private void parsePlayerObject(final JSONObject record) {
+        final JSONObject player = (JSONObject) record.get("line");
+        final String date = (String) player.get("date");
+        final String name = (String) player.get("name");
+        final int score = Integer.parseInt(player.get("score").toString());
+        this.leaderboard.addRecord(date, name, score); // Add the element to the map.
     }
 
     @Override
-    public void addScore(final String name, final int score) {
+    public void addScore(final String name, final int score) { // Add a score to the leaderboard.
         this.leaderboard.addRecord(new Date().toString(), name, score);
     }
 }
