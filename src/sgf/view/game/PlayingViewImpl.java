@@ -22,16 +22,19 @@ public class PlayingViewImpl extends AbstractPlayingView {
     private PlayingController playingController;
     private final AbstractGameView gameView;
     private final AbstractShopView shopView;
+    private final AbstractPlayerView playerView;
     private boolean isControllerSet;
 
     /**
      * 
      * @param gameView
      * @param shopView
+     * @param playerView
      */
-    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView) {
+    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView) {
         this.gameView = gameView;
         this.shopView = shopView;
+        this.playerView = playerView;
         this.setVisible(false);
     }
 
@@ -47,8 +50,9 @@ public class PlayingViewImpl extends AbstractPlayingView {
     public void start() {
         if (isControllerSet) {
             this.setLayout(new BorderLayout());
+            this.add(this.playerView, BorderLayout.NORTH);
             this.add(this.gameView, BorderLayout.CENTER);
-            this.add(shopView, BorderLayout.SOUTH);
+            this.add(this.shopView, BorderLayout.SOUTH);
             this.addComponentListener(new ComponentListener() {
                 @Override
                 public void componentShown(final ComponentEvent e) { }
