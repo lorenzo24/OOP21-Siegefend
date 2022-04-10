@@ -38,7 +38,7 @@ public class ShopImpl implements Shop {
          * something like TurretUpgradeList.
          */
         if (this.turrets.containsKey(t)) {
-            return player.getCurrentMoney() >= t.getPrice();
+            return player.getMoney() >= t.getPrice();
         } else {
             return false; // Maybe exception?
         }

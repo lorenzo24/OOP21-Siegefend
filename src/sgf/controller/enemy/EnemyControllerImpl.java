@@ -1,11 +1,13 @@
 package sgf.controller.enemy;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
 import sgf.managers.LevelManager;
+import sgf.managers.PlayerManager;
 import sgf.model.enemies.Enemy;
+import sgf.model.enemies.LockClass;
 import sgf.view.enemy.EnemyView;
 
 /**
@@ -18,13 +20,16 @@ public class EnemyControllerImpl implements EnemyController {
     private EnemyView enemyView;
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
+    private final PlayerManager playerManager;  //Manager of Player, needed by EnemyManager.
 
     /**
      * Sets the levelManager to load enemies and get map.
      * @param levelManager Is the manager of the current level.
+     * @param playerManager Is the manager of the player.
      */
-    public EnemyControllerImpl(final LevelManager levelManager) {
+    public EnemyControllerImpl(final LevelManager levelManager, final PlayerManager playerManager) {
         this.levelManager = levelManager;
+        this.playerManager = playerManager;
         this.managerList = new ArrayList<>();
         this.startRunWaves(); // Thread method.
     }
@@ -69,7 +74,7 @@ public class EnemyControllerImpl implements EnemyController {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this)); // Creates a managerList of the enemy that has been cretaed.
+        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager)); // Creates a managerList of the enemy that has been cretaed.
     }
 
     @Override
@@ -83,7 +88,9 @@ public class EnemyControllerImpl implements EnemyController {
 
     @Override
     public void removeEnemy(final EnemyManager enemyManager) {
+        LockClass.getSemaphore().acquireUninterruptibly();
         this.managerList.remove(enemyManager);
+        LockClass.getSemaphore().release();
     }
 
     @Override

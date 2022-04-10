@@ -39,7 +39,7 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public boolean buy(final Turret t) {
-        if (this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getCurrentMoney() >= t.getPrice()) {
+        if (this.turrets.contains(t) && this.gameManager.getPlayerManager().getPlayer().getMoney() >= t.getPrice()) {
             this.selectedTurret = t;
             return true;
         }
