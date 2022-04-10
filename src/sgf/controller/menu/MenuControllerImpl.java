@@ -2,6 +2,10 @@ package sgf.controller.menu;
 
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -30,21 +34,28 @@ import sgf.view.game.GameViewImpl;
 import sgf.view.game.PlayingViewImpl;
 import sgf.view.map.AbstractMapView;
 import sgf.view.map.MapViewImpl;
+import sgf.view.menu.AbstractMenuView;
 import sgf.view.menu.MenuView;
+import sgf.view.menu.MenuViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
 
 public class MenuControllerImpl implements MenuController {
 
     private boolean isControllerSet;
-    private MenuView menuView;
+    private AbstractMenuView menuView;
 
     @Override
     public void setView(final MenuView view) {
-        if (!isControllerSet) {
-            this.isControllerSet = true;
-            this.menuView = view;
+        if(view instanceof AbstractMenuView) {
+            if (!isControllerSet) {
+                this.isControllerSet = true;
+                this.menuView = (AbstractMenuView) view;
+            }
+        } else {
+            throw new IllegalArgumentException();
         }
+        
     }
 
     @Override
@@ -70,7 +81,7 @@ public class MenuControllerImpl implements MenuController {
         final AbstractShopView shopView = new ShopViewImpl(gameManager);
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerManager);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView);
-        
+
         /**
          * Linking.
          */
@@ -84,8 +95,38 @@ public class MenuControllerImpl implements MenuController {
         shopView.setController(shopController);
         playingController.setView(playingView);
         playingView.setController(playingController);
-        
+
         return playingView;
     }
+
+    public void showCredits(){
+        JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
+    }
+    
+    public void levelPicker() {
+        /*
+        this.menuView.add(new JPanel() {
+            JButton test = new JButton("AAAAAA");
+            
+            this.add(test);
+        });
+        */
+        
+        this.menuView.showLevelPicker();
+    }
+
+    @Override
+    public void changeOptions() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void showLeaderboard() {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    
 
 }

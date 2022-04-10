@@ -6,4 +6,7 @@ import sgf.view.menu.MenuView;
 
 public interface MenuController extends Controller<MenuView> {
     AbstractPlayingView loadPlayingView(int level);
+    void changeOptions();
+    void showLeaderboard();
+    void showCredits();
 }
