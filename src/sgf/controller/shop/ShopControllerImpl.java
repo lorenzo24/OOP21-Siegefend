@@ -2,9 +2,9 @@ package sgf.controller.shop;
 
 import java.util.List;
 
+import sgf.controller.game.PlayerController;
 import sgf.helpers.SimpleTurretsLoader;
 import sgf.managers.GameManager;
-import sgf.managers.PlayerManager;
 import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
@@ -28,7 +28,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
-    public PlayerManager getPlayerManager() {
+    public PlayerController getPlayerManager() {
         return this.gameManager.getPlayerManager();
     }
 

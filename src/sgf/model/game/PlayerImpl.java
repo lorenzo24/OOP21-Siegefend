@@ -24,15 +24,17 @@ public class PlayerImpl implements Player {
     private int currentHP;
     private int money;
     private int score;
-
+    private String playerName;
     /**
      * Default constructor, sets fields at the starting value.
+     * @param playerName is the username.
      */
-    public PlayerImpl() {
+    public PlayerImpl(final String playerName) {
         super();
         this.currentHP = MAX_HP;
         this.money = STARTING_MONEY;
         this.score = STARTING_SCORE;
+        this.playerName = playerName;
     }
 
     @Override
@@ -86,5 +88,15 @@ public class PlayerImpl implements Player {
         if (score >= 0) {
             this.score = score;
         }
+    }
+
+    @Override
+    public int getPlayerName() {
+        return this.score;
+    }
+
+    @Override
+    public void setPlayerName(final String playerName) {
+        this.playerName = playerName;
     }
 }

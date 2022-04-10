@@ -2,6 +2,7 @@ package sgf.managers;
 import java.util.Optional;
 
 import sgf.controller.enemy.EnemyController;
+import sgf.controller.game.PlayerController;
 import sgf.helpers.ImgTileSize;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Direction;
@@ -24,7 +25,7 @@ public class EnemyManagerImpl implements EnemyManager {
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
     private final PositionConverter converter; // Converts the gridPosition to Position.
-    private final PlayerManager playerManager;  //Manager of Player, used to update his stats.
+    private final PlayerController playerManager;  //Manager of Player, used to update his stats.
 
     /**
      * Creates a managerImpl that controls the enemy's movement.
@@ -32,7 +33,7 @@ public class EnemyManagerImpl implements EnemyManager {
      * @param levelManager Gives the map the direction in which the enemy has to move.
      * @param enemyController Is the controller of the enemies.
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerManager playerManager) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerManager) {
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
