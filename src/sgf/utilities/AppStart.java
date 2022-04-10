@@ -1,6 +1,5 @@
 package sgf.utilities;
 import java.util.List;
-
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -18,12 +17,13 @@ import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
+import sgf.managers.LeaderboardManager;
+import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
-import sgf.model.game.Classification;
-import sgf.model.game.ClassificationImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
+import sgf.managers.PlayerManager;
 import sgf.model.level.Level;
 import sgf.model.level.LevelImpl;
 import sgf.model.level.Wave;
@@ -56,10 +56,9 @@ public final class AppStart {
      */
     public static void main(final String[] args) {
         final GameManager gameManager = null;
-
-        Classification cl = new ClassificationImpl();
+        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+        final PlayerManager playerManager = null;
         final MusicController m = new MusicControllerImpl();
-
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final MapController mapController = new MapControllerImpl(map);
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
