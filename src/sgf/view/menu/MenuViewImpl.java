@@ -2,6 +2,7 @@ package sgf.view.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import sgf.controller.menu.MenuController;
@@ -29,12 +31,13 @@ import sgf.view.game.AbstractPlayingView;
 public class MenuViewImpl extends AbstractMenuView {
 
     private boolean isControllerSet;
+    private boolean ready;
     private MenuController enemyController;
     //private final JButton button;
     private static final String backgroundColor = "#293132", buttonColor = "#00A676", textColor = "#F7F9F9", hoverColor = "#E0D0C1"; // 293132, 00A676, F7F9F9, (E0D0C1, A76D60). https://coolors.co/293132-00a676-f7f9f9-e0d0c1-a76d60
     private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
     private static final Font textFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
-    JPanel currentPanel;
+    JPanel menuPanel, levelPanel;
 
     @Override
     public void setController(final MenuController controller) {
@@ -56,11 +59,14 @@ public class MenuViewImpl extends AbstractMenuView {
         //this.setLayout(new BorderLayout());
         //this.button = new JButton("Start Game");
         //this.add(button, BorderLayout.CENTER);
-        currentPanel = new StartMenu();
-        this.add(currentPanel);
+        
+        //currentPanel = new StartMenu();
+        //this.add(currentPanel);
         
         // OG
         // this.add(new StartMenu());
+        this.setVisible(false);
+        //this.add(menuPanel);
     }
 
     /**
@@ -160,7 +166,7 @@ public class MenuViewImpl extends AbstractMenuView {
             })
             .map(Map.Entry::getValue).forEach(this::add);
             */
-            
+
             Stream.iterate(1, i -> i + 1).limit(3).map(i -> {
                 JButton b = new JButton("Livello" + i);
                 b.addActionListener(null);
@@ -178,7 +184,32 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showCredits() {
         // TODO Auto-generated method stub
-        
+
+    }
+
+    private void setup() {
+        menuPanel = new StartMenu();
+        levelPanel = new LevelPicker();
+
+        this.setLayout(new BorderLayout());
+        this.add(menuPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void start() {
+        if (this.isControllerSet) {
+            this.setup();
+            this.ready = true;
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
+        }
+    }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+
     }
 
 

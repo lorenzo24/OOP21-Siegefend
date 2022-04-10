@@ -40,6 +40,11 @@ import sgf.view.menu.MenuViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
 
+/**
+ * 
+ * 
+ *
+ */
 public class MenuControllerImpl implements MenuController {
 
     private boolean isControllerSet;
@@ -73,7 +78,7 @@ public class MenuControllerImpl implements MenuController {
          * All these other views and controllers will be created when someone clicks on a level.
          */
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
