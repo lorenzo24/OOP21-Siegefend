@@ -86,9 +86,8 @@ public final class AppStart {
         final AbstractShopView shopView = new ShopViewImpl(gameManager);
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerManager);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView);
-
-        //AbstractMenuView menuView = new MenuViewImpl();
-        //MenuController menuController = new MenuControllerImpl();
+        final MenuController menuController = new MenuControllerImpl();
+        final AbstractMenuView menuView = new MenuViewImpl();
 
         /**
          * Linking.
@@ -103,17 +102,16 @@ public final class AppStart {
         shopView.setController(shopController);
         playingController.setView(playingView);
         playingView.setController(playingController);
-        //menuController.setView(menuView);
-        //menuView.setController(menuController);
+        menuController.setView(menuView);
+        menuView.setController(menuController);
 
         shopView.start();
         mapView.start();
         enemyView.start();
         gameView.start();
         playingView.start();
-        //menuView.start();
+        menuView.start();
 
-
-        //new ScreenGame(playingView);
+        new ScreenGame(menuView);
     }
 }

@@ -35,8 +35,8 @@ public class MenuViewImpl extends AbstractMenuView {
     private MenuController enemyController;
     //private final JButton button;
     private static final String backgroundColor = "#293132", buttonColor = "#00A676", textColor = "#F7F9F9", hoverColor = "#E0D0C1"; // 293132, 00A676, F7F9F9, (E0D0C1, A76D60). https://coolors.co/293132-00a676-f7f9f9-e0d0c1-a76d60
-    private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
-    private static final Font textFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+    private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
+    private static final Font textFont = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
     JPanel menuPanel, levelPanel;
 
     @Override
@@ -65,7 +65,8 @@ public class MenuViewImpl extends AbstractMenuView {
         
         // OG
         // this.add(new StartMenu());
-        this.setVisible(false);
+        this.setVisible(true);
+        this.add(new JButton("AOOOOO"));
         //this.add(menuPanel);
     }
 
@@ -77,7 +78,8 @@ public class MenuViewImpl extends AbstractMenuView {
     private class StartMenu extends JPanel{
 
         private StartMenu() {
-            JPanel menuPanel, buttonsPanel;
+            JPanel menuPanel;
+            JPanel buttonsPanel;
             JButton startButton, optionsButton, leaderboardButton, creditsButton;
             JLabel titleLabel;
 
@@ -148,11 +150,17 @@ public class MenuViewImpl extends AbstractMenuView {
             buttonsPanel.add(creditsButton);
             buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
             buttonsPanel.setBackground(Color.decode(backgroundColor));
-
-            menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
-            menuPanel.add(titleLabel);
-            menuPanel.add(buttonsPanel);
-            menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            
+            //menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
+            //menuPanel.add(titleLabel);
+            //menuPanel.add(buttonsPanel);
+            //menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            //this.add(menuPanel);
+            this.setBackground(Color.decode(backgroundColor));
+            this.setLayout(new GridLayout(2, 1, 8, 50));
+            this.add(titleLabel);
+            this.add(buttonsPanel);
+            this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         }
     }
 
@@ -172,6 +180,7 @@ public class MenuViewImpl extends AbstractMenuView {
                 b.addActionListener(null);
                 return b;
             });
+            
         }
     }
 
@@ -193,6 +202,8 @@ public class MenuViewImpl extends AbstractMenuView {
 
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
+        menuPanel.setVisible(true);
+        //this.add(new JButton("test"));
     }
 
     @Override
