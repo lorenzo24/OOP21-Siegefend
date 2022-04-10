@@ -86,12 +86,10 @@ public final class AppStart {
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager);
         final AbstractShopView shopView = new ShopViewImpl(gameManager);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView);
-        final MenuController menuController = new MenuControllerImpl();
-        final AbstractMenuView menuView = new MenuViewImpl();
-
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
+        final MenuController menuController = new MenuControllerImpl();
+        final AbstractMenuView menuView = new MenuViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
         /**
          * Linking.
