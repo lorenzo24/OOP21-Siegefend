@@ -1,8 +1,6 @@
 package sgf.utilities;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -44,7 +42,6 @@ import sgf.view.game.PlayingViewImpl;
 import sgf.view.map.AbstractMapView;
 import sgf.view.map.MapViewImpl;
 import sgf.view.menu.AbstractMenuView;
-import sgf.view.menu.MenuView;
 import sgf.view.menu.MenuViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;

@@ -2,17 +2,11 @@ package sgf.view.shop;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.Optional;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import sgf.controller.game.PlayingController;
 import sgf.helpers.SimpleTurretsImageLoader;
 import sgf.model.turret.Turret;
 
