@@ -104,32 +104,4 @@ public class MenuControllerImpl implements MenuController {
         return playingView;
     }
 
-    public void showCredits(){
-        JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
-    }
-
-    public void levelPicker() {
-        /*
-        this.menuView.add(new JPanel() {
-            JButton test = new JButton("AAAAAA");
-
-            this.add(test);
-        });
-        */
-
-        this.menuView.showLevelPicker();
-    }
-
-    @Override
-    public void changeOptions() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void showLeaderboard() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

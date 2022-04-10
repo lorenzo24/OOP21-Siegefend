@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -32,7 +33,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private boolean isControllerSet;
     private boolean ready;
-    private MenuController enemyController;
+    private MenuController menuController;
     //private final JButton button;
     private static final String backgroundColor = "#293132", buttonColor = "#00A676", textColor = "#F7F9F9", hoverColor = "#E0D0C1"; // 293132, 00A676, F7F9F9, (E0D0C1, A76D60). https://coolors.co/293132-00a676-f7f9f9-e0d0c1-a76d60
     private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
@@ -43,7 +44,7 @@ public class MenuViewImpl extends AbstractMenuView {
     public void setController(final MenuController controller) {
         if (!isControllerSet) {
             this.isControllerSet = true;
-            this.enemyController = controller;
+            this.menuController = controller;
             //this.button.addActionListener(e -> {
             //    final AbstractPlayingView view = this.enemyController.loadPlayingView(1);
             //    System.out.println("testing...");
@@ -66,7 +67,6 @@ public class MenuViewImpl extends AbstractMenuView {
         // OG
         // this.add(new StartMenu());
         this.setVisible(true);
-        this.add(new JButton("AOOOOO"));
         //this.add(menuPanel);
     }
 
@@ -150,7 +150,7 @@ public class MenuViewImpl extends AbstractMenuView {
             buttonsPanel.add(creditsButton);
             buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
             buttonsPanel.setBackground(Color.decode(backgroundColor));
-            
+
             //menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
             //menuPanel.add(titleLabel);
             //menuPanel.add(buttonsPanel);
@@ -180,7 +180,7 @@ public class MenuViewImpl extends AbstractMenuView {
                 b.addActionListener(null);
                 return b;
             });
-            
+
         }
     }
 
@@ -193,7 +193,7 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showCredits() {
         // TODO Auto-generated method stub
-
+        JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
     }
 
     private void setup() {
