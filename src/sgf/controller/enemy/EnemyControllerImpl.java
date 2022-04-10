@@ -6,9 +6,11 @@ import java.util.List;
 import sgf.controller.game.PlayerController;
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
+import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.LockClass;
+import sgf.model.game.Player;
 import sgf.view.enemy.EnemyView;
 
 /**
@@ -22,13 +24,16 @@ public class EnemyControllerImpl implements EnemyController {
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
     private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
+    private final LeaderboardManager leaderboard;
 
     /**
      * Sets the levelManager to load enemies and get map.
      * @param levelManager Is the manager of the current level.
      * @param playerManager Is the manager of the player.
+     * @param leaderboard Is the leaderboard manager.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager) {
+    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager, final LeaderboardManager leaderboard) {
+        this.leaderboard = leaderboard;
         this.levelManager = levelManager;
         this.playerManager = playerManager;
         this.managerList = new ArrayList<>();
@@ -60,8 +65,11 @@ public class EnemyControllerImpl implements EnemyController {
 
     // Checks if the level is finished.
     private void checkIfStopThread() {
-        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty()) {
+        final Player player = this.playerManager.getPlayer();
+        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty() || player.getCurrentHP() == 0) {
             this.threadRun = false;
+            this.leaderboard.addScore(player.getPlayerName(), player.getScore());
+            this.leaderboard.writeScore();
         }
     }
 

@@ -91,8 +91,8 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public int getPlayerName() {
-        return this.score;
+    public String getPlayerName() {
+        return this.playerName;
     }
 
     @Override

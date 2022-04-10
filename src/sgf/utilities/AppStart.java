@@ -23,7 +23,6 @@ import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
-import sgf.managers.PlayerManager;
 import sgf.model.level.Level;
 import sgf.model.level.LevelImpl;
 import sgf.model.level.Wave;
@@ -57,7 +56,6 @@ public final class AppStart {
     public static void main(final String[] args) {
         final GameManager gameManager = null;
         final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
-        final PlayerManager playerManager = null;
         final MusicController m = new MusicControllerImpl();
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final MapController mapController = new MapControllerImpl(map);
@@ -72,7 +70,7 @@ public final class AppStart {
          * All these other views and controllers will be created when someone clicks on a level.
          */
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
