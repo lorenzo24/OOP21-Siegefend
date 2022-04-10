@@ -65,7 +65,7 @@ public final class AppStart {
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
         final LevelManager levelManager = new LevelManagerImpl(level);
-        final Player player = new PlayerImpl();
+        final Player player = new PlayerImpl("DEFAULT_NAME");
         final PlayerController playerController = new PlayerControllerImpl(player);
 
         /*

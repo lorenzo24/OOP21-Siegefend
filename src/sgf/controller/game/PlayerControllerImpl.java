@@ -11,7 +11,7 @@ public class PlayerControllerImpl implements PlayerController {
 
     private final Player player;
     private PlayerView playerView;
-    private boolean isControllerSet = false;
+    private boolean isControllerSet;
 
     /**
      * WIP constructor.
@@ -61,5 +61,4 @@ public class PlayerControllerImpl implements PlayerController {
             this.playerView = view;
         }
     }
-
 }

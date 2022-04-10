@@ -1,8 +1,10 @@
 package sgf.view.game;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import sgf.controller.game.PlayerController;
@@ -61,6 +63,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
         this.add(labelHP);
         this.add(labelMoney);
         this.add(labelScore);
+        //this.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     @Override
