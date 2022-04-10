@@ -55,4 +55,10 @@ public interface Enemy {
      * @return the enemy score value.
      */
     double getPoints();
+ 
+    /**
+     * Steps done by one enemy.
+     * @return the steps done.
+     */
+    long getSteps();
 }
