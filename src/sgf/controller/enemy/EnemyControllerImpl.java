@@ -2,10 +2,11 @@ package sgf.controller.enemy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import sgf.controller.game.PlayerController;
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
 import sgf.managers.LevelManager;
-import sgf.managers.PlayerManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.LockClass;
 import sgf.view.enemy.EnemyView;
@@ -20,14 +21,14 @@ public class EnemyControllerImpl implements EnemyController {
     private EnemyView enemyView;
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
-    private final PlayerManager playerManager;  //Manager of Player, needed by EnemyManager.
+    private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
 
     /**
      * Sets the levelManager to load enemies and get map.
      * @param levelManager Is the manager of the current level.
      * @param playerManager Is the manager of the player.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final PlayerManager playerManager) {
+    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager) {
         this.levelManager = levelManager;
         this.playerManager = playerManager;
         this.managerList = new ArrayList<>();
