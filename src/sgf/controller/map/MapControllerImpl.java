@@ -56,7 +56,7 @@ public class MapControllerImpl implements MapController {
         final Graphics g = this.mapImage.getGraphics();
         for (int row = 0; row < this.map.getSize(); row++) {
             for (int column = 0; column < this.map.getSize(); column++) {
-                final Image i = tileManager.getImage(this.map.getTileFromGridPosition(new GridPosition(row, column)));
+                final Image i = tileManager.getImage(this.map.getTileFromGridPosition(new GridPosition(row, column)).getTileType());
                 g.drawImage(i, column * this.tileSize, row *  this.tileSize,  this.tileSize,  this.tileSize, null);
             }
         }

@@ -2,7 +2,6 @@ package sgf.view.shop;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -12,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import sgf.controller.shop.ShopController;
-import sgf.managers.GameManager;
 import sgf.model.turret.Turret;
 
 /**
@@ -24,21 +22,17 @@ public class ShopViewImpl extends AbstractShopView {
      * 
      */
     private static final long serialVersionUID = 6030584324069338830L;
-    private List<ShopItemView> turretInfo;
-    private ShopItemView selected;
-    private transient ShopController shopController;
-    private final GameManager gameManager;
+    private List<AbstractShopItemView> turretInfo;
+    private AbstractShopItemView selected;
+    private ShopController shopController;
     private boolean isControllerSet;
     private boolean ready;
 
     /**
-     * 
-     * @param gm
+     * Constructor for creating a new instance of {@code ShopViewImpl}.
      */
-    public ShopViewImpl(final GameManager gm) {
+    public ShopViewImpl() {
         this.setLayout(new BorderLayout());
-        this.gameManager = gm;
-
         this.setVisible(false);
     }
 
@@ -46,15 +40,18 @@ public class ShopViewImpl extends AbstractShopView {
     protected void update() {
         if (this.ready) {
             this.turretInfo.stream()
-                           .forEach(t -> t.setCanvasSize(this.getItemImgSize()));
+                           .forEach(t -> t.setCanvasSize(this.getItemImgSize()));       // Adapts the dimensions of each image in the shop.
             this.revalidate();
         }
     }
 
+    /**
+     * Creates all elements of the view.
+     */
     private void setup() {
         this.turretInfo = this.shopController.getTurretList()
                 .stream().map(this::createShopItemView)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());  // Creates a list of items for the view.
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.turretInfo.forEach((t) -> panel.add(t));
         final JScrollPane scrollpane = new JScrollPane(panel);
@@ -63,22 +60,24 @@ public class ShopViewImpl extends AbstractShopView {
         this.add(scrollpane, BorderLayout.CENTER);
     }
 
-    private ShopItemView createShopItemView(final Turret t) {
-        final ShopItemView item = ShopItemView.from(t);
+    private AbstractShopItemView createShopItemView(final Turret t) {
+        final AbstractShopItemView item = ShopItemViewImpl.from(t);
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if ((selected == null || !selected.isSelected()) && ShopViewImpl.this.shopController.buy(t)) {
-                    item.setSelected(true);
-                    item.setCancelMode();
-                    selected = item;
-                    disableAll();
-                } else if (selected == item) {
-                    ShopViewImpl.this.shopController.cancel();
+                if (selected == null || !selected.isSelected()) {  // The button can be pressed only if no other is pressed.
+                    if (shopController.trySetSelectedTurret(item.getTurret())) {        // A turret can only be selected if the player has enough money.
+                        item.setSelected(true);
+                        item.cancelMode();
+                        selected = item;
+                    }
+                    disableAllNotSelected();       // When the item's button is pressed, all other items become disabled.
+                } else if (selected == item) {  // If the button is already pressed, cancellation of the purchase is performed instead.
+                    shopController.deselectTurret();
+                    turretDeselected();
                     item.setSelected(false);
-                    item.setBuyMode();
-                    enableAll();
-                    selected = null;
+                    item.buyMode();
+                    enableAll();        // When the item is deselected, all the others become enabled.
                 }
             }
         });
@@ -86,7 +85,7 @@ public class ShopViewImpl extends AbstractShopView {
     }
 
     @Override
-    public void disableAll() {
+    public void disableAllNotSelected() {
         if (this.ready) {
             this.turretInfo.stream()
                            .filter(i -> i != selected)
@@ -97,10 +96,13 @@ public class ShopViewImpl extends AbstractShopView {
     @Override
     public void enableAll() {
         if (this.ready) {
-            this.turretInfo.stream()
-                           .filter(i -> i != selected)
-                           .forEach(i -> i.setButtonEnabled(true));
+            this.turretInfo.stream().forEach(i -> i.setButtonEnabled(true));
         }
+    }
+
+    @Override
+    public void turretDeselected() {
+        this.selected = null;
     }
 
     @Override
@@ -124,6 +126,10 @@ public class ShopViewImpl extends AbstractShopView {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub 
+        if (this.ready) {
+            this.ready = false;
+            this.removeAll();
+            this.setVisible(false);
+        }
     }
 }

@@ -31,7 +31,8 @@ public class TurretImageManager extends AbstractImageLoader<Integer> {
      * @param turret Represents the code of the image we want the sprite.
      * @return the image of the specific turret id.
      */
-    public Image getImage(final int turret) {
+    @Override
+    public Image getImage(final Integer turret) {
         return this.turretSprite.get(turret);
     }
 }

@@ -35,7 +35,8 @@ public class TileImageManager extends AbstractImageLoader<TileType> {
      * @param tile Represents the  of the image we want the sprite.
      * @return the image of the specific type of tile.
      */
-    public Image getImage(final Tile tile) {
-        return this.imageTileSelector.get(tile.getTileType());
+    @Override
+    public Image getImage(final TileType tile) {
+        return this.imageTileSelector.get(tile);
     }
 }

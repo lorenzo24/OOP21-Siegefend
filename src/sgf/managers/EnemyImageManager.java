@@ -49,4 +49,9 @@ public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
             this.enemySprite.put(elem.getKey(), this.loadRightImage(elem.getValue()));
         }
     }
+
+    @Override
+    public Image getImage(final EnemyType t) {
+        return this.enemySprite.get(t);
+    }
 }
