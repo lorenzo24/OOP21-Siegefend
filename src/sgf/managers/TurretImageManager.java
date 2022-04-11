@@ -3,6 +3,8 @@ package sgf.managers;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+
 import sgf.helpers.AbstractImageLoader;
 
 /**
@@ -21,17 +23,11 @@ public class TurretImageManager extends AbstractImageLoader<Integer> {
 
     @Override
     public void fillMap(final Map<Integer, String> map) {
-        for (final var elem : map.entrySet()) {
-            this.turretSprite.put(elem.getKey(), this.loadRightImage(elem.getValue()));
-        }
+        Stream.iterate(0, i -> i + 1).limit(map.size()).forEach(x -> this.turretSprite.put(x, this.loadRightImage(map.get(x))));
     }
 
-    /**
-     * This method returns the image of a given turret.
-     * @param turret Represents the code of the image we want the sprite.
-     * @return the image of the specific turret id.
-     */
-    public Image getImage(final int turret) {
-        return this.turretSprite.get(turret);
+    @Override
+    public Image getImage(final Integer element) {
+        return this.turretSprite.get(element);
     }
 }
