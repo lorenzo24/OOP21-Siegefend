@@ -2,14 +2,13 @@ package sgf.model.turret;
 
 import java.util.Optional;
 
-import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
 /**
  * Represents a turret that can be placed on the map.
  */
-public interface Turret extends Cloneable {
+public interface Turret {
     /**
      * Returns the ID of the turret.
      * @return the ID of the turret
@@ -67,10 +66,9 @@ public interface Turret extends Cloneable {
 
     /**
      * Creates a clone of the turret. <br />
-     * Internally, the clone should be created by calling super.clone() and then
-     * setting all the attributes by cloning them from the initial turret.
+     * Classes implementing this interface should also implement {@link Cloneable} and use its method within this one. <br />
+     * Inside the {@code clone} method a call to {@code super.clone()} should be sufficient to obtain a precise clone of the instance.
      * @return the cloned {@link Turret}
-     * @throws CloneNotSupportedException
      */
-    Turret clone() throws CloneNotSupportedException;
+    Turret getClone();
 }

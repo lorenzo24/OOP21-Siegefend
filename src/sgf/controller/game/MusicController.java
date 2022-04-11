@@ -1,0 +1,17 @@
+package sgf.controller.game;
+/**
+ * Interface for the music controller.
+ */
+public interface MusicController {
+
+    /**
+     * Method that puts the music on.
+     */
+    void musicOn();
+
+    /**
+     * Method that puts the music off.
+     */
+    void musicOff();
+
+}

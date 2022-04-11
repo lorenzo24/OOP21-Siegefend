@@ -93,5 +93,11 @@ public class SimpleTurretsLoader implements TurretsLoader {
         public SimpleTurretImpl clone() throws CloneNotSupportedException {
             return (SimpleTurretImpl) super.clone();
         }
+
+        @Override
+        public Turret getClone() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
 }

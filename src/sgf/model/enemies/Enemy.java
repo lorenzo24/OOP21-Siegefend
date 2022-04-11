@@ -20,12 +20,6 @@ public interface Enemy {
     double getHP();
 
     /**
-     * Sets a new value for the health points of the enemy.
-     * @param hp the new health points value.
-     */
-    void setHP(double hp);
-
-    /**
      * Returns the speed at which the enemy moves on the map.
      * @return the speed of the enemy.
      */
@@ -43,4 +37,28 @@ public interface Enemy {
      * @param y coordinate.
      */
     void move(double x, double y);
+
+    /**
+     * Take the percentage of enemy Life. 
+     * @return the percentage of enemy life.
+     */
+    double getPercentHp();
+
+    /**
+     * Method that decrees the enemy life. 
+     * @param damage Is the damage that the enemy has recived.
+     */
+    void damageSuffered(double damage);
+
+    /**
+     * Get the enemy score value.
+     * @return the enemy score value.
+     */
+    double getPoints();
+ 
+    /**
+     * Steps done by one enemy.
+     * @return the steps done.
+     */
+    long getSteps();
 }

@@ -19,4 +19,16 @@ public interface PathLinker {
       * @return a map that links every tile type with the correct image path.
       */
      java.util.Map<TileType, String> getTileMap();
+
+     /**
+      * Method that links every tile type with the correspondent image path name.
+      * @return a map that links every tile type with the correct image path.
+      */
+     java.util.Map<Integer, String> getTurretMap();
+ 
+     /**
+      * Method that links the name of the barLife that correspondent image path name.
+      * @return the name of the path.
+      */
+     String getLifeBar();
 }

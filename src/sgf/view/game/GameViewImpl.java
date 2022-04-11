@@ -41,7 +41,7 @@ public class GameViewImpl extends AbstractGameView {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         if (this.ready) {
-            mapPanel.repaint();
+            mapPanel.repaint();                         //TODO: might be useless.
             enemyPanel.repaint();
         }
     }
@@ -67,5 +67,10 @@ public class GameViewImpl extends AbstractGameView {
         } else {
             throw new IllegalStateException("Cannot invoke start() if the contorller has not been set.");
         }
+    }
+
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
     }
 }

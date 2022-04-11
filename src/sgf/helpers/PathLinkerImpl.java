@@ -11,6 +11,7 @@ import sgf.model.map.TileType;
 public class PathLinkerImpl implements PathLinker {
     private final Map<EnemyType, String> mapEnemy;
     private final Map<TileType, String> mapTile;
+    private final Map<Integer, String> mapTurret;
 
     /**
      * Simple constructor that class methods to fill its fields.
@@ -18,8 +19,10 @@ public class PathLinkerImpl implements PathLinker {
     public PathLinkerImpl() {
         this.mapEnemy = new HashMap<>();
         this.mapTile = new HashMap<>();
+        this.mapTurret = new HashMap<>();
         this.createEnemyMap();
         this.createTileMap();
+        this.createTurretMap();
     }
 
     @Override
@@ -43,8 +46,23 @@ public class PathLinkerImpl implements PathLinker {
         // Links every tile type with the correct image that will be shown.
         this.mapTile.put(TileType.GRASS, "grass.png");
         this.mapTile.put(TileType.PATH, "sand.png");
-        this.mapTile.put(TileType.START_PATH, "sand.png");
-        this.mapTile.put(TileType.END_PATH, "sand.png");
+        this.mapTile.put(TileType.START_PATH, "start.png");
+        this.mapTile.put(TileType.END_PATH, "end.png");
         this.mapTile.put(TileType.WATER, "water.png");
+    }
+
+    private void createTurretMap() {
+        // Links every turret number with the correct image that will be shown.
+        this.mapTurret.put(0, "turret.png");
+    }
+
+    @Override
+    public String getLifeBar() {
+        return "lifeBar.png";
+    }
+
+    @Override
+    public Map<Integer, String> getTurretMap() {
+        return Map.copyOf(this.mapTurret);
     }
 }
