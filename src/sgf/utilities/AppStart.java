@@ -80,8 +80,8 @@ public final class AppStart {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
-        final AbstractShopView shopView = new ShopViewImpl(gameManager);
+        final ShopController shopController = new ShopControllerImpl(gameManager, shop);
+        final AbstractShopView shopView = new ShopViewImpl();
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);

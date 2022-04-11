@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import sgf.controller.game.PlayerController;
-import sgf.helpers.SimpleTurretsLoader;
 import sgf.managers.GameManager;
+import sgf.model.shop.Shop;
 import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
