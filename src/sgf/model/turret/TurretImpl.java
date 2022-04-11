@@ -23,7 +23,6 @@ public class TurretImpl implements Turret {
     private final double bulletSpeed;
     private final double bulletDamage;
     private final BulletFactory bulletFactory;
-    // TODO: private TurretStats stats; classe con stats delle torrette.
 
     /**
      * Creates a new instance of Turret.
@@ -91,7 +90,18 @@ public class TurretImpl implements Turret {
 
     @Override
     public Turret clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException();
+        return (Turret) super.clone();
     }
+
+    @Override
+    public Turret getClone() {
+        try {
+            return this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        throw new UnsupportedOperationException("Class " + this.getClass().getName() + " does not support cloning.");
+    }
+
 
 }

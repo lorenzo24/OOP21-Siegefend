@@ -2,6 +2,7 @@ package sgf.model.turret;
 
 import java.util.Optional;
 
+import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
