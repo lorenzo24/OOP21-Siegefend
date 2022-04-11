@@ -18,7 +18,7 @@ public class ShopControllerImpl implements ShopController {
     private final Shop shop;
     private Turret selectedTurret;
     private ShopView shopView;
-    private boolean isControllerSet;
+    private boolean isViewSet;
 
     /**
      * Creates a new shop controller instance.
@@ -85,8 +85,8 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public void setView(final ShopView view) {
-        if (!isControllerSet) {
-            this.isControllerSet = true;
+        if (!isViewSet) {
+            this.isViewSet = true;
             this.shopView = view;
         }
     }

@@ -9,8 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import sgf.helpers.ImageLoader;
 import sgf.helpers.SimpleTurretsImageLoader;
 import sgf.helpers.TurretImagesLoader;
+import sgf.managers.TurretImageManager;
 import sgf.model.turret.Turret;
 
 /**
@@ -51,8 +53,8 @@ public final class ShopItemViewImpl extends AbstractShopItemView {
     }
 
     private void createInnerElements() {
-        final TurretImagesLoader tLoader = new SimpleTurretsImageLoader();
-        this.turretCanvas = new ImageCanvas(tLoader.getTurretImageOrDefault(SimpleTurretsImageLoader.SAMPLE)); /* TODO: Should be this.turret.getID() */
+        final ImageLoader<Integer> tLoader = new TurretImageManager();
+        this.turretCanvas = new ImageCanvas(tLoader.getImage(this.turret.getID()));
         this.turretBuy = new JButton(ShopItemViewImpl.BUY);
         this.turretPrice = new JLabel(Integer.toString(this.turret.getPrice()), SwingConstants.CENTER);
     }
