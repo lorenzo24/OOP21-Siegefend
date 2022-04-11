@@ -7,6 +7,7 @@ import sgf.model.map.Position;
  */
 public class EnemyImpl implements Enemy {
     private final Position position;
+    private long stepsDone;
     private double hp;
     private final double maxHp;
     private double hpPercent;
@@ -28,6 +29,7 @@ public class EnemyImpl implements Enemy {
         this.speed = speed;
         this.enemyType = enemyType;
         this.points = hp * speed;
+        this.stepsDone = 0;
         this.calculateHp();
     }
 
@@ -53,6 +55,7 @@ public class EnemyImpl implements Enemy {
     @Override
     public void move(final double x, final double y) {
         this.position.setCoordinates(x, y);
+        this.stepsDone++;
     }
 
     @Override
@@ -74,5 +77,10 @@ public class EnemyImpl implements Enemy {
     @Override
     public double getPoints() {
         return this.points;
+    }
+
+    @Override
+    public long getSteps() {
+        return this.stepsDone;
     }
 }

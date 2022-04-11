@@ -41,7 +41,7 @@ public class GameViewImpl extends AbstractGameView {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         if (this.ready) {
-            mapPanel.repaint();
+            mapPanel.repaint();                         //TODO: might be useless.
             enemyPanel.repaint();
         }
     }

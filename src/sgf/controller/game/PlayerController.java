@@ -1,11 +1,13 @@
-package sgf.managers;
+package sgf.controller.game;
 
+import sgf.controller.Controller;
 import sgf.model.game.Player;
+import sgf.view.game.PlayerView;
 
 /**
  * Manages the player.
  */
-public interface PlayerManager {
+public interface PlayerController extends Controller<PlayerView> {
 
     /**
      * Returns the {@link Player} associated.

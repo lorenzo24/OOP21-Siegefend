@@ -1,5 +1,6 @@
 package sgf.managers;
 
+import sgf.controller.game.PlayerController;
 import sgf.model.game.GameStatus;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
@@ -11,10 +12,10 @@ import sgf.model.turret.Turret;
 public interface GameManager {
 
     /**
-     * Returns the associated {@link PlayerManager}.
+     * Returns the associated {@link PlayerController}.
      * @return the associated {@code PlayerController}
      */
-    PlayerManager getPlayerManager();
+    PlayerController getPlayerManager();
 
     /**
      * Returns the manager for the current level.

@@ -58,4 +58,16 @@ public interface Player {
      * @param score New score.
      */
     void setScore(int score);
+
+    /**
+     * Getter for player's name.
+     * @return Player's name.
+     */
+    String getPlayerName();
+
+    /**
+     * Sets player's name.
+     * @param username is the player's name.
+     */
+    void setPlayerName(String username);
 }

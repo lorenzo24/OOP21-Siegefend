@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import sgf.controller.Controller;
-import sgf.managers.PlayerManager;
+import sgf.controller.game.PlayerController;
 import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
@@ -14,10 +14,10 @@ import sgf.view.shop.ShopView;
 public interface ShopController extends Controller<ShopView> {
 
     /**
-     * Returns the associated {@link PlayerManager}.
+     * Returns the associated {@link PlayerController}.
      * @return the associated {@code PlayerController}
      */
-    PlayerManager getPlayerManager();
+    PlayerController getPlayerManager();
 
     /**
      * Returns a list of {@link Turret}{@code s} that can be bought from the shop.
