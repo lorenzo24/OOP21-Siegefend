@@ -30,9 +30,4 @@ public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
     public Image getImage(final EnemyType element) {
         return this.enemySprite.get(element);
     }
-
-    @Override
-    public Image getImage(final EnemyType t) {
-        return this.enemySprite.get(t);
-    }
 }
