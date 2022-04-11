@@ -15,6 +15,8 @@ import sgf.controller.map.MapControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.MapLoaderImpl;
+import sgf.helpers.SimpleTurretsLoader;
+import sgf.helpers.TurretsLoader;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
 import sgf.managers.LeaderboardManager;
@@ -27,6 +29,8 @@ import sgf.model.level.Level;
 import sgf.model.level.LevelImpl;
 import sgf.model.level.Wave;
 import sgf.model.map.Map;
+import sgf.model.shop.Shop;
+import sgf.model.shop.ShopImpl;
 import sgf.view.ScreenGame;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
@@ -64,6 +68,8 @@ public final class AppStart {
         final LevelManager levelManager = new LevelManagerImpl(level);
         final Player player = new PlayerImpl("DEFAULT_NAME");
         final PlayerController playerController = new PlayerControllerImpl(player);
+        final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
+        final Shop shop = new ShopImpl(tLoader);
 
         /*
          * At the start only the menu, settings and levels view will be created.
@@ -74,8 +80,8 @@ public final class AppStart {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
-        final AbstractShopView shopView = new ShopViewImpl(gameManager);
+        final ShopController shopController = new ShopControllerImpl(gameManager, shop);
+        final AbstractShopView shopView = new ShopViewImpl();
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);

@@ -21,4 +21,11 @@ public interface ImageLoader<T> {
      * @param map Is the map to be filled.
      */
     void fillMap(Map<T, String> map);
+
+    /**
+     * Returns the image associated to the given element.
+     * @param t the key
+     * @return an image
+     */
+    Image getImage(T t);
 }
