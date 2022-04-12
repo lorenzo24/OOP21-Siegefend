@@ -97,9 +97,9 @@ public class EnemyControllerImpl implements EnemyController {
 
     @Override
     public void removeEnemy(final EnemyManager enemyManager) {
-        LockClass.getSemaphore().acquireUninterruptibly();
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         this.managerList.remove(enemyManager);
-        LockClass.getSemaphore().release();
+        LockClass.getEnemySemaphore().release();
     }
 
     @Override
