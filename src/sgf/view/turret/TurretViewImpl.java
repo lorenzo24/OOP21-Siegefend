@@ -3,6 +3,8 @@ package sgf.view.turret;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
 
@@ -89,9 +91,56 @@ public class TurretViewImpl extends AbstractTurretView {
             final var entry = iterator.next();
             final int entryID = entry.getValue().getID();
             final Position p = entry.getValue().getPosition();
-            gImage.drawImage(imgManager.getImage(entryID), (int) p.getX(), (int) p.getY(), this.tileSize, this.tileSize, null);
+            int origW = imgManager.getImage(entryID).getWidth(null);
+            int origH = imgManager.getImage(entryID).getHeight(null);
+            entry.getValue().setAngle(entry.getValue().getAngle() + 0.1); // test
+            //BufferedImage bimg = rotateARGB(imgManager.getImage(entryID), entry.getValue().getAngle());
+            BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
+            double scaleX = (double) bimg.getWidth() / origW;
+            double scaleY = (double) bimg.getHeight() / origH;
+            System.out.println("Scala X:" + scaleX);
+            System.out.println("Scala Y:" + scaleY);
+            //gImage.drawImage(bimg, (int) (p.getX() - scaleX / 2), (int) (p.getY() - scaleY / 2), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
+            gImage.drawImage(bimg, (int) (p.getX() - (this.tileSize * (scaleX - 1) / 2)), (int) (p.getY() - (this.tileSize * (scaleY - 1) / 2)), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
+            //gImage.drawImage(bimg, (int) p.getX(), (int) p.getY(), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
         }
         semaphore.release();
+    }
+
+    /**
+     * 
+     * @param img
+     * @param rads
+     * @return
+     */
+    public static BufferedImage rotateImage(final Image img, final double rads) {
+        double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
+        int w = img.getWidth(null);
+        int h = img.getHeight(null);
+        int newWidth = (int) Math.floor(w * cos + h * sin);
+        int newHeight = (int) Math.floor(h * cos + w * sin);
+
+        /* Debug Only
+        System.out.println("new width: " + newWidth);
+        System.out.println("new heigth: " + newHeight);
+        System.out.println("orig width: " + w);
+        System.out.println("orig heigth: " + h);
+        */
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotated.createGraphics();
+        AffineTransform at = new AffineTransform();
+        at.translate((newWidth - w) / 2, (newHeight - h) / 2);
+
+        final int x = w / 2;
+        final int y = h / 2;
+
+        at.rotate(rads, x, y);
+        g2d.setTransform(at);
+        g2d.drawImage(img, 0, 0, null);
+        g2d.dispose();
+
+        return rotated;
     }
 
 }
