@@ -14,6 +14,8 @@ import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
+import sgf.controller.turret.TurretController;
+import sgf.controller.turret.TurretControllerImpl;
 import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.SimpleTurretsLoader;
 import sgf.helpers.TurretsLoader;
@@ -23,6 +25,7 @@ import sgf.managers.LeaderboardManager;
 import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
+import sgf.model.enemies.LockClass;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.model.level.Level;
@@ -44,6 +47,9 @@ import sgf.view.map.AbstractMapView;
 import sgf.view.map.MapViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
+import sgf.view.turret.AbstractTurretView;
+import sgf.view.turret.TurretView;
+import sgf.view.turret.TurretViewImpl;
 
 /**
  *
@@ -85,6 +91,10 @@ public final class AppStart {
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
+        final AbstractTurretView turretView = new TurretViewImpl(map.getSize(), LockClass.getTurretSemaphore());
+
+
         /**
          * Linking.
          */
@@ -100,6 +110,8 @@ public final class AppStart {
         playingView.setController(playingController);
         playerController.setView(playerView);
         playerView.setController(playerController);
+        turretController.setView(turretView);
+        turretView.setController(turretController);
 
         shopView.start();
         playerView.start();
@@ -107,6 +119,7 @@ public final class AppStart {
         enemyView.start();
         gameView.start();
         playingView.start();
+        turretView.start();
 
         new ScreenGame(playingView);
     }
