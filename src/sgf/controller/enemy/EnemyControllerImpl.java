@@ -9,8 +9,8 @@ import sgf.managers.EnemyManagerImpl;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
-import sgf.model.enemies.LockClass;
 import sgf.model.game.Player;
+import sgf.utilities.LockClass;
 import sgf.view.enemy.EnemyView;
 
 /**

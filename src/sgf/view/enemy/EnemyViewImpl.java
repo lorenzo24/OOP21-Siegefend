@@ -8,7 +8,7 @@ import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
-import sgf.model.enemies.LockClass;
+import sgf.utilities.LockClass;
 
 import java.awt.Color;
 import java.awt.Graphics;
