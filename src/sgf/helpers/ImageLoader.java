@@ -3,6 +3,8 @@ package sgf.helpers;
 import java.awt.Image;
 import java.util.Map;
 
+import sgf.model.game.PathLinker;
+
 /**
  * Interface implemented from image loading.
  * @param <T> Is the type of the entity whose image must be loaded.
@@ -10,11 +12,19 @@ import java.util.Map;
 public interface ImageLoader<T> {
 
     /**
-     * Returns the corresponding image from a given string that is its pathname.
-     * @param pngFile Is the name of the file.
-     * @return the correct image.
+     * This method loads from res folder the right .png file given as parameter.
+     * @param pngFile Is the image file name.
+     * @return the correct image from res folder.
+     * @throws IOException if file is not found.
      */
     Image loadRightImage(String pngFile);
+
+    /**
+     * This method returns the image of a given element.
+     * @param element Represents the element of the image we want the sprite.
+     * @return the image of the specific type.
+     */
+    Image getImage(T element);
 
     /**
      * Fills the map with links between types and filenames.
@@ -23,9 +33,9 @@ public interface ImageLoader<T> {
     void fillMap(Map<T, String> map);
 
     /**
-     * Returns the image associated to the given element.
-     * @param t the key
-     * @return an image
+     * This method returns the field PathLinker.
+     * @return all the imagePaths.
      */
-    Image getImage(T t);
+    PathLinker getPathImage();
+
 }

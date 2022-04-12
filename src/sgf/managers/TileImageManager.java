@@ -3,9 +3,7 @@ package sgf.managers;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
-
 import sgf.helpers.AbstractImageLoader;
-import sgf.model.map.Tile;
 import sgf.model.map.TileType;
 
 /**
@@ -25,18 +23,11 @@ public class TileImageManager extends AbstractImageLoader<TileType> {
 
     @Override
     public void fillMap(final Map<TileType, String> map) {
-        for (final var elem : map.entrySet()) {
-            this.imageTileSelector.put(elem.getKey(), this.loadRightImage(elem.getValue()));    // Method loadRightImage is from extended class.
-        }
+        map.entrySet().forEach(x -> this.imageTileSelector.put(x.getKey(), this.loadRightImage(x.getValue())));
     }
 
-    /**
-     * This method returns the image of a given tile type.
-     * @param tile Represents the  of the image we want the sprite.
-     * @return the image of the specific type of tile.
-     */
     @Override
-    public Image getImage(final TileType tile) {
-        return this.imageTileSelector.get(tile);
+    public Image getImage(final TileType element) {
+        return this.imageTileSelector.get(element);
     }
 }
