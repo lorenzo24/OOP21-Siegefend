@@ -25,7 +25,6 @@ import sgf.managers.LeaderboardManager;
 import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
-import sgf.model.enemies.LockClass;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.model.level.Level;
@@ -84,15 +83,15 @@ public final class AppStart {
         final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
+        final AbstractTurretView turretView = new TurretViewImpl(map.getSize(), LockClass.getTurretSemaphore());
+        final GameController gameController = new GameControllerImpl();
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
-        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
-        final AbstractTurretView turretView = new TurretViewImpl(map.getSize(), LockClass.getTurretSemaphore());
 
 
         /**
