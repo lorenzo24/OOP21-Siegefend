@@ -67,14 +67,14 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     private void drawComponents(final Graphics2D gImage) {
         // For each enemy in the list repaint it.
-            LockClass.getSemaphore().acquireUninterruptibly();
+            LockClass.getEnemySemaphore().acquireUninterruptibly();
             this.enemyList.forEach(x -> {
             final var enemy = x.getEnemy();
             this.drowSprite(gImage, enemy);
             this.drowLifeBar(gImage, enemy);
             SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
             });
-            LockClass.getSemaphore().release();
+            LockClass.getEnemySemaphore().release();
     }
 
     private void drowLifeBar(final Graphics2D gImage, final Enemy enemy) {
