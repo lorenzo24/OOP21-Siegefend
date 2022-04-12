@@ -11,8 +11,8 @@ import javax.swing.SwingUtilities;
 import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.TurretImageManager;
-import sgf.model.enemies.LockClass;
 import sgf.model.map.Position;
+import sgf.utilities.LockClass;
 import sgf.utilities.PositionConverter;
 
 /**
@@ -75,6 +75,7 @@ public class TurretViewImpl extends AbstractTurretView {
         super.paintComponent(g);
         if (this.ready) {
             final var gImage = (Graphics2D) this.image.getGraphics();
+            gImage.setBackground(new Color(0, 0, 0, 0));
             gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());
             this.drawTurrets(gImage);
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
@@ -87,7 +88,7 @@ public class TurretViewImpl extends AbstractTurretView {
         while (iterator.hasNext()) {
             final var entry = iterator.next();
             final int entryID = entry.getValue().getID();
-            final Position p = posConverter.convertToPosition(entry.getKey());
+            final Position p = entry.getValue().getPosition();
             gImage.drawImage(imgManager.getImage(entryID), (int) p.getX(), (int) p.getY(), this.tileSize, this.tileSize, null);
         }
         semaphore.release();
