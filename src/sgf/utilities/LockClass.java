@@ -1,4 +1,4 @@
-package sgf.model.enemies;
+package sgf.utilities;
 
 import java.util.concurrent.Semaphore;
 
