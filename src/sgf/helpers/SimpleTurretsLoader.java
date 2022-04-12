@@ -96,5 +96,17 @@ public class SimpleTurretsLoader implements TurretsLoader {
             // TODO Auto-generated method stub
             return null;
         }
+
+        @Override
+        public double getAngle() {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        @Override
+        public void setAngle(double angle) {
+            // TODO Auto-generated method stub
+            
+        }
     }
 }

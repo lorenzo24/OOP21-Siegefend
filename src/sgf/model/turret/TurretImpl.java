@@ -23,6 +23,7 @@ public class TurretImpl implements Turret {
     private final double bulletSpeed;
     private final double bulletDamage;
     private final BulletFactory bulletFactory;
+    private double angle;
 
     /**
      * Creates a new instance of Turret.
@@ -41,6 +42,7 @@ public class TurretImpl implements Turret {
         this.bulletSpeed = bulletSpeed;
         this.bulletDamage = bulletDamage;
         this.bulletFactory = new BulletFactoryImpl();
+        this.angle = Math.PI / 4;
     }
 
     @Override
@@ -101,6 +103,16 @@ public class TurretImpl implements Turret {
             e.printStackTrace();
         }
         throw new UnsupportedOperationException("Class " + this.getClass().getName() + " does not support cloning.");
+    }
+
+    @Override
+    public double getAngle() {
+        return this.angle;
+    }
+
+    @Override
+    public void setAngle(final double angle) {
+        this.angle = angle;
     }
 
 

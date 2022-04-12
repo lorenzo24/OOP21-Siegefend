@@ -30,6 +30,18 @@ public interface Turret {
     double getRange();
 
     /**
+     * 
+     * @return
+     */
+    double getAngle();
+
+    /**
+     * 
+     * @param angle
+     */
+    void setAngle(double angle);
+
+    /**
      * Sets the state of the turret.
      * @param state the new state of the turret
      */
