@@ -20,16 +20,6 @@ public interface EnemyManager {
     void damage(double damage);
 
     /**
-     * Stops the thread.
-     */
-    void stopThread();
-
-    /**
-     * Restarts the thread.
-     */
-    void resumeThread();
-
-    /**
      * Deletes the enemy in the list of the enemyController.
      */
     void disappear();

@@ -63,16 +63,16 @@ public final class AppStart {
      */
     public static void main(final String[] args) {
         final Player player = new PlayerImpl("DEFAULT");
-        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
-        final MusicController m = new MusicControllerImpl();
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
-        final MapController mapController = new MapControllerImpl(map);
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
+        final GameManager gameManager = new GameManagerImpl(player, level);
+        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+        final MusicController m = new MusicControllerImpl();
+        final MapController mapController = new MapControllerImpl(map);
         final LevelManager levelManager = new LevelManagerImpl(level);
         final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
-        final GameManager gameManager = new GameManagerImpl(player, level);
 
         /*
          * At the start only the menu, settings and levels view will be created.

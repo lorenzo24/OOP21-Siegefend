@@ -6,9 +6,9 @@ package sgf.model.game;
 public interface Pausable {
 
     /**
-     * Stops all threads that can be stopped within the element.
+     * Pauses all threads that can be stopped within the element.
      */
-    void stop();
+    void pause();
 
     /**
      * Resumes all threads that can be stopped within the element.
