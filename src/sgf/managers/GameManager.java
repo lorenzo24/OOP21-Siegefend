@@ -57,7 +57,7 @@ public interface GameManager {
      * @param p the {@code Pausable} object
      */
     void register(Pausable p);
-    
+
     /**
      * Removes the {@link Pausable} to a collection of elements for pausing and resuming.
      * @param p the {@code Pausable} object
