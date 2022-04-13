@@ -14,6 +14,8 @@ import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
+import sgf.controller.turret.TurretController;
+import sgf.controller.turret.TurretControllerImpl;
 import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.SimpleTurretsLoader;
 import sgf.helpers.TurretsLoader;
@@ -44,6 +46,9 @@ import sgf.view.map.AbstractMapView;
 import sgf.view.map.MapViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
+import sgf.view.turret.AbstractTurretView;
+import sgf.view.turret.TurretView;
+import sgf.view.turret.TurretViewImpl;
 
 /**
  *
@@ -78,13 +83,17 @@ public final class AppStart {
         final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
+        final AbstractTurretView turretView = new TurretViewImpl(map.getSize(), LockClass.getTurretSemaphore());
+        final GameController gameController = new GameControllerImpl();
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+
+
         /**
          * Linking.
          */
@@ -100,6 +109,8 @@ public final class AppStart {
         playingView.setController(playingController);
         playerController.setView(playerView);
         playerView.setController(playerController);
+        turretController.setView(turretView);
+        turretView.setController(turretController);
 
         shopView.start();
         playerView.start();
@@ -107,6 +118,7 @@ public final class AppStart {
         enemyView.start();
         gameView.start();
         playingView.start();
+        turretView.start();
 
         new ScreenGame(playingView);
     }

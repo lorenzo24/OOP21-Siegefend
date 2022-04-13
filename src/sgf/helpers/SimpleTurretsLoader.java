@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
@@ -42,10 +43,6 @@ public class SimpleTurretsLoader implements TurretsLoader {
         }
 
         @Override
-        public void idle() {
-        }
-
-        @Override
         public Optional<Enemy> getTarget() {
             return Optional.empty();
         }
@@ -76,19 +73,6 @@ public class SimpleTurretsLoader implements TurretsLoader {
         }
 
         @Override
-        public void fireAt(final Position target) {
-        }
-
-        @Override
-        public Optional<Enemy> findTarget() {
-            return Optional.empty();
-        }
-
-        @Override
-        public void attack() {
-        }
-
-        @Override
         public SimpleTurretImpl clone() throws CloneNotSupportedException {
             return (SimpleTurretImpl) super.clone();
         }
@@ -99,6 +83,30 @@ public class SimpleTurretsLoader implements TurretsLoader {
                 return this.clone();
             } catch (CloneNotSupportedException e) { }
             throw new UnsupportedOperationException("Class " + SimpleTurretsLoader.class.getName() + " does not support cloning.");
+        }
+
+        @Override
+        public void setState(final boolean state) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public Bullet createBullet() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public double getAngle() {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        @Override
+        public void setAngle(double angle) {
+            // TODO Auto-generated method stub
+            
         }
     }
 }

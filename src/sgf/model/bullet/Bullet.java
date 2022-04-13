@@ -1,5 +1,6 @@
 package sgf.model.bullet;
 
+import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
 /**
@@ -26,6 +27,11 @@ public interface Bullet {
      * @return damage. 
      */
     double getDamage();
+
+    /**
+     * @return the current target. 
+     */
+    Enemy getTarget();
 
     /**
      * Moves the bullet to the given coordinate.

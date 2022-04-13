@@ -10,8 +10,8 @@ public class Position {
 
     /**
      * Creates a new instance of {@code Position}.
-     * @param x The x coordinate of the position.
-     * @param y The y coordinate of the position.
+     * @param x The x coordinate of the position
+     * @param y The y coordinate of the position
      */
     public Position(final double x, final double y) {
         super();
