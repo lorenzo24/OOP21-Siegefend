@@ -16,7 +16,9 @@ import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.TurretImageManager;
 import sgf.model.map.GridPosition;
+import sgf.model.map.Map;
 import sgf.model.map.Position;
+import sgf.model.map.TileType;
 import sgf.utilities.LockClass;
 import sgf.utilities.PositionConverter;
 
@@ -35,15 +37,17 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     private final Semaphore semaphore;
     private final TurretImageManager imgManager;
     private final PositionConverter posConverter;
+    private final Map map;
 
     /**
      * 
-     * @param matrixSize
+     * @param map
      * @param semaphore
      */
-    public TurretViewImpl(final int matrixSize, final Semaphore semaphore) {
+    public TurretViewImpl(final Map map, final Semaphore semaphore) {
         this.setVisible(false);
-        this.matrixSize = matrixSize;
+        this.map = map;
+        this.matrixSize = map.getSize();
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.semaphore = semaphore;
@@ -148,7 +152,10 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
             //this.mouseHandler.accept(e);
             final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
             final int gridRow = this.convertCoordinate(e.getY(), this.getHeight());
-            this.turretController.addSelectedTurret(new GridPosition(gridRow, gridColumn));
+            final GridPosition pos = new GridPosition(gridRow, gridColumn);
+            if (this.map.getTileFromGridPosition(pos).getTileType() == TileType.GRASS) {
+                this.turretController.addSelectedTurret(new GridPosition(gridRow, gridColumn));
+            }
         }
     }
 

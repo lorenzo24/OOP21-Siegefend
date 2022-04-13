@@ -88,7 +88,7 @@ public final class AppStart {
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
         final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
-        final AbstractTurretView turretView = new TurretViewImpl(map.getSize(), LockClass.getTurretSemaphore());
+        final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
