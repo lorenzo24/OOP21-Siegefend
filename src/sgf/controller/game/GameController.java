@@ -11,12 +11,12 @@ public interface GameController extends Controller<GameView> {
     /**
      * Stops the thread.
      */
-    void stopThread();
+    void pause();
 
     /**
      * Restarts the thread.
      */
-    void resumeThread();
+    void resume();
 
     /**
      * Sets the view associated to this controller. Can only be called once.
