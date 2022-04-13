@@ -64,6 +64,7 @@ public class GameViewImpl extends AbstractGameView {
         if (this.isControllerSet) {
             this.setLayout(new BorderLayout());
             this.add(mapPanel);
+            this.mapPanel.setOpaque(false);
             this.mapPanel.setLayout(new BorderLayout());
             this.mapPanel.add(enemyPanel);
             this.enemyPanel.setOpaque(false);       // The enemy's empty panel is set to be transparent so it doesn't cover the map's panel.
