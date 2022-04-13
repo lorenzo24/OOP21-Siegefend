@@ -22,7 +22,7 @@ public interface PlayingController extends Controller<PlayingView> {
      * Returns the manager for the player.
      * @return the manager for the player
      */
-    PlayerController getPlayerManager();   // TODO: remove?
+    PlayerController getPlayerController();   // TODO: remove?
 
     /**
      * Returns the size of the view. 

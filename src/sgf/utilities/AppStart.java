@@ -6,8 +6,6 @@ import sgf.controller.game.GameController;
 import sgf.controller.game.GameControllerImpl;
 import sgf.controller.game.MusicController;
 import sgf.controller.game.MusicControllerImpl;
-import sgf.controller.game.PlayerController;
-import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.game.PlayingController;
 import sgf.controller.game.PlayingControllerImpl;
 import sgf.controller.map.MapController;
@@ -21,6 +19,7 @@ import sgf.helpers.SimpleTurretsLoader;
 import sgf.helpers.TurretsLoader;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
+import sgf.managers.GameManagerImpl;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
@@ -63,16 +62,15 @@ public final class AppStart {
      * @param args
      */
     public static void main(final String[] args) {
-        final GameManager gameManager = null;
-        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
-        final MusicController m = new MusicControllerImpl();
+        final Player player = new PlayerImpl("DEFAULT");
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
-        final MapController mapController = new MapControllerImpl(map);
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
+        final GameManager gameManager = new GameManagerImpl(player, level);
+        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+        final MusicController m = new MusicControllerImpl();
+        final MapController mapController = new MapControllerImpl(map);
         final LevelManager levelManager = new LevelManagerImpl(level);
-        final Player player = new PlayerImpl("DEFAULT_NAME");
-        final PlayerController playerController = new PlayerControllerImpl(player);
         final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
 
@@ -81,7 +79,7 @@ public final class AppStart {
          * All these other views and controllers will be created when someone clicks on a level.
          */
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, leaderboard);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager.getPlayerController(), leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
