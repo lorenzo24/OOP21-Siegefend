@@ -121,7 +121,7 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
     }
 
     @Override
-    public void stop() {
+    public void pause() {
         this.threadRun = false;
     }
 
