@@ -1,5 +1,6 @@
 package sgf.managers;
 
+import sgf.model.game.Pausable;
 import sgf.model.turret.Turret;
 
 /**
@@ -7,9 +8,12 @@ import sgf.model.turret.Turret;
  * 
  *
  */
-public class TurretManagerImpl implements TurretManager {
+public class TurretManagerImpl implements TurretManager, Pausable {
 
+    private static final int UPDATE_DELAY = 20;
     private final Turret turret;
+    private volatile boolean isThreadRunning = true;
+    private Thread gameThread;
 
     /**
      * 
@@ -17,6 +21,7 @@ public class TurretManagerImpl implements TurretManager {
      */
     public TurretManagerImpl(final Turret turret) {
         this.turret = turret;
+        this.startTurretThread();
     }
 
     @Override
@@ -24,40 +29,75 @@ public class TurretManagerImpl implements TurretManager {
         return this.turret;
     }
 
+    private void startTurretThread() {
+        if (gameThread == null) {
+            gameThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isThreadRunning) {
+                        try {
+                            if (getTurret() == null) {
+                                findTarget();
+                            }
+                            pointToTarget();        // rotation
+                            Thread.sleep(UPDATE_DELAY);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+        this.gameThread.start();
+    }
+
+    private void findTarget() {
+
+    }
+
+    private void pointToTarget() {
+
+    }
+
+    @Override
+    public void pause() {
+        this.isThreadRunning = false;
+    }
+
+    @Override
+    public void resume() {
+        this.isThreadRunning = true;
+        this.startTurretThread();
+    }
+
     @Override
     public int getCurrentUpgradeLevel() {
-        // TODO Auto-generated method stub
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int getCurrentUpgradePrice() {
-        // TODO Auto-generated method stub
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int getNextUpgradePrice() {
-        // TODO Auto-generated method stub
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Turret getNextUpgrade() {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean canPurchaseUpgrade() {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int sell() {
-        // TODO Auto-generated method stub
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
 }
