@@ -15,7 +15,6 @@ public class PlayingControllerImpl implements PlayingController {
 
     private AbstractPlayingView playingView;
     private final GameManager gameManager;
-    private final PlayerController playerManager;
     private boolean isControllerSet;
 
     /**
@@ -23,9 +22,8 @@ public class PlayingControllerImpl implements PlayingController {
      * @param gameManager
      * @param playerManager
      */
-    public PlayingControllerImpl(final GameManager gameManager, final PlayerController playerManager) {
+    public PlayingControllerImpl(final GameManager gameManager) {
         this.gameManager = gameManager;
-        this.playerManager = playerManager;
     }
 
     @Override
@@ -34,8 +32,8 @@ public class PlayingControllerImpl implements PlayingController {
     }
 
     @Override
-    public PlayerController getPlayerManager() {
-        return this.playerManager;
+    public PlayerController getPlayerController() {
+        return this.gameManager.getPlayerController();
     }
 
     @Override
