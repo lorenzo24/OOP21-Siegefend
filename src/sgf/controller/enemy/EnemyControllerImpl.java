@@ -91,7 +91,7 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager)); // Creates a managerList of the enemy that has been cretaed.
+        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager, this.gameManager)); // Creates a managerList of the enemy that has been cretaed.
     }
 
     @Override
@@ -111,7 +111,7 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
     }
 
     @Override
-    public void stop() {
+    public void pause() {
         this.threadRun = false;
     }
 
@@ -123,7 +123,7 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
 
     @Override
     public void stopController() {
-        this.stop();
+        this.pause();
         this.gameManager.deregister(this);
     }
 }
