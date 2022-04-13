@@ -30,13 +30,13 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     }
 
     private void startTurretThread() {
-        if(gameThread == null) {
+        if (gameThread == null) {
             gameThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     while (isThreadRunning) {
                         try {
-                            if(getTurret() == null) {
+                            if (getTurret() == null) {
                                 findTarget();
                             }
                             pointToTarget();        // rotation
@@ -60,7 +60,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     }
 
     @Override
-    public void stop() {
+    public void pause() {
         this.isThreadRunning = false;
     }
 
