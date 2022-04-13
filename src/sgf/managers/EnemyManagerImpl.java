@@ -27,6 +27,7 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
     private Optional<Direction> lastDir = Optional.empty();
     private final PositionConverter converter; // Converts the gridPosition to Position.
     private final PlayerController playerController;  //Manager of Player, used to update his stats.
+    private Thread gameThread;
 
     /**
      * Creates a managerImpl that controls the enemy's movement.
@@ -42,24 +43,27 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
         this.enemyController = enemyController;
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
         this.playerController = playerController;
+        gameManager.register(this);
         this.startEnemyThread();
     }
 
     private void startEnemyThread() {
-        final Thread gameThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (threadRun) {
-                    try {
-                        nextMovement();
-                        checkFinalDestination();
-                        Thread.sleep(ENEMY_SPEED);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (gameThread == null) {
+            gameThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (threadRun) {
+                        try {
+                            nextMovement();
+                            checkFinalDestination();
+                            Thread.sleep(ENEMY_SPEED);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         gameThread.start();
     }
 
