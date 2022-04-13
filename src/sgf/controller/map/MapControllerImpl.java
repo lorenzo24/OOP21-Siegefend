@@ -63,4 +63,8 @@ public class MapControllerImpl implements MapController {
             }
         }
     }
+
+    @Override
+    public void stopController() {
+    }
 }

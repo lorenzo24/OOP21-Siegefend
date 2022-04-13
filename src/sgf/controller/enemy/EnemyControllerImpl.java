@@ -6,6 +6,7 @@ import java.util.List;
 import sgf.controller.game.PlayerController;
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
+import sgf.managers.GameManager;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
@@ -26,6 +27,7 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
     private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
     private final LeaderboardManager leaderboard;
+    private final GameManager gameManager;
     private Thread waveThread;
 
     /**
@@ -34,11 +36,13 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
      * @param playerManager Is the manager of the player.
      * @param leaderboard Is the leaderboard manager.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager, final LeaderboardManager leaderboard) {
+    public EnemyControllerImpl(final LevelManager levelManager, final GameManager gameManager ,final PlayerController playerManager, final LeaderboardManager leaderboard) {
         this.leaderboard = leaderboard;
         this.levelManager = levelManager;
         this.playerManager = playerManager;
+        this.gameManager = gameManager;
         this.managerList = new ArrayList<>();
+        this.gameManager.register(this);
         this.startRunWaves(); // Thread method.
     }
 
@@ -120,5 +124,6 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
     @Override
     public void stopController() {
         this.stop();
+        this.gameManager.deregister(this);
     }
 }
