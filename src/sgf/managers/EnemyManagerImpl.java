@@ -5,6 +5,7 @@ import sgf.controller.enemy.EnemyController;
 import sgf.controller.game.PlayerController;
 import sgf.helpers.ImgTileSize;
 import sgf.model.enemies.Enemy;
+import sgf.model.game.Pausable;
 import sgf.model.map.Direction;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
@@ -15,7 +16,7 @@ import sgf.utilities.PositionConverter;
 /**
  * Class that manages each single enemy.
  */
-public class EnemyManagerImpl implements EnemyManager {
+public class EnemyManagerImpl implements EnemyManager, Pausable {
     private static final int ENEMY_SPEED = 10;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -116,12 +117,12 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     @Override
-    public void stopThread() {
+    public void stop() {
         this.threadRun = false;
     }
 
     @Override
-    public void resumeThread() {
+    public void resume() {
         this.threadRun = true;
     }
 
