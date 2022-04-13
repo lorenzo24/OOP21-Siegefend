@@ -2,6 +2,7 @@ package sgf.managers;
 
 import sgf.controller.game.PlayerController;
 import sgf.model.game.GameStatus;
+import sgf.model.game.Pausable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
 import sgf.model.turret.Turret;
@@ -50,6 +51,18 @@ public interface GameManager {
      * Resumes the game.
      */
     void unpause();
+
+    /**
+     * Adds a {@link Pausable} to a collection of elements for pausing and resuming.
+     * @param p the {@code Pausable} object
+     */
+    void register(Pausable p);
+    
+    /**
+     * Removes the {@link Pausable} to a collection of elements for pausing and resuming.
+     * @param p the {@code Pausable} object
+     */
+    void deregister(Pausable p);
 
     /**
      * Returns the status of the game that is being played.

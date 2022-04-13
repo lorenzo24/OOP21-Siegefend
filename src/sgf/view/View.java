@@ -23,5 +23,5 @@ public interface View<C extends Controller<?>> {
     /**
      * Disables the view and closes all/any thread currently active in it.
      */
-    void stop();
+    void stopView();
 }

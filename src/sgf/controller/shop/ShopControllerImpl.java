@@ -32,7 +32,7 @@ public class ShopControllerImpl implements ShopController {
 
     @Override
     public PlayerController getPlayerManager() {
-        return this.gameManager.getPlayerManager();
+        return this.gameManager.getPlayerController();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ShopControllerImpl implements ShopController {
             return Optional.empty();
         }
         if (this.canBuy(this.selectedTurret)) {
-            this.gameManager.getPlayerManager().changeMoney(-this.selectedTurret.getPrice());
+            this.gameManager.getPlayerController().changeMoney(-this.selectedTurret.getPrice());
             final Turret out = this.selectedTurret;
             this.deselectTurret();
             this.shopView.turretDeselected();
@@ -89,6 +89,10 @@ public class ShopControllerImpl implements ShopController {
             this.isViewSet = true;
             this.shopView = view;
         }
+    }
+
+    @Override
+    public void stopController() {
     }
 
 }

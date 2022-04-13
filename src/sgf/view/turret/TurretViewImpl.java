@@ -67,7 +67,7 @@ public class TurretViewImpl extends AbstractTurretView {
     }
 
     @Override
-    public void stop() {
+    public void stopView() {
         this.ready = false;
         this.setVisible(false);
     }
