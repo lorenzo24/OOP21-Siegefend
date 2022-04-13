@@ -1,5 +1,6 @@
 package sgf.managers;
 
+import sgf.model.game.Pausable;
 import sgf.model.turret.Turret;
 
 /**
@@ -7,11 +8,12 @@ import sgf.model.turret.Turret;
  * 
  *
  */
-public class TurretManagerImpl implements TurretManager {
+public class TurretManagerImpl implements TurretManager, Pausable {
 
     private static final int UPDATE_DELAY = 20;
     private final Turret turret;
     private volatile boolean isThreadRunning = true;
+    private Thread gameThread;
 
     /**
      * 
@@ -28,39 +30,44 @@ public class TurretManagerImpl implements TurretManager {
     }
 
     private void startTurretThread() {
-        final Thread gameThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isThreadRunning) {
-                    try {
-                        findTarget();
-                        pointToTarget();        // rotation
-                        Thread.sleep(UPDATE_DELAY);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if(gameThread == null) {
+            gameThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isThreadRunning) {
+                        try {
+                            if(getTurret() == null) {
+                                findTarget();
+                            }
+                            pointToTarget();        // rotation
+                            Thread.sleep(UPDATE_DELAY);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
-        gameThread.start();
+            });
+        }
+        this.gameThread.start();
     }
 
-    private ? findTarget() {
+    private void findTarget() {
 
     }
 
-    private ? pointToTarget() {
+    private void pointToTarget() {
 
     }
 
     @Override
-    public void stopThread() {
+    public void stop() {
         this.isThreadRunning = false;
     }
 
     @Override
-    public void resumeThread() {
+    public void resume() {
         this.isThreadRunning = true;
+        this.startTurretThread();
     }
 
     @Override
