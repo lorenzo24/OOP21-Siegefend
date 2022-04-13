@@ -25,20 +25,22 @@ public class EnemyManagerImpl implements EnemyManager {
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
     private final PositionConverter converter; // Converts the gridPosition to Position.
-    private final PlayerController playerManager;  //Manager of Player, used to update his stats.
+    private final PlayerController playerController;  //Manager of Player, used to update his stats.
 
     /**
      * Creates a managerImpl that controls the enemy's movement.
-     * @param enemy Is the interested enemy.
-     * @param levelManager Gives the map the direction in which the enemy has to move.
-     * @param enemyController Is the controller of the enemies.
+     * @param enemy the managed enemy
+     * @param levelManager the manager of the current level
+     * @param enemyController the controller of the enemy view
+     * @param playerController the controller of the player
+     * @param gameManager the manager of the game
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerManager) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerController, final GameManager gameManager) {
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
-        this.playerManager = playerManager;
+        this.playerController = playerController;
         this.startEnemyThread();
     }
 
@@ -135,14 +137,14 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     private void endReached() {
-        this.playerManager.changeHP(-1);                                         //TODO: change method so that it uses PlayerImpl.DecreaseHP()
-        this.playerManager.changeScore(-(int) this.enemy.getPoints());
+        this.playerController.changeHP(-1);                                         //TODO: change method so that it uses PlayerImpl.DecreaseHP()
+        this.playerController.changeScore(-(int) this.enemy.getPoints());
         this.disappear();
     }
 
     private void unitDeath() {
-        this.playerManager.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
-        this.playerManager.changeScore((int) this.enemy.getPoints());
+        this.playerController.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
+        this.playerController.changeScore((int) this.enemy.getPoints());
         this.disappear();
     }
 }
