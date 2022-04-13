@@ -23,6 +23,12 @@ public interface Turret {
     Position getPosition();
 
     /**
+     * 
+     * @param p
+     */
+    void setPosition(Position p);
+
+    /**
      * Returns the range of the turret. <br />
      * The turret can only target enemies whose distance from the tower is less than its range.
      * @return the range of the turret

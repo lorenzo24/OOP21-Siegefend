@@ -11,10 +11,10 @@ import sgf.model.map.Position;
 /**
  * Class that represents a simple turret.
  */
-public class TurretImpl implements Turret {
+public class TurretImpl implements Turret, Cloneable {
 
     private final int id;
-    private final Position position;
+    private Position position;
     private final double range;
     private final int price;
     private final double fireRate;
@@ -35,7 +35,7 @@ public class TurretImpl implements Turret {
      */
     public TurretImpl(final int id, final Position position, final double range, final int price, final double fireRate, final double bulletSpeed, final double bulletDamage) {
         this.id = id;
-        this.position = new Position(position);
+        this.position = position != null ? new Position(position) : null;
         this.range = range;
         this.price = price;
         this.fireRate = fireRate;
@@ -53,6 +53,11 @@ public class TurretImpl implements Turret {
     @Override
     public Position getPosition() {
         return this.position;
+    }
+
+    @Override
+    public void setPosition(final Position p) {
+        this.position = new Position(p);
     }
 
     @Override
@@ -91,8 +96,8 @@ public class TurretImpl implements Turret {
     }
 
     @Override
-    public Turret clone() throws CloneNotSupportedException {
-        return (Turret) super.clone();
+    public TurretImpl clone() throws CloneNotSupportedException {
+        return (TurretImpl) super.clone();
     }
 
     @Override
