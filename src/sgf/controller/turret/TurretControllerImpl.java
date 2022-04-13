@@ -24,10 +24,11 @@ public class TurretControllerImpl implements TurretController {
 
     private TurretView turretView;
     private boolean isViewSet;
-    private Map map;
-    private ShopController shopController;
-    private java.util.Map<GridPosition, Turret> turrets;
+    private final Map map;
+    private final ShopController shopController;
+    private final java.util.Map<GridPosition, Turret> turrets;
     private final Semaphore semaphore;
+    private final int tileSize;
 
     /**
      * 
@@ -40,8 +41,9 @@ public class TurretControllerImpl implements TurretController {
         this.shopController = shopController;
         this.semaphore = semaphore;
         this.turrets = new HashMap<>();
-        turrets.put(new GridPosition(4, 4), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(4, 4)), 100, 0, 0, 0, 0)); // test
-        turrets.put(new GridPosition(11, 8), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(11, 8)), 100, 0, 0, 0, 0)); // test rotation
+        this.tileSize = ImgTileSize.getTileSize();
+//        turrets.put(new GridPosition(4, 4), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(4, 4)), 100, 0, 0, 0, 0)); // test
+//        turrets.put(new GridPosition(11, 8), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(11, 8)), 100, 0, 0, 0, 0)); // test rotation
     }
 
     @Override
@@ -58,7 +60,9 @@ public class TurretControllerImpl implements TurretController {
             final Optional<Turret> t = shopController.buy();
             if (t.isPresent()) {
                 semaphore.acquireUninterruptibly();
-                turrets.put(new GridPosition(gpos), t.get().getClone());
+                final Turret newTurret = t.get().getClone();
+                newTurret.setPosition(new PositionConverter(this.tileSize).convertToPosition(gpos));
+                turrets.put(new GridPosition(gpos), newTurret);
                 semaphore.release();
             }
         }
@@ -66,12 +70,15 @@ public class TurretControllerImpl implements TurretController {
 
     @Override
     public boolean isTileEmpty(final GridPosition gpos) {
-        return turrets.containsKey(gpos);
+        return !turrets.containsKey(gpos);
     }
 
     @Override
     public Iterator<Entry<GridPosition, Turret>> getTurretsIterator() {
         return turrets.entrySet().iterator();
     }
+
+    @Override
+    public void stopController() { }
 
 }
