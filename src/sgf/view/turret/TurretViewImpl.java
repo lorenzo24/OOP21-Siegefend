@@ -94,15 +94,12 @@ public class TurretViewImpl extends AbstractTurretView {
             int origW = imgManager.getImage(entryID).getWidth(null);
             int origH = imgManager.getImage(entryID).getHeight(null);
             entry.getValue().setAngle(entry.getValue().getAngle() + 0.1); // test
-            //BufferedImage bimg = rotateARGB(imgManager.getImage(entryID), entry.getValue().getAngle());
             BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
             double scaleX = (double) bimg.getWidth() / origW;
             double scaleY = (double) bimg.getHeight() / origH;
             System.out.println("Scala X:" + scaleX);
             System.out.println("Scala Y:" + scaleY);
-            //gImage.drawImage(bimg, (int) (p.getX() - scaleX / 2), (int) (p.getY() - scaleY / 2), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
             gImage.drawImage(bimg, (int) (p.getX() - (this.tileSize * (scaleX - 1) / 2)), (int) (p.getY() - (this.tileSize * (scaleY - 1) / 2)), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
-            //gImage.drawImage(bimg, (int) p.getX(), (int) p.getY(), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
         }
         semaphore.release();
     }
