@@ -15,19 +15,13 @@ public interface GameManager {
      * Returns the associated {@link PlayerController}.
      * @return the associated {@code PlayerController}
      */
-    PlayerController getPlayerManager();
+    PlayerController getPlayerController();
 
     /**
      * Returns the manager for the current level.
      * @return a {@link LevelManager}
      */
     LevelManager getLevelManager();
-
-    /**
-     * Starts the {@link Level} to play.
-     * @param l the level to play
-     */
-    void startLevel(Level l);
 
     /**
      * Returns the {@link Level} that is being played.
