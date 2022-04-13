@@ -9,6 +9,7 @@ import sgf.managers.EnemyManagerImpl;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
+import sgf.model.game.Pausable;
 import sgf.model.game.Player;
 import sgf.utilities.LockClass;
 import sgf.view.enemy.EnemyView;
@@ -16,7 +17,7 @@ import sgf.view.enemy.EnemyView;
 /**
  * Class Waves thread that spawns enemies of the waves.
  */
-public class EnemyControllerImpl implements EnemyController {
+public class EnemyControllerImpl implements EnemyController, Pausable {
     private static final int THREAD_SPEED = 3000; 
     private boolean isControllerSet;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -25,6 +26,7 @@ public class EnemyControllerImpl implements EnemyController {
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
     private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
     private final LeaderboardManager leaderboard;
+    private Thread waveThread;
 
     /**
      * Sets the levelManager to load enemies and get map.
@@ -41,25 +43,27 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     private void startRunWaves() {
-        final Thread waveThread = new Thread(new Runnable() {
+        if (waveThread == null) {
+            waveThread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                while (threadRun) {
-                    if (levelManager.hasNextEnemy()) {
-                        loadNextEnemy();
-                    } else {
-                        loadNextWave();
-                        checkIfStopThread(); // Checks if the level is over.
-                    }
-                    try {
-                        Thread.sleep(THREAD_SPEED);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                @Override
+                public void run() {
+                    while (threadRun) {
+                        if (levelManager.hasNextEnemy()) {
+                            loadNextEnemy();
+                        } else {
+                            loadNextWave();
+                            checkIfStopThread(); // Checks if the level is over.
+                        }
+                        try {
+                            Thread.sleep(THREAD_SPEED);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         waveThread.start();
     }
 
@@ -103,12 +107,18 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     @Override
-    public void stopThread() {
+    public void stop() {
         this.threadRun = false;
     }
 
     @Override
-    public void resumeThread() {
+    public void resume() {
         this.threadRun = true;
+        this.startRunWaves();
+    }
+
+    @Override
+    public void stopController() {
+        this.stop();
     }
 }

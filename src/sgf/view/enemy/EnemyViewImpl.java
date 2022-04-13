@@ -110,8 +110,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     }
 
     @Override
-    public void stop() {
-        this.enemyController.stopThread();
+    public void stopView() {
+        this.enemyController.stopController();
         this.enemyList.forEach(x -> x.stopThread());
     }
 }

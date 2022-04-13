@@ -127,7 +127,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     }
 
     @Override
-    public void stop() {
+    public void stopView() {
         // TODO Auto-generated method stub
     }
 }
