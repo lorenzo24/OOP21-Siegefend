@@ -91,4 +91,15 @@ public class TurretControllerImpl implements TurretController {
     @Override
     public void stopController() { }
 
+    @Override
+    public boolean isTurretSelected() {
+        return this.shopController.getSelectedTurret().isPresent();
+    }
+
+    @Override
+    public Optional<Turret> getTurretAt(final GridPosition gpos) {
+        final TurretManager t = this.turrets.get(gpos);
+        return t != null ? Optional.of(t.getTurret()) : Optional.empty();
+    }
+
 }
