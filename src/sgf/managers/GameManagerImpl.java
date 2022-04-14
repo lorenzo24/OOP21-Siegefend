@@ -5,11 +5,13 @@ import java.util.List;
 
 import sgf.controller.game.PlayerController;
 import sgf.controller.game.PlayerControllerImpl;
+import sgf.controller.turret.TurretController;
 import sgf.model.game.GameStatus;
 import sgf.model.game.Pausable;
 import sgf.model.game.Player;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
+import sgf.model.map.GridPosition;
 
 /**
  * This class is the implementation of the interface GameManager.
@@ -22,13 +24,13 @@ public class GameManagerImpl implements GameManager {
 
     /**
      * Constructor that initializes the fields.
-     * @param player is the player useful in order to create its manager.
-     * @param level is the level useful in order to create its manager
+     * @param pController
+     * @param levelManager
      */
-    public GameManagerImpl(final Player player, final Level level) {
+    public GameManagerImpl(final PlayerController pController, final LevelManager levelManager) {
         this.pausables = new ArrayList<>();
-        this.playerController = new PlayerControllerImpl(player);
-        this.levelManager = new LevelManagerImpl(level);
+        this.playerController = pController;
+        this.levelManager = levelManager;
         this.gameStatus = GameStatus.PLAYING;
     }
 

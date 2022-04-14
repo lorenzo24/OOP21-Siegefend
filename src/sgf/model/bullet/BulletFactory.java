@@ -1,5 +1,6 @@
 package sgf.model.bullet;
 
+import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
 /**
@@ -8,9 +9,11 @@ import sgf.model.map.Position;
 public interface BulletFactory {
     /**
      * Creates a new {@link Bullet} instance with an initial position, target and other parameters.
-     * @param startPos The initial position of the bullet
-     * @param target The target of the bullet
+     * @param speed the speed of the bullet
+     * @param startPosition the initial position of the bullet
+     * @param damage the damage of the bullet
+     * @param enemyTarget The target of the bullet
      * @return a {@link Bullet} instance
      */
-    Bullet createBullet(Position startPos, Position target);
+    Bullet createBullet(double speed, Position startPosition, double damage, Enemy enemyTarget);
 }

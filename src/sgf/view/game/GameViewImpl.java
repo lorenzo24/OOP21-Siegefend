@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import sgf.controller.game.GameController;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.map.AbstractMapView;
+import sgf.view.turret.AbstractTurretView;
 
 /**
  * This panel contains both the enemy and tile panels.
@@ -13,8 +14,10 @@ import sgf.view.map.AbstractMapView;
 public class GameViewImpl extends AbstractGameView {
     private static final long serialVersionUID = -5124611364267300243L;
     private GameController gameController;
-    private final AbstractMapView mapPanel;     // Panel that contains map grid of tiles.
-    private final AbstractEnemyView enemyPanel;  // Panel that contains enemies in movement.
+    private final AbstractMapView mapPanel;             // Panel that contains map grid of tiles.
+    private final AbstractEnemyView enemyPanel;         // Panel that contains enemies in movement.
+    private final AbstractTurretView turretPanel;       // Panel that contains turrets.
+    // the same thing must be done for bullets
     private boolean isControllerSet;
     private boolean ready;
 
@@ -23,12 +26,13 @@ public class GameViewImpl extends AbstractGameView {
      * @param mapView the view of the map
      * @param enemyView the view of the enemies
      */
-    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView) { // TODO: add TurretView, BulletView.
+    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView) { // TODO: add TurretView, BulletView.
         super();
         // this.mapPanel = new MapViewImpl(map);
         //this.enemyPanel = new EnemyViewImpl(size, map.getMapSize(), enemyList);
         this.mapPanel = mapView;
         this.enemyPanel = enemyView;
+        this.turretPanel = turretView;
         this.setVisible(false);
     }
 
@@ -43,6 +47,7 @@ public class GameViewImpl extends AbstractGameView {
         if (this.ready) {
             mapPanel.repaint();                         //TODO: might be useless.
             enemyPanel.repaint();
+            turretPanel.repaint();
         }
     }
 
@@ -59,9 +64,13 @@ public class GameViewImpl extends AbstractGameView {
         if (this.isControllerSet) {
             this.setLayout(new BorderLayout());
             this.add(mapPanel);
+            this.mapPanel.setOpaque(false);
             this.mapPanel.setLayout(new BorderLayout());
             this.mapPanel.add(enemyPanel);
             this.enemyPanel.setOpaque(false);       // The enemy's empty panel is set to be transparent so it doesn't cover the map's panel.
+            this.enemyPanel.setLayout(new BorderLayout());
+            this.enemyPanel.add(turretPanel);
+            this.turretPanel.setOpaque(false);
             this.ready = true;
             this.setVisible(true);
         } else {
@@ -70,7 +79,7 @@ public class GameViewImpl extends AbstractGameView {
     }
 
     @Override
-    public void stop() {
+    public void stopView() {
         // TODO Auto-generated method stub
     }
 }

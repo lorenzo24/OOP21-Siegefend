@@ -6,12 +6,16 @@ import sgf.controller.game.GameController;
 import sgf.controller.game.GameControllerImpl;
 import sgf.controller.game.MusicController;
 import sgf.controller.game.MusicControllerImpl;
+import sgf.controller.game.PlayerController;
+import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.game.PlayingController;
 import sgf.controller.game.PlayingControllerImpl;
 import sgf.controller.map.MapController;
 import sgf.controller.map.MapControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
+import sgf.controller.turret.TurretController;
+import sgf.controller.turret.TurretControllerImpl;
 import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.SimpleTurretsLoader;
 import sgf.helpers.TurretsLoader;
@@ -43,6 +47,9 @@ import sgf.view.map.AbstractMapView;
 import sgf.view.map.MapViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
+import sgf.view.turret.AbstractTurretView;
+import sgf.view.turret.TurretView;
+import sgf.view.turret.TurretViewImpl;
 
 /**
  *
@@ -61,11 +68,12 @@ public final class AppStart {
         final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
-        final GameManager gameManager = new GameManagerImpl(player, level);
+        final PlayerController playerController = new PlayerControllerImpl(player);
+        final LevelManager levelManager = new LevelManagerImpl(level);
+        final GameManager gameManager = new GameManagerImpl(playerController, levelManager);
         final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
         final MusicController m = new MusicControllerImpl();
         final MapController mapController = new MapControllerImpl(map);
-        final LevelManager levelManager = new LevelManagerImpl(level);
         final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
 
@@ -73,16 +81,20 @@ public final class AppStart {
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
+        final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager.getPlayerController(), leaderboard);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
+        final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
+        final GameController gameController = new GameControllerImpl(gameManager);
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+
+
         /**
          * Linking.
          */
@@ -96,8 +108,10 @@ public final class AppStart {
         shopView.setController(shopController);
         playingController.setView(playingView);
         playingView.setController(playingController);
-        gameManager.getPlayerController().setView(playerView);
-        playerView.setController(gameManager.getPlayerController());
+        playerController.setView(playerView);
+        playerView.setController(playerController);
+        turretController.setView(turretView);
+        turretView.setController(turretController);
 
         shopView.start();
         playerView.start();
@@ -105,6 +119,7 @@ public final class AppStart {
         enemyView.start();
         gameView.start();
         playingView.start();
+        turretView.start();
 
         new ScreenGame(playingView);
     }

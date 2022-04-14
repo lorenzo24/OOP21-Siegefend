@@ -7,6 +7,7 @@ import sgf.controller.game.PlayerController;
 import sgf.managers.GameManager;
 import sgf.model.shop.Shop;
 import sgf.model.turret.Turret;
+import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopView;
 
 /**
@@ -17,7 +18,7 @@ public class ShopControllerImpl implements ShopController {
     private final GameManager gameManager;
     private final Shop shop;
     private Turret selectedTurret;
-    private ShopView shopView;
+    private AbstractShopView shopView;
     private boolean isViewSet;
 
     /**
@@ -78,6 +79,7 @@ public class ShopControllerImpl implements ShopController {
             this.deselectTurret();
             this.shopView.turretDeselected();
             this.shopView.enableAll();
+            this.shopView.repaint();
             return Optional.of(out);
         }
         return Optional.empty(); // If the player doesn't have enough money, the purchase fails.
@@ -87,8 +89,16 @@ public class ShopControllerImpl implements ShopController {
     public void setView(final ShopView view) {
         if (!isViewSet) {
             this.isViewSet = true;
-            this.shopView = view;
+            if (view instanceof AbstractShopView) {
+                this.shopView = (AbstractShopView) view;
+            } else {
+                throw new IllegalArgumentException();
+            }
         }
+    }
+
+    @Override
+    public void stopController() {
     }
 
 }

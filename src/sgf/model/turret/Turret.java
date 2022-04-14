@@ -2,6 +2,7 @@ package sgf.model.turret;
 
 import java.util.Optional;
 
+import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 
@@ -22,6 +23,12 @@ public interface Turret {
     Position getPosition();
 
     /**
+     * 
+     * @param p
+     */
+    void setPosition(Position p);
+
+    /**
      * Returns the range of the turret. <br />
      * The turret can only target enemies whose distance from the tower is less than its range.
      * @return the range of the turret
@@ -29,15 +36,22 @@ public interface Turret {
     double getRange();
 
     /**
-     * Instructs the turret to start attacking. <br />
-     * If no target is present, the turret immediately goes into idle mode.
+     * 
+     * @return
      */
-    void attack();
+    double getAngle();
 
     /**
-     * Puts the turret in idle mode.
+     * 
+     * @param angle
      */
-    void idle();
+    void setAngle(double angle);
+
+    /**
+     * Sets the state of the turret.
+     * @param state the new state of the turret
+     */
+    void setState(boolean state);
 
     /**
      * Checks whether the turret is attacking an {@link Enemy} or not.
@@ -46,22 +60,16 @@ public interface Turret {
     boolean isAttacking();
 
     /**
-     * Instructs the turret to fire a {@link Bullet} at the targeted {@link Position}.
-     * @param target The target position
+     * Creates a new bullet that attacks the targeted enemy.
+     * @return an instance of {@code Bullet}
      */
-    void fireAt(Position target);
+    Bullet createBullet();
 
     /**
      * Returns the speed at which the turret fires bullets (specified in bullets/second).
      * @return the fire rate of the turret
      */
     double getFireRate();
-
-    /**
-     * Tries to find a target {@link Enemy} within the range of the turret.
-     * @return An {@link Optional} containing the enemy if successful, {@code Optional.empty()} otherwise.
-     */
-    Optional<Enemy> findTarget();
 
     /**
      * Returns the target of the turret.
