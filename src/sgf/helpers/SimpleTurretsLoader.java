@@ -21,7 +21,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
         final Map<Integer, Turret> m = new HashMap<>();
         Stream.iterate(0, i -> i + 1)
               .limit(10)
-              .map(i -> new TurretImpl(i, null, 100, 600, 2, 1, 50))
+              .map(i -> new TurretImpl(i, null, 100, 100, 2, 1, 50))
               .forEach(t -> m.put(t.getID(), t));
         return m;
     }
@@ -112,6 +112,12 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
         @Override
         public void setPosition(Position p) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void setTarget(Enemy target) {
             // TODO Auto-generated method stub
             
         }
