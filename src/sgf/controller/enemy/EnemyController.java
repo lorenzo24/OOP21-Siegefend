@@ -18,7 +18,8 @@ public interface EnemyController extends Controller<EnemyView> {
     void removeEnemy(EnemyManager enemyManager);
 
     /**
-     * @return
+     * Returns the enemy menagerList.
+     * @return the managerList.
      */
     List<EnemyManager> getManagerList();
 }

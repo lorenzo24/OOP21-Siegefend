@@ -130,8 +130,6 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
         this.threadRun = true;
     }
 
-    
-    
     @Override
     public Enemy getEnemy() {
         return this.enemy;
@@ -144,7 +142,7 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
     }
 
     private void endReached() {
-        this.playerController.changeHP(-1);                                         //TODO: change method so that it uses PlayerImpl.DecreaseHP()
+        this.playerController.changeHP(-1);
         this.playerController.changeScore(-(int) this.enemy.getPoints());
         this.disappear();
     }
@@ -153,5 +151,10 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
         this.playerController.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
         this.playerController.changeScore((int) this.enemy.getPoints());
         this.disappear();
+    }
+
+    @Override
+    public void stopThread() {
+        this.pause();
     }
 }
