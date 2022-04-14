@@ -76,7 +76,6 @@ public final class AppStart {
         final MapController mapController = new MapControllerImpl(map);
         final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
-
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
