@@ -1,5 +1,6 @@
 package sgf.managers;
 
+import sgf.controller.enemy.EnemyController;
 import sgf.model.game.Pausable;
 import sgf.model.turret.Turret;
 
@@ -14,13 +15,20 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     private final Turret turret;
     private volatile boolean isThreadRunning = true;
     private Thread gameThread;
+    private final EnemyController enemyController;
+    private final GameManager gameManager;
 
     /**
      * 
      * @param turret
+     * @param enemyController
+     * @param gameManager
      */
-    public TurretManagerImpl(final Turret turret) {
+    public TurretManagerImpl(final Turret turret, final EnemyController enemyController, final GameManager gameManager) {
         this.turret = turret;
+        this.enemyController = enemyController;
+        this.gameManager = gameManager;
+        gameManager.register(this);
         this.startTurretThread();
     }
 
@@ -52,7 +60,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     }
 
     private void findTarget() {
-
+        
     }
 
     private void pointToTarget() {
