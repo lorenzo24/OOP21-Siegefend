@@ -14,4 +14,10 @@ public interface LevelLoader {
      * @throws {@link LevelNotFoundException} if no level with the given ID can be found
      */
     Level loadLevel(int levelID);
+
+    /**
+     * It count the number of available levels.
+     * @return the amount of available levels by reading the number of map files into the res folder.
+     */
+    int getLevelsNumber();
 }
