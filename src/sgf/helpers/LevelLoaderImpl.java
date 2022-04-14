@@ -1,10 +1,12 @@
 package sgf.helpers;
 
 import java.io.File;
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.stream.Stream;
-
 import sgf.model.level.Level;
+import sgf.model.level.LevelImpl;
+import sgf.model.level.Wave;
+import sgf.model.map.Map;
 
 /**
  * Implementation of interface LevelLoader.
@@ -22,19 +24,21 @@ public class LevelLoaderImpl implements LevelLoader {
 
     @Override
     public Level loadLevel(final int levelID) {
-        // TODO Auto-generated method stub
-        return null;
+        // Creates the chosen level by loading the corresponding map and waves.
+        final Map map = new MapLoaderImpl(levelID).getMap();
+        final List<Wave> waves = new WavesLoaderImpl(map, levelID).getWaves();
+        return new LevelImpl(waves, map);
     }
 
     @Override
     public int getLevelsNumber() {
         return this.levelsNumber;
     }
+
+    // This method counts how many files are there into the folder res/levels.
     private int countMapFiles() {
-        long result = Stream.of(new File("res" + File.separator).listFiles())
+        return (int) Stream.of(new File("res" + File.separator + "levels").listFiles())
                 .filter(file -> !file.isDirectory())
                 .count();
-        System.out.println(result);
-        return (int) result;
     }
 }

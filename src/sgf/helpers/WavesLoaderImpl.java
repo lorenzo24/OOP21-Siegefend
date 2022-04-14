@@ -47,7 +47,7 @@ public class WavesLoaderImpl implements WavesLoader {
     }
 
     private void readAllWaves(final int levelId) {
-        final String file = "res" + File.separator + "level" + levelId + ".txt";
+        final String file = "res" + File.separator + "levels" + File.separator + "level" + levelId + ".txt";
         final Path p = FileSystems.getDefault().getPath(file);
         try {
             Files.lines(p).forEach(x -> read(x));

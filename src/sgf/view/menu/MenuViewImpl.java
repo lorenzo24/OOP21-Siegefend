@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import sgf.controller.menu.MenuController;
+import sgf.helpers.LevelLoader;
+import sgf.helpers.LevelLoaderImpl;
 import sgf.view.game.AbstractPlayingView;
 
 /**
@@ -39,6 +41,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
     private static final Font textFont = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
     JPanel menuPanel, levelPanel;
+    private final LevelLoader levelLoader;
 
     @Override
     public void setController(final MenuController controller) {
@@ -55,7 +58,7 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    public MenuViewImpl() {
+    public MenuViewImpl(final LevelLoader l) {
         super();
         //this.setLayout(new BorderLayout());
         //this.button = new JButton("Start Game");
@@ -66,6 +69,7 @@ public class MenuViewImpl extends AbstractMenuView {
         
         // OG
         // this.add(new StartMenu());
+        this.levelLoader = l;
         this.setVisible(true);
         //this.add(menuPanel);
     }
@@ -164,8 +168,8 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    private static class LevelPicker extends JPanel{
-        public LevelPicker() {
+    private class LevelPicker extends JPanel{
+        LevelPicker() {
             /*
             Stream.iterate(1, i -> i + 1).limit(3).map(i -> Map.entry(i, new JButton("Livello" + i))).peek(e -> {
                 JButton b = e.getValue();
@@ -174,13 +178,11 @@ public class MenuViewImpl extends AbstractMenuView {
             })
             .map(Map.Entry::getValue).forEach(this::add);
             */
-
-            Stream.iterate(1, i -> i + 1).limit(3).map(i -> {
-                JButton b = new JButton("Livello" + i);
+            Stream.iterate(1, i -> i + 1).limit(levelLoader.getLevelsNumber()).map(i -> {
+                final JButton b = new JButton("Livello" + i);
                 b.addActionListener(null);
                 return b;
             });
-
         }
     }
 
