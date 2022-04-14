@@ -83,6 +83,9 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @SuppressWarnings("unchecked")
     private void readScore() {
+        if (this.leaderboard.getP().toFile().length() == 0) { // If file of leaderboard is empty not do any.
+            return;
+        }
         final JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(this.leaderboard.getP().toString())) {
             final Object obj = parser.parse(reader);
@@ -93,7 +96,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
+            System.out.print("Leaderboard not loaded, file corrupt");
         }
     }
 
