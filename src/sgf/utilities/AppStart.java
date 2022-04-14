@@ -19,6 +19,8 @@ import sgf.controller.menu.MenuController;
 import sgf.controller.menu.MenuControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
+import sgf.helpers.LevelLoader;
+import sgf.helpers.LevelLoaderImpl;
 import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
@@ -74,6 +76,7 @@ public final class AppStart {
         final LevelManager levelManager = new LevelManagerImpl(level);
         final Player player = new PlayerImpl("DEFAULT_NAME");
         final PlayerController playerController = new PlayerControllerImpl(player);
+        final LevelLoader levelLoader = new LevelLoaderImpl();
 
         /*
          * At the start only the menu, settings and levels view will be created.
