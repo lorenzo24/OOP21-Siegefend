@@ -43,13 +43,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageEnemyController = new EnemyImageManager();
         this.imageBarController = new BarLifeImageManager();
-        this.enemyList = new ArrayList<>();
         this.setVisible(false);
-    }
-
-    @Override
-    public void setList(final List<EnemyManager> enemies) {
-        this.enemyList = enemies;
     }
 
     @Override
@@ -69,10 +63,10 @@ public class EnemyViewImpl extends AbstractEnemyView {
         // For each enemy in the list repaint it.
             LockClass.getEnemySemaphore().acquireUninterruptibly();
             this.enemyList.forEach(x -> {
-            final var enemy = x.getEnemy();
-            this.drowSprite(gImage, enemy);
-            this.drowLifeBar(gImage, enemy);
-            SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
+                final var enemy = x.getEnemy();
+                this.drowSprite(gImage, enemy);
+                this.drowLifeBar(gImage, enemy);
+                //SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
             });
             LockClass.getEnemySemaphore().release();
     }
@@ -96,6 +90,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyController = controller;
+            this.enemyList = this.enemyController.getManagerList();
         }
     }
 
@@ -112,6 +107,6 @@ public class EnemyViewImpl extends AbstractEnemyView {
     @Override
     public void stopView() {
         this.enemyController.stopController();
-//        this.enemyList.forEach(x -> x.());
+        this.enemyList.forEach(x -> x.stopThread());
     }
 }

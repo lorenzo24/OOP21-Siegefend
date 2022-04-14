@@ -1,5 +1,7 @@
 package sgf.controller.enemy;
 
+import java.util.List;
+
 import sgf.controller.Controller;
 import sgf.managers.EnemyManager;
 import sgf.view.enemy.EnemyView;
@@ -14,4 +16,10 @@ public interface EnemyController extends Controller<EnemyView> {
      * @param enemyManager Is the element of the list that has to be removed.
      */
     void removeEnemy(EnemyManager enemyManager);
+
+    /**
+     * Returns the enemy menagerList.
+     * @return the managerList.
+     */
+    List<EnemyManager> getManagerList();
 }

@@ -23,4 +23,9 @@ public interface EnemyManager {
      * Deletes the enemy in the list of the enemyController.
      */
     void disappear();
+
+    /**
+     * Stop the thread.
+     */
+    void stopThread();
 }

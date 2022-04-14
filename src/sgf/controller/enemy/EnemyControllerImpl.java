@@ -99,7 +99,6 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyView = view;
-            this.enemyView.setList(this.managerList);
         }
     }
 
@@ -125,5 +124,10 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
     public void stopController() {
         this.pause();
         this.gameManager.deregister(this);
+    }
+
+    @Override
+    public List<EnemyManager> getManagerList() {
+        return this.managerList;
     }
 }
