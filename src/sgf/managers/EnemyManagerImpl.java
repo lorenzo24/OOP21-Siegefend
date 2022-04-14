@@ -130,6 +130,8 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
         this.threadRun = true;
     }
 
+    
+    
     @Override
     public Enemy getEnemy() {
         return this.enemy;
