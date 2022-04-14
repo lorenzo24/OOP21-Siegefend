@@ -70,13 +70,12 @@ public class ShopViewImpl extends AbstractShopView {
                         item.setSelected(true);
                         item.cancelMode();
                         selected = item;
+                        disableAllNotSelected();       // When the item's button is pressed, all other items become disabled.
                     }
-                    disableAllNotSelected();       // When the item's button is pressed, all other items become disabled.
                 } else if (selected == item) {  // If the button is already pressed, cancellation of the purchase is performed instead.
                     shopController.deselectTurret();
                     turretDeselected();
                     item.setSelected(false);
-                    item.buyMode();
                     enableAll();        // When the item is deselected, all the others become enabled.
                 }
             }
@@ -102,7 +101,10 @@ public class ShopViewImpl extends AbstractShopView {
 
     @Override
     public void turretDeselected() {
-        this.selected = null;
+        if (this.selected != null) {
+            this.selected.buyMode();
+            this.selected = null;
+        }
     }
 
     @Override

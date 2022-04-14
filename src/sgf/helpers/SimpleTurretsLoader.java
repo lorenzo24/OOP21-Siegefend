@@ -9,6 +9,7 @@ import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
+import sgf.model.turret.TurretImpl;
 
 /**
  *
@@ -20,7 +21,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
         final Map<Integer, Turret> m = new HashMap<>();
         Stream.iterate(0, i -> i + 1)
               .limit(10)
-              .map(i -> new SimpleTurretImpl(i, i))
+              .map(i -> new TurretImpl(i, null, 100, 600, 2, 1, 50))
               .forEach(t -> m.put(t.getID(), t));
         return m;
     }
@@ -105,6 +106,12 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
         @Override
         public void setAngle(double angle) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void setPosition(Position p) {
             // TODO Auto-generated method stub
             
         }
