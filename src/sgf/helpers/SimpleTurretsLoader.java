@@ -40,7 +40,7 @@ public class SimpleTurretsLoader implements TurretsLoader {
 
     private void readFile() {
         final Path p = FileSystems.getDefault().getPath("res" + File.separator + "turret" + File.separator + "turrets.json");
-        final File f = new File(p.toString());
+        final File f = p.toFile();
         final JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(f)) {
             final Object obj = parser.parse(reader);
