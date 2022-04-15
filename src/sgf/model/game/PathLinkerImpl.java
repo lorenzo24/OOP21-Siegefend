@@ -1,5 +1,6 @@
 package sgf.model.game;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import sgf.model.enemies.EnemyType;
@@ -56,7 +57,10 @@ public class PathLinkerImpl implements PathLinker {
 
     private void createTurretMap() {
         // Links every turret number with the correct image that will be shown.
-        this.mapTurret.put(0, "turret.png");
+        final String turretPath = "turret" + File.separator;
+        this.mapTurret.put(0, turretPath + "turret.png");
+        this.mapTurret.put(1, turretPath + "turret1.png");
+        this.mapTurret.put(2, turretPath + "turret2.png");
     }
 
     private void createLifeBarMap() {
