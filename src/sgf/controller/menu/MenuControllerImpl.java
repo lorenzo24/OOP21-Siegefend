@@ -120,7 +120,7 @@ public class MenuControllerImpl implements MenuController {
         final GameController gameController = new GameControllerImpl(gameManager);
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView);
 
 
         /**
@@ -132,6 +132,8 @@ public class MenuControllerImpl implements MenuController {
         mapView.setController(mapController);
         enemyController.setView(enemyView);
         enemyView.setController(enemyController);
+        turretController.setView(turretView);
+        turretView.setController(turretController);
         shopController.setView(shopView);
         shopView.setController(shopController);
         playingController.setView(playingView);
@@ -143,6 +145,7 @@ public class MenuControllerImpl implements MenuController {
         playerView.start();
         mapView.start();
         enemyView.start();
+        turretView.start();
         gameView.start();
         playingView.start();
 
