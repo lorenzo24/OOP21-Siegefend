@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Optional;
 
+import javax.swing.Timer;
+
+import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
+import sgf.controller.turret.TurretController;
 import sgf.model.enemies.Enemy;
 import sgf.model.game.Pausable;
 import sgf.model.map.Position;
@@ -26,26 +30,28 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     private final EnemyController enemyController;
     private final GameManager gameManager;
     private final ActionListener fire;                          // Used for shooting.
+    private final TurretController turretController;
+    private final Timer bulletTimer;
 
     /**
      * 
      * @param turret
+     * @param turretController
      * @param enemyController
      * @param gameManager
-     * @param fire
      */
-    public TurretManagerImpl(final Turret turret, final EnemyController enemyController, final GameManager gameManager) {
+    public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController, final GameManager gameManager) {
         this.turret = turret;
         this.enemyController = enemyController;
         this.gameManager = gameManager;
+        this.turretController = turretController;
         this.fire = new ActionListener() {
-
             @Override
             public void actionPerformed(final ActionEvent e) {
-                // TODO Auto-generated method stub
-
+                turretController.bulletCreated(getTurret().createBullet());
             }
         };
+        this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), fire);
         gameManager.register(this);
         this.startTurretThread();
     }
@@ -55,6 +61,9 @@ public class TurretManagerImpl implements TurretManager, Pausable {
         return this.turret;
     }
 
+    /**
+     * Starts the turret thread.
+     */
     private void startTurretThread() {
         if (gameThread == null) {
             gameThread = new Thread(new Runnable() {
@@ -63,11 +72,15 @@ public class TurretManagerImpl implements TurretManager, Pausable {
                     while (isThreadRunning) {
                         try {
                             final Optional<Enemy> target = getTurret().getTarget();
-                            if (target.isEmpty() || target.get().getHP() <= 0) {
+                            if (target.isEmpty() || target.get().getHP() <= 0) {        // Checks if there is a target and if there is one, it checks its HP.
+                                // bulletTimer.stop(); TODO: Uncomment when BulletController is implemented.
                                 findTarget();
                             } else {
-                                if (getTurret().getPosition().distanceTo(target.get().getPosition()) <= getTurret().getRange()) {
+                                if (getTurret().getPosition().distanceTo(target.get().getPosition()) <= getTurret().getRange()) {       // Checks if the target is inside the turret's range.
                                     pointToTarget(target.get().getPosition());        // rotation
+                                    if (!bulletTimer.isRunning()) {
+                                        // bulletTimer.start(); TODO: Uncomment when BulletController is implemented.
+                                    }
                                 } else {
                                     getTurret().setTarget(null);
                                 }
@@ -148,7 +161,5 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     public int sell() {
         throw new UnsupportedOperationException();
     }
-    
-    
 
 }
