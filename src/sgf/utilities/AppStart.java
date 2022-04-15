@@ -17,7 +17,7 @@ import sgf.controller.shop.ShopControllerImpl;
 import sgf.controller.turret.TurretController;
 import sgf.controller.turret.TurretControllerImpl;
 import sgf.helpers.MapLoaderImpl;
-import sgf.helpers.SimpleTurretsLoader;
+import sgf.helpers.TurretsLoaderImpl;
 import sgf.helpers.TurretsLoader;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
@@ -74,7 +74,7 @@ public final class AppStart {
         final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
         final MusicController m = new MusicControllerImpl();
         final MapController mapController = new MapControllerImpl(map);
-        final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
+        final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
         /*
          * At the start only the menu, settings and levels view will be created.
