@@ -21,10 +21,44 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import sgf.controller.enemy.EnemyController;
+import sgf.controller.enemy.EnemyControllerImpl;
+import sgf.controller.game.GameController;
+import sgf.controller.game.GameControllerImpl;
+import sgf.controller.game.MusicController;
+import sgf.controller.game.MusicControllerImpl;
+import sgf.controller.game.PlayerController;
+import sgf.controller.game.PlayerControllerImpl;
+import sgf.controller.game.PlayingController;
+import sgf.controller.game.PlayingControllerImpl;
+import sgf.controller.map.MapController;
+import sgf.controller.map.MapControllerImpl;
 import sgf.controller.menu.MenuController;
+import sgf.controller.menu.MenuControllerImpl;
+import sgf.controller.shop.ShopController;
+import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.LevelLoader;
 import sgf.helpers.LevelLoaderImpl;
+import sgf.managers.GameManager;
+import sgf.managers.LevelManager;
+import sgf.managers.LevelManagerImpl;
+import sgf.model.game.Classification;
+import sgf.model.game.ClassificationImpl;
+import sgf.model.game.Player;
+import sgf.model.game.PlayerImpl;
+import sgf.view.ScreenGame;
+import sgf.view.enemy.AbstractEnemyView;
+import sgf.view.enemy.EnemyViewImpl;
+import sgf.view.game.AbstractGameView;
+import sgf.view.game.AbstractPlayerView;
 import sgf.view.game.AbstractPlayingView;
+import sgf.view.game.GameViewImpl;
+import sgf.view.game.PlayerViewImpl;
+import sgf.view.game.PlayingViewImpl;
+import sgf.view.map.AbstractMapView;
+import sgf.view.map.MapViewImpl;
+import sgf.view.shop.AbstractShopView;
+import sgf.view.shop.ShopViewImpl;
 
 /**
  * 
@@ -70,6 +104,7 @@ public class MenuViewImpl extends AbstractMenuView {
         // OG
         // this.add(new StartMenu());
         this.levelLoader = l;
+        levelPanel = new LevelPicker();
         this.setVisible(true);
         //this.add(menuPanel);
     }
@@ -117,7 +152,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
             startButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     showLevelPicker();
                 }
             });
@@ -155,16 +190,17 @@ public class MenuViewImpl extends AbstractMenuView {
             buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
             buttonsPanel.setBackground(Color.decode(backgroundColor));
 
-            //menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
-            //menuPanel.add(titleLabel);
-            //menuPanel.add(buttonsPanel);
-            //menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            //this.add(menuPanel);
+            menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
+            menuPanel.add(titleLabel);
+            menuPanel.add(buttonsPanel);
+            menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            menuPanel.setBackground(Color.decode(backgroundColor));
             this.setBackground(Color.decode(backgroundColor));
-            this.setLayout(new GridLayout(2, 1, 8, 50));
-            this.add(titleLabel);
-            this.add(buttonsPanel);
-            this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            this.setLayout(new BorderLayout());
+            this.add(menuPanel, BorderLayout.CENTER);
+            //this.add(titleLabel);
+            //this.add(buttonsPanel);
+            //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         }
     }
 
@@ -178,18 +214,81 @@ public class MenuViewImpl extends AbstractMenuView {
             })
             .map(Map.Entry::getValue).forEach(this::add);
             */
-            Stream.iterate(1, i -> i + 1).limit(levelLoader.getLevelsNumber()).map(i -> {
+            Stream.iterate(1, i -> i + 1)
+            .limit(levelLoader.getLevelsNumber())
+            .map(i -> {
                 final JButton b = new JButton("Livello" + i);
-                b.addActionListener(null);
+                b.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(final ActionEvent e) {
+                        MenuViewImpl.this.beginGame(i);
+                    }
+                });
                 return b;
-            });
+            }).forEach(this::add);
         }
     }
 
     @Override
     public void showLevelPicker() {
-        // TODO Auto-generated method stub
-        //currentPanel = 
+        menuPanel.setVisible(false);
+        this.setBackground(Color.decode(backgroundColor));
+        this.add(levelPanel);
+    }
+
+    private void beginGame(final int level) {
+        final GameManager gameManager = null;
+        final Classification cl = new ClassificationImpl();
+
+        final LevelLoader levelLoader = new LevelLoaderImpl();
+        final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(level));
+        final MapController mapController = new MapControllerImpl(levelManager.getMap());
+
+
+        final Player player = new PlayerImpl("DEFAULT_NAME");
+        final PlayerController playerController = new PlayerControllerImpl(player);
+        /*
+         * At the start only the menu, settings and levels view will be created.
+         * All these other views and controllers will be created when someone clicks on a level.
+         */
+        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
+        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
+        final GameController gameController = new GameControllerImpl();
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
+        final ShopController shopController = new ShopControllerImpl(gameManager);
+        final AbstractShopView shopView = new ShopViewImpl(gameManager);
+        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
+        final AbstractPlayerView playerView = new PlayerViewImpl();
+        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+        /**
+         * Linking.
+         */
+        gameController.setView(gameView);
+        gameView.setController(gameController);
+        mapController.setView(mapView);
+        mapView.setController(mapController);
+        enemyController.setView(enemyView);
+        enemyView.setController(enemyController);
+        shopController.setView(shopView);
+        shopView.setController(shopController);
+        playingController.setView(playingView);
+        playingView.setController(playingController);
+        playerController.setView(playerView);
+        playerView.setController(playerController);
+
+        shopView.start();
+        playerView.start();
+        mapView.start();
+        enemyView.start();
+        gameView.start();
+        playingView.start();
+
+        this.remove(menuPanel);
+        this.remove(levelPanel);
+        this.add(playingView);
+        this.revalidate();
+        this.repaint();
     }
 
     @Override
