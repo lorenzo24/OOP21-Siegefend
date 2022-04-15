@@ -171,6 +171,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         LevelPicker() {
             final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
+            // TODO: add name input (use DEFAULT when empty)
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
@@ -212,50 +213,8 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private void beginGame(final int level) {
-//        final GameManager gameManager = null;
-//        final Classification cl = new ClassificationImpl();
-//        final LevelLoader levelLoader = new LevelLoaderImpl();
-//        final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(level));
-//        final MapController mapController = new MapControllerImpl(levelManager.getMap());
-//        final Player player = new PlayerImpl("DEFAULT_NAME");
-//        final PlayerController playerController = new PlayerControllerImpl(player);
-//        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
-//        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
-//        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
-//        final GameController gameController = new GameControllerImpl();
-//        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-//        final ShopController shopController = new ShopControllerImpl(gameManager);
-//        final AbstractShopView shopView = new ShopViewImpl(gameManager);
-//        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
-//        final AbstractPlayerView playerView = new PlayerViewImpl();
-//        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
-
-        /**
-         * Linking.
-         */
-//        gameController.setView(gameView);
-//        gameView.setController(gameController);
-//        mapController.setView(mapView);
-//        mapView.setController(mapController);
-//        enemyController.setView(enemyView);
-//        enemyView.setController(enemyController);
-//        shopController.setView(shopView);
-//        shopView.setController(shopController);
-//        playingController.setView(playingView);
-//        playingView.setController(playingController);
-//        playerController.setView(playerView);
-//        playerView.setController(playerController);
-//
-//        shopView.start();
-//        playerView.start();
-//        mapView.start();
-//        enemyView.start();
-//        gameView.start();
-//        playingView.start();
-//
-//        this.remove(menuPanel);
-//        this.remove(levelPanel);
-//        this.add(playingView);
+        this.levelPanel.setVisible(false);
+        this.add(this.menuController.loadPlayingView(level));
         this.revalidate();
         this.repaint();
     }
