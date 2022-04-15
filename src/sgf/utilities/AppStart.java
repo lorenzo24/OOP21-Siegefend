@@ -73,66 +73,20 @@ public final class AppStart {
      * @param args
      */
     public static void main(final String[] args) {
-        final LevelLoader levelLoader = new LevelLoaderImpl();
-        final Player player = new PlayerImpl("DEFAULT");
-        final PlayerController playerController = new PlayerControllerImpl(player);
-        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
-
-        final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
-        final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
-        final Level level = new LevelImpl(waves, map);
-        final LevelManager levelManager = new LevelManagerImpl(level);
-        final GameManager gameManager = new GameManagerImpl(playerController, levelManager);
         final MusicController m = new MusicControllerImpl();
-        final MapController mapController = new MapControllerImpl(map);
-        final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
-        final Shop shop = new ShopImpl(tLoader);
-        /*
-         * At the start only the menu, settings and levels view will be created.
-         * All these other views and controllers will be created when someone clicks on a level.
-         */
-        final AbstractPlayerView playerView = new PlayerViewImpl();
-        final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, leaderboard);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
-        final ShopController shopController = new ShopControllerImpl(gameManager, shop);
-        final AbstractShopView shopView = new ShopViewImpl();
-        final BulletController bulletController = null;
-        final BulletView bulletView = null;     // Use AbstractBulletView as type once created.
-        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
-        final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
-        final GameController gameController = new GameControllerImpl(gameManager);
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
-        final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final MenuController menuController = new MenuControllerImpl();
+        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+        final LevelLoader levelLoader = new LevelLoaderImpl();
+        final MenuController menuController = new MenuControllerImpl(leaderboard);
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
 
 
         /**
          * Linking.
          */
-        gameController.setView(gameView);
-        gameView.setController(gameController);
-        mapController.setView(mapView);
-        mapView.setController(mapController);
-        enemyController.setView(enemyView);
-        enemyView.setController(enemyController);
-        shopController.setView(shopView);
-        shopView.setController(shopController);
-        playingController.setView(playingView);
-        playingView.setController(playingController);
-        playerController.setView(playerView);
-        playerView.setController(playerController);
         menuController.setView(menuView);
         menuView.setController(menuController);
 
-        shopView.start();
-        playerView.start();
-        mapView.start();
-        enemyView.start();
-        gameView.start();
-        playingView.start();
+
         menuView.start();
 
         new ScreenGame(menuView);
