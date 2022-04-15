@@ -70,11 +70,9 @@ public class MenuViewImpl extends AbstractMenuView {
     private boolean isControllerSet;
     private boolean ready;
     private MenuController menuController;
-    //private final JButton button;
-    private static final String backgroundColor = "#293132", buttonColor = "#00A676", textColor = "#F7F9F9", hoverColor = "#E0D0C1"; // 293132, 00A676, F7F9F9, (E0D0C1, A76D60). https://coolors.co/293132-00a676-f7f9f9-e0d0c1-a76d60
-    private static final Font titleFont = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
-    private static final Font textFont = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
-    JPanel menuPanel, levelPanel;
+    private static final String BACKGROUND_COLOR = "#293132";
+    private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
+    private JPanel menuPanel, levelPanel;
     private final LevelLoader levelLoader;
 
     @Override
@@ -82,31 +80,18 @@ public class MenuViewImpl extends AbstractMenuView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.menuController = controller;
-            //this.button.addActionListener(e -> {
-            //    final AbstractPlayingView view = this.enemyController.loadPlayingView(1);
-            //    System.out.println("testing...");
-            //    MenuViewImpl.this.remove(button);
-            //    MenuViewImpl.this.add(view, BorderLayout.CENTER);
-            //    this.revalidate();
-            //});
         }
     }
 
+    /**
+     * 
+     * @param l
+     */
     public MenuViewImpl(final LevelLoader l) {
         super();
-        //this.setLayout(new BorderLayout());
-        //this.button = new JButton("Start Game");
-        //this.add(button, BorderLayout.CENTER);
-        
-        //currentPanel = new StartMenu();
-        //this.add(currentPanel);
-        
-        // OG
-        // this.add(new StartMenu());
         this.levelLoader = l;
         levelPanel = new LevelPicker();
         this.setVisible(true);
-        //this.add(menuPanel);
     }
 
     /**
@@ -114,41 +99,23 @@ public class MenuViewImpl extends AbstractMenuView {
      * 
      *
      */
-    private class StartMenu extends JPanel{
+    private final class StartMenu extends JPanel {
 
         private StartMenu() {
-            JPanel menuPanel;
             JPanel buttonsPanel;
-            JButton startButton, optionsButton, leaderboardButton, creditsButton;
+            MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
             JLabel titleLabel;
 
             titleLabel = new JLabel("Siegefend");
-            startButton = new JButton("Start game");
-            optionsButton = new JButton("Options");
-            leaderboardButton = new JButton("Leaderboard");
-            creditsButton = new JButton("Credits");
-
-            // Changing the look of the components of the menu
             titleLabel.setVerticalAlignment(SwingConstants.CENTER);
             titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            titleLabel.setFont(titleFont);
-            titleLabel.setForeground(Color.decode(textColor));
-            startButton.setVerticalAlignment(SwingConstants.CENTER);
-            startButton.setFont(textFont);
-            startButton.setForeground(Color.decode(textColor));
-            startButton.setBackground(Color.decode(buttonColor));
-            optionsButton.setVerticalAlignment(SwingConstants.CENTER);
-            optionsButton.setFont(textFont);
-            optionsButton.setForeground(Color.decode(textColor));
-            optionsButton.setBackground(Color.decode(buttonColor));
-            leaderboardButton.setVerticalAlignment(SwingConstants.CENTER);
-            leaderboardButton.setFont(textFont);
-            leaderboardButton.setForeground(Color.decode(textColor));
-            leaderboardButton.setBackground(Color.decode(buttonColor));
-            creditsButton.setVerticalAlignment(SwingConstants.CENTER);
-            creditsButton.setFont(textFont);
-            creditsButton.setForeground(Color.decode(textColor));
-            creditsButton.setBackground(Color.decode(buttonColor));
+            titleLabel.setFont(TITLE_FONT);
+            titleLabel.setForeground(Color.decode("#F7F9F9"));
+
+            startButton = new MenuButton("Start game");
+            optionsButton = new MenuButton("Options");
+            leaderboardButton = new MenuButton("Leaderboard");
+            creditsButton = new MenuButton("Credits");
 
             startButton.addActionListener(new ActionListener() {
                 @Override
@@ -177,47 +144,39 @@ public class MenuViewImpl extends AbstractMenuView {
 
             creditsButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     showCredits();
                 }
             });
 
-            buttonsPanel = new JPanel(new GridLayout(4, 1, 3, 3)); // 4-1-8-8
+            buttonsPanel = new JPanel(new GridLayout(4, 1, 3, 3));
             buttonsPanel.add(startButton);
             buttonsPanel.add(optionsButton);
             buttonsPanel.add(leaderboardButton);
             buttonsPanel.add(creditsButton);
             buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
-            buttonsPanel.setBackground(Color.decode(backgroundColor));
+            buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
 
             menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
             menuPanel.add(titleLabel);
             menuPanel.add(buttonsPanel);
             menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            menuPanel.setBackground(Color.decode(backgroundColor));
-            this.setBackground(Color.decode(backgroundColor));
+            menuPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
             this.setLayout(new BorderLayout());
             this.add(menuPanel, BorderLayout.CENTER);
-            //this.add(titleLabel);
-            //this.add(buttonsPanel);
-            //this.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         }
     }
 
-    private class LevelPicker extends JPanel{
+    private class LevelPicker extends JPanel {
+        private static final long serialVersionUID = -8864115627664618752L;
+
         LevelPicker() {
-            /*
-            Stream.iterate(1, i -> i + 1).limit(3).map(i -> Map.entry(i, new JButton("Livello" + i))).peek(e -> {
-                JButton b = e.getValue();
-                b.addActionListener(null);
-                // add look
-            })
-            .map(Map.Entry::getValue).forEach(this::add);
-            */
+            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
-                final JButton b = new JButton("Livello" + i);
+                final JButton b = new MenuButton("Livello" + i);
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(final ActionEvent e) {
@@ -225,32 +184,43 @@ public class MenuViewImpl extends AbstractMenuView {
                     }
                 });
                 return b;
-            }).forEach(this::add);
+            }).forEach(levelsListPanel::add);      // Without levelsListPanel -> .forEach(this::add);
+
+            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+            this.setLayout(new BorderLayout());
+            this.add(levelsListPanel, BorderLayout.CENTER);
         }
     }
 
+    private class Options extends JPanel {
+        
+        
+        Options(){
+            final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
+            final JButton musicButton = new MenuButton("");
+
+        }
+        
+        
+    }
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);
-        this.setBackground(Color.decode(backgroundColor));
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(levelPanel);
     }
 
     private void beginGame(final int level) {
         final GameManager gameManager = null;
         final Classification cl = new ClassificationImpl();
-
         final LevelLoader levelLoader = new LevelLoaderImpl();
         final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(level));
         final MapController mapController = new MapControllerImpl(levelManager.getMap());
-
-
         final Player player = new PlayerImpl("DEFAULT_NAME");
         final PlayerController playerController = new PlayerControllerImpl(player);
-        /*
-         * At the start only the menu, settings and levels view will be created.
-         * All these other views and controllers will be created when someone clicks on a level.
-         */
         final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
         final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
@@ -261,6 +231,7 @@ public class MenuViewImpl extends AbstractMenuView {
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+
         /**
          * Linking.
          */
@@ -293,7 +264,6 @@ public class MenuViewImpl extends AbstractMenuView {
 
     @Override
     public void showCredits() {
-        // TODO Auto-generated method stub
         JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
     }
 
@@ -304,7 +274,6 @@ public class MenuViewImpl extends AbstractMenuView {
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
         menuPanel.setVisible(true);
-        //this.add(new JButton("test"));
     }
 
     @Override
