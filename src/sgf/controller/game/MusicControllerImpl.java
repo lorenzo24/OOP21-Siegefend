@@ -39,6 +39,11 @@ public class MusicControllerImpl implements MusicController {
         this.c.stop();
     }
 
+    @Override
+    public boolean isMusicPlaying() {
+        return this.musicOn;
+    }
+
     // This method open an audio stream and start the music file.
     private void play(final String fileName) {
         final String musicFile = "res" + File.separator + fileName + ".wav";

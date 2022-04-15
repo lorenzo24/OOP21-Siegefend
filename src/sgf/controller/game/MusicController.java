@@ -14,4 +14,10 @@ public interface MusicController {
      */
     void musicOff();
 
+    /**
+     * Method that checks if any music is playing.
+     * @return {@code true} if music is playing, {@code false} otherwise
+     */
+    boolean isMusicPlaying();
+
 }
