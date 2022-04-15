@@ -1,5 +1,6 @@
 package sgf.view.turret;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,6 +20,7 @@ import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.map.TileType;
+import sgf.model.turret.Turret;
 import sgf.utilities.LockClass;
 import sgf.utilities.PositionConverter;
 
@@ -38,6 +40,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     private final TurretImageManager imgManager;
     private final PositionConverter posConverter;
     private final Map map;
+    private Turret clickedTurret;
 
     /**
      * 
@@ -88,6 +91,14 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
             gImage.setBackground(new Color(0, 0, 0, 0));
             gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());
             this.drawTurrets(gImage);
+            // Draws a circle representing the range of the turret
+            if (clickedTurret != null) {
+                final Position p = clickedTurret.getPosition();
+                gImage.setStroke(new BasicStroke(3));
+                gImage.setColor(Color.LIGHT_GRAY);
+                gImage.drawOval((int) (p.getX() - clickedTurret.getRange() + this.tileSize / 2), (int) (p.getY() - clickedTurret.getRange() + this.tileSize / 2), 
+                                (int) clickedTurret.getRange() * 2, (int) clickedTurret.getRange() * 2);
+            }
             g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
         }
     }
@@ -101,7 +112,6 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
             final Position p = entry.getValue().getPosition();
             final int origW = imgManager.getImage(entryID).getWidth(null);
             final int origH = imgManager.getImage(entryID).getHeight(null);
-            entry.getValue().setAngle(entry.getValue().getAngle() + 0.1); // test
             final BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
             final double scaleX = (double) bimg.getWidth() / origW;
             final double scaleY = (double) bimg.getHeight() / origH;
@@ -149,12 +159,15 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     @Override
     public void mouseClicked(final MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
-            //this.mouseHandler.accept(e);
             final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
             final int gridRow = this.convertCoordinate(e.getY(), this.getHeight());
             final GridPosition pos = new GridPosition(gridRow, gridColumn);
-            if (this.map.getTileFromGridPosition(pos).getTileType() == TileType.GRASS) {
-                this.turretController.addSelectedTurret(new GridPosition(gridRow, gridColumn));
+            if (this.turretController.isTurretSelected()) {
+                if (this.map.getTileFromGridPosition(pos).getTileType() == TileType.GRASS) {
+                    this.turretController.addSelectedTurret(new GridPosition(gridRow, gridColumn));
+                }
+            } else {
+                this.clickedTurret = this.turretController.getTurretAt(pos).orElse(null);
             }
         }
     }

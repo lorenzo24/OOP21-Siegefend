@@ -74,4 +74,22 @@ public class Position {
     public String toString() {
         return "Position [x=" + x + ", y=" + y + "]";
     }
+
+    /**
+     * Calculates the distance from another position.
+     * @param pos the other position
+     * @return the distance
+     */
+    public double distanceTo(final Position pos) {
+        return Math.sqrt(Math.pow(pos.getX() - this.getX(), 2) + Math.pow(pos.getY() - this.getY(), 2));
+    }
+
+    /**
+     * Returns the angle between two positions in radians.
+     * @param target the other position
+     * @return the angle in radians
+     */
+    public double getAngle(final Position target) {
+        return Math.atan2(target.getY() - this.getY(), target.getX() - this.getX());
+    }
 }

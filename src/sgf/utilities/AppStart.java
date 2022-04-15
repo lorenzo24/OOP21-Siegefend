@@ -1,5 +1,7 @@
 package sgf.utilities;
 import java.util.List;
+
+import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -17,7 +19,7 @@ import sgf.controller.shop.ShopControllerImpl;
 import sgf.controller.turret.TurretController;
 import sgf.controller.turret.TurretControllerImpl;
 import sgf.helpers.MapLoaderImpl;
-import sgf.helpers.SimpleTurretsLoader;
+import sgf.helpers.TurretsLoaderImpl;
 import sgf.helpers.TurretsLoader;
 import sgf.helpers.WavesLoaderImpl;
 import sgf.managers.GameManager;
@@ -35,6 +37,7 @@ import sgf.model.map.Map;
 import sgf.model.shop.Shop;
 import sgf.model.shop.ShopImpl;
 import sgf.view.ScreenGame;
+import sgf.view.bullet.BulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
 import sgf.view.game.AbstractGameView;
@@ -74,9 +77,8 @@ public final class AppStart {
         final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
         final MusicController m = new MusicControllerImpl();
         final MapController mapController = new MapControllerImpl(map);
-        final TurretsLoader tLoader = new SimpleTurretsLoader(); // Test loader.
+        final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
-
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
@@ -87,7 +89,9 @@ public final class AppStart {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
-        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore());
+        final BulletController bulletController = null;
+        final BulletView bulletView = null;     // Use AbstractBulletView as type once created.
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
