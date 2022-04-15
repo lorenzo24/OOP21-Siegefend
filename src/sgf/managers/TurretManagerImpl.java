@@ -1,5 +1,7 @@
 package sgf.managers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -23,17 +25,27 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     private Thread gameThread;
     private final EnemyController enemyController;
     private final GameManager gameManager;
+    private final ActionListener fire;                          // Used for shooting.
 
     /**
      * 
      * @param turret
      * @param enemyController
      * @param gameManager
+     * @param fire
      */
     public TurretManagerImpl(final Turret turret, final EnemyController enemyController, final GameManager gameManager) {
         this.turret = turret;
         this.enemyController = enemyController;
         this.gameManager = gameManager;
+        this.fire = new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+        };
         gameManager.register(this);
         this.startTurretThread();
     }
@@ -76,7 +88,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
      */
     private void findTarget() {
         final Position currentPosition = this.getTurret().getPosition();
-        var closest = this.enemyController.getManagerList().stream()
+        final var closest = this.enemyController.getManagerList().stream()
                                              .filter(e -> e.getEnemy().getHP() > 0) // Ignores enemies with HP lower or equal to 0
                                              .map(e -> Pair.from(e, currentPosition.distanceTo(e.getEnemy().getPosition())))
                                              .min(new Comparator<Pair<EnemyManager, Double>>() {
@@ -136,5 +148,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
     public int sell() {
         throw new UnsupportedOperationException();
     }
+    
+    
 
 }
