@@ -120,5 +120,14 @@ public class TurretImpl implements Turret, Cloneable {
         this.angle = angle;
     }
 
+    @Override
+    public void setTarget(final Enemy target) {
+        this.target = target;
+    }
 
+    @Override
+    public String toString() {
+        return "TurretImpl [id=" + id + ", position=" + position + ", range=" + range + ", price=" + price
+                + ", fireRate=" + fireRate + ", bulletSpeed=" + bulletSpeed + ", bulletDamage=" + bulletDamage + "]";
+    }
 }

@@ -3,11 +3,9 @@ package sgf.view.turret;
 import javax.swing.JPanel;
 
 /**
- * 
- * 
- *
+ * Abstract class for {@link JPanel}-based views.
  */
-public abstract class AbstractTurretView extends JPanel implements TurretView{
+public abstract class AbstractTurretView extends JPanel implements TurretView {
 
     /**
      * 

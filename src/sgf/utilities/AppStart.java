@@ -1,5 +1,7 @@
 package sgf.utilities;
+import java.util.List;
 
+import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -16,6 +18,12 @@ import sgf.controller.menu.MenuController;
 import sgf.controller.menu.MenuControllerImpl;
 import sgf.controller.shop.ShopController;
 import sgf.controller.shop.ShopControllerImpl;
+import sgf.controller.turret.TurretController;
+import sgf.controller.turret.TurretControllerImpl;
+import sgf.helpers.MapLoaderImpl;
+import sgf.helpers.TurretsLoaderImpl;
+import sgf.helpers.TurretsLoader;
+import sgf.helpers.WavesLoaderImpl;
 import sgf.helpers.LevelLoader;
 import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.GameManager;
@@ -27,6 +35,7 @@ import sgf.managers.LevelManagerImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.view.ScreenGame;
+import sgf.view.bullet.BulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
 import sgf.view.game.AbstractGameView;
@@ -61,15 +70,9 @@ public final class AppStart {
         final GameManager gameManager = null;
         final Classification cl = new ClassificationImpl();
         final MusicController m = new MusicControllerImpl();
-
-        final LevelLoader levelLoader = new LevelLoaderImpl();
-        // TO DO: 1 must be the number of button pressed.
-        final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(1));
-        final MapController mapController = new MapControllerImpl(levelManager.getMap());
-
-
-        final Player player = new PlayerImpl("DEFAULT_NAME");
-        final PlayerController playerController = new PlayerControllerImpl(player);
+        final MapController mapController = new MapControllerImpl(map);
+        final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
+        final Shop shop = new ShopImpl(tLoader);
         /*
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
@@ -83,6 +86,18 @@ public final class AppStart {
         final AbstractShopView shopView = new ShopViewImpl(gameManager);
         final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
+        final AbstractMapView mapView = new MapViewImpl(map);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, leaderboard);
+        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
+        final ShopController shopController = new ShopControllerImpl(gameManager, shop);
+        final AbstractShopView shopView = new ShopViewImpl();
+        final BulletController bulletController = null;
+        final BulletView bulletView = null;     // Use AbstractBulletView as type once created.
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
+        final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
+        final GameController gameController = new GameControllerImpl(gameManager);
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
+        final PlayingController playingController = new PlayingControllerImpl(gameManager);
         final MenuController menuController = new MenuControllerImpl();
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);

@@ -36,12 +36,12 @@ public class Pair<X, Y> {
     }
 
     /**
-     * Returns a new istance of Pair.
+     * Returns a new instance of Pair.
      * @param <X> type of x.
      * @param <Y> type of y.
      * @param x value of x.
      * @param y value of y.
-     * @return a new istance of pair.
+     * @return a new instance of pair.
      */
     public static <X, Y> Pair<X, Y> from(final X x, final Y y) {
         return new Pair<>(x, y);

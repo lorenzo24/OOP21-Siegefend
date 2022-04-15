@@ -78,6 +78,12 @@ public interface Turret {
     Optional<Enemy> getTarget();
 
     /**
+     * 
+     * @param target
+     */
+    void setTarget(Enemy target);
+
+    /**
      * Returns the price of the turret.
      * @return the price of the turret
      */
