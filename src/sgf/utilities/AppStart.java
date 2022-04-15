@@ -1,5 +1,7 @@
 package sgf.utilities;
 import java.util.List;
+
+import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -35,6 +37,7 @@ import sgf.model.map.Map;
 import sgf.model.shop.Shop;
 import sgf.model.shop.ShopImpl;
 import sgf.view.ScreenGame;
+import sgf.view.bullet.BulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
 import sgf.view.game.AbstractGameView;
@@ -86,7 +89,9 @@ public final class AppStart {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
-        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager);
+        final BulletController bulletController = null;
+        final BulletView bulletView = null;     // Use AbstractBulletView as type once created.
+        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
