@@ -125,5 +125,9 @@ public class TurretImpl implements Turret, Cloneable {
         this.target = target;
     }
 
-
+    @Override
+    public String toString() {
+        return "TurretImpl [id=" + id + ", position=" + position + ", range=" + range + ", price=" + price
+                + ", fireRate=" + fireRate + ", bulletSpeed=" + bulletSpeed + ", bulletDamage=" + bulletDamage + "]";
+    }
 }
