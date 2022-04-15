@@ -133,13 +133,6 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
         final int newWidth = (int) Math.floor(w * cos + h * sin);
         final int newHeight = (int) Math.floor(h * cos + w * sin);
 
-        /* Debug Only
-        System.out.println("new width: " + newWidth);
-        System.out.println("new heigth: " + newHeight);
-        System.out.println("orig width: " + w);
-        System.out.println("orig heigth: " + h);
-        */
-
         final BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
         final Graphics2D g2d = rotated.createGraphics();
         final AffineTransform at = new AffineTransform();
