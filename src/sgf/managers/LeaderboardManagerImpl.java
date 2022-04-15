@@ -21,12 +21,14 @@ import sgf.utilities.Pair;
 public class LeaderboardManagerImpl implements LeaderboardManager {
 
     private final Leaderboard leaderboard;
+    private final File f;
 
     /**
      * Reads from file the loaderboard.
      */
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
+        this.f = this.leaderboard.getP().toFile();
         this.readScore();
     }
 
@@ -37,8 +39,8 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         this.leaderboard.getMapScore().entrySet().stream()
             .sorted((x, y) -> y.getValue().getY() - x.getValue().getY())
             .forEach(x -> {
-                jsonElements.add(this.createRecord(this.createJsonElem(x)));
-                try (FileWriter file = new FileWriter(this.leaderboard.getP().toString())) {
+                jsonElements.add(this.createJsonElem(x));
+                try (FileWriter file = new FileWriter(this.f)) {
                     file.write(jsonElements.toJSONString()); 
                     file.flush();
                 } catch (IOException e) {
@@ -57,20 +59,11 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         return elem;
     }
 
-    // Create one record of json.
-    @SuppressWarnings("unchecked")
-    private JSONObject createRecord(final JSONObject elem) {
-        final JSONObject record = new JSONObject(); 
-        record.put("line", elem);
-        return record;
-    }
-
     // Clear the initial file delete and create new.
     private void clearFile() {
         try {
-            final File f = this.leaderboard.getP().toFile();
-            if (f.delete()) {
-                if (!f.createNewFile()) {
+            if (this.f.delete()) {
+                if (!this.f.createNewFile()) {
                     throw new IOException("Failed to create file.");
                 }
             } else {
@@ -83,11 +76,11 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @SuppressWarnings("unchecked")
     private void readScore() {
-        if (this.leaderboard.getP().toFile().length() == 0) { // If file of leaderboard is empty not do any.
+        if (this.f.length() == 0) { // If file of leaderboard is empty not do any.
             return;
         }
         final JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(this.leaderboard.getP().toString())) {
+        try (FileReader reader = new FileReader(this.f)) {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
             array.forEach(x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
@@ -101,12 +94,11 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Convert an record to one element of the map.
-    private void parsePlayerObject(final JSONObject record) {
-        final JSONObject player = (JSONObject) record.get("line");
-        final String date = (String) player.get("date");
-        final String name = (String) player.get("name");
+    private void parsePlayerObject(final JSONObject player) {
+        final String date = player.get("date").toString();
+        final String name = player.get("name").toString();
         final int score = Integer.parseInt(player.get("score").toString());
-        this.leaderboard.addRecord(date, name, score); // Add the element to the map.
+        this.leaderboard.addRecord(date, name, score); // Add the element to the map.*/
     }
 
     @Override
