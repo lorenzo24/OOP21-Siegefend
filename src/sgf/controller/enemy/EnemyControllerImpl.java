@@ -78,6 +78,7 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
             this.threadRun = false;
             this.leaderboard.addScore(player.getPlayerName(), player.getScore());
             this.leaderboard.writeScore();
+            this.enemyView.winGame();
         }
     }
 

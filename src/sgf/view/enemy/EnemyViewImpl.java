@@ -16,6 +16,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import  java.util.List;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -92,6 +95,12 @@ public class EnemyViewImpl extends AbstractEnemyView {
             this.enemyController = controller;
             this.enemyList = this.enemyController.getManagerList();
         }
+    }
+
+    @Override
+    public void winGame() {
+        JOptionPane.showMessageDialog(new JFrame(), "You win the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0); // TODO MIGLIORARE.
     }
 
     @Override
