@@ -77,31 +77,38 @@ public class MenuControllerImpl implements MenuController {
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
-        final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
-        final AbstractShopView shopView = new ShopViewImpl(gameManager);
-        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
-        final AbstractPlayerView playerView = new PlayerViewImpl();
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+//        final AbstractMapView mapView = new MapViewImpl(map);
+//        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
+//        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
+//        final GameController gameController = new GameControllerImpl();
+//        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
+//        final ShopController shopController = new ShopControllerImpl(gameManager);
+//        final AbstractShopView shopView = new ShopViewImpl(gameManager);
+//        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
+//        final AbstractPlayerView playerView = new PlayerViewImpl();
+//        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
 
         /**
          * Linking.
          */
-        gameController.setView(gameView);
-        gameView.setController(gameController);
-        mapController.setView(mapView);
-        mapView.setController(mapController);
-        enemyController.setView(enemyView);
-        enemyView.setController(enemyController);
-        shopController.setView(shopView);
-        shopView.setController(shopController);
-        playingController.setView(playingView);
-        playingView.setController(playingController);
-        return playingView;
+//        gameController.setView(gameView);
+//        gameView.setController(gameController);
+//        mapController.setView(mapView);
+//        mapView.setController(mapController);
+//        enemyController.setView(enemyView);
+//        enemyView.setController(enemyController);
+//        shopController.setView(shopView);
+//        shopView.setController(shopController);
+//        playingController.setView(playingView);
+//        playingView.setController(playingController);
+//        return playingView;
+        return null;
+    }
+
+    @Override
+    public void stopController() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -42,8 +42,6 @@ import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
-import sgf.model.game.Classification;
-import sgf.model.game.ClassificationImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.view.ScreenGame;
@@ -214,50 +212,50 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private void beginGame(final int level) {
-        final GameManager gameManager = null;
-        final Classification cl = new ClassificationImpl();
-        final LevelLoader levelLoader = new LevelLoaderImpl();
-        final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(level));
-        final MapController mapController = new MapControllerImpl(levelManager.getMap());
-        final Player player = new PlayerImpl("DEFAULT_NAME");
-        final PlayerController playerController = new PlayerControllerImpl(player);
-        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
-        final AbstractShopView shopView = new ShopViewImpl(gameManager);
-        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
-        final AbstractPlayerView playerView = new PlayerViewImpl();
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+//        final GameManager gameManager = null;
+//        final Classification cl = new ClassificationImpl();
+//        final LevelLoader levelLoader = new LevelLoaderImpl();
+//        final LevelManager levelManager = new LevelManagerImpl(levelLoader.loadLevel(level));
+//        final MapController mapController = new MapControllerImpl(levelManager.getMap());
+//        final Player player = new PlayerImpl("DEFAULT_NAME");
+//        final PlayerController playerController = new PlayerControllerImpl(player);
+//        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
+//        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
+//        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
+//        final GameController gameController = new GameControllerImpl();
+//        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
+//        final ShopController shopController = new ShopControllerImpl(gameManager);
+//        final AbstractShopView shopView = new ShopViewImpl(gameManager);
+//        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
+//        final AbstractPlayerView playerView = new PlayerViewImpl();
+//        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
 
         /**
          * Linking.
          */
-        gameController.setView(gameView);
-        gameView.setController(gameController);
-        mapController.setView(mapView);
-        mapView.setController(mapController);
-        enemyController.setView(enemyView);
-        enemyView.setController(enemyController);
-        shopController.setView(shopView);
-        shopView.setController(shopController);
-        playingController.setView(playingView);
-        playingView.setController(playingController);
-        playerController.setView(playerView);
-        playerView.setController(playerController);
-
-        shopView.start();
-        playerView.start();
-        mapView.start();
-        enemyView.start();
-        gameView.start();
-        playingView.start();
-
-        this.remove(menuPanel);
-        this.remove(levelPanel);
-        this.add(playingView);
+//        gameController.setView(gameView);
+//        gameView.setController(gameController);
+//        mapController.setView(mapView);
+//        mapView.setController(mapController);
+//        enemyController.setView(enemyView);
+//        enemyView.setController(enemyController);
+//        shopController.setView(shopView);
+//        shopView.setController(shopController);
+//        playingController.setView(playingView);
+//        playingView.setController(playingController);
+//        playerController.setView(playerView);
+//        playerView.setController(playerController);
+//
+//        shopView.start();
+//        playerView.start();
+//        mapView.start();
+//        enemyView.start();
+//        gameView.start();
+//        playingView.start();
+//
+//        this.remove(menuPanel);
+//        this.remove(levelPanel);
+//        this.add(playingView);
         this.revalidate();
         this.repaint();
     }
@@ -288,7 +286,7 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     @Override
-    public void stop() {
+    public void stopView() {
         // TODO Auto-generated method stub
 
     }

@@ -34,6 +34,12 @@ import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
+import sgf.model.level.Level;
+import sgf.model.level.LevelImpl;
+import sgf.model.level.Wave;
+import sgf.model.map.Map;
+import sgf.model.shop.Shop;
+import sgf.model.shop.ShopImpl;
 import sgf.view.ScreenGame;
 import sgf.view.bullet.BulletView;
 import sgf.view.enemy.AbstractEnemyView;
@@ -67,8 +73,16 @@ public final class AppStart {
      * @param args
      */
     public static void main(final String[] args) {
-        final GameManager gameManager = null;
-        final Classification cl = new ClassificationImpl();
+        final LevelLoader levelLoader = new LevelLoaderImpl();
+        final Player player = new PlayerImpl("DEFAULT");
+        final PlayerController playerController = new PlayerControllerImpl(player);
+        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
+
+        final Map map = new MapLoaderImpl(1).getMap();  // 1 to be generalized.
+        final List<Wave> waves = new WavesLoaderImpl(map, 1).getWaves();      // 1 to be generalized.
+        final Level level = new LevelImpl(waves, map);
+        final LevelManager levelManager = new LevelManagerImpl(level);
+        final GameManager gameManager = new GameManagerImpl(playerController, levelManager);
         final MusicController m = new MusicControllerImpl();
         final MapController mapController = new MapControllerImpl(map);
         final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
@@ -77,14 +91,6 @@ public final class AppStart {
          * At the start only the menu, settings and levels view will be created.
          * All these other views and controllers will be created when someone clicks on a level.
          */
-        final AbstractMapView mapView = new MapViewImpl(mapController.getMap());
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(mapController.getMap().getSize());
-        final GameController gameController = new GameControllerImpl();
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView);
-        final ShopController shopController = new ShopControllerImpl(gameManager);
-        final AbstractShopView shopView = new ShopViewImpl(gameManager);
-        final PlayingController playingController = new PlayingControllerImpl(gameManager, playerController);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, leaderboard);
