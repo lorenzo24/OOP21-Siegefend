@@ -1,10 +1,14 @@
 package sgf.view.enemy;
 
 import sgf.controller.enemy.EnemyController;
+import sgf.helpers.ImageLoader;
 import sgf.helpers.ImgTileSize;
+import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
-import sgf.model.enemies.LockClass;
+import sgf.model.enemies.Enemy;
+import sgf.model.enemies.EnemyType;
+import sgf.utilities.LockClass;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,7 +26,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
     private static final int BAR_HEIGHT = 8;
     private EnemyController enemyController;
-    private final EnemyImageManager imageController;      // Contains the links between enemy type and images.
+    private final ImageLoader<EnemyType> imageEnemyController;      // Contains the links between enemy type and images.
+    private final ImageLoader<Integer> imageBarController;
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
     private List<EnemyManager> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
@@ -36,14 +41,9 @@ public class EnemyViewImpl extends AbstractEnemyView {
     public EnemyViewImpl(final int matrixSize) {
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
-        this.imageController = new EnemyImageManager();
-        this.enemyList = new ArrayList<>();
+        this.imageEnemyController = new EnemyImageManager();
+        this.imageBarController = new BarLifeImageManager();
         this.setVisible(false);
-    }
-
-    @Override
-    public void setList(final List<EnemyManager> enemies) {
-        this.enemyList = enemies;
     }
 
     @Override
@@ -61,20 +61,28 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     private void drawComponents(final Graphics2D gImage) {
         // For each enemy in the list repaint it.
-            LockClass.getSemaphore().acquireUninterruptibly();
+            LockClass.getEnemySemaphore().acquireUninterruptibly();
             this.enemyList.forEach(x -> {
-            final var enemy = x.getEnemy();
-            gImage.drawImage(this.imageController.spriteImage(enemy.getEnemyType()),
-                    (int) enemy.getPosition().getX(),
-                    (int) enemy.getPosition().getY(),
-                    this.tileSize, this.tileSize, null);
-            gImage.drawImage(this.imageController.barLife(),
-                    (int) enemy.getPosition().getX(),
-                    (int) enemy.getPosition().getY(),
-                    (int) (this.tileSize * x.getEnemy().getPercentHp()), BAR_HEIGHT, null);
-            SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
+                final var enemy = x.getEnemy();
+                this.drowSprite(gImage, enemy);
+                this.drowLifeBar(gImage, enemy);
+                //SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
             });
-            LockClass.getSemaphore().release();
+            LockClass.getEnemySemaphore().release();
+    }
+
+    private void drowLifeBar(final Graphics2D gImage, final Enemy enemy) {
+        gImage.drawImage(this.imageBarController.getImage(0),
+                (int) enemy.getPosition().getX(),
+                (int) enemy.getPosition().getY(),
+                (int) (this.tileSize * enemy.getPercentHp()), BAR_HEIGHT, null);
+    }
+
+    private void drowSprite(final Graphics2D gImage, final Enemy enemy) {
+        gImage.drawImage(this.imageEnemyController.getImage(enemy.getEnemyType()),
+                (int) enemy.getPosition().getX(),
+                (int) enemy.getPosition().getY(),
+                this.tileSize, this.tileSize, null);
     }
 
     @Override
@@ -82,6 +90,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyController = controller;
+            this.enemyList = this.enemyController.getManagerList();
         }
     }
 
@@ -96,8 +105,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     }
 
     @Override
-    public void stop() {
-        this.enemyController.stopThread();
+    public void stopView() {
+        this.enemyController.stopController();
         this.enemyList.forEach(x -> x.stopThread());
     }
 }

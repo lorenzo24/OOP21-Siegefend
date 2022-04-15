@@ -1,5 +1,6 @@
-package sgf.helpers;
+package sgf.model.game;
 
+import java.util.Map;
 import sgf.model.enemies.EnemyType;
 import sgf.model.map.TileType;
 
@@ -12,17 +13,23 @@ public interface PathLinker {
      * Method that links every enemy type with the correspondent image path name.
      * @return a map that links every enemy type with the correct image path.
      */
-     java.util.Map<EnemyType, String> getEnemyMap();
+     Map<EnemyType, String> getEnemyMap();
 
      /**
       * Method that links every tile type with the correspondent image path name.
       * @return a map that links every tile type with the correct image path.
       */
-     java.util.Map<TileType, String> getTileMap();
- 
+     Map<TileType, String> getTileMap();
+
      /**
-      * Method that links the name of the barLife that correspondent image path name.
-      * @return the name of the path.
+      * Method that links every turret id with the correspondent image path name.
+      * @return a map that links every turret id with the correct image path.
       */
-     String getLifeBar();
+     Map<Integer, String> getTurretMap();
+
+     /**
+      * Method that links lifeBar with the correspondent image path name.
+      * @return a map that links the lifeBar with the correct image path.
+      */
+     Map<Integer, String> getLifeBarMap();
 }

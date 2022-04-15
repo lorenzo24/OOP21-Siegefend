@@ -61,4 +61,8 @@ public class PlayerControllerImpl implements PlayerController {
             this.playerView = view;
         }
     }
+
+    @Override
+    public void stopController() {
+    }
 }

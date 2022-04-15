@@ -11,6 +11,6 @@ public class StartGame {
      * @param args is the default parameter for main method.
      */
     public static void main(final String[] args) {
-       final GameControllerImpl gController = new GameControllerImpl(); 
+//       final GameControllerImpl gController = new GameControllerImpl(); 
     }
 }

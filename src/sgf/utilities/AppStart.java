@@ -19,10 +19,11 @@ import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.LevelLoader;
 import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.GameManager;
+import sgf.managers.GameManagerImpl;
+import sgf.managers.LeaderboardManager;
+import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
-import sgf.model.game.Classification;
-import sgf.model.game.ClassificationImpl;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.view.ScreenGame;
@@ -40,6 +41,9 @@ import sgf.view.menu.AbstractMenuView;
 import sgf.view.menu.MenuViewImpl;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopViewImpl;
+import sgf.view.turret.AbstractTurretView;
+import sgf.view.turret.TurretView;
+import sgf.view.turret.TurretViewImpl;
 
 /**
  *
@@ -82,6 +86,8 @@ public final class AppStart {
         final MenuController menuController = new MenuControllerImpl();
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
+
+
         /**
          * Linking.
          */

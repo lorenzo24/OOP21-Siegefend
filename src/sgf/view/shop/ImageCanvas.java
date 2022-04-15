@@ -2,18 +2,16 @@ package sgf.view.shop;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 
 import javax.swing.JLabel;
-
-import sgf.controller.game.PlayingController;
 
 /**
  *
  */
 public class ImageCanvas extends JLabel {
 
-    private final BufferedImage image;
+    private final Image image;
 
     /**
      * 
@@ -24,7 +22,7 @@ public class ImageCanvas extends JLabel {
      * 
      * @param image
      */
-    public ImageCanvas(final BufferedImage image) {
+    public ImageCanvas(final Image image) {
         this.image = image;
         this.setPreferredSize(new Dimension(100, 100));
     }

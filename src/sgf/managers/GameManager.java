@@ -2,9 +2,10 @@ package sgf.managers;
 
 import sgf.controller.game.PlayerController;
 import sgf.model.game.GameStatus;
+import sgf.model.game.Pausable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
-import sgf.model.turret.Turret;
+import sgf.model.map.GridPosition;
 
 /**
  * Handles the coordination of the various game components.
@@ -15,19 +16,13 @@ public interface GameManager {
      * Returns the associated {@link PlayerController}.
      * @return the associated {@code PlayerController}
      */
-    PlayerController getPlayerManager();
+    PlayerController getPlayerController();
 
     /**
      * Returns the manager for the current level.
      * @return a {@link LevelManager}
      */
     LevelManager getLevelManager();
-
-    /**
-     * Starts the {@link Level} to play.
-     * @param l the level to play
-     */
-    void startLevel(Level l);
 
     /**
      * Returns the {@link Level} that is being played.
@@ -58,22 +53,20 @@ public interface GameManager {
     void unpause();
 
     /**
+     * Adds a {@link Pausable} to a collection of elements for pausing and resuming.
+     * @param p the {@code Pausable} object
+     */
+    void register(Pausable p);
+
+    /**
+     * Removes the {@link Pausable} to a collection of elements for pausing and resuming.
+     * @param p the {@code Pausable} object
+     */
+    void deregister(Pausable p);
+
+    /**
      * Returns the status of the game that is being played.
      * @return the {@link GameStatus} of the game
      */
     GameStatus getCurrentStatus();
-
-    /**
-     * Purchases a turret and updates the player's money count.
-     * @param t The turret to purchase
-     * @return {@code true} if the purchase is successful, {@code false} otherwise
-     */
-    boolean purchase(Turret t);
-
-    /**
-     * Purchases an upgrade for the given turret and updates the player's money count.
-     * @param t The turret to upgrade
-     * @return {@code true} if the purchase is successful, {@code false} otherwise
-     */
-    boolean purchaseUpgrade(Turret t);
 }

@@ -63,7 +63,7 @@ public interface Player {
      * Getter for player's name.
      * @return Player's name.
      */
-    int getPlayerName();
+    String getPlayerName();
 
     /**
      * Sets player's name.

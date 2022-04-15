@@ -13,7 +13,13 @@ import javax.imageio.ImageIO;
  */
 public class SimpleTurretsImageLoader implements TurretImagesLoader {
 
-    private Map<String, BufferedImage> images;
+    /**
+     * 
+     */
+    public static final int SAMPLE = -1;
+    private static final int DEFAULT = -1;
+
+    private Map<Integer, BufferedImage> images;
 
     /**
      * 
@@ -24,19 +30,20 @@ public class SimpleTurretsImageLoader implements TurretImagesLoader {
 
     private void loadAllImages() {
         try {
-            this.images = Map.of("sample", ImageIO.read(new File("res/test/vuoto.png")));
+            this.images = Map.of(SAMPLE, ImageIO.read(new File("res/test/vuoto.png")));
         } catch (IOException e) {
             this.images = Map.of();
         }
     }
 
     @Override
-    public Optional<BufferedImage> getTurretImage(final String turretName) {
-        if (turretName == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(this.images.get(turretName));
-        }
+    public Optional<BufferedImage> getTurretImage(final int turretID) {
+        return Optional.ofNullable(this.images.get(turretID));
+    }
+
+    @Override
+    public BufferedImage getTurretImageOrDefault(final int turretID) {
+        return this.getTurretImage(turretID).orElse(this.images.get(DEFAULT));
     }
 
 }

@@ -6,15 +6,19 @@ import java.util.List;
 import sgf.controller.game.PlayerController;
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
+import sgf.managers.GameManager;
+import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
-import sgf.model.enemies.LockClass;
+import sgf.model.game.Pausable;
+import sgf.model.game.Player;
+import sgf.utilities.LockClass;
 import sgf.view.enemy.EnemyView;
 
 /**
  * Class Waves thread that spawns enemies of the waves.
  */
-public class EnemyControllerImpl implements EnemyController {
+public class EnemyControllerImpl implements EnemyController, Pausable {
     private static final int THREAD_SPEED = 3000; 
     private boolean isControllerSet;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -22,46 +26,58 @@ public class EnemyControllerImpl implements EnemyController {
     private final LevelManager levelManager;
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
     private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
+    private final LeaderboardManager leaderboard;
+    private final GameManager gameManager;
+    private Thread waveThread;
 
     /**
      * Sets the levelManager to load enemies and get map.
      * @param levelManager Is the manager of the current level.
      * @param playerManager Is the manager of the player.
+     * @param leaderboard Is the leaderboard manager.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager) {
+    public EnemyControllerImpl(final LevelManager levelManager, final GameManager gameManager ,final PlayerController playerManager, final LeaderboardManager leaderboard) {
+        this.leaderboard = leaderboard;
         this.levelManager = levelManager;
         this.playerManager = playerManager;
+        this.gameManager = gameManager;
         this.managerList = new ArrayList<>();
+        this.gameManager.register(this);
         this.startRunWaves(); // Thread method.
     }
 
     private void startRunWaves() {
-        final Thread waveThread = new Thread(new Runnable() {
+        if (waveThread == null) {
+            waveThread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                while (threadRun) {
-                    if (levelManager.hasNextEnemy()) {
-                        loadNextEnemy();
-                    } else {
-                        loadNextWave();
-                        checkIfStopThread(); // Checks if the level is over.
-                    }
-                    try {
-                        Thread.sleep(THREAD_SPEED);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                @Override
+                public void run() {
+                    while (threadRun) {
+                        if (levelManager.hasNextEnemy()) {
+                            loadNextEnemy();
+                        } else {
+                            loadNextWave();
+                            checkIfStopThread(); // Checks if the level is over.
+                        }
+                        try {
+                            Thread.sleep(THREAD_SPEED);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         waveThread.start();
     }
 
     // Checks if the level is finished.
     private void checkIfStopThread() {
-        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty()) {
+        final Player player = this.playerManager.getPlayer();
+        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty() || player.getCurrentHP() == 0) {
             this.threadRun = false;
+            this.leaderboard.addScore(player.getPlayerName(), player.getScore());
+            this.leaderboard.writeScore();
         }
     }
 
@@ -75,7 +91,7 @@ public class EnemyControllerImpl implements EnemyController {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
-        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager)); // Creates a managerList of the enemy that has been cretaed.
+        this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager, this.gameManager)); // Creates a managerList of the enemy that has been cretaed.
     }
 
     @Override
@@ -83,24 +99,35 @@ public class EnemyControllerImpl implements EnemyController {
         if (!isControllerSet) {
             this.isControllerSet = true;
             this.enemyView = view;
-            this.enemyView.setList(this.managerList);
         }
     }
 
     @Override
     public void removeEnemy(final EnemyManager enemyManager) {
-        LockClass.getSemaphore().acquireUninterruptibly();
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         this.managerList.remove(enemyManager);
-        LockClass.getSemaphore().release();
+        LockClass.getEnemySemaphore().release();
     }
 
     @Override
-    public void stopThread() {
+    public void pause() {
         this.threadRun = false;
     }
 
     @Override
-    public void resumeThread() {
+    public void resume() {
         this.threadRun = true;
+        this.startRunWaves();
+    }
+
+    @Override
+    public void stopController() {
+        this.pause();
+        this.gameManager.deregister(this);
+    }
+
+    @Override
+    public List<EnemyManager> getManagerList() {
+        return this.managerList;
     }
 }
