@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import sgf.controller.Controller;
+import sgf.model.bullet.Bullet;
 import sgf.model.map.GridPosition;
 import sgf.model.turret.Turret;
 import sgf.view.turret.TurretView;
@@ -45,4 +46,11 @@ public interface TurretController extends Controller<TurretView> {
      * @return an iterator of turrets
      */
     Iterator<Map.Entry<GridPosition, Turret>> getTurretsIterator();
+
+    /**
+     * Method used when a bullet is created.
+     * Used to inform the controller of all bullets.
+     * @param bullet the bullet created
+     */
+    void bulletCreated(Bullet bullet);
 }
