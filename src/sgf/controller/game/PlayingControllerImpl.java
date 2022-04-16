@@ -3,7 +3,6 @@ package sgf.controller.game;
 import java.awt.Dimension;
 
 import sgf.managers.GameManager;
-import sgf.managers.PlayerManager;
 import sgf.model.turret.Turret;
 import sgf.view.game.AbstractGameView;
 import sgf.view.game.AbstractPlayingView;
@@ -16,7 +15,6 @@ public class PlayingControllerImpl implements PlayingController {
 
     private AbstractPlayingView playingView;
     private final GameManager gameManager;
-    private final PlayerManager playerManager;
     private boolean isControllerSet;
 
     /**
@@ -24,9 +22,8 @@ public class PlayingControllerImpl implements PlayingController {
      * @param gameManager
      * @param playerManager
      */
-    public PlayingControllerImpl(final GameManager gameManager, final PlayerManager playerManager) {
+    public PlayingControllerImpl(final GameManager gameManager) {
         this.gameManager = gameManager;
-        this.playerManager = playerManager;
     }
 
     @Override
@@ -35,8 +32,8 @@ public class PlayingControllerImpl implements PlayingController {
     }
 
     @Override
-    public PlayerManager getPlayerManager() {
-        return this.playerManager;
+    public PlayerController getPlayerController() {
+        return this.gameManager.getPlayerController();
     }
 
     @Override
@@ -82,5 +79,9 @@ public class PlayingControllerImpl implements PlayingController {
                 throw new IllegalArgumentException("Argument must be subclass of AbstractPlayingView");
             }
         }
+    }
+
+    @Override
+    public void stopController() {
     }
 }

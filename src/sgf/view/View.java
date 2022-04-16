@@ -19,4 +19,9 @@ public interface View<C extends Controller<?>> {
      * controller has not been set
      */
     void start();
+
+    /**
+     * Disables the view and closes all/any thread currently active in it.
+     */
+    void stopView();
 }

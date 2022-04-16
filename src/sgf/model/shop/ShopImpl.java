@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sgf.helpers.TurretsLoader;
 import sgf.model.game.Player;
 import sgf.model.turret.Turret;
 
@@ -12,35 +13,38 @@ import sgf.model.turret.Turret;
  */
 public class ShopImpl implements Shop {
 
-    private final Map<Turret, Integer> turrets;
-    private final Player player;
+    private final Map<Integer, Turret> turrets;
 
     /**
      * Creates a new shop object with the given turrets, prices and the player.
-     * @param turrets A map which associates a price to each turret
-     * @param player The player of the game
+     * @param turretsLoader an instance of {@link TurretsLoader}
      */
-    public ShopImpl(final Map<Turret, Integer> turrets, final Player player) {
-        this.turrets = Map.copyOf(turrets);
-        this.player = player;
+    public ShopImpl(final TurretsLoader turretsLoader) {
+        this.turrets = turretsLoader.getTurrets();
     }
 
     @Override
     public List<Turret> getAvailableTurrets() {
-        return new ArrayList<>(turrets.keySet());
+        return new ArrayList<>(this.turrets.values());
     }
 
     @Override
-    public boolean purchase(final Turret t) {
-        /*
-         * In hindsight, TurretController will probably need to have a reference to the current Turret
-         * and its next level, so we may need a new class which holds a list of all the upgrades of a turret,
-         * something like TurretUpgradeList.
-         */
-        if (this.turrets.containsKey(t)) {
-            return player.getCurrentMoney() >= t.getPrice();
-        } else {
-            return false; // Maybe exception?
+    public boolean canBuy(final int tid, final Player p) {
+        this.checkNull(p, "player");
+        final Turret t = this.turrets.get(tid);
+        return t != null && p.getMoney() >= t.getPrice();
+    }
+
+    @Override
+    public boolean canBuy(final Turret t, final Player p) {
+        this.checkNull(t, "turret");
+        this.checkNull(p, "player");
+        return t.equals(turrets.get(t.getID())) && canBuy(t.getID(), p); // A check is put in place to verify that not any Turret with a specific
+    }                                                                    // ID can be bought off the shop just because the ID matched one in the Map.
+
+    private void checkNull(final Object param, final String paramName) {
+        if (param == null) {
+            throw new IllegalArgumentException("Null value for parameter " + paramName + " is not valid");
         }
     }
 }

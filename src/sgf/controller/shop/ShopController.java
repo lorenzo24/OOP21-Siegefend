@@ -1,9 +1,10 @@
 package sgf.controller.shop;
 
 import java.util.List;
+import java.util.Optional;
 
 import sgf.controller.Controller;
-import sgf.managers.PlayerManager;
+import sgf.controller.game.PlayerController;
 import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
@@ -13,10 +14,10 @@ import sgf.view.shop.ShopView;
 public interface ShopController extends Controller<ShopView> {
 
     /**
-     * Returns the associated {@link PlayerManager}.
+     * Returns the associated {@link PlayerController}.
      * @return the associated {@code PlayerController}
      */
-    PlayerManager getPlayerManager();
+    PlayerController getPlayerManager();
 
     /**
      * Returns a list of {@link Turret}{@code s} that can be bought from the shop.
@@ -25,22 +26,34 @@ public interface ShopController extends Controller<ShopView> {
     List<Turret> getTurretList();
 
     /**
-     * Attempts to buy a turret.
-     * @param t the turret to buy
-     * @return {@code true} if the purchase was successful, {@code false} otherwise
+     * Deselects the currently selected turret. Does nothing if no turret is selected.
      */
-    boolean buy(Turret t);
+    void deselectTurret();
 
     /**
-     * Cancels the purchase of a turret.
-     * @return {@code true} if the cancellation was successful, 
-     *          {@code false} if there is no purchase or if the purchase cannot be reversed 
+     * Sets a {@link Turret} as selected.
+     * @param t a turret
+     * @return {@code true} if the turret was set as selected, {@code false} otherwise
      */
-    boolean cancel();
+    boolean trySetSelectedTurret(Turret t);
 
     /**
-     * Alerts the controller that the purchase has been completed successfully.
-     * @return {@code true} if the completion was successful, {@code false} otherwise
+     * Returns the selected {@link Turret}.
+     * @return an {@link Optional} of Turret
      */
-    boolean completePurchase();
+    Optional<Turret> getSelectedTurret();
+
+    /**
+     * Verifies whether a {@link Turret} can be bought.
+     * @param t a turret
+     * @return {@code true} if the turret can be bought, {@code false} otherwise
+     */
+    boolean canBuy(Turret t);
+
+    /**
+     * Attempts to buy a turret. The method also decreases the money count of the player if the purchase is successful.
+     * @return an {@link Optional} with a {@link Turret} if a turret is selected and the player has
+     * enough money to buy it, an empty {@code Optional} otherwise
+     */
+    Optional<Turret> buy();
 }

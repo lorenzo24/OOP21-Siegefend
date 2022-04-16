@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import sgf.controller.Controller;
 import sgf.managers.GameManager;
-import sgf.managers.PlayerManager;
 import sgf.model.turret.Turret;
 import sgf.view.game.PlayingView;
 
@@ -23,7 +22,7 @@ public interface PlayingController extends Controller<PlayingView> {
      * Returns the manager for the player.
      * @return the manager for the player
      */
-    PlayerManager getPlayerManager();   // TODO: remove?
+    PlayerController getPlayerController();   // TODO: remove?
 
     /**
      * Returns the size of the view. 

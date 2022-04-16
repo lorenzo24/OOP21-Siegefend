@@ -16,11 +16,18 @@ public interface Shop {
     List<Turret> getAvailableTurrets();
 
     /**
-     * Tries to purchase one of the available turrets in the shop.
-     * @param t The {@link Turret} to be bought
-     * @return {@code true} if the purchase was successful, {@code false} otherwise
-     * @throws @{@link IllegalArgumentException} if the {@link Turret} passed is not
-     *          an existing option
+     * Checks whether the {@link Turret} with the given id can be bought in the shop and if the given {@link Player} has enough money to buy it.
+     * @param tid the id of the turret
+     * @param p the player
+     * @return {@code true} if the turret is available to be bought and the player has enough money, {@code false} otherwise
      */
-    boolean purchase(Turret t);
+    boolean canBuy(int tid, Player p);
+
+    /**
+     * Checks whether the {@link Turret} can be bought in the shop and if the given {@link Player} has enough money to buy it.
+     * @param t the turret to buy
+     * @param p the player
+     * @return {@code true} if the turret is available to be bought and the player has enough money, {@code false} otherwise
+     */
+    boolean canBuy(Turret t, Player p);
 }

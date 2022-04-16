@@ -9,7 +9,7 @@ import sgf.model.map.Position;
 /**
  * Represents a turret that can be placed on the map.
  */
-public interface Turret extends Cloneable {
+public interface Turret {
     /**
      * Returns the ID of the turret.
      * @return the ID of the turret
@@ -23,6 +23,12 @@ public interface Turret extends Cloneable {
     Position getPosition();
 
     /**
+     * 
+     * @param p
+     */
+    void setPosition(Position p);
+
+    /**
      * Returns the range of the turret. <br />
      * The turret can only target enemies whose distance from the tower is less than its range.
      * @return the range of the turret
@@ -30,15 +36,22 @@ public interface Turret extends Cloneable {
     double getRange();
 
     /**
-     * Instructs the turret to start attacking. <br />
-     * If no target is present, the turret immediately goes into idle mode.
+     * 
+     * @return
      */
-    void attack();
+    double getAngle();
 
     /**
-     * Puts the turret in idle mode.
+     * 
+     * @param angle
      */
-    void idle();
+    void setAngle(double angle);
+
+    /**
+     * Sets the state of the turret.
+     * @param state the new state of the turret
+     */
+    void setState(boolean state);
 
     /**
      * Checks whether the turret is attacking an {@link Enemy} or not.
@@ -47,10 +60,10 @@ public interface Turret extends Cloneable {
     boolean isAttacking();
 
     /**
-     * Instructs the turret to fire a {@link Bullet} at the targeted {@link Position}.
-     * @param target The target position
+     * Creates a new bullet that attacks the targeted enemy.
+     * @return an instance of {@code Bullet}
      */
-    void fireAt(Position target);
+    Bullet createBullet();
 
     /**
      * Returns the speed at which the turret fires bullets (specified in bullets/second).
@@ -59,16 +72,16 @@ public interface Turret extends Cloneable {
     double getFireRate();
 
     /**
-     * Tries to find a target {@link Enemy} within the range of the turret.
-     * @return An {@link Optional} containing the enemy if successful, {@code Optional.empty()} otherwise.
-     */
-    Optional<Enemy> findTarget();
-
-    /**
      * Returns the target of the turret.
      * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise.
      */
     Optional<Enemy> getTarget();
+
+    /**
+     * 
+     * @param target
+     */
+    void setTarget(Enemy target);
 
     /**
      * Returns the price of the turret.
@@ -78,10 +91,9 @@ public interface Turret extends Cloneable {
 
     /**
      * Creates a clone of the turret. <br />
-     * Internally, the clone should be created by calling super.clone() and then
-     * setting all the attributes by cloning them from the initial turret.
+     * Classes implementing this interface should also implement {@link Cloneable} and use its method within this one. <br />
+     * Inside the {@code clone} method a call to {@code super.clone()} should be sufficient to obtain a precise clone of the instance.
      * @return the cloned {@link Turret}
-     * @throws CloneNotSupportedException
      */
-    Turret clone() throws CloneNotSupportedException;
+    Turret getClone();
 }

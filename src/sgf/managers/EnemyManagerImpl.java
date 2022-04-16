@@ -2,8 +2,10 @@ package sgf.managers;
 import java.util.Optional;
 
 import sgf.controller.enemy.EnemyController;
+import sgf.controller.game.PlayerController;
 import sgf.helpers.ImgTileSize;
 import sgf.model.enemies.Enemy;
+import sgf.model.game.Pausable;
 import sgf.model.map.Direction;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
@@ -14,7 +16,7 @@ import sgf.utilities.PositionConverter;
 /**
  * Class that manages each single enemy.
  */
-public class EnemyManagerImpl implements EnemyManager {
+public class EnemyManagerImpl implements EnemyManager, Pausable {
     private static final int ENEMY_SPEED = 10;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -24,36 +26,44 @@ public class EnemyManagerImpl implements EnemyManager {
     private int stepsDone;
     private Optional<Direction> lastDir = Optional.empty();
     private final PositionConverter converter; // Converts the gridPosition to Position.
+    private final PlayerController playerController;  //Manager of Player, used to update his stats.
+    private Thread gameThread;
 
     /**
      * Creates a managerImpl that controls the enemy's movement.
-     * @param enemy Is the interested enemy.
-     * @param levelManager Gives the map the direction in which the enemy has to move.
-     * @param enemyController Is the controller of the enemies.
+     * @param enemy the managed enemy
+     * @param levelManager the manager of the current level
+     * @param enemyController the controller of the enemy view
+     * @param playerController the controller of the player
+     * @param gameManager the manager of the game
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerController, final GameManager gameManager) {
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
+        this.playerController = playerController;
+        gameManager.register(this);
         this.startEnemyThread();
     }
 
     private void startEnemyThread() {
-        final Thread gameThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (threadRun) {
-                    try {
-                        nextMovement();
-                        checkFinalDestination();
-                        Thread.sleep(ENEMY_SPEED);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+        if (gameThread == null) {
+            gameThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (threadRun) {
+                        try {
+                            nextMovement();
+                            checkFinalDestination();
+                            Thread.sleep(ENEMY_SPEED);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         gameThread.start();
     }
 
@@ -64,8 +74,7 @@ public class EnemyManagerImpl implements EnemyManager {
         final double x = this.enemy.getPosition().getX();
         final double y = this.enemy.getPosition().getY();
         if (x == -imgSize || y == -imgSize || this.endIntoMap(x)  || this.endIntoMap(y)) { // Checks if the sprite isn't in the limits of the screen (left and up).
-            this.threadRun = false; // Stops the thread.
-            this.complete();
+            endReached();
         }
     }
 
@@ -105,16 +114,19 @@ public class EnemyManagerImpl implements EnemyManager {
 
     @Override
     public void damage(final double damage) {
-        this.enemy.setHP(this.enemy.getHP() - damage);
+        if (this.enemy.getHP() - damage <= 0) {
+            unitDeath();
+        }
+        this.enemy.damageSuffered(damage);
     }
 
     @Override
-    public void stopThread() {
+    public void pause() {
         this.threadRun = false;
     }
 
     @Override
-    public void resumeThread() {
+    public void resume() {
         this.threadRun = true;
     }
 
@@ -124,7 +136,25 @@ public class EnemyManagerImpl implements EnemyManager {
     }
 
     @Override
-    public void complete() {
+    public void disappear() {
+        this.threadRun = false; // Stops the thread.
         this.enemyController.removeEnemy(this);
+    }
+
+    private void endReached() {
+        this.playerController.changeHP(-1);
+        this.playerController.changeScore(-(int) this.enemy.getPoints());
+        this.disappear();
+    }
+
+    private void unitDeath() {
+        this.playerController.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
+        this.playerController.changeScore((int) this.enemy.getPoints());
+        this.disappear();
+    }
+
+    @Override
+    public void stopThread() {
+        this.pause();
     }
 }

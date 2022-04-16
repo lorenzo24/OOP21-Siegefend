@@ -14,7 +14,7 @@ import sgf.model.map.Map;
  * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
  * and composition of a grid and the creation and appearance of the corresponding final map image.
  */
-public class MapViewImpl extends AbstractMapView implements ComponentListener, MouseListener {
+public class MapViewImpl extends AbstractMapView implements ComponentListener {
     private static final long serialVersionUID = -7141712951441617040L;
     private MapController mapController;
     private final Map map;
@@ -47,18 +47,6 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     public void componentResized(final ComponentEvent e) {
     }
 
-    @Override
-    public void mouseClicked(final MouseEvent e) {
-        // Simple way to obtain and print mouse position and tile type when clicking.
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            //this.mouseHandler.accept(e);
-            final int gridColumn = this.convertCoordinate(e.getX(), this.getWidth());
-            final int gridRow = this.convertCoordinate(e.getY(), this.getHeight());
-            System.err.println(gridRow + ": " + gridColumn);
-            System.out.println(this.map.getTileFromGridPosition(new GridPosition(gridRow, gridColumn)).getTileType());
-        }
-    }
-
     // Taken a value and the dimension in refers to, it returns an integer value that is the corresponding tile position in the dimension.
     private int convertCoordinate(final int x, final double dimension) {
         final double sizeOfASingleTile = dimension / this.getMatrixSize();
@@ -86,7 +74,6 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     public void start() {
         if (isControllerSet) {
             this.addComponentListener(this);
-            this.addMouseListener(this);   // Links this panel with a controller of mouse events.
             this.ready = true;
             this.setVisible(true);
         } else {
@@ -107,22 +94,6 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener, M
     }
 
     @Override
-    public void mousePressed(final MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(final MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(final MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(final MouseEvent e) {
-
+    public void stopView() {
     }
 }

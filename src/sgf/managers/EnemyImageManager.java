@@ -20,19 +20,14 @@ public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
         this.fillMap(super.getPathImage().getEnemyMap());
     }
 
-    /**
-     * Method that returns the image corresponding the given enemy type.
-     * @param type Is the enemy type we want the image.
-     * @return the correct image.
-     */
-    public Image spriteImage(final EnemyType type) {
-        return this.enemySprite.get(type);
-    }
 
     @Override
     public void fillMap(final Map<EnemyType, String> map) {
-        for (final var elem : map.entrySet()) {
-            this.enemySprite.put(elem.getKey(), this.loadRightImage(elem.getValue()));
-        }
+        map.entrySet().forEach(x -> this.enemySprite.put(x.getKey(), this.loadRightImage(x.getValue())));
+    }
+
+    @Override
+    public Image getImage(final EnemyType element) {
+        return this.enemySprite.get(element);
     }
 }

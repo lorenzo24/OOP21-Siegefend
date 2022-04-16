@@ -20,6 +20,15 @@ public class GridPosition {
     }
 
     /**
+     * Creates a new instance of {@code GridPosition} from another
+     * instance of GridPosition.
+     * @param gpos the instance of GridPosition to copy
+     */
+    public GridPosition(final GridPosition gpos) {
+        this(gpos.row, gpos.column);
+    }
+
+    /**
      * Method that gives the column of the position.
      * @return the current column of the position.
      */
