@@ -206,6 +206,17 @@ public class MenuViewImpl extends AbstractMenuView {
         
         
     }
+    
+    private class Leaderboard extends JPanel {
+        
+        
+        public Leaderboard() {
+            menuController.getLeaderboard();
+        }
+        
+        
+    }
+
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);

@@ -31,6 +31,7 @@ import sgf.managers.LeaderboardManager;
 import sgf.managers.LeaderboardManagerImpl;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
+import sgf.model.game.Leaderboard;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.model.level.Level;
@@ -68,14 +69,14 @@ public class MenuControllerImpl implements MenuController {
 
     private boolean isControllerSet;
     private AbstractMenuView menuView;
-    private final LeaderboardManager leaderboard;
+    private final LeaderboardManager leaderboardManager;
 
     /**
      * 
      * @param leaderboard
      */
-    public MenuControllerImpl(final LeaderboardManager leaderboard) {
-        this.leaderboard = leaderboard;
+    public MenuControllerImpl(final LeaderboardManager leaderboardManager) {
+        this.leaderboardManager = leaderboardManager;
     }
 
     @Override
@@ -94,7 +95,7 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
         final Player player = new PlayerImpl("DEFAULT");
-        final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboard);
+        final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboardManager);
         final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
@@ -109,7 +110,7 @@ public class MenuControllerImpl implements MenuController {
          */
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboard);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboardManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
@@ -155,6 +156,13 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public void stopController() {
         // TODO Auto-generated method stub
+    }
+
+
+
+    @Override
+    public Leaderboard getLeaderboard() {
+        this.leaderboardManager.getLeaderboard();
     }
 
 }
