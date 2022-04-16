@@ -24,10 +24,10 @@ public final class AppStart {
      * @param args
      */
     public static void main(final String[] args) {
+        final LeaderboardManager leaderboardManager = new LeaderboardManagerImpl();
         final MusicController m = new MusicControllerImpl();
-        final LeaderboardManager leaderboard = new LeaderboardManagerImpl();
         final LevelLoader levelLoader = new LevelLoaderImpl();
-        final MenuController menuController = new MenuControllerImpl(leaderboard);
+        final MenuController menuController = new MenuControllerImpl(leaderboardManager);
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
 
 
