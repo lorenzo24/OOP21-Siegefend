@@ -73,7 +73,7 @@ public class MenuControllerImpl implements MenuController {
 
     /**
      * 
-     * @param leaderboard
+     * @param leaderboardManager
      */
     public MenuControllerImpl(final LeaderboardManager leaderboardManager) {
         this.leaderboardManager = leaderboardManager;
@@ -162,7 +162,7 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public Leaderboard getLeaderboard() {
-        this.leaderboardManager.getLeaderboard();
+        return this.leaderboardManager.getLeaderboard();
     }
 
 }
