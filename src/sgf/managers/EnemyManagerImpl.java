@@ -54,6 +54,10 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
                 public void run() {
                     while (threadRun) {
                         try {
+                            if (enemy.getHP() <= 0) {
+                                unitDeath();
+                                break;
+                            }
                             nextMovement();
                             checkFinalDestination();
                             Thread.sleep(ENEMY_SPEED);

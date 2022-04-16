@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 public final class LockClass {
     private static final Semaphore ENEMY_SEMAPHORE = new Semaphore(1);
     private static final Semaphore TURRET_SEMAPHORE = new Semaphore(1);
+    private static final Semaphore BULLET_SEMAPHORE = new Semaphore(1);
     // the same thing must be done for bullets
 
     private LockClass() { }
@@ -26,5 +27,13 @@ public final class LockClass {
      */
     public static Semaphore getTurretSemaphore() {
         return TURRET_SEMAPHORE;
+    }
+
+    /**
+     * Returns the bullet's semaphore.
+     * @return a semaphore
+     */
+    public static Semaphore getBulletSemaphore() {
+        return BULLET_SEMAPHORE;
     }
 }

@@ -48,7 +48,9 @@ public class TurretManagerImpl implements TurretManager, Pausable {
         this.fire = new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                turretController.bulletCreated(getTurret().createBullet());
+                if (turret.getTarget() != null) {
+                    turretController.bulletCreated(getTurret().createBullet());
+                }
             }
         };
         this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), fire);
@@ -73,13 +75,13 @@ public class TurretManagerImpl implements TurretManager, Pausable {
                         try {
                             final Optional<Enemy> target = getTurret().getTarget();
                             if (target.isEmpty() || target.get().getHP() <= 0) {        // Checks if there is a target and if there is one, it checks its HP.
-                                // bulletTimer.stop(); TODO: Uncomment when BulletController is implemented.
+                                bulletTimer.stop();
                                 findTarget();
                             } else {
                                 if (getTurret().getPosition().distanceTo(target.get().getPosition()) <= getTurret().getRange()) {       // Checks if the target is inside the turret's range.
                                     pointToTarget(target.get().getPosition());        // rotation
                                     if (!bulletTimer.isRunning()) {
-                                        // bulletTimer.start(); TODO: Uncomment when BulletController is implemented.
+                                        bulletTimer.start();
                                     }
                                 } else {
                                     getTurret().setTarget(null);
