@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
 
 import sgf.controller.bullet.BulletController;
-import sgf.helpers.ImageLoader;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BulletImageManager;
+import sgf.managers.ImageLoaderManager;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.Position;
 import sgf.utilities.LockClass;
@@ -27,7 +27,7 @@ public class BulletViewImpl extends AbstractBulletView {
     private final Semaphore semaphore;
     private final int tileSize;
     private final BufferedImage image;
-    private final ImageLoader<Integer> imgManager;
+    private final ImageLoaderManager<Integer> imgManager;
 
     /**
      * Constructor for creating an instance of a {@code BulletViewImpl}.

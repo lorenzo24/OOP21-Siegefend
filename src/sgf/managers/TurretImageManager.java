@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import sgf.helpers.AbstractImageLoader;
-
 /**
  * This class loads turret images.
  */
-public class TurretImageManager extends AbstractImageLoader<Integer> {
+public class TurretImageManager extends AbstractImageLoaderManager<Integer> {
 
     private final Map<Integer, Image> turretSprite = new HashMap<>();
 

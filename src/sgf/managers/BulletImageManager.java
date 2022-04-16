@@ -7,12 +7,10 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import sgf.helpers.AbstractImageLoader;
-
 /**
  * 
  */
-public class BulletImageManager extends AbstractImageLoader<Integer> {
+public class BulletImageManager extends AbstractImageLoaderManager<Integer> {
 
     // TODO: da fare
     

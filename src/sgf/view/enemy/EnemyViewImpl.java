@@ -1,11 +1,11 @@
 package sgf.view.enemy;
 
 import sgf.controller.enemy.EnemyController;
-import sgf.helpers.ImageLoader;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
@@ -29,8 +29,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
     private static final int BAR_HEIGHT = 8;
     private EnemyController enemyController;
-    private final ImageLoader<EnemyType> imageEnemyController;      // Contains the links between enemy type and images.
-    private final ImageLoader<Integer> imageBarController;
+    private final ImageLoaderManager<EnemyType> imageEnemyController;      // Contains the links between enemy type and images.
+    private final ImageLoaderManager<Integer> imageBarController;
     private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
     private List<EnemyManager> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;

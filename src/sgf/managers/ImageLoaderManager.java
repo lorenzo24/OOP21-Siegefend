@@ -1,4 +1,4 @@
-package sgf.helpers;
+package sgf.managers;
 
 import java.awt.Image;
 import java.util.Map;
@@ -9,7 +9,7 @@ import sgf.model.game.PathLinker;
  * Interface implemented from image loading.
  * @param <T> Is the type of the entity whose image must be loaded.
  */
-public interface ImageLoader<T> {
+public interface ImageLoaderManager<T> {
 
     /**
      * This method loads from res folder the right .png file given as parameter.

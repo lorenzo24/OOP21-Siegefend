@@ -4,13 +4,12 @@ import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 
-import sgf.helpers.AbstractImageLoader;
 import sgf.model.enemies.EnemyType;
 
 /**
  * This class loads enemy images.
  */
-public class EnemyImageManager extends AbstractImageLoader<EnemyType> {
+public class EnemyImageManager extends AbstractImageLoaderManager<EnemyType> {
     private final Map<EnemyType, Image> enemySprite = new HashMap<>();
 
     /**
