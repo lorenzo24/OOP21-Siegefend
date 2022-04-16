@@ -59,7 +59,7 @@ public class MapLoaderImpl implements MapLoader {
 
     // This method is the file effective reader.
     private void readMapStructureFromFile(final int levelId) {
-        final String file = "res" + File.separator + "mapLevel" + levelId + ".txt";
+        final String file = "res" + File.separator + "maps" + File.separator + "mapLevel" + levelId + ".txt";
         final Path p = FileSystems.getDefault().getPath(file);
         try {
             Files.lines(p).forEach(s -> read(s));

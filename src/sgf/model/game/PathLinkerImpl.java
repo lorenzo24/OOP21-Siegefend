@@ -41,18 +41,20 @@ public class PathLinkerImpl implements PathLinker {
 
     private void createEnemyMap() {
         // Links every enemy type with the correct image that will be shown.
-        this.mapEnemy.put(EnemyType.TANK, "tank.png");
-        this.mapEnemy.put(EnemyType.PLANE, "plane.png");
-        this.mapEnemy.put(EnemyType.HELICOPTER, "helicopter.png");
+        final String folder = "enemies" + File.separator;
+        this.mapEnemy.put(EnemyType.TANK, folder + "tank.png");
+        this.mapEnemy.put(EnemyType.PLANE, folder + "plane.png");
+        this.mapEnemy.put(EnemyType.HELICOPTER, folder + "helicopter.png");
     }
 
     private void createTileMap() {
         // Links every tile type with the correct image that will be shown.
-        this.mapTile.put(TileType.GRASS, "grass.png");
-        this.mapTile.put(TileType.PATH, "sand.png");
-        this.mapTile.put(TileType.START_PATH, "start.png");
-        this.mapTile.put(TileType.END_PATH, "end.png");
-        this.mapTile.put(TileType.WATER, "water.png");
+        final String folder = "mapTiles" + File.separator;
+        this.mapTile.put(TileType.GRASS, folder + "grass.png");
+        this.mapTile.put(TileType.PATH, folder + "sand.png");
+        this.mapTile.put(TileType.START_PATH, folder + "start.png");
+        this.mapTile.put(TileType.END_PATH, folder + "end.png");
+        this.mapTile.put(TileType.WATER, folder + "water.png");
     }
 
     private void createTurretMap() {
@@ -64,7 +66,7 @@ public class PathLinkerImpl implements PathLinker {
     }
 
     private void createLifeBarMap() {
-        this.mapBarLife.put(0, "lifeBar.png");
+        this.mapBarLife.put(0, "enemies" + File.separator + "lifeBar.png");
     }
 
     @Override
