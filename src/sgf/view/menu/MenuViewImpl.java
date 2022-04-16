@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,8 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.DimensionUIResource;
+import javax.swing.table.JTableHeader;
 
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
@@ -250,12 +255,6 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private class LeaderboardMenu extends JPanel {
         LeaderboardMenu() {
-            final Leaderboard leaderboard = menuController.getLeaderboard();
-            final Map<String, Pair<String, Integer>> leaderboardMap = leaderboard.getMapScore();
-            for (var elem : leaderboardMap.entrySet()) {
-                System.out.println(elem.getKey());
-            }
-
             this.setBackground(Color.decode(BACKGROUND_COLOR));
         }
     }
@@ -278,9 +277,34 @@ public class MenuViewImpl extends AbstractMenuView {
         leaderboardPanel = new LeaderboardMenu();
         menuPanel.setVisible(false);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.createTable();
         this.add(leaderboardPanel);
         this.revalidate();
         this.repaint();
+    }
+
+    private void createTable() {
+        final String[] columnNames = { "DATE", "NAME", "SCORE" };
+        final JTable table = new JTable(this.convertToMatrix(), columnNames);
+        table.setBackground(Color.decode(BACKGROUND_COLOR));
+        table.setGridColor(Color.WHITE);
+        table.setForeground(Color.WHITE);
+        final JScrollPane sp = new JScrollPane(table);
+        this.leaderboardPanel.setLayout(new BorderLayout());
+        this.leaderboardPanel.add(sp, BorderLayout.CENTER);
+    }
+
+    private Object[][] convertToMatrix() {
+        final var recordMap = this.menuController.getLeaderboard().getMapScore();
+        final String[][] matrix = new String[recordMap.size()][3];
+        int count = 0; 
+        for (final var elem : recordMap.entrySet()) {
+            matrix[count][0] = elem.getKey();
+            matrix[count][1] = elem.getValue().getX();
+            matrix[count][2] = elem.getValue().getY().toString();
+            count++;
+        }
+        return matrix;
     }
 
     @Override
