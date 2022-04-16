@@ -54,10 +54,7 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
                 public void run() {
                     while (threadRun) {
                         try {
-                            if (enemy.getHP() <= 0) {
-                                unitDeath();
-                                break;
-                            }
+                            checkLife();
                             nextMovement();
                             checkFinalDestination();
                             Thread.sleep(ENEMY_SPEED);
@@ -116,12 +113,10 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
         enemy.move(p.getX() + vec.getX() * speed, p.getY() + vec.getY() * speed); // Moves the enemy to the next position.
     }
 
-    @Override
-    public void damage(final double damage) {
-        if (this.enemy.getHP() - damage <= 0) {
+    private void checkLife() {
+        if (this.enemy.getHP() <= 0) {
             unitDeath();
         }
-        this.enemy.damageSuffered(damage);
     }
 
     @Override
