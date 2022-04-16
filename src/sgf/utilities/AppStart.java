@@ -1,12 +1,16 @@
 package sgf.utilities;
 import sgf.controller.game.MusicController;
 import sgf.controller.game.MusicControllerImpl;
+import sgf.controller.game.PlayerController;
+import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.menu.MenuController;
 import sgf.controller.menu.MenuControllerImpl;
 import sgf.helpers.LevelLoader;
 import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LeaderboardManagerImpl;
+import sgf.model.game.Player;
+import sgf.model.game.PlayerImpl;
 import sgf.view.ScreenGame;
 import sgf.view.menu.AbstractMenuView;
 import sgf.view.menu.MenuViewImpl;
@@ -25,9 +29,13 @@ public final class AppStart {
      */
     public static void main(final String[] args) {
         final LeaderboardManager leaderboardManager = new LeaderboardManagerImpl();
+        /* ** */
+        final Player player = new PlayerImpl();
+        //final PlayerController playerController = new PlayerControllerImpl(player, leaderboardManager);
+        /* ** */
         final MusicController m = new MusicControllerImpl();
         final LevelLoader levelLoader = new LevelLoaderImpl();
-        final MenuController menuController = new MenuControllerImpl(leaderboardManager);
+        final MenuController menuController = new MenuControllerImpl(leaderboardManager, player);
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
 
 

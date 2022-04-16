@@ -70,13 +70,17 @@ public class MenuControllerImpl implements MenuController {
     private boolean isControllerSet;
     private AbstractMenuView menuView;
     private final LeaderboardManager leaderboardManager;
+    private final Player player;
+    private final PlayerController playerController;
 
     /**
      * 
      * @param leaderboardManager
      */
-    public MenuControllerImpl(final LeaderboardManager leaderboardManager) {
+    public MenuControllerImpl(final LeaderboardManager leaderboardManager, final Player player) {
         this.leaderboardManager = leaderboardManager;
+        this.player = player;
+        this.playerController = new PlayerControllerImpl(this.player, this.leaderboardManager);
     }
 
     @Override
@@ -94,8 +98,8 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
-        final Player player = new PlayerImpl("DEFAULT");
-        final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboardManager);
+        //final Player player = new PlayerImpl("DEFAULT");
+        //final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboardManager);
         final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
@@ -163,6 +167,10 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public Leaderboard getLeaderboard() {
         return this.leaderboardManager.getLeaderboard();
+    }
+
+    public PlayerController getPlayerController() {
+        return this.playerController;
     }
 
 }

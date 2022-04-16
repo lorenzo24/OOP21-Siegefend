@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import sgf.controller.enemy.EnemyController;
@@ -170,10 +171,44 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private class LevelPicker extends JPanel {
         private static final long serialVersionUID = -8864115627664618752L;
+        private boolean isUsernameSet;
 
         LevelPicker() {
-            // TODO: add name input (use DEFAULT when empty)
-            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
+            this.isUsernameSet = false;
+            final JPanel playerPanel = new JPanel(new GridLayout(1, 3, 3, 3));
+            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber() + 1, 1, 3, 3));
+            final Font levelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+
+            final JLabel usernameLabel = new JLabel("Insert username:");
+            usernameLabel.setVerticalAlignment(SwingConstants.CENTER);
+            usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            usernameLabel.setFont(levelFont);
+            usernameLabel.setForeground(Color.decode("#F7F9F9"));
+            playerPanel.add(usernameLabel);
+
+            final JTextField inputField = new JTextField();
+            inputField.setFont(levelFont);
+            playerPanel.add(inputField);
+
+            final MenuButton setUsernameButton = new MenuButton("Set");
+            setUsernameButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    if (!inputField.getText().isEmpty()) {
+                        menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
+                        JOptionPane.showMessageDialog(null, "Username updated!", "Update", 1);
+                        isUsernameSet = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No text detected, please write something.", "Update", 1);
+                    }
+                }
+            });
+            playerPanel.add(setUsernameButton);
+
+            playerPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            levelsListPanel.add(playerPanel);
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
@@ -181,18 +216,26 @@ public class MenuViewImpl extends AbstractMenuView {
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(final ActionEvent e) {
+                        if (!checkUsername()) {
+                            JOptionPane.showMessageDialog(null, "No username provided, you will use the default one.", "Update", 1);
+                        }
                         MenuViewImpl.this.beginGame(i);
                     }
                 });
                 return b;
             }).forEach(levelsListPanel::add);      // Without levelsListPanel -> .forEach(this::add);
 
-            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+
 
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             this.setLayout(new BorderLayout());
+            //this.setLayout(new GridLayout(2, 1, 8, 100));
+            //this.add(playerPanel, BorderLayout.CENTER);
             this.add(levelsListPanel, BorderLayout.CENTER);
+        }
+
+        private boolean checkUsername() {
+            return this.isUsernameSet;
         }
     }
 
