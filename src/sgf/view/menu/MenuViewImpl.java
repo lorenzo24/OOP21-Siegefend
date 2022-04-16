@@ -9,17 +9,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.DimensionUIResource;
+import javax.swing.table.JTableHeader;
 
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
@@ -42,8 +50,10 @@ import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
+import sgf.model.game.Leaderboard;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
+import sgf.utilities.Pair;
 import sgf.view.ScreenGame;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
@@ -70,7 +80,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private MenuController menuController;
     private static final String BACKGROUND_COLOR = "#293132";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
-    private JPanel menuPanel, levelPanel;
+    private JPanel menuPanel, levelPanel, leaderboardPanel;
     private final LevelLoader levelLoader;
 
     @Override
@@ -130,15 +140,13 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
             */
-
-            /*
             leaderboardButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     showLeaderboard();
                 }
             });
-            */
+
 
             creditsButton.addActionListener(new ActionListener() {
                 @Override
@@ -168,10 +176,44 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private class LevelPicker extends JPanel {
         private static final long serialVersionUID = -8864115627664618752L;
+        private boolean isUsernameSet;
 
         LevelPicker() {
-            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
-            // TODO: add name input (use DEFAULT when empty)
+            this.isUsernameSet = false;
+            final JPanel playerPanel = new JPanel(new GridLayout(1, 3, 3, 3));
+            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber() + 1, 1, 3, 3));
+            final Font levelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+
+            final JLabel usernameLabel = new JLabel("Insert username:");
+            usernameLabel.setVerticalAlignment(SwingConstants.CENTER);
+            usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            usernameLabel.setFont(levelFont);
+            usernameLabel.setForeground(Color.decode("#F7F9F9"));
+            playerPanel.add(usernameLabel);
+
+            final JTextField inputField = new JTextField();
+            inputField.setFont(levelFont);
+            playerPanel.add(inputField);
+
+            final MenuButton setUsernameButton = new MenuButton("Set");
+            setUsernameButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    if (!inputField.getText().isEmpty()) {
+                        menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
+                        JOptionPane.showMessageDialog(null, "Username updated!", "Update", 1);
+                        isUsernameSet = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No text detected, please write something.", "Update", 1);
+                    }
+                }
+            });
+            playerPanel.add(setUsernameButton);
+
+            playerPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            levelsListPanel.add(playerPanel);
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
@@ -179,32 +221,44 @@ public class MenuViewImpl extends AbstractMenuView {
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(final ActionEvent e) {
+                        if (!checkUsername()) {
+                            JOptionPane.showMessageDialog(null, "No username provided, you will use the default one.", "Update", 1);
+                        }
                         MenuViewImpl.this.beginGame(i);
                     }
                 });
                 return b;
             }).forEach(levelsListPanel::add);      // Without levelsListPanel -> .forEach(this::add);
 
-            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+
 
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             this.setLayout(new BorderLayout());
+            //this.setLayout(new GridLayout(2, 1, 8, 100));
+            //this.add(playerPanel, BorderLayout.CENTER);
             this.add(levelsListPanel, BorderLayout.CENTER);
+        }
+
+        private boolean checkUsername() {
+            return this.isUsernameSet;
         }
     }
 
     private class Options extends JPanel {
-        
-        
+
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
             final JButton musicButton = new MenuButton("");
-
         }
-        
-        
+
     }
+
+    private class LeaderboardMenu extends JPanel {
+        LeaderboardMenu() {
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+        }
+    }
+
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);
@@ -217,6 +271,42 @@ public class MenuViewImpl extends AbstractMenuView {
         this.add(this.menuController.loadPlayingView(level));
         this.revalidate();
         this.repaint();
+    }
+
+    public void showLeaderboard() {
+        leaderboardPanel = new LeaderboardMenu();
+        menuPanel.setVisible(false);
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.createTable();
+        this.add(leaderboardPanel);
+        this.revalidate();
+        this.repaint();
+    }
+
+    private void createTable() {
+        final String[] columnNames = { "DATE", "NAME", "SCORE" };
+        final JTable table = new JTable(this.convertToMatrix(), columnNames);
+        table.setBackground(Color.decode(BACKGROUND_COLOR));                    // table background
+        //table.setGridColor(Color.green);                                      // grid border
+        table.setForeground(Color.WHITE);                                       // text color
+        table.setEnabled(false);                                                // disable edit
+        final JScrollPane sp = new JScrollPane(table);
+        sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
+        this.leaderboardPanel.setLayout(new BorderLayout());
+        this.leaderboardPanel.add(sp, BorderLayout.CENTER);
+    }
+
+    private Object[][] convertToMatrix() {
+        final var recordMap = this.menuController.getLeaderboard().getMapScore();
+        final String[][] matrix = new String[recordMap.size()][3];
+        int count = 0; 
+        for (final var elem : recordMap.entrySet()) {
+            matrix[count][0] = elem.getKey();
+            matrix[count][1] = elem.getValue().getX();
+            matrix[count][2] = elem.getValue().getY().toString();
+            count++;
+        }
+        return matrix;
     }
 
     @Override
