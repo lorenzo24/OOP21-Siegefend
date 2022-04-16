@@ -79,7 +79,7 @@ public class TestEnemy {
     public void numberWaveTests() {
         final Map map = new MapLoaderImpl(1).getMap();
         final WavesLoader loader = new WavesLoaderImpl(map, 1);
-        assertEquals(loader.getWaves().size(), 4);
+        assertEquals(loader.getWaves().size(), 2);
     }
 
     /**
@@ -104,8 +104,6 @@ public class TestEnemy {
         final Map map = new MapLoaderImpl(1).getMap();
         final WavesLoader loader = new WavesLoaderImpl(map, 1);
         final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map));
-        assertNotEquals(level.getNextEnemy(), Optional.empty());
-        assertNotEquals(level.getNextEnemy(), Optional.empty());
         assertNotEquals(level.getNextEnemy(), Optional.empty());
         assertEquals(level.getNextEnemy(), Optional.empty());
     }

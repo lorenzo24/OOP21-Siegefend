@@ -11,9 +11,10 @@ import sgf.model.map.Map;
  * Test class to check correct reading from file.
  */
 public class TestMap {
-    private static final int END_TILE_ROW = 19;
-    private static final int END_TILE_COLUMN = 18;
-    private static final int SIZE_MAP1 = 20;
+    private static final int START_TILE_MAP1 = 12;
+    private static final int END_TILE_ROW = 4;
+    private static final int END_TILE_COLUMN = 14;
+    private static final int SIZE_MAP1 = 15;
     private static final int EMPTY_FILE = -2;   // Empty file in res folder is called "mapLevel-2".
     private static final int NO_PATH_FILE = -3;   // File in res folder without path is called "mapLevel-3".
 
@@ -24,7 +25,7 @@ public class TestMap {
     public void checkCorrectStartTile() {
         final MapLoader mapLoader = new MapLoaderImpl(1);
         final Map map = mapLoader.getMap();
-        assertEquals(map.getStartTile(), new GridPosition(10, 0));
+        assertEquals(map.getStartTile(), new GridPosition(START_TILE_MAP1, 0));
     }
 
     /**
@@ -34,6 +35,7 @@ public class TestMap {
     public void checkCorrectEndTile() {
         final MapLoader mapLoader = new MapLoaderImpl(1);
         final Map map = mapLoader.getMap();
+        System.out.println(mapLoader.getMap().getEndTile());
         assertEquals(map.getEndTile(), new GridPosition(END_TILE_ROW, END_TILE_COLUMN));
     }
 
