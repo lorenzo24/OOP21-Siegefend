@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map.Entry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -103,6 +103,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Override
     public void addScore(final String name, final int score) { // Add a score to the leaderboard.
-        this.leaderboard.addRecord(new Date().toString(), name, score);
+        this.leaderboard.addRecord(LocalDateTime.now().toString(), name, score);
     }
 }

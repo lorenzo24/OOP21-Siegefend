@@ -12,4 +12,9 @@ public interface PlayerView extends View<PlayerController> {
      * 
      */
     void update();
+
+    /**
+     * Close game when the player loses. 
+     */
+    void loseGame();
 }

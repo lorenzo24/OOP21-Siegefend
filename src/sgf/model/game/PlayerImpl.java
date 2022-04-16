@@ -8,7 +8,7 @@ public class PlayerImpl implements Player {
     /**
      * Indicates Player's Max health.
      */
-    public static final int MAX_HP = 20;
+    public static final int MAX_HP = 10;
     /**
      * Indicates the amount of money the player starts with.
      */

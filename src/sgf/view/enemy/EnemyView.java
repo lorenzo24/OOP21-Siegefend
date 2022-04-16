@@ -8,4 +8,8 @@ import sgf.view.View;
  */
 public interface EnemyView extends View<EnemyController> {
 
+    /**
+     * Informs player that wins the game.
+     */
+    void winGame();
 }

@@ -94,7 +94,7 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
         final Player player = new PlayerImpl("DEFAULT");
-        final PlayerController playerController = new PlayerControllerImpl(player);
+        final PlayerController playerController = new PlayerControllerImpl(player, leaderboard);
         final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
