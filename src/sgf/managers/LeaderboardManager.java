@@ -1,5 +1,7 @@
 package sgf.managers;
 
+import sgf.model.game.Leaderboard;
+
 /**
  * Interface that managed the leaderboard.
  */
@@ -16,4 +18,10 @@ public interface LeaderboardManager {
      * @param score Is the score of the player. 
      */
     void addScore(String name, int score);
+
+    /**
+     * Returns the leaderboard.
+     * @return the leaderboard.
+     */
+    Leaderboard getLeaderboard();
 }

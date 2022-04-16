@@ -105,4 +105,9 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     public void addScore(final String name, final int score) { // Add a score to the leaderboard.
         this.leaderboard.addRecord(LocalDateTime.now().toString(), name, score);
     }
+
+    @Override
+    public Leaderboard getLeaderboard() {
+        return this.leaderboard;
+    }
 }
