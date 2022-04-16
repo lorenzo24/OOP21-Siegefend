@@ -278,7 +278,6 @@ public class MenuViewImpl extends AbstractMenuView {
         menuPanel.setVisible(false);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.createTable();
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(leaderboardPanel);
         this.revalidate();
         this.repaint();
@@ -287,11 +286,12 @@ public class MenuViewImpl extends AbstractMenuView {
     private void createTable() {
         final String[] columnNames = { "DATE", "NAME", "SCORE" };
         final JTable table = new JTable(this.convertToMatrix(), columnNames);
-        table.setBackground(Color.decode(BACKGROUND_COLOR));
-        table.setGridColor(Color.WHITE);
-        table.setForeground(Color.WHITE);
-        table.setEnabled(false);
+        table.setBackground(Color.decode(BACKGROUND_COLOR));                    // table background
+        //table.setGridColor(Color.green);                                      // grid border
+        table.setForeground(Color.WHITE);                                       // text color
+        table.setEnabled(false);                                                // disable edit
         final JScrollPane sp = new JScrollPane(table);
+        sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
         this.leaderboardPanel.setLayout(new BorderLayout());
         this.leaderboardPanel.add(sp, BorderLayout.CENTER);
     }
