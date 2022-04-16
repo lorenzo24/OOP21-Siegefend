@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -170,8 +171,8 @@ public class MenuViewImpl extends AbstractMenuView {
         private static final long serialVersionUID = -8864115627664618752L;
 
         LevelPicker() {
-            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
             // TODO: add name input (use DEFAULT when empty)
+            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber(), 1, 3, 3));
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
@@ -200,7 +201,7 @@ public class MenuViewImpl extends AbstractMenuView {
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
             final JButton musicButton = new MenuButton("");
-
+            
         }
         
         
