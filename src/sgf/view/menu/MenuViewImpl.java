@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,8 +44,10 @@ import sgf.helpers.LevelLoaderImpl;
 import sgf.managers.GameManager;
 import sgf.managers.LevelManager;
 import sgf.managers.LevelManagerImpl;
+import sgf.model.game.Leaderboard;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
+import sgf.utilities.Pair;
 import sgf.view.ScreenGame;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
@@ -71,7 +74,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private MenuController menuController;
     private static final String BACKGROUND_COLOR = "#293132";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
-    private JPanel menuPanel, levelPanel;
+    private JPanel menuPanel, levelPanel, leaderboardPanel;
     private final LevelLoader levelLoader;
 
     @Override
@@ -131,15 +134,13 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
             */
-
-            /*
             leaderboardButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     showLeaderboard();
                 }
             });
-            */
+
 
             creditsButton.addActionListener(new ActionListener() {
                 @Override
@@ -196,25 +197,24 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private class Options extends JPanel {
-        
-        
+
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
             final JButton musicButton = new MenuButton("");
-            
         }
-        
-        
+
     }
-    
-    private class Leaderboard extends JPanel {
-        
-        
-        public Leaderboard() {
-            menuController.getLeaderboard();
+
+    private class LeaderboardMenu extends JPanel {
+        LeaderboardMenu() {
+            final Leaderboard leaderboard = menuController.getLeaderboard();
+            final Map<String, Pair<String, Integer>> leaderboardMap = leaderboard.getMapScore();
+            for (var elem : leaderboardMap.entrySet()) {
+                System.out.println(elem.getKey());
+            }
+
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
         }
-        
-        
     }
 
     @Override
@@ -227,6 +227,15 @@ public class MenuViewImpl extends AbstractMenuView {
     private void beginGame(final int level) {
         this.levelPanel.setVisible(false);
         this.add(this.menuController.loadPlayingView(level));
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void showLeaderboard() {
+        leaderboardPanel = new LeaderboardMenu();
+        menuPanel.setVisible(false);
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.add(leaderboardPanel);
         this.revalidate();
         this.repaint();
     }
