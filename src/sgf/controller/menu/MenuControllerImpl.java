@@ -94,7 +94,7 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
         final Player player = new PlayerImpl("DEFAULT");
-        final PlayerController playerController = new PlayerControllerImpl(player, leaderboard);
+        final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboard);
         final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
@@ -109,7 +109,7 @@ public class MenuControllerImpl implements MenuController {
          */
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, leaderboard);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboard);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
