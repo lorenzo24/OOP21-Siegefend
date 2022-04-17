@@ -1,12 +1,11 @@
 package sgf.managers;
 
 import sgf.model.bullet.Bullet;
-import sgf.model.game.Pausable;
 
 /**
  *
  */
-public interface BulletManager extends Pausable {
+public interface BulletManager {
     /**
      * Returns the {@link Bullet} associated with the bullet manager.
      * @return a bullet

@@ -7,11 +7,9 @@ import java.util.Optional;
 
 import javax.swing.Timer;
 
-import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.turret.TurretController;
 import sgf.model.enemies.Enemy;
-import sgf.model.game.Pausable;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
 import sgf.utilities.Pair;
@@ -21,7 +19,7 @@ import sgf.utilities.Pair;
  * 
  *
  */
-public class TurretManagerImpl implements TurretManager, Pausable {
+public class TurretManagerImpl implements TurretManager {
 
     private static final int UPDATE_DELAY = 20;
     private final Turret turret;
@@ -54,7 +52,6 @@ public class TurretManagerImpl implements TurretManager, Pausable {
             }
         };
         this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), fire);
-        gameManager.register(this);
         this.startTurretThread();
     }
 
@@ -121,17 +118,6 @@ public class TurretManagerImpl implements TurretManager, Pausable {
 
     private void pointToTarget(final Position targetPosition) {
         this.turret.setAngle(this.turret.getPosition().getAngle(targetPosition));
-    }
-
-    @Override
-    public void pause() {
-        this.isThreadRunning = false;
-    }
-
-    @Override
-    public void resume() {
-        this.isThreadRunning = true;
-        this.startTurretThread();
     }
 
     @Override

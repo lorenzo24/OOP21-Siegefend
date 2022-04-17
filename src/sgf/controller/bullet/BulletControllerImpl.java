@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-
-import sgf.controller.enemy.EnemyController;
 import sgf.managers.BulletManager;
 import sgf.managers.BulletManagerImpl;
 import sgf.model.bullet.Bullet;
-import sgf.model.game.Pausable;
 import sgf.utilities.LockClass;
 import sgf.view.bullet.BulletView;
 
 /**
  * Controller class for the view of bullets.
  */
-public class BulletControllerImpl implements BulletController, Pausable {
+public class BulletControllerImpl implements BulletController {
 
     private boolean isViewSet;
     private BulletView bulletView;
@@ -70,15 +67,4 @@ public class BulletControllerImpl implements BulletController, Pausable {
     public Iterator<Bullet> getBulletsIterator() {
         return this.bullets.stream().map(BulletManager::getBullet).iterator();
     }
-
-    @Override
-    public void pause() {
-        this.bullets.forEach(Pausable::pause);
-    }
-
-    @Override
-    public void resume() {
-        this.bullets.forEach(Pausable::resume);
-    }
-
 }

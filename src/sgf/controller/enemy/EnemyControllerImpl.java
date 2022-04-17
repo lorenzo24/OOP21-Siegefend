@@ -10,7 +10,6 @@ import sgf.managers.GameManager;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
-import sgf.model.game.Pausable;
 import sgf.model.game.Player;
 import sgf.utilities.LockClass;
 import sgf.view.enemy.EnemyView;
@@ -18,7 +17,7 @@ import sgf.view.enemy.EnemyView;
 /**
  * Class Waves thread that spawns enemies of the waves.
  */
-public class EnemyControllerImpl implements EnemyController, Pausable {
+public class EnemyControllerImpl implements EnemyController {
     private static final int THREAD_SPEED = 3000; 
     private boolean isControllerSet;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -43,7 +42,6 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
         this.playerManager = playerManager;
         this.gameManager = gameManager;
         this.managerList = new ArrayList<>();
-        this.gameManager.register(this);
         this.startRunWaves(); // Thread method.
     }
 
@@ -112,20 +110,8 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
     }
 
     @Override
-    public void pause() {
-        this.threadRun = false;
-    }
-
-    @Override
-    public void resume() {
-        this.threadRun = true;
-        this.startRunWaves();
-    }
-
-    @Override
     public void stopController() {
-        this.pause();
-        this.gameManager.deregister(this);
+        this.threadRun = false;
     }
 
     @Override
