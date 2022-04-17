@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import sgf.controller.game.PlayingController;
+import sgf.view.bullet.AbstractBulletView;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.turret.AbstractTurretView;
 
@@ -25,19 +26,24 @@ public class PlayingViewImpl extends AbstractPlayingView {
     private final AbstractShopView shopView;
     private final AbstractPlayerView playerView;
     private final AbstractTurretView turretView;
+    private final AbstractBulletView bulletView;
     private boolean isControllerSet;
+
 
     /**
      * 
      * @param gameView
      * @param shopView
      * @param playerView
+     * @param turretView
+     * @param bulletView
      */
-    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView, final AbstractTurretView turretView) {
+    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView, final AbstractTurretView turretView, final AbstractBulletView bulletView) {
         this.gameView = gameView;
         this.shopView = shopView;
         this.playerView = playerView;
         this.turretView = turretView;
+        this.bulletView = bulletView;
         this.setVisible(false);
     }
 

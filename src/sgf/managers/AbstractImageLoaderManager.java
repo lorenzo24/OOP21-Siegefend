@@ -1,4 +1,4 @@
-package sgf.helpers;
+package sgf.managers;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -12,7 +12,7 @@ import sgf.model.game.PathLinkerImpl;
  * Class that manages the image loading from file.
  * @param <T> Is the entity type whose image must be loaded in the correct view.
  */
-public abstract class AbstractImageLoader<T> implements ImageLoader<T> {
+public abstract class AbstractImageLoaderManager<T> implements ImageLoaderManager<T> {
     // A path linker contains all associations between enemy or tile type and its correspondent image.
     private final PathLinker imagePaths = new PathLinkerImpl(); 
 

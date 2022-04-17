@@ -3,6 +3,7 @@ package sgf.controller.menu;
 import java.util.List;
 
 import sgf.controller.bullet.BulletController;
+import sgf.controller.bullet.BulletControllerImpl;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
@@ -41,7 +42,9 @@ import sgf.model.map.Map;
 import sgf.model.shop.Shop;
 import sgf.model.shop.ShopImpl;
 import sgf.utilities.LockClass;
+import sgf.view.bullet.AbstractBulletView;
 import sgf.view.bullet.BulletView;
+import sgf.view.bullet.BulletViewImpl;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
 import sgf.view.game.AbstractGameView;
@@ -118,14 +121,14 @@ public class MenuControllerImpl implements MenuController {
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
-        final BulletController bulletController = null;
-        final BulletView bulletView = null;     // Use AbstractBulletView as type once created.
+        final BulletController bulletController = new BulletControllerImpl();
+        final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());     // Use AbstractBulletView as type once created.
         final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);
-        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView);
+        final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView, bulletView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView);
+        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView, bulletView);
 
 
         /**
@@ -137,6 +140,8 @@ public class MenuControllerImpl implements MenuController {
         mapView.setController(mapController);
         enemyController.setView(enemyView);
         enemyView.setController(enemyController);
+        bulletController.setView(bulletView);
+        bulletView.setController(bulletController);
         turretController.setView(turretView);
         turretView.setController(turretController);
         shopController.setView(shopView);
@@ -150,6 +155,7 @@ public class MenuControllerImpl implements MenuController {
         playerView.start();
         mapView.start();
         enemyView.start();
+        bulletView.start();
         turretView.start();
         gameView.start();
         playingView.start();

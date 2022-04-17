@@ -46,7 +46,7 @@ public class MusicControllerImpl implements MusicController {
 
     // This method open an audio stream and start the music file.
     private void play(final String fileName) {
-        final String musicFile = "res" + File.separator + fileName + ".wav";
+        final String musicFile = "res" + File.separator + "musics" + File.separator + fileName + ".wav";
         final File file = new File(musicFile);
             try (AudioInputStream a = AudioSystem.getAudioInputStream(file)) {
                 c = AudioSystem.getClip();

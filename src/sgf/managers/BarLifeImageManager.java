@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import sgf.helpers.AbstractImageLoader;
-
 /**
  * Class for load the bar life.
  */
-public class BarLifeImageManager extends AbstractImageLoader<Integer> {
+public class BarLifeImageManager extends AbstractImageLoaderManager<Integer> {
 
     private final Map<Integer, Image> lifeSprite = new HashMap<>();
 
