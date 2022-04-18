@@ -311,6 +311,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
     @Override
     public void showCredits() {
+        // TODO: Use Scrolling Text
         JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
     }
 
