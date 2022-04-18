@@ -81,7 +81,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private MenuController menuController;
     private static final String BACKGROUND_COLOR = "#293132";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
-    private JPanel menuPanel, levelPanel, leaderboardPanel;
+    private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel;
     private final LevelLoader levelLoader;
 
     @Override
@@ -100,6 +100,7 @@ public class MenuViewImpl extends AbstractMenuView {
         super();
         this.levelLoader = l;
         levelPanel = new LevelPicker();
+        optionsPanel = new Options();
         this.setVisible(true);
     }
 
@@ -133,14 +134,13 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
 
-            /*
             optionsButton.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    changeOptions();
+                public void actionPerformed(final ActionEvent e) {
+                    showOptions();
                 }
             });
-            */
+
             leaderboardButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
@@ -249,7 +249,24 @@ public class MenuViewImpl extends AbstractMenuView {
 
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
-            final JButton musicButton = new MenuButton("");
+            final MenuButton musicButton = new MenuButton("Disable Music");      // Music is enabled by default
+            final MenuButton goBackButton = new MenuButton("Go back");
+
+            goBackButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    showStartMenu();
+                }
+            });
+
+            optionsPanel.add(musicButton);
+            optionsPanel.add(goBackButton);
+
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+            this.setLayout(new BorderLayout());
+            //this.setLayout(new GridLayout(2, 1, 8, 100));
+            //this.add(playerPanel, BorderLayout.CENTER);
+            this.add(optionsPanel, BorderLayout.CENTER);
         }
 
     }
@@ -260,11 +277,27 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
+    public void showStartMenu() {
+        this.removeAll();
+        optionsPanel.setVisible(false);
+        menuPanel.setVisible(true);
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.add(menuPanel);
+    }
+
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(levelPanel);
+    }
+    
+    public void showOptions() {
+        menuPanel.setVisible(false);
+        this.revalidate();
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.add(optionsPanel);
+        this.repaint();
     }
 
     private void beginGame(final int level) {
