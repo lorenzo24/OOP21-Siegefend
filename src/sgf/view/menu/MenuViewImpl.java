@@ -232,7 +232,7 @@ public class MenuViewImpl extends AbstractMenuView {
             goBackButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
-                    
+                    // TODO: Add goback function
                     showStartMenu();
                 }
             });
