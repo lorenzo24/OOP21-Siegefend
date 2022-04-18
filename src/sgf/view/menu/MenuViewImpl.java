@@ -278,8 +278,6 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     public void showStartMenu() {
-        this.removeAll();
-        optionsPanel.setVisible(false);
         menuPanel.setVisible(true);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(menuPanel);
