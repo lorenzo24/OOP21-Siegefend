@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import sgf.controller.menu.MenuController;
 import sgf.helpers.LevelLoader;
+import sgf.utilities.Pair;
 
 /**
  *

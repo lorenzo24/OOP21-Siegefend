@@ -8,6 +8,7 @@ import sgf.controller.enemy.EnemyController;
 import sgf.controller.enemy.EnemyControllerImpl;
 import sgf.controller.game.GameController;
 import sgf.controller.game.GameControllerImpl;
+import sgf.controller.game.MusicController;
 import sgf.controller.game.PlayerController;
 import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.game.PlayingController;
