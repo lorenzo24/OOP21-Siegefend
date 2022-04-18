@@ -4,16 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Optional;
-
 import javax.swing.Timer;
-
-import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.turret.TurretController;
 import sgf.model.enemies.Enemy;
 import sgf.model.game.Pausable;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
+import sgf.utilities.LockClass;
 import sgf.utilities.Pair;
 
 /**
@@ -102,6 +100,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
      * Searches the closest enemy to the turret and sets it as a target.
      */
     private void findTarget() {
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         final Position currentPosition = this.getTurret().getPosition();
         final var closest = this.enemyController.getManagerList().stream()
                                              .filter(e -> e.getEnemy().getHP() > 0) // Ignores enemies with HP lower or equal to 0
@@ -111,7 +110,7 @@ public class TurretManagerImpl implements TurretManager, Pausable {
                                                      return Double.compare(p1.getY(), p2.getY());
                                                  }
                                              });
-
+        LockClass.getEnemySemaphore().release();
         if (closest.isPresent() && closest.get().getY() <= this.turret.getRange()) {
             this.turret.setTarget(closest.get().getX().getEnemy());
         } else {

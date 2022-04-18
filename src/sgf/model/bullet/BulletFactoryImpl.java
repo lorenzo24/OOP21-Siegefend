@@ -9,8 +9,8 @@ import sgf.model.map.Position;
 public class BulletFactoryImpl implements BulletFactory {
 
     @Override
-    public Bullet createBullet(final double speed, final Position startPosition, final double damage, final Enemy enemyTarget) {
-        return new BulletImpl(speed, startPosition, damage, enemyTarget);
+    public Bullet createBullet(final int id, final double speed, final Position startPosition, final double damage, final Enemy enemyTarget) {
+        return new BulletImpl(id, speed, startPosition, damage, enemyTarget);
     }
 
 }

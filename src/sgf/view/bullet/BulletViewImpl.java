@@ -1,13 +1,11 @@
 package sgf.view.bullet;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
-
 import sgf.controller.bullet.BulletController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BulletImageManager;
@@ -21,6 +19,10 @@ import sgf.utilities.LockClass;
  */
 public class BulletViewImpl extends AbstractBulletView {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4332476576224943846L;
     private BulletController bulletController;
     private boolean isControllerSet;
     private boolean ready;
@@ -57,7 +59,7 @@ public class BulletViewImpl extends AbstractBulletView {
         final var iterator = this.bulletController.getBulletsIterator();
         while (iterator.hasNext()) {
             final Bullet b = iterator.next();
-            final Image img = this.imgManager.getImage(1);
+            final Image img = this.imgManager.getImage(b.getID());
             final Position pos = b.getPosition();
             gImage.drawImage(img, (int) pos.getX(), (int) pos.getY(), this.tileSize, this.tileSize, null);
         }
