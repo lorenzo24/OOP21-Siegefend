@@ -218,6 +218,7 @@ public class MenuViewImpl extends AbstractMenuView {
         
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
+            final JLabel optionsLabel = new JLabel("Options");
             final MenuButton goBackButton = new MenuButton("Go back");
             
             musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
