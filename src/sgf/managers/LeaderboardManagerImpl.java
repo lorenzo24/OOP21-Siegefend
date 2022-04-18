@@ -50,7 +50,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Create one element of one record.
-    @SuppressWarnings("unchecked")
     private JSONObject createJsonElem(final Entry<String, Pair<String, Integer>> x) {
         final JSONObject elem = new JSONObject();
         elem.put("date", x.getKey());
@@ -62,19 +61,20 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     // Clear the initial file delete and create new.
     private void clearFile() {
         try {
-            if (this.f.delete()) {
-                if (!this.f.createNewFile()) {
-                    throw new IOException("Failed to create file.");
+            if (this.f.exists()) {
+                if (this.f.delete()) {
+                    if (!this.f.createNewFile()) {
+                        throw new IOException("Failed to create file.");
+                    }
+                } else {
+                    throw new IOException("Failed to delete file.");
                 }
-            } else {
-                throw new IOException("Failed to delete file.");
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void readScore() {
         if (this.f.length() == 0) { // If file of leaderboard is empty not do any.
             return;
