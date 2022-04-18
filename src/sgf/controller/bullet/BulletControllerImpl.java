@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-
-import sgf.controller.enemy.EnemyController;
 import sgf.managers.BulletManager;
 import sgf.managers.BulletManagerImpl;
 import sgf.model.bullet.Bullet;

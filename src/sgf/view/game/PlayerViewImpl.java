@@ -1,15 +1,10 @@
 package sgf.view.game;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import sgf.controller.game.PlayerController;
 
 /**
@@ -18,6 +13,10 @@ import sgf.controller.game.PlayerController;
  */
 public class PlayerViewImpl extends AbstractPlayerView {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1277354176566275849L;
     private boolean isControllerSet = false;
     private PlayerController playerController;
     private boolean ready = false;

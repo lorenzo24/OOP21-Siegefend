@@ -2,7 +2,6 @@ package sgf.managers;
 
 import sgf.controller.bullet.BulletController;
 import sgf.model.bullet.Bullet;
-import sgf.model.game.Pausable;
 
 /**
  * Manages a bullet, moving it towards an enemy and inflicting damage when reaching it.

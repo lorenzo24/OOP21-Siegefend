@@ -5,7 +5,6 @@ import sgf.model.game.GameStatus;
 import sgf.model.game.Pausable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
-import sgf.model.map.GridPosition;
 
 /**
  * Handles the coordination of the various game components.

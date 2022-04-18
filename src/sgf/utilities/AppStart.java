@@ -1,8 +1,6 @@
 package sgf.utilities;
 import sgf.controller.game.MusicController;
 import sgf.controller.game.MusicControllerImpl;
-import sgf.controller.game.PlayerController;
-import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.menu.MenuController;
 import sgf.controller.menu.MenuControllerImpl;
 import sgf.helpers.LevelLoader;
