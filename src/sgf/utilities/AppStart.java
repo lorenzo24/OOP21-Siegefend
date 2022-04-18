@@ -35,7 +35,7 @@ public final class AppStart {
         /* ** */
         final MusicController m = new MusicControllerImpl();
         final LevelLoader levelLoader = new LevelLoaderImpl();
-        final MenuController menuController = new MenuControllerImpl(leaderboardManager, player);
+        final MenuController menuController = new MenuControllerImpl(leaderboardManager, player, m);
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
 
 

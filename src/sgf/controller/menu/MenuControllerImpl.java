@@ -75,15 +75,17 @@ public class MenuControllerImpl implements MenuController {
     private final LeaderboardManager leaderboardManager;
     private final Player player;
     private final PlayerController playerController;
+    private final MusicController musicController;
 
     /**
      * 
      * @param leaderboardManager
      */
-    public MenuControllerImpl(final LeaderboardManager leaderboardManager, final Player player) {
+    public MenuControllerImpl(final LeaderboardManager leaderboardManager, final Player player, final MusicController musicController) {
         this.leaderboardManager = leaderboardManager;
         this.player = player;
         this.playerController = new PlayerControllerImpl(this.player, this.leaderboardManager);
+        this.musicController = musicController;
     }
 
     @Override
@@ -177,6 +179,11 @@ public class MenuControllerImpl implements MenuController {
 
     public PlayerController getPlayerController() {
         return this.playerController;
+    }
+
+    @Override
+    public MusicController getMusicController() {
+        return this.musicController;
     }
 
 }
