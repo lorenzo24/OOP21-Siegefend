@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -299,8 +300,10 @@ public class MenuViewImpl extends AbstractMenuView {
     private Object[][] convertToMatrix() {
         final var recordMap = this.menuController.getLeaderboard().getMapScore();
         final String[][] matrix = new String[recordMap.size()][3];
-        int count = 0; 
-        for (final var elem : recordMap.entrySet()) {
+        final Iterator<Map.Entry<String, Pair<String, Integer>>> iterator = recordMap.entrySet().stream().sorted((x, y) -> y.getValue().getY().compareTo(x.getValue().getY())).iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            final var elem = iterator.next();
             matrix[count][0] = elem.getKey();
             matrix[count][1] = elem.getValue().getX();
             matrix[count][2] = elem.getValue().getY().toString();

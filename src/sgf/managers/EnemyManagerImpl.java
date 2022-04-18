@@ -17,7 +17,7 @@ import sgf.utilities.PositionConverter;
  * Class that manages each single enemy.
  */
 public class EnemyManagerImpl implements EnemyManager, Pausable {
-    private static final int ENEMY_SPEED = 10;
+    private static final int ENEMY_SPEED = 5;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private final Enemy enemy;
