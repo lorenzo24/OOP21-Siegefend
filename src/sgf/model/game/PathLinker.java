@@ -28,6 +28,12 @@ public interface PathLinker {
      Map<Integer, String> getTurretMap();
 
      /**
+      * Method that links every bullet id with the correspondent image path name.
+      * @return a map that links every bullet id with the correct image path.
+      */
+     Map<Integer, String> getBulletMap();
+
+     /**
       * Method that links lifeBar with the correspondent image path name.
       * @return a map that links the lifeBar with the correct image path.
       */

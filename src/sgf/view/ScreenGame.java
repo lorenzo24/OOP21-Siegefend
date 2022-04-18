@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import sgf.view.game.AbstractPlayingView;
-
 /**
  * This class represents a simple screen game (JFrame).
  */
@@ -48,7 +46,7 @@ public class ScreenGame extends JFrame {
             @Override
             public void windowClosing(final WindowEvent e) {
                 final int choise = JOptionPane.showConfirmDialog(new JFrame(), 
-                        "Do you really want to quit?", "QUITTING", JOptionPane.YES_NO_OPTION);
+                        "Do you really want to quit? \nYour score won't be saved into the leaderborad!", "QUITTING", JOptionPane.YES_NO_OPTION);
                 if (choise == JOptionPane.YES_OPTION) {
                     System.exit(0);     // TODO find an alternative to avoid warning.
                 }
