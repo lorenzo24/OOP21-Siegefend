@@ -81,7 +81,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private MenuController menuController;
     private static final String BACKGROUND_COLOR = "#293132";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
-    private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel;
+    private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null;
     private final LevelLoader levelLoader;
 
     @Override
@@ -246,15 +246,27 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private class Options extends JPanel {
+        private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
+        private final MenuButton musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
 
+        
         Options(){
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
-            final MenuButton musicButton = new MenuButton("Disable Music");      // Music is enabled by default
             final MenuButton goBackButton = new MenuButton("Go back");
+            
+            musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
+
+            musicButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    updateMusicButton();
+                }
+            });
 
             goBackButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
+                    
                     showStartMenu();
                 }
             });
@@ -269,6 +281,19 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(optionsPanel, BorderLayout.CENTER);
         }
 
+        private void updateMusicButton() {
+            // Palette: https://coolors.co/29bf12-ef476f
+            if (menuController.getMusicController().isMusicPlaying()) {
+                menuController.getMusicController().musicOff();
+                this.musicButton.setBackground(Color.decode(MUSIC_OFF_COLOR));
+                this.musicButton.setText("Music is currently OFF");
+            } else {
+                menuController.getMusicController().musicOn();
+                this.musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
+                this.musicButton.setText("Music is currently ON");
+            }
+        }
+
     }
 
     private class LeaderboardMenu extends JPanel {
@@ -278,6 +303,7 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     public void showStartMenu() {
+        hideExtraPanels();
         menuPanel.setVisible(true);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(menuPanel);
@@ -347,6 +373,22 @@ public class MenuViewImpl extends AbstractMenuView {
     public void showCredits() {
         // TODO: Use Scrolling Text
         JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
+    }
+    
+    /**
+     * Hides all panels that are not null (except the main menu).
+     */
+    public void hideExtraPanels() {
+        if (levelPanel != null) {
+            levelPanel.setVisible(false);
+        }
+        if (optionsPanel != null) {
+            optionsPanel.setVisible(false);
+        }
+        if (leaderboardPanel != null) {
+            leaderboardPanel.setVisible(false);
+        }
+        // credits
     }
 
     private void setup() {
