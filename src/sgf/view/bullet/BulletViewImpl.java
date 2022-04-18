@@ -57,7 +57,7 @@ public class BulletViewImpl extends AbstractBulletView {
         final var iterator = this.bulletController.getBulletsIterator();
         while (iterator.hasNext()) {
             final Bullet b = iterator.next();
-            final Image img = this.imgManager.getImage(1);
+            final Image img = this.imgManager.getImage(b.getID());
             final Position pos = b.getPosition();
             gImage.drawImage(img, (int) pos.getX(), (int) pos.getY(), this.tileSize, this.tileSize, null);
         }
