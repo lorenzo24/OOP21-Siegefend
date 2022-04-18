@@ -2,23 +2,13 @@ package sgf.view.menu;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,55 +16,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.table.JTableHeader;
-
-import sgf.controller.enemy.EnemyController;
-import sgf.controller.enemy.EnemyControllerImpl;
-import sgf.controller.game.GameController;
-import sgf.controller.game.GameControllerImpl;
-import sgf.controller.game.MusicController;
-import sgf.controller.game.MusicControllerImpl;
-import sgf.controller.game.PlayerController;
-import sgf.controller.game.PlayerControllerImpl;
-import sgf.controller.game.PlayingController;
-import sgf.controller.game.PlayingControllerImpl;
-import sgf.controller.map.MapController;
-import sgf.controller.map.MapControllerImpl;
 import sgf.controller.menu.MenuController;
-import sgf.controller.menu.MenuControllerImpl;
-import sgf.controller.shop.ShopController;
-import sgf.controller.shop.ShopControllerImpl;
 import sgf.helpers.LevelLoader;
-import sgf.helpers.LevelLoaderImpl;
-import sgf.managers.GameManager;
-import sgf.managers.LevelManager;
-import sgf.managers.LevelManagerImpl;
-import sgf.model.game.Leaderboard;
-import sgf.model.game.Player;
-import sgf.model.game.PlayerImpl;
-import sgf.utilities.Pair;
-import sgf.view.ScreenGame;
-import sgf.view.enemy.AbstractEnemyView;
-import sgf.view.enemy.EnemyViewImpl;
-import sgf.view.game.AbstractGameView;
-import sgf.view.game.AbstractPlayerView;
-import sgf.view.game.AbstractPlayingView;
-import sgf.view.game.GameViewImpl;
-import sgf.view.game.PlayerViewImpl;
-import sgf.view.game.PlayingViewImpl;
-import sgf.view.map.AbstractMapView;
-import sgf.view.map.MapViewImpl;
-import sgf.view.shop.AbstractShopView;
-import sgf.view.shop.ShopViewImpl;
 
 /**
- * 
- * 
  *
  */
 public class MenuViewImpl extends AbstractMenuView {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5001578289309695664L;
     private boolean isControllerSet;
     private boolean ready;
     private MenuController menuController;
@@ -108,6 +61,11 @@ public class MenuViewImpl extends AbstractMenuView {
      *
      */
     private final class StartMenu extends JPanel {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -8068410130600493746L;
 
         private StartMenu() {
             JPanel buttonsPanel;
@@ -246,7 +204,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private class Options extends JPanel {
 
-        Options(){
+        Options() {
             final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
             final JButton musicButton = new MenuButton("");
         }
@@ -254,6 +212,11 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private class LeaderboardMenu extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -569715702442061004L;
+
         LeaderboardMenu() {
             this.setBackground(Color.decode(BACKGROUND_COLOR));
         }

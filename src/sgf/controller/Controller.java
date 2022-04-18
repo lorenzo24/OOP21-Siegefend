@@ -13,7 +13,7 @@ public interface Controller<V extends View<?>> {
      * @param view the view to associate
      */
     void setView(V view);
-    
+
     /**
      * Stops all ongoing work.
      */

@@ -1,13 +1,9 @@
 package sgf.managers;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
-
-import javax.imageio.ImageIO;
 
 /**
  * This class loads turret images.

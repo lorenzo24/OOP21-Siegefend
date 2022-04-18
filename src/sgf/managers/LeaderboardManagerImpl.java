@@ -86,10 +86,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             array.forEach(x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (org.json.simple.parser.ParseException e) {
             System.out.print("Leaderboard not loaded, file corrupt");
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 

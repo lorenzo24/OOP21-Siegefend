@@ -33,7 +33,6 @@ public class ScreenGame extends JFrame {
     }
 
     private void setFrameSize() {
-        final double width = this.screenSize.getWidth();
         final double height = this.screenSize.getHeight();
         final Dimension minimumSize = new Dimension((int) (height * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
         this.setMinimumSize(minimumSize);

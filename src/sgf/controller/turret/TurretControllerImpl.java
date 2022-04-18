@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 import java.util.Optional;
-
 import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.shop.ShopController;
@@ -17,7 +16,6 @@ import sgf.model.bullet.Bullet;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.turret.Turret;
-import sgf.model.turret.TurretImpl;
 import sgf.utilities.PositionConverter;
 import sgf.view.turret.TurretView;
 
