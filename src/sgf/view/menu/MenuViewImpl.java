@@ -87,7 +87,7 @@ public class MenuViewImpl extends AbstractMenuView {
             titleLabel.setVerticalAlignment(SwingConstants.CENTER);
             titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
             titleLabel.setFont(TITLE_FONT);
-            titleLabel.setForeground(Color.decode("#F7F9F9"));
+            titleLabel.setForeground(Color.decode(TEXT_COLOR));
 
             startButton = new MenuButton("Start game");
             optionsButton = new MenuButton("Options");
@@ -141,90 +141,7 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(menuPanel, BorderLayout.CENTER);
         }
     }
-    
-    /*
-    private class LevelPicker extends JPanel {
-        private static final long serialVersionUID = -8864115627664618752L;
-        private boolean isUsernameSet;
 
-        LevelPicker() {
-            this.isUsernameSet = false;
-            final JPanel playerPanel = new JPanel(new GridLayout(1, 3, 3, 3));
-            final JPanel levelPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 3, 3));
-            final Font levelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
-
-            final JLabel usernameLabel = new JLabel("Insert username:");
-            usernameLabel.setVerticalAlignment(SwingConstants.CENTER);
-            usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            usernameLabel.setFont(levelFont);
-            usernameLabel.setForeground(Color.decode("#F7F9F9"));
-            playerPanel.add(usernameLabel);
-
-            final JTextField inputField = new JTextField();
-            inputField.setFont(levelFont);
-            playerPanel.add(inputField);
-
-            final MenuButton setUsernameButton = new MenuButton("Set");
-            setUsernameButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    if (!inputField.getText().isEmpty()) {
-                        menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
-                        JOptionPane.showMessageDialog(null, "Username updated!", "Update", 1);
-                        isUsernameSet = true;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No text detected, please write something.", "Update", 1);
-                    }
-                }
-            });
-            playerPanel.add(setUsernameButton);
-            
-
-            playerPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-            levelPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            levelPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-            levelPanel.add(playerPanel);
-            Stream.iterate(1, i -> i + 1)
-            .limit(levelLoader.getLevelsNumber())
-            .map(i -> {
-                final JButton b = new MenuButton("Livello" + i);
-                b.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(final ActionEvent e) {
-                        if (!checkUsername()) {
-                            JOptionPane.showMessageDialog(null, "No username provided, you will use the default one.", "Update", 1);
-                        }
-                        MenuViewImpl.this.beginGame(i);
-                    }
-                });
-                return b;
-            }).forEach(levelPanel::add);      // Without levelsListPanel -> .forEach(this::add);
-            
-            final MenuButton goBackButton = new MenuButton("Go back");
-
-            goBackButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    goBack();
-                }
-            });
-            levelPanel.add(goBackButton);
-
-
-            this.setBackground(Color.decode(BACKGROUND_COLOR));
-            this.setLayout(new BorderLayout());
-            //this.setLayout(new GridLayout(2, 1, 8, 100));
-            //this.add(playerPanel, BorderLayout.CENTER);
-            //this.add(playerPanel, BorderLayout.CENTER);
-            this.add(levelPanel, BorderLayout.CENTER);
-        }
-
-        private boolean checkUsername() {
-            return this.isUsernameSet;
-        }
-    }
-    */
-    
     private class LevelMenu extends JPanel {
         private boolean isUsernameSet;
 
@@ -299,60 +216,6 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    /*
-    private class Options extends JPanel {
-        private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
-        private final MenuButton musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
-
-        
-        Options(){
-            final JPanel optionsPanel = new JPanel(new GridLayout(2, 1, 3, 3));
-            final JLabel optionsLabel = new JLabel("Options");
-            final MenuButton goBackButton = new MenuButton("Go back");
-            
-            musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
-
-            musicButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    updateMusicButton();
-                }
-            });
-
-            goBackButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    // TODO: Add goback function
-                    // showStartMenu();
-                    goBack();
-                }
-            });
-
-            optionsPanel.add(musicButton);
-            optionsPanel.add(goBackButton);
-
-            this.setBackground(Color.decode(BACKGROUND_COLOR));
-            this.setLayout(new BorderLayout());
-            //this.setLayout(new GridLayout(2, 1, 8, 100));
-            //this.add(playerPanel, BorderLayout.CENTER);
-            this.add(optionsPanel, BorderLayout.CENTER);
-        }
-
-        private void updateMusicButton() {
-            // Palette: https://coolors.co/29bf12-ef476f
-            if (menuController.getMusicController().isMusicPlaying()) {
-                menuController.getMusicController().musicOff();
-                this.musicButton.setBackground(Color.decode(MUSIC_OFF_COLOR));
-                this.musicButton.setText("Music is currently OFF");
-            } else {
-                menuController.getMusicController().musicOn();
-                this.musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
-                this.musicButton.setText("Music is currently ON");
-            }
-        }
-
-    }
-    */
     
     private class OptionsMenu extends JPanel {
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
