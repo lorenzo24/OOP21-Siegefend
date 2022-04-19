@@ -43,10 +43,9 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
     private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+    private static final int BORDER = 50;
     private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
     private final LevelLoader levelLoader;
-    
-    private int borderTest = 100; // OG: 200
 
     @Override
     public void setController(final MenuController controller) {
@@ -68,76 +67,6 @@ public class MenuViewImpl extends AbstractMenuView {
         this.setVisible(true);
     }
 
-    /*
-    private final class StartMenu extends JPanel {
-
-        private static final long serialVersionUID = -8068410130600493746L;
-
-        private StartMenu() {
-            JPanel buttonsPanel;
-            MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
-            JLabel titleLabel;
-
-            titleLabel = new JLabel("Siegefend");
-            titleLabel.setVerticalAlignment(SwingConstants.CENTER);
-            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            titleLabel.setFont(TITLE_FONT);
-            titleLabel.setForeground(Color.decode(TEXT_COLOR));
-
-            startButton = new MenuButton("Start game");
-            optionsButton = new MenuButton("Options");
-            leaderboardButton = new MenuButton("Leaderboard");
-            creditsButton = new MenuButton("Credits");
-
-            startButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    showLevelPicker();
-                }
-            });
-
-            optionsButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    showOptions();
-                }
-            });
-
-            leaderboardButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    showLeaderboard();
-                }
-            });
-
-
-            creditsButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    showCredits();
-                }
-            });
-
-            buttonsPanel = new JPanel(new GridLayout(4, 1, 3, 3));
-            buttonsPanel.add(startButton);
-            buttonsPanel.add(optionsButton);
-            buttonsPanel.add(leaderboardButton);
-            buttonsPanel.add(creditsButton);
-            buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
-            buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-
-            menuPanel = new JPanel(new GridLayout(2, 1, 8, 50));
-            menuPanel.add(titleLabel);
-            menuPanel.add(buttonsPanel);
-            menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            menuPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-            this.setBackground(Color.decode(BACKGROUND_COLOR));
-            this.setLayout(new BorderLayout());
-            this.add(menuPanel, BorderLayout.CENTER);
-        }
-    }
-    */
-
     private final class StartMenu extends JPanel {
         private final JPanel buttonsPanel;
         private final MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
@@ -145,7 +74,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private StartMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 50));
-            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
+            this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             titleLabel = new JLabel("Siegefend");
@@ -207,7 +136,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private LevelMenu(){
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
-            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
+            this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             // Username panel
@@ -281,7 +210,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private OptionsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
+            this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
             goBackButton = new MenuButton("Go back");
@@ -338,7 +267,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private CreditsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
+            this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             creditsText = "The team that made Siegefend a reality:\n\n\n\n\n"
