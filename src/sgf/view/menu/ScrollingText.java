@@ -20,7 +20,7 @@ public class ScrollingText extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = -4619185403316178271L;
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
-    private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+    private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 50); // OG: 25
     private static final int TEXT_Y = 400;
     private final Timer creditTimer;
     private final String text;
