@@ -66,16 +66,9 @@ public class MenuViewImpl extends AbstractMenuView {
         this.setVisible(true);
     }
 
-    /**
-     * 
-     * 
-     *
-     */
+    /*
     private final class StartMenu extends JPanel {
 
-        /**
-         * 
-         */
         private static final long serialVersionUID = -8068410130600493746L;
 
         private StartMenu() {
@@ -141,6 +134,70 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(menuPanel, BorderLayout.CENTER);
         }
     }
+    */
+    
+    private final class StartMenu extends JPanel {
+        JPanel buttonsPanel;
+        MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
+        JLabel titleLabel;
+
+        private StartMenu() {
+            this.setLayout(new GridLayout(2, 1, 15, 50));
+            //this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            titleLabel = new JLabel("Siegefend");
+            titleLabel.setVerticalAlignment(SwingConstants.CENTER);
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            titleLabel.setFont(TITLE_FONT);
+            titleLabel.setForeground(Color.decode(TEXT_COLOR));
+
+            startButton = new MenuButton("Start game");
+            optionsButton = new MenuButton("Options");
+            leaderboardButton = new MenuButton("Leaderboard");
+            creditsButton = new MenuButton("Credits");
+
+            startButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    showLevelPicker();
+                }
+            });
+
+            optionsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    showOptions();
+                }
+            });
+
+            leaderboardButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    showLeaderboard();
+                }
+            });
+
+            creditsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    showCredits();
+                }
+            });
+
+            buttonsPanel = new JPanel(new GridLayout(4, 1, 15, 15));
+            buttonsPanel.add(startButton);
+            buttonsPanel.add(optionsButton);
+            buttonsPanel.add(leaderboardButton);
+            buttonsPanel.add(creditsButton);
+            buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
+            buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            this.add(titleLabel);
+            this.add(buttonsPanel);
+        }
+    }
+    
 
     private class LevelMenu extends JPanel {
         private boolean isUsernameSet;
