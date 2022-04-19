@@ -66,7 +66,6 @@ public class EnemyViewImpl extends AbstractEnemyView {
                 final var enemy = x.getEnemy();
                 this.drowSprite(gImage, enemy);
                 this.drowLifeBar(gImage, enemy);
-                //SwingUtilities.invokeLater(() -> x.damage(1)); // TODO TOGLIERE.
             });
             LockClass.getEnemySemaphore().release();
     }

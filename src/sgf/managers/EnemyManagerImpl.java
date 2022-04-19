@@ -88,7 +88,7 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
             this.takeDirection(); // It selects and sets up the direction.
         }
         this.stepsDone += this.enemy.getSpeed(); // Sets the step to the next position of the cell.
-        if (this.stepsDone == this.imgSize) { // If it is at the end of the tile, it resets to zero.
+        if (this.stepsDone >= this.imgSize) { // If it is at the end of the tile, it resets to zero.
             this.stepsDone = 0;
         }
         this.enemyMovement(this.lastDir.orElseThrow()); // Moves the enemy.
