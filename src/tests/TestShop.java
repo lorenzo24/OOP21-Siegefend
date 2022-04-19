@@ -34,10 +34,13 @@ class TestShop {
 
     private static final int INIT_MONEY = 300;
     private final Shop s;
+    private final Turret t1, t2;
 
     {
-        final Map.Entry<Integer, Turret> e1 = Map.entry(0, new TurretImpl(0, null, 1, 100, 1, 1, 1));
-        final Map.Entry<Integer, Turret> e2 = Map.entry(1, new TurretImpl(1, null, 1, 500, 1, 1, 1));
+        this.t1 = new TurretImpl(0, null, 1, 100, 1, 1, 1);
+        this.t2 = new TurretImpl(1, null, 1, 500, 1, 1, 1);
+        final Map.Entry<Integer, Turret> e1 = Map.entry(0, t1);
+        final Map.Entry<Integer, Turret> e2 = Map.entry(1, t2);
         this.s = new ShopImpl(new TurretsLoader() {
             @Override
             public Map<Integer, Turret> getTurrets() {
@@ -85,16 +88,16 @@ class TestShop {
         final ShopView sv = new ShopViewImpl();
         sc.setView(sv);
         sv.setController(sc);
-        assertTrue(sc.trySetSelectedTurret(this.s.getAvailableTurrets().get(0)));
+        assertTrue(sc.trySetSelectedTurret(t1));
         assertTrue(sc.buy().isPresent());
         assertEquals(200, p.getMoney());
-        assertTrue(sc.trySetSelectedTurret(this.s.getAvailableTurrets().get(0)));
+        assertTrue(sc.trySetSelectedTurret(t1));
         assertTrue(sc.buy().isPresent());
         assertEquals(100, p.getMoney());
-        assertTrue(sc.trySetSelectedTurret(this.s.getAvailableTurrets().get(0)));
+        assertTrue(sc.trySetSelectedTurret(t1));
         assertTrue(sc.buy().isPresent());
         assertEquals(0, p.getMoney());
-        assertFalse(sc.trySetSelectedTurret(this.s.getAvailableTurrets().get(0))); // No funds to buy turret.
+        assertFalse(sc.trySetSelectedTurret(t1)); // No funds to buy turret.
         assertTrue(sc.buy().isEmpty());
         assertEquals(0, p.getMoney());
     }
