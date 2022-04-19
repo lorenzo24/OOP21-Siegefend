@@ -2,11 +2,9 @@ package sgf.controller.enemy;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.controller.game.PlayerController;
 import sgf.managers.EnemyManager;
 import sgf.managers.EnemyManagerImpl;
-import sgf.managers.GameManager;
 import sgf.managers.LeaderboardManager;
 import sgf.managers.LevelManager;
 import sgf.model.enemies.Enemy;
@@ -28,7 +26,6 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
     private final List<EnemyManager> managerList; // List of enemyyManager of enemy that is moving in the game.
     private final PlayerController playerManager;  //Manager of Player, needed by EnemyManager.
     private final LeaderboardManager leaderboard;
-    private final GameManager gameManager;
     private Thread waveThread;
 
     /**
@@ -36,13 +33,11 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
      * @param levelManager Is the manager of the current level.
      * @param playerManager Is the manager of the player.
      * @param leaderboard Is the leaderboard manager.
-     * @param gameManager Is the game Manager.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final GameManager gameManager, final PlayerController playerManager, final LeaderboardManager leaderboard) {
+    public EnemyControllerImpl(final LevelManager levelManager, final PlayerController playerManager, final LeaderboardManager leaderboard) {
         this.leaderboard = leaderboard;
         this.levelManager = levelManager;
         this.playerManager = playerManager;
-        this.gameManager = gameManager;
         this.managerList = new ArrayList<>();
         ThreadObserver.register(this);
         this.startRunWaves(); // Thread method.
@@ -73,7 +68,7 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
         waveThread.start();
     }
 
-    // Checks if the level is finished.
+    // Checks if the level is over.
     private void checkIfStopThread() {
         final Player player = this.playerManager.getPlayer();
         if (!this.levelManager.hasNextWave() && this.managerList.isEmpty() || player.getCurrentHP() == 0) {
@@ -115,7 +110,6 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
     @Override
     public void stop() {
         this.threadRun = false;
-        //this.waveThread.interrupt();
     }
 
     @Override

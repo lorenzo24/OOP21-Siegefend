@@ -37,7 +37,6 @@ public class EnemyViewImpl extends AbstractEnemyView {
     /**
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
-     * @param gameManager is the manager for the game.
      */
     public EnemyViewImpl(final int matrixSize) {
         this.tileSize = ImgTileSize.getTileSize();

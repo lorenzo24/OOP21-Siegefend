@@ -14,7 +14,7 @@ public class WaveImpl implements Wave {
 
     /**
      * Initializes the list of enemies.
-     * @param enemies
+     * @param enemies The enemies list.
      */
     public WaveImpl(final List<Enemy> enemies) {
         this.enemies = enemies;

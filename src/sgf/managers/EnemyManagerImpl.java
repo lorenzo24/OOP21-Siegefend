@@ -18,7 +18,7 @@ import sgf.utilities.ThreadObserver;
  * Class that manages each single enemy.
  */
 public class EnemyManagerImpl implements EnemyManager, Stoppable {
-    private static final int ENEMY_SPEED = 10;
+    private static final int ENEMY_SPEED = 8;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private final Enemy enemy;
@@ -36,7 +36,6 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
      * @param levelManager the manager of the current level
      * @param enemyController the controller of the enemy view
      * @param playerController the controller of the player
-     * @param gameManager the manager of the game
      */
     public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, 
             final PlayerController playerController) {
@@ -139,7 +138,7 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
     }
 
     private void unitDeath() {
-        this.playerController.changeMoney((int) this.enemy.getPoints());            //TODO: change these two so that each enemy has its own money if killed.
+        this.playerController.changeMoney((int) this.enemy.getPoints());
         this.playerController.changeScore((int) this.enemy.getPoints());
         this.disappear();
     }
@@ -158,6 +157,5 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
     @Override
     public void stop() {
         this.stopThread();
-        //this.gameThread.interrupt();
     }
 }

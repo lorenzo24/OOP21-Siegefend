@@ -10,26 +10,26 @@ import sgf.model.map.TileType;
 public interface PathLinker {
 
     /**
-     * Method that links every enemy type with the correspondent image path name.
-     * @return a map that links every enemy type with the correct image path.
+     * Method that links every {@link Enemy} type with the correspondent image path name.
+     * @return a map that links every {@link Enemy} enemy type with the correct image path.
      */
      Map<EnemyType, String> getEnemyMap();
 
      /**
-      * Method that links every tile type with the correspondent image path name.
-      * @return a map that links every tile type with the correct image path.
+      * Method that links every {@link TileType} with the correspondent image path name.
+      * @return a map that links every {@link TileType} with the correct image path.
       */
      Map<TileType, String> getTileMap();
 
      /**
-      * Method that links every turret id with the correspondent image path name.
-      * @return a map that links every turret id with the correct image path.
+      * Method that links every {@link Turret} id with the correspondent image path name.
+      * @return a map that links every {@link Turret} id with the correct image path.
       */
      Map<Integer, String> getTurretMap();
 
      /**
-      * Method that links every bullet id with the correspondent image path name.
-      * @return a map that links every bullet id with the correct image path.
+      * Method that links every {@link Bullet} id with the correspondent image path name.
+      * @return a map that links every {@link Bullet} id with the correct image path.
       */
      Map<Integer, String> getBulletMap();
 

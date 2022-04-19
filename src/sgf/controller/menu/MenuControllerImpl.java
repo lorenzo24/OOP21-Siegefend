@@ -104,7 +104,7 @@ public class MenuControllerImpl implements MenuController {
         final Shop shop = new ShopImpl(tLoader);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboardManager);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, this.leaderboardManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
