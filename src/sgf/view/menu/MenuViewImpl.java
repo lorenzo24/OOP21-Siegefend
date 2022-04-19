@@ -234,7 +234,8 @@ public class MenuViewImpl extends AbstractMenuView {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     // TODO: Add goback function
-                    showStartMenu();
+                    // showStartMenu();
+                    goBack();
                 }
             });
 
@@ -273,13 +274,21 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setBackground(Color.decode(BACKGROUND_COLOR));
         }
     }
+    
+    private void goBack() {
+        hideExtraPanels();
+        menuPanel.setVisible(true);
+    }
 
+    /*
+     * No longer needed, now there is the method goBack().
     public void showStartMenu() {
         hideExtraPanels();
         menuPanel.setVisible(true);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(menuPanel);
     }
+    */
 
     @Override
     public void showLevelPicker() {
