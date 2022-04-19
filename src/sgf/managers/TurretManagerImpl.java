@@ -88,7 +88,6 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
                             }
                             Thread.sleep(UPDATE_DELAY);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
