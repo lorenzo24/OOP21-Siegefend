@@ -9,7 +9,6 @@ import java.util.concurrent.Semaphore;
 import sgf.controller.bullet.BulletController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BulletImageManager;
-import sgf.managers.GameManager;
 import sgf.managers.ImageLoaderManager;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.Position;
@@ -36,10 +35,8 @@ public class BulletViewImpl extends AbstractBulletView {
     /**
      * Constructor for creating an instance of a {@code BulletViewImpl}.
      * @param matrixSize the size of map in tiles
-     * @param gameManager is the manager for the game.
      */
     public BulletViewImpl(final int matrixSize) {
-        
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.semaphore = LockClass.getBulletSemaphore();

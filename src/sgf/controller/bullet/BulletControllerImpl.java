@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import sgf.managers.BulletManager;
 import sgf.managers.BulletManagerImpl;
-import sgf.managers.GameManager;
 import sgf.model.bullet.Bullet;
 import sgf.utilities.LockClass;
 import sgf.view.bullet.BulletView;

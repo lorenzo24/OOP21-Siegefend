@@ -63,6 +63,10 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private final class StartMenu extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 6719773034661190037L;
         private final JPanel buttonsPanel;
         private final MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
         private final JLabel titleLabel;
@@ -126,6 +130,10 @@ public class MenuViewImpl extends AbstractMenuView {
     
 
     private class LevelMenu extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -8092993900595318140L;
         private boolean isUsernameSet;
 
         private LevelMenu(){
@@ -200,6 +208,10 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private class OptionsMenu extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -8288449872509949122L;
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
         private final MenuButton musicButton, goBackButton;
 
@@ -256,6 +268,10 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private class CreditsMenu extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -5147434306381363780L;
         private final ScrollingText scrollingCredits;
         private final MenuButton goBackButton;
         private final String creditsText;

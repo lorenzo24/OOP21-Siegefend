@@ -5,13 +5,11 @@ import sgf.helpers.ImgTileSize;
 import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
-import sgf.managers.GameManager;
 import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
 import sgf.utilities.ThreadObserver;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
