@@ -88,7 +88,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public int hashCode() {
-        return Objects.hash(enemyType);
+        return Objects.hash(enemyType, position);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class EnemyImpl implements Enemy {
             return false;
         }
         final EnemyImpl other = (EnemyImpl) obj;
-        return enemyType == other.enemyType;
+        return enemyType == other.enemyType && Objects.equals(position, other.position);
     }
 
     @Override

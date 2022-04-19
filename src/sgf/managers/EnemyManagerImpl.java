@@ -156,4 +156,10 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
     public void stopThread() {
         this.pause();
     }
+
+    @Override
+    public String toString() {
+        return "EnemyManagerImpl [threadRun=" + threadRun + ", enemy=" + enemy + ", stepsDone=" + stepsDone
+                + ", lastDir=" + lastDir + "]";
+    }
 }
