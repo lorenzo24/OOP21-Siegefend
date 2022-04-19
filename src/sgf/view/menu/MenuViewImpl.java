@@ -61,8 +61,8 @@ public class MenuViewImpl extends AbstractMenuView {
     public MenuViewImpl(final LevelLoader l) {
         super();
         this.levelLoader = l;
-        levelPanel = new LevelPicker();
-        optionsPanel = new Options();
+        levelPanel = new LevelMenu();
+        optionsPanel = new OptionsMenu();
         this.setVisible(true);
     }
 
@@ -225,10 +225,10 @@ public class MenuViewImpl extends AbstractMenuView {
     }
     */
     
-    private class LevelPicker extends JPanel {
+    private class LevelMenu extends JPanel {
         private boolean isUsernameSet;
 
-        LevelPicker(){
+        LevelMenu(){
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
             this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
@@ -299,6 +299,7 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
+    /*
     private class Options extends JPanel {
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
         private final MenuButton musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
@@ -339,6 +340,52 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private void updateMusicButton() {
             // Palette: https://coolors.co/29bf12-ef476f
+            if (menuController.getMusicController().isMusicPlaying()) {
+                menuController.getMusicController().musicOff();
+                this.musicButton.setBackground(Color.decode(MUSIC_OFF_COLOR));
+                this.musicButton.setText("Music is currently OFF");
+            } else {
+                menuController.getMusicController().musicOn();
+                this.musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
+                this.musicButton.setText("Music is currently ON");
+            }
+        }
+
+    }
+    */
+    
+    private class OptionsMenu extends JPanel {
+        private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
+        private final MenuButton musicButton, goBackButton;
+
+        OptionsMenu() {
+            this.setLayout(new GridLayout(2, 1, 15, 15));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+            musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
+            goBackButton = new MenuButton("Go back");
+
+            musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
+
+            musicButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    updateMusicButton();
+                }
+            });
+
+            goBackButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    goBack();
+                }
+            });
+
+            this.add(musicButton);
+            this.add(goBackButton);
+        }
+
+        private void updateMusicButton() {
             if (menuController.getMusicController().isMusicPlaying()) {
                 menuController.getMusicController().musicOff();
                 this.musicButton.setBackground(Color.decode(MUSIC_OFF_COLOR));
@@ -464,7 +511,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
     private void setup() {
         menuPanel = new StartMenu();
-        levelPanel = new LevelPicker();
+        levelPanel = new LevelMenu();
 
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
