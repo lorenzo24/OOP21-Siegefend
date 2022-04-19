@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -14,7 +15,7 @@ import sgf.controller.shop.ShopController;
 import sgf.model.turret.Turret;
 
 /**
- *
+ * View of the shop for use within a {@link JFrame}.
  */
 public class ShopViewImpl extends AbstractShopView {
 
@@ -40,7 +41,7 @@ public class ShopViewImpl extends AbstractShopView {
     protected void update() {
         if (this.ready) {
             this.turretInfo.stream()
-                           .forEach(t -> t.setCanvasSize(this.getItemImgSize()));       // Adapts the dimensions of each image in the shop.
+                           .forEach(t -> t.setCanvasSize(this.getItemImgSize()));       // Adapts the dimensions of each image in the shop to the size of the window.
             this.revalidate();
         }
     }
@@ -51,7 +52,7 @@ public class ShopViewImpl extends AbstractShopView {
     private void setup() {
         this.turretInfo = this.shopController.getTurretList()
                 .stream().map(this::createShopItemView)
-                .collect(Collectors.toList());  // Creates a list of items for the view.
+                .collect(Collectors.toList());                                          // Creates a list of items for the view.
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         this.turretInfo.forEach((t) -> panel.add(t));
         final JScrollPane scrollpane = new JScrollPane(panel);
@@ -65,18 +66,18 @@ public class ShopViewImpl extends AbstractShopView {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (selected == null || !selected.isSelected()) {  // The button can be pressed only if no other is pressed.
+                if (selected == null || !selected.isSelected()) {                       // The button can be pressed only if no other is pressed.
                     if (shopController.trySetSelectedTurret(item.getTurret())) {        // A turret can only be selected if the player has enough money.
                         item.setSelected(true);
                         item.cancelMode();
                         selected = item;
-                        disableAllNotSelected();       // When the item's button is pressed, all other items become disabled.
+                        disableAllNotSelected();                                        // When the item's button is pressed, all other items become disabled.
                     }
-                } else if (selected == item) {  // If the button is already pressed, cancellation of the purchase is performed instead.
+                } else if (selected == item) {                                          // If the button is already pressed, cancellation of the purchase is performed instead.
                     shopController.deselectTurret();
                     turretDeselected();
                     item.setSelected(false);
-                    enableAll();        // When the item is deselected, all the others become enabled.
+                    enableAll();                                                        // When the item is deselected, all the others become enabled.
                 }
             }
         });
