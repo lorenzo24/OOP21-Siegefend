@@ -15,7 +15,9 @@ import javax.swing.SwingUtilities;
 
 import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
+import sgf.managers.GameManager;
 import sgf.managers.TurretImageManager;
+import sgf.model.game.Stoppable;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.map.Position;
@@ -29,7 +31,7 @@ import sgf.utilities.PositionConverter;
  * 
  *
  */
-public class TurretViewImpl extends AbstractTurretView implements MouseListener {
+public class TurretViewImpl extends AbstractTurretView implements MouseListener, Stoppable {
     private boolean isControllerSet;
     private TurretController turretController;
     private boolean ready;
@@ -41,13 +43,16 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     private final PositionConverter posConverter;
     private final Map map;
     private Turret clickedTurret;
+    private final GameManager gameManager;
 
     /**
      * 
      * @param map
      * @param semaphore
+     * @param gameManager
      */
-    public TurretViewImpl(final Map map, final Semaphore semaphore) {
+    public TurretViewImpl(final Map map, final Semaphore semaphore, final GameManager gameManager) {
+        this.gameManager = gameManager;
         this.setVisible(false);
         this.map = map;
         this.matrixSize = map.getSize();
@@ -69,6 +74,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     @Override
     public void start() {
         if (this.isControllerSet) {
+            this.gameManager.register(this);
             this.ready = true;
             this.setVisible(true);
             this.addMouseListener(this);

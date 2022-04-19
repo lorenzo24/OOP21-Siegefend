@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Graphics;
 
 import sgf.controller.game.GameController;
+import sgf.managers.GameManager;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.map.AbstractMapView;
@@ -22,6 +23,7 @@ public class GameViewImpl extends AbstractGameView {
     // the same thing must be done for bullets
     private boolean isControllerSet;
     private boolean ready;
+    private final GameManager gameManager;
 
     /**
      * Constructor that initializes both enemy and map panels.
@@ -30,10 +32,12 @@ public class GameViewImpl extends AbstractGameView {
      * @param turretView
      * @param bulletView
      */
-    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView, final AbstractBulletView bulletView) { // TODO: add TurretView, BulletView.
+    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView, 
+            final AbstractBulletView bulletView, final GameManager gameManager) { 
         super();
         // this.mapPanel = new MapViewImpl(map);
         //this.enemyPanel = new EnemyViewImpl(size, map.getMapSize(), enemyList);
+        this.gameManager = gameManager;
         this.mapPanel = mapView;
         this.enemyPanel = enemyView;
         this.turretPanel = turretView;
@@ -68,6 +72,7 @@ public class GameViewImpl extends AbstractGameView {
     @Override
     public void start() {
         if (this.isControllerSet) {
+            this.gameManager.register(this);
             this.setLayout(new BorderLayout());
             this.add(mapPanel);
             this.mapPanel.setOpaque(false);

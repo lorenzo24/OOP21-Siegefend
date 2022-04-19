@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import sgf.controller.map.MapController;
+import sgf.managers.GameManager;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 
@@ -23,15 +24,18 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener {
     //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private boolean isControllerSet;
     private boolean ready;
+    private final GameManager gameManager;
 
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
      * @param map The logic map of the current level
+     * @param gameManager 
      */
-    public MapViewImpl(final Map map) {
+    public MapViewImpl(final Map map, final GameManager gameManager) {
         this.map = map;
         this.matrixSize = map.getSize();
         this.setVisible(false);
+        this.gameManager = gameManager;
     }
 
     /**
@@ -73,6 +77,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener {
     @Override
     public void start() {
         if (isControllerSet) {
+            this.gameManager.register(this);
             this.addComponentListener(this);
             this.ready = true;
             this.setVisible(true);

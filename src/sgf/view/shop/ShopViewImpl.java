@@ -11,12 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import sgf.controller.shop.ShopController;
+import sgf.managers.GameManager;
+import sgf.model.game.Stoppable;
 import sgf.model.turret.Turret;
 
 /**
  *
  */
-public class ShopViewImpl extends AbstractShopView {
+public class ShopViewImpl extends AbstractShopView implements Stoppable {
 
     /**
      * 
@@ -27,11 +29,14 @@ public class ShopViewImpl extends AbstractShopView {
     private ShopController shopController;
     private boolean isControllerSet;
     private boolean ready;
+    private final GameManager gameManager;
 
     /**
      * Constructor for creating a new instance of {@code ShopViewImpl}.
+     * @param gameManager useful in order to stop this view.
      */
-    public ShopViewImpl() {
+    public ShopViewImpl(final GameManager gameManager) {
+        this.gameManager = gameManager;
         this.setLayout(new BorderLayout());
         this.setVisible(false);
     }
@@ -118,6 +123,7 @@ public class ShopViewImpl extends AbstractShopView {
     @Override
     public void start() {
         if (this.isControllerSet) {
+            this.gameManager.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);
