@@ -116,8 +116,9 @@ public class EnemyViewImpl extends AbstractEnemyView {
 
     @Override
     public void stop() {
-        this.enemyController.stop();
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         this.enemyList.forEach(x -> x.stopThread());
+        LockClass.getEnemySemaphore().release();
         this.setVisible(false);
     }
 }
