@@ -11,7 +11,7 @@ import sgf.view.shop.AbstractShopView;
 import sgf.view.shop.ShopView;
 
 /**
- *
+ * Controller for managing the shop view.
  */
 public class ShopControllerImpl implements ShopController {
 

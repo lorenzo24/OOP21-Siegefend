@@ -14,7 +14,7 @@ import sgf.view.menu.AbstractMenuView;
 import sgf.view.menu.MenuViewImpl;
 
 /**
- *
+ * Utility class for starting the application.
  */
 public final class AppStart {
 
