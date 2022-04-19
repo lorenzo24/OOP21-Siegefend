@@ -35,8 +35,9 @@ public class EnemyControllerImpl implements EnemyController, Pausable {
      * @param levelManager Is the manager of the current level.
      * @param playerManager Is the manager of the player.
      * @param leaderboard Is the leaderboard manager.
+     * @param gameManager Is the game Manager.
      */
-    public EnemyControllerImpl(final LevelManager levelManager, final GameManager gameManager ,final PlayerController playerManager, final LeaderboardManager leaderboard) {
+    public EnemyControllerImpl(final LevelManager levelManager, final GameManager gameManager, final PlayerController playerManager, final LeaderboardManager leaderboard) {
         this.leaderboard = leaderboard;
         this.levelManager = levelManager;
         this.playerManager = playerManager;

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 import java.util.Optional;
-
 import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.shop.ShopController;
@@ -17,7 +16,6 @@ import sgf.model.bullet.Bullet;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.turret.Turret;
-import sgf.model.turret.TurretImpl;
 import sgf.utilities.PositionConverter;
 import sgf.view.turret.TurretView;
 
@@ -57,8 +55,6 @@ public class TurretControllerImpl implements TurretController {
         this.enemyController = enemyController;
         this.gameManager = gameManager;
         this.bulletController = bulletController;
-//        turrets.put(new GridPosition(4, 4), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(4, 4)), 100, 0, 0, 0, 0)); // test
-//        turrets.put(new GridPosition(11, 8), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(11, 8)), 100, 0, 0, 0, 0)); // test rotation
     }
 
     @Override

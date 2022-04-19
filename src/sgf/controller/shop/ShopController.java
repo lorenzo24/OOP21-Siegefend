@@ -9,7 +9,7 @@ import sgf.model.turret.Turret;
 import sgf.view.shop.ShopView;
 
 /**
- * Manages the shop.
+ * Interface for managing the shop.
  */
 public interface ShopController extends Controller<ShopView> {
 

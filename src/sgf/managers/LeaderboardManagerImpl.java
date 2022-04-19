@@ -50,7 +50,6 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Create one element of one record.
-    @SuppressWarnings("unchecked")
     private JSONObject createJsonElem(final Entry<String, Pair<String, Integer>> x) {
         final JSONObject elem = new JSONObject();
         elem.put("date", x.getKey());
@@ -62,19 +61,20 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     // Clear the initial file delete and create new.
     private void clearFile() {
         try {
-            if (this.f.delete()) {
-                if (!this.f.createNewFile()) {
-                    throw new IOException("Failed to create file.");
+            if (this.f.exists()) {
+                if (this.f.delete()) {
+                    if (!this.f.createNewFile()) {
+                        throw new IOException("Failed to create file.");
+                    }
+                } else {
+                    throw new IOException("Failed to delete file.");
                 }
-            } else {
-                throw new IOException("Failed to delete file.");
             }
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void readScore() {
         if (this.f.length() == 0) { // If file of leaderboard is empty not do any.
             return;
@@ -86,10 +86,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             array.forEach(x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (org.json.simple.parser.ParseException e) {
             System.out.print("Leaderboard not loaded, file corrupt");
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 
@@ -104,5 +104,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     @Override
     public void addScore(final String name, final int score) { // Add a score to the leaderboard.
         this.leaderboard.addRecord(LocalDateTime.now().toString(), name, score);
+    }
+
+    @Override
+    public Leaderboard getLeaderboard() {
+        return this.leaderboard;
     }
 }

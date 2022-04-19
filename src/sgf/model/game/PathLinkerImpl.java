@@ -13,6 +13,7 @@ public class PathLinkerImpl implements PathLinker {
     private final Map<EnemyType, String> mapEnemy;
     private final Map<TileType, String> mapTile;
     private final Map<Integer, String> mapTurret;
+    private final Map<Integer, String> mapBullet;
     private final Map<Integer, String> mapBarLife;
 
     /**
@@ -23,20 +24,19 @@ public class PathLinkerImpl implements PathLinker {
         this.mapTile = new HashMap<>();
         this.mapTurret = new HashMap<>();
         this.mapBarLife = new HashMap<>();
+        this.mapBullet = new HashMap<>();
         this.createEnemyMap();
         this.createTileMap();
         this.createTurretMap();
+        this.createBulletMap();
         this.createLifeBarMap();
     }
 
-    @Override
-    public Map<EnemyType, String> getEnemyMap() {
-        return Map.copyOf(this.mapEnemy);
-    }
-
-    @Override
-    public Map<TileType, String> getTileMap() {
-        return Map.copyOf(this.mapTile);
+    private void createBulletMap() {
+        final String folder = "bullets" + File.separator;
+        this.mapBullet.put(0, folder + "bullet.png");
+        this.mapBullet.put(1, folder + "bullet2.png");
+        this.mapBullet.put(2, folder + "bullet3.png");
     }
 
     private void createEnemyMap() {
@@ -77,5 +77,20 @@ public class PathLinkerImpl implements PathLinker {
     @Override
     public Map<Integer, String> getLifeBarMap() {
         return Map.copyOf(this.mapBarLife);
+    }
+
+    @Override
+    public Map<Integer, String> getBulletMap() {
+        return Map.copyOf(this.mapBullet);
+    }
+
+    @Override
+    public Map<EnemyType, String> getEnemyMap() {
+        return Map.copyOf(this.mapEnemy);
+    }
+
+    @Override
+    public Map<TileType, String> getTileMap() {
+        return Map.copyOf(this.mapTile);
     }
 }

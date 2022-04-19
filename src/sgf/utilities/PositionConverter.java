@@ -4,31 +4,31 @@ import sgf.model.map.GridPosition;
 import sgf.model.map.Position;
 
 /**
- * Class converter position.
+ * Class for converting from {@link Position} to {@link GridPosition} and vice versa.
  */
 public class PositionConverter {
     private final int tileSize;
 
     /**
-     * Converter constructor.
-     * @param tileSize Is the size of the tile Image.
+     * Creates a new instance of the class with a certain tile size.
+     * @param tileSize the size of a tile on the map
      */
     public PositionConverter(final int tileSize) {
         this.tileSize = tileSize;
     }
 
     /**
-     * Method that converts from GridPosition to Position.
-     * @param position Is the position to be converted.
-     * @return the corresponding Position.
+     * Converts a {@link GridPosition} to a {@link Position}.
+     * @param position the {@code GridPosition} to convert
+     * @return the corresponding {@code Position}
      */
     public Position convertToPosition(final GridPosition position) {
         return new Position(position.getColumn() * this.tileSize, position.getRow() * this.tileSize);
     }
 
     /**
-     * Method that converts form Position to GridPosition.
-     * @param position Is the position to be converted.
+     * Converts a {@link Position} to a {@link GridPosition}.
+     * @param position the {@code Position} to convert
      * @return the corresponding GridPosition.
      */
     public GridPosition convertToGridPosition(final Position position) {

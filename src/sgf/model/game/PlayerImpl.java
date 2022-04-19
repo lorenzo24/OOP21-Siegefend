@@ -36,6 +36,12 @@ public class PlayerImpl implements Player {
         this.score = STARTING_SCORE;
         this.playerName = playerName;
     }
+    /**
+     * Basic constructor used when no username is provided.
+     */
+    public PlayerImpl() {
+        this("Unknown");
+    }
 
     @Override
     public int getMaxHP() {

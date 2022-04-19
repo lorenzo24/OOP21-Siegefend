@@ -77,7 +77,7 @@ public class TurretImpl implements Turret, Cloneable {
 
     @Override
     public Bullet createBullet() {
-        return this.bulletFactory.createBullet(this.bulletSpeed, this.position, this.bulletDamage, this.target);
+        return this.bulletFactory.createBullet(this.id, this.bulletSpeed, this.position, this.bulletDamage, this.target);
     }
 
     @Override

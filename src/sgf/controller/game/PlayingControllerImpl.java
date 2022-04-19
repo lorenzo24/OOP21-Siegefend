@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import sgf.managers.GameManager;
 import sgf.model.turret.Turret;
-import sgf.view.game.AbstractGameView;
 import sgf.view.game.AbstractPlayingView;
 import sgf.view.game.PlayingView;
 
@@ -20,7 +19,6 @@ public class PlayingControllerImpl implements PlayingController {
     /**
      * 
      * @param gameManager
-     * @param playerManager
      */
     public PlayingControllerImpl(final GameManager gameManager) {
         this.gameManager = gameManager;
