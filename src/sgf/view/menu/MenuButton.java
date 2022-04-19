@@ -14,7 +14,7 @@ public class MenuButton extends JButton {
 
     private static final long serialVersionUID = 2197380384531705367L;
     private static final String BUTTON_COLOR = "#00A676", TEXT_COLOR = "#F7F9F9"; // 293132, 00A676, F7F9F9, (E0D0C1, A76D60). https://coolors.co/293132-00a676-f7f9f9-e0d0c1-a76d60
-    private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
+    private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25); // OG 50
 
     /**
      * Creates a button with text.

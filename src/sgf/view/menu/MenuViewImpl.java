@@ -41,7 +41,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private boolean ready;
     private MenuController menuController;
     private static final String BACKGROUND_COLOR = "#293132";
-    private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
+    private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
     private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null;
     private final LevelLoader levelLoader;
 
