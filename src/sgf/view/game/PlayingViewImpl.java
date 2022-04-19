@@ -2,10 +2,8 @@ package sgf.view.game;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-
 import sgf.controller.game.PlayingController;
 import sgf.managers.GameManager;
 import sgf.utilities.ThreadObserver;

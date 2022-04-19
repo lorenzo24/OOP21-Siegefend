@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Optional;
-
 import javax.swing.Timer;
 
 import sgf.controller.enemy.EnemyController;
@@ -13,6 +12,7 @@ import sgf.model.enemies.Enemy;
 import sgf.model.game.Stoppable;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
+import sgf.utilities.LockClass;
 import sgf.utilities.Pair;
 import sgf.utilities.ThreadObserver;
 
@@ -100,20 +100,22 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
      * Searches the closest enemy to the turret and sets it as a target.
      */
     private void findTarget() {
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         final Position currentPosition = this.getTurret().getPosition();
         final var closest = this.enemyController.getManagerList().stream()
-                                             .filter(e -> e.getEnemy().getHP() > 0) // Ignores enemies with HP lower or equal to 0
-                                             .map(e -> Pair.from(e, currentPosition.distanceTo(e.getEnemy().getPosition())))
+                                             .filter(e -> e.getEnemy().getHP() > 0 && turret.getPosition().distanceTo(e.getEnemy().getPosition()) <= this.turret.getRange()) // Ignores enemies with HP lower or equal to 0
+                                             .map(e -> Pair.from(e, e.getEnemy().getSteps()))
                                              .min(new Comparator<Pair<EnemyManager, Double>>() {
                                                  public int compare(final Pair<EnemyManager, Double> p1, final Pair<EnemyManager, Double> p2) {
-                                                     return Double.compare(p1.getY(), p2.getY());
+                                                     return Double.compare(p2.getY(), p1.getY());
                                                  }
                                              });
-
-        if (closest.isPresent() && closest.get().getY() <= this.turret.getRange()) {
+        LockClass.getEnemySemaphore().release();
+        if (closest.isPresent()) {
             this.turret.setTarget(closest.get().getX().getEnemy());
         } else {
             this.turret.setTarget(null);
+            //System.out.println("No target found");
         }
     }
 

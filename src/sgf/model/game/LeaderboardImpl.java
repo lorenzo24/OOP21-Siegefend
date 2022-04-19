@@ -3,7 +3,6 @@ package sgf.model.game;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import sgf.utilities.Pair;

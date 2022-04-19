@@ -10,9 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
-
-import javax.swing.SwingUtilities;
-
 import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.GameManager;
@@ -23,7 +20,6 @@ import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.map.TileType;
 import sgf.model.turret.Turret;
-import sgf.utilities.LockClass;
 import sgf.utilities.PositionConverter;
 import sgf.utilities.ThreadObserver;
 

@@ -8,6 +8,7 @@ import sgf.model.map.Position;
  */
 public class BulletImpl implements Bullet {
 
+    private final int id;
     private final double speed;
     private final Position position;
     private final double damage;
@@ -15,12 +16,14 @@ public class BulletImpl implements Bullet {
 
     /**
      * Creates a new instance of Bullet.
+     * @param id the id of the bullet
      * @param speed the speed of the bullet
      * @param position the initial position of the bullet
      * @param damage the damage of the bullet
      * @param target the target of the bullet
      */
-    public BulletImpl(final double speed, final Position position, final double damage, final Enemy target) {
+    public BulletImpl(final int id, final double speed, final Position position, final double damage, final Enemy target) {
+        this.id = id;
         this.speed = speed;
         this.position = new Position(position);
         this.damage = damage;
@@ -32,6 +35,10 @@ public class BulletImpl implements Bullet {
         }
     }
 
+    @Override
+    public int getID() {
+        return this.id;
+    }
 
     @Override
     public double getSpeed() {

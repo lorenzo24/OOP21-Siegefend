@@ -1,8 +1,6 @@
 package sgf.utilities;
 import sgf.controller.game.MusicController;
 import sgf.controller.game.MusicControllerImpl;
-import sgf.controller.game.PlayerController;
-import sgf.controller.game.PlayerControllerImpl;
 import sgf.controller.menu.MenuController;
 import sgf.controller.menu.MenuControllerImpl;
 import sgf.helpers.LevelLoader;
@@ -16,7 +14,7 @@ import sgf.view.menu.AbstractMenuView;
 import sgf.view.menu.MenuViewImpl;
 
 /**
- *
+ * Utility class for starting the application.
  */
 public final class AppStart {
 
@@ -35,7 +33,7 @@ public final class AppStart {
         /* ** */
         final MusicController m = new MusicControllerImpl();
         final LevelLoader levelLoader = new LevelLoaderImpl();
-        final MenuController menuController = new MenuControllerImpl(leaderboardManager, player);
+        final MenuController menuController = new MenuControllerImpl(leaderboardManager, player, m);
         final AbstractMenuView menuView = new MenuViewImpl(levelLoader);
 
 

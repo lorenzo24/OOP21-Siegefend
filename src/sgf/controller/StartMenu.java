@@ -12,7 +12,7 @@ public class StartMenu {
      * @param args
      */
     public static void main(final String... args) {
-        MenuStarter m = new MenuStarter();
+        final MenuStarter m = new MenuStarter();
     }
 
 }

@@ -43,12 +43,12 @@ public class TurretsLoaderImpl implements TurretsLoader {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
             array.forEach(x -> parseTurretObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
+        } catch (org.json.simple.parser.ParseException e) {
+                e.printStackTrace(); 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 

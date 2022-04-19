@@ -2,7 +2,6 @@ package sgf.managers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.controller.game.PlayerController;
 import sgf.model.game.GameStatus;
 import sgf.model.game.Stoppable;

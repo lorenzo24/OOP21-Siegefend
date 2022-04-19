@@ -3,20 +3,16 @@ package sgf.view.shop;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import sgf.helpers.SimpleTurretsImageLoader;
-import sgf.helpers.TurretImagesLoader;
 import sgf.managers.ImageLoaderManager;
 import sgf.managers.TurretImageManager;
 import sgf.model.turret.Turret;
 
 /**
- *
+ * Class for displaying information regarding a {@link Turret}.
  */
 public final class ShopItemViewImpl extends AbstractShopItemView {
 
@@ -111,7 +107,7 @@ public final class ShopItemViewImpl extends AbstractShopItemView {
     }
 
     /**
-     * Returns an instance of {@code ShopItemViewImpl}.
+     * Returns an instance of {@code ShopItemViewImpl} with the given turret.
      * @param t a turret
      * @return an instance of {@code ShopItemViewImpl}
      */
