@@ -7,11 +7,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.TurretsLoader;
 import sgf.helpers.TurretsLoaderImpl;
+import sgf.helpers.WavesLoader;
+import sgf.helpers.WavesLoaderImpl;
+import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
-import sgf.model.turret.TurretImpl;
 
 /**
  * Testing class for turrets.
@@ -51,7 +54,17 @@ public class TestTurret {
      * Tests if the setPosition() method works correctly.
      */
     @Test
-    public void setPositionTests() {
-        turret0.setPosition(POSITION);     
+    public void setPositionTest() {
+        turret0.setPosition(POSITION);
+        assertEquals(turret0.getPosition(), POSITION);
+    }
+
+    /**
+     * Checks if the getClone() method works correctly.
+     */
+    @Test
+    public void getCloneTest() {
+        final Turret clone = turret0.getClone();
+        assertEquals(turret0, clone);
     }
 }
