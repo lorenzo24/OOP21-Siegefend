@@ -16,10 +16,9 @@ import sgf.utilities.LockClass;
 import sgf.utilities.Pair;
 import sgf.utilities.ThreadObserver;
 
+
 /**
- * 
- * 
- *
+ * Class that manages a turret.
  */
 public class TurretManagerImpl implements TurretManager, Stoppable {
 
@@ -34,10 +33,11 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     private final GameManager gameManager;
 
     /**
-     * 
-     * @param turret
-     * @param turretController
-     * @param enemyController
+     * Creates a new instance of the class.
+     * @param turret the {@link Turret}
+     * @param turretController the {@link TurretController}
+     * @param enemyController the {@link EnemyController}
+     * @param gameManager the {@link GameManager}
      */
     public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController, final GameManager gameManager) {
         this.gameManager = gameManager;
@@ -60,6 +60,42 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     @Override
     public Turret getTurret() {
         return this.turret;
+    }
+
+    @Override
+    public int getCurrentUpgradeLevel() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getCurrentUpgradePrice() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getNextUpgradePrice() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Turret getNextUpgrade() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean canPurchaseUpgrade() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int sell() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void stop() {
+        this.isThreadRunning = false;
+        this.gameThread.interrupt();
     }
 
     /**
@@ -101,9 +137,8 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
      */
     private void findTarget() {
         LockClass.getEnemySemaphore().acquireUninterruptibly();
-        final Position currentPosition = this.getTurret().getPosition();
         final var closest = this.enemyController.getManagerList().stream()
-                                             .filter(e -> e.getEnemy().getHP() > 0 && turret.getPosition().distanceTo(e.getEnemy().getPosition()) <= this.turret.getRange()) // Ignores enemies with HP lower or equal to 0
+                                             .filter(e -> e.getEnemy().getHP() > 0 && this.turret.getPosition().distanceTo(e.getEnemy().getPosition()) <= this.turret.getRange()) // Ignores enemies with HP lower or equal to 0
                                              .map(e -> Pair.from(e, e.getEnemy().getSteps()))
                                              .min(new Comparator<Pair<EnemyManager, Double>>() {
                                                  public int compare(final Pair<EnemyManager, Double> p1, final Pair<EnemyManager, Double> p2) {
@@ -115,48 +150,14 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
             this.turret.setTarget(closest.get().getX().getEnemy());
         } else {
             this.turret.setTarget(null);
-            //System.out.println("No target found");
         }
     }
 
+    /**
+     * Sets the angle of the {@link Turret} to the {@link Position} of the targetted {@link Enemy}.
+     * @param targetPosition the {@link Position} of the targetted {@link Enemy}
+     */
     private void pointToTarget(final Position targetPosition) {
         this.turret.setAngle(this.turret.getPosition().getAngle(targetPosition));
     }
-
-    @Override
-    public int getCurrentUpgradeLevel() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int getCurrentUpgradePrice() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int getNextUpgradePrice() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Turret getNextUpgrade() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean canPurchaseUpgrade() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int sell() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void stop() {
-        this.isThreadRunning = false;
-        this.gameThread.interrupt();
-    }
-
 }
