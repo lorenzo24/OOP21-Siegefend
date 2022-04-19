@@ -46,6 +46,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
     private final LevelLoader levelLoader;
     
+    private int borderTest = 100; // OG: 200
 
     @Override
     public void setController(final MenuController controller) {
@@ -144,7 +145,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private StartMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 50));
-            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             titleLabel = new JLabel("Siegefend");
@@ -206,7 +207,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private LevelMenu(){
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
-            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             // Username panel
@@ -280,7 +281,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private OptionsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
             goBackButton = new MenuButton("Go back");
@@ -337,7 +338,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private CreditsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBorder(BorderFactory.createEmptyBorder(borderTest, borderTest / 2, borderTest, borderTest / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             creditsText = "The team that made Siegefend a reality:\n\n\n\n\n"
