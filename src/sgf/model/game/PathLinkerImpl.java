@@ -7,7 +7,7 @@ import sgf.model.enemies.EnemyType;
 import sgf.model.map.TileType;
 
 /**
- * This class is the implementation of the interface PathLinker, which links some entities with their image path names.
+ * This class is the implementation of the interface {@link PathLinker}, which links some entities with their image path names.
  */
 public class PathLinkerImpl implements PathLinker {
     private final Map<EnemyType, String> mapEnemy;

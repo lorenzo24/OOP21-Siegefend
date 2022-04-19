@@ -9,8 +9,8 @@ import sgf.model.game.PathLinker;
 import sgf.model.game.PathLinkerImpl;
 
 /**
- * Class that manages the image loading from file.
- * @param <T> Is the entity type whose image must be loaded in the correct view.
+ * Class that manages the {@link Image} loading from file.
+ * @param <T> Is the entity type whose {@link Image} must be loaded in the correct view.
  */
 public abstract class AbstractImageLoaderManager<T> implements ImageLoaderManager<T> {
     // A path linker contains all associations between enemy or tile type and its correspondent image.
