@@ -330,7 +330,7 @@ public class MenuViewImpl extends AbstractMenuView {
     }
     
     private void goBack() {
-        hideExtraPanels();
+        removeExtraPanels();
         menuPanel.setVisible(true);
         this.add(menuPanel);
     }
@@ -416,15 +416,18 @@ public class MenuViewImpl extends AbstractMenuView {
     /**
      * Hides all panels that are not null (except the main menu).
      */
-    public void hideExtraPanels() {
+    public void removeExtraPanels() {
         if (levelPanel != null) {
-            levelPanel.setVisible(false);
+            this.remove(levelPanel);
+            //levelPanel.setVisible(false);
         }
         if (optionsPanel != null) {
-            optionsPanel.setVisible(false);
+            //optionsPanel.setVisible(false);
+            this.remove(optionsPanel);
         }
         if (leaderboardPanel != null) {
-            leaderboardPanel.setVisible(false);
+            this.remove(leaderboardPanel);
+            //leaderboardPanel.setVisible(false);
         }
         // credits
     }
