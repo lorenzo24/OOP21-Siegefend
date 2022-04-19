@@ -61,8 +61,8 @@ public class MenuViewImpl extends AbstractMenuView {
     public MenuViewImpl(final LevelLoader l) {
         super();
         this.levelLoader = l;
-        levelPanel = new LevelMenu();
-        optionsPanel = new OptionsMenu();
+        //levelPanel = new LevelMenu();
+        
         this.setVisible(true);
     }
 
@@ -273,7 +273,6 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    
     private class OptionsMenu extends JPanel {
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
         private final MenuButton musicButton, goBackButton;
@@ -333,6 +332,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private void goBack() {
         hideExtraPanels();
         menuPanel.setVisible(true);
+        this.add(menuPanel);
     }
 
     /*
@@ -432,6 +432,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private void setup() {
         menuPanel = new StartMenu();
         levelPanel = new LevelMenu();
+        optionsPanel = new OptionsMenu();
 
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
