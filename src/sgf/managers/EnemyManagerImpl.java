@@ -5,19 +5,20 @@ import sgf.controller.enemy.EnemyController;
 import sgf.controller.game.PlayerController;
 import sgf.helpers.ImgTileSize;
 import sgf.model.enemies.Enemy;
-import sgf.model.game.Pausable;
+import sgf.model.game.Stoppable;
 import sgf.model.map.Direction;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.utilities.Pair;
 import sgf.utilities.PositionConverter;
+import sgf.utilities.ThreadObserver;
 
 /**
  * Class that manages each single enemy.
  */
-public class EnemyManagerImpl implements EnemyManager, Pausable {
-    private static final int ENEMY_SPEED = 8;
+public class EnemyManagerImpl implements EnemyManager, Stoppable {
+    private static final int ENEMY_SPEED = 10;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private final Enemy enemy;
@@ -37,13 +38,14 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
      * @param playerController the controller of the player
      * @param gameManager the manager of the game
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerController, final GameManager gameManager) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, 
+            final PlayerController playerController) {
+        ThreadObserver.register(this);
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
         this.converter = new PositionConverter(ImgTileSize.getTileSize());
         this.playerController = playerController;
-        gameManager.register(this);
         this.startEnemyThread();
     }
 
@@ -120,16 +122,6 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
     }
 
     @Override
-    public void pause() {
-        this.threadRun = false;
-    }
-
-    @Override
-    public void resume() {
-        this.threadRun = true;
-    }
-
-    @Override
     public Enemy getEnemy() {
         return this.enemy;
     }
@@ -154,12 +146,18 @@ public class EnemyManagerImpl implements EnemyManager, Pausable {
 
     @Override
     public void stopThread() {
-        this.pause();
+        this.threadRun = false;
     }
 
     @Override
     public String toString() {
         return "EnemyManagerImpl [threadRun=" + threadRun + ", enemy=" + enemy + ", stepsDone=" + stepsDone
                 + ", lastDir=" + lastDir + "]";
+    }
+
+    @Override
+    public void stop() {
+        this.stopThread();
+        //this.gameThread.interrupt();
     }
 }

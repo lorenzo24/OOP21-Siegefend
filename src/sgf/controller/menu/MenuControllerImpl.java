@@ -117,7 +117,7 @@ public class MenuControllerImpl implements MenuController {
         final GameController gameController = new GameControllerImpl(gameManager);
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView, bulletView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView, bulletView);
+        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView, bulletView, gameManager);
 
 
         /**
@@ -153,7 +153,7 @@ public class MenuControllerImpl implements MenuController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         // TODO Auto-generated method stub
     }
 

@@ -80,6 +80,6 @@ public class PlayingControllerImpl implements PlayingController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
     }
 }
