@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map.Entry;
+import java.util.TimeZone;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -102,7 +106,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Override
     public void addScore(final String name, final int score) { // Add a score to the leaderboard.
-        this.leaderboard.addRecord(LocalDateTime.now().toString(), name, score);
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
+        dateFormat.applyPattern("yyyy-MM-dd E 'at' HH:mm:ss.SSS z");
+        this.leaderboard.addRecord(dateFormat.format(new Date()), name, score);
     }
 
     @Override
