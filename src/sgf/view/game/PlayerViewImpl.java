@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import sgf.controller.game.PlayerController;
+import sgf.managers.GameManager;
+import sgf.utilities.ThreadObserver;
 
 /**
  * 
@@ -13,6 +15,7 @@ import sgf.controller.game.PlayerController;
  */
 public class PlayerViewImpl extends AbstractPlayerView {
 
+    private static final int COLUMN = 5;
     /**
      * 
      */
@@ -26,6 +29,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
 
     /**
      * 
+     * @param gameManager
      */
     public PlayerViewImpl() {
         super();
@@ -44,6 +48,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     public void start() {
         if (isControllerSet) {
             this.setVisible(true);
+            ThreadObserver.register(this);
             setup();
             this.ready = true;
         } else {
@@ -52,7 +57,8 @@ public class PlayerViewImpl extends AbstractPlayerView {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
+        this.ready = false;
         this.setVisible(false);
     }
 
@@ -71,7 +77,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        ((FlowLayout) this.getLayout()).setHgap(this.getParent().getWidth() / 4);               //TODO: boh.
+        ((FlowLayout) this.getLayout()).setHgap(this.getParent().getWidth() / COLUMN);
         this.revalidate();
     }
 
@@ -85,6 +91,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     @Override
     public void loseGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You lost the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.ERROR_MESSAGE);
-        System.exit(0); // TODO MIGLIORARE.
+        ThreadObserver.stop();
+        System.exit(0); 
     }
 }

@@ -1,12 +1,13 @@
 package sgf.view;
 
 import sgf.controller.Controller;
+import sgf.model.game.Stoppable;
 
 /**
  * Base interface for a view.
  * @param <C> the controller type accepted by the view
  */
-public interface View<C extends Controller<?>> {
+public interface View<C extends Controller<?>> extends Stoppable {
 
     /**
      * Sets the controller associated to the view. Can only be called once.
@@ -19,9 +20,4 @@ public interface View<C extends Controller<?>> {
      * controller has not been set
      */
     void start();
-
-    /**
-     * Disables the view and closes all/any thread currently active in it.
-     */
-    void stopView();
 }

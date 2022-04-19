@@ -6,6 +6,7 @@ import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import sgf.controller.map.MapController;
 import sgf.model.map.Map;
+import sgf.utilities.ThreadObserver;
 
 /**
  * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
@@ -23,6 +24,7 @@ public class MapViewImpl extends AbstractMapView {
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
      * @param map The logic map of the current level
+     * @param gameManager 
      */
     public MapViewImpl(final Map map) {
         this.map = map;
@@ -59,6 +61,7 @@ public class MapViewImpl extends AbstractMapView {
     @Override
     public void start() {
         if (isControllerSet) {
+            ThreadObserver.register(this);
             this.ready = true;
             this.setVisible(true);
         } else {
@@ -67,6 +70,8 @@ public class MapViewImpl extends AbstractMapView {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
+        this.ready = false;
+        this.setVisible(false);
     }
 }

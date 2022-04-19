@@ -5,10 +5,12 @@ import sgf.helpers.ImgTileSize;
 import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.managers.GameManager;
 import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
+import sgf.utilities.ThreadObserver;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,6 +39,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     /**
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
+     * @param gameManager is the manager for the game.
      */
     public EnemyViewImpl(final int matrixSize) {
         this.tileSize = ImgTileSize.getTileSize();
@@ -96,7 +99,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     @Override
     public void winGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You win the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0); // TODO MIGLIORARE.
+        ThreadObserver.stop();
+        System.exit(0); 
     }
 
     @Override
@@ -104,14 +108,17 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (isControllerSet) {
             this.ready = true;
             this.setVisible(true);
+            ThreadObserver.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 
     @Override
-    public void stopView() {
-        this.enemyController.stopController();
+    public void stop() {
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         this.enemyList.forEach(x -> x.stopThread());
+        LockClass.getEnemySemaphore().release();
+        this.setVisible(false);
     }
 }

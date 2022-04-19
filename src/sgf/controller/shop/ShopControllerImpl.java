@@ -98,7 +98,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
     }
 
 }

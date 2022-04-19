@@ -6,14 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.security.KeyStore.Entry;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -27,6 +21,7 @@ import javax.swing.SwingConstants;
 import sgf.controller.menu.MenuController;
 import sgf.helpers.LevelLoader;
 import sgf.utilities.Pair;
+import sgf.utilities.ThreadObserver;
 
 /**
  *
@@ -416,6 +411,7 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void start() {
         if (this.isControllerSet) {
+            ThreadObserver.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);
@@ -425,9 +421,9 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     @Override
-    public void stopView() {
-        // TODO Auto-generated method stub
-
+    public void stop() {
+        this.ready = false;
+        this.setVisible(false);
     }
 
 

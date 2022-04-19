@@ -12,24 +12,23 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
 import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
+import sgf.managers.GameManager;
 import sgf.managers.TurretImageManager;
+import sgf.model.game.Stoppable;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.map.TileType;
 import sgf.model.turret.Turret;
 import sgf.utilities.PositionConverter;
+import sgf.utilities.ThreadObserver;
 
 /**
  * 
  * 
  *
  */
-public class TurretViewImpl extends AbstractTurretView implements MouseListener {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -1592815912450378603L;
+public class TurretViewImpl extends AbstractTurretView implements MouseListener, Stoppable {
     private boolean isControllerSet;
     private TurretController turretController;
     private boolean ready;
@@ -46,6 +45,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
      * 
      * @param map
      * @param semaphore
+     * @param gameManager
      */
     public TurretViewImpl(final Map map, final Semaphore semaphore) {
         this.setVisible(false);
@@ -69,6 +69,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     @Override
     public void start() {
         if (this.isControllerSet) {
+            ThreadObserver.register(this);
             this.ready = true;
             this.setVisible(true);
             this.addMouseListener(this);
@@ -78,7 +79,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
         this.ready = false;
         this.setVisible(false);
     }
