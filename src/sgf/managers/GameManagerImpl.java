@@ -1,16 +1,21 @@
 package sgf.managers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sgf.controller.game.PlayerController;
 import sgf.model.game.GameStatus;
+import sgf.model.game.Stoppable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
 
 /**
  * This class is the implementation of the interface GameManager.
  */
-public class GameManagerImpl implements GameManager {
+public class GameManagerImpl implements GameManager, Stoppable {
     private final PlayerController playerController;
     private final LevelManager levelManager;
+    private final List<Stoppable> stoppableList;
 
     /**
      * Constructor that initializes the fields.
@@ -18,6 +23,7 @@ public class GameManagerImpl implements GameManager {
      * @param levelManager
      */
     public GameManagerImpl(final PlayerController pController, final LevelManager levelManager) {
+        this.stoppableList = new ArrayList<>();
         this.playerController = pController;
         this.levelManager = levelManager;
     }
@@ -40,5 +46,15 @@ public class GameManagerImpl implements GameManager {
     @Override
     public Wave getCurrentWave() {
         return this.levelManager.getCurrentWave();
+    }
+
+    @Override
+    public void stop() {
+        this.stoppableList.forEach(Stoppable::stop);
+    }
+
+    @Override
+    public void register(final Stoppable stoppable) {
+        this.stoppableList.add(stoppable);
     }
 }

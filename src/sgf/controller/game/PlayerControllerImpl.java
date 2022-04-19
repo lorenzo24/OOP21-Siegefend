@@ -74,6 +74,6 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
     }
 }

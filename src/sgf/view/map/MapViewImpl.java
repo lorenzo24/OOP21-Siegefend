@@ -94,6 +94,8 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
+        this.ready = false;
+        this.setVisible(false);
     }
 }

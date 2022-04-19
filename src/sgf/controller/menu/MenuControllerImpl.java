@@ -118,11 +118,11 @@ public class MenuControllerImpl implements MenuController {
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboardManager);
-        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
+        final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize(), gameManager);
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
         final BulletController bulletController = new BulletControllerImpl();
-        final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());     // Use AbstractBulletView as type once created.
+        final AbstractBulletView bulletView = new BulletViewImpl(map.getSize(), gameManager);     // Use AbstractBulletView as type once created.
         final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);
@@ -164,7 +164,7 @@ public class MenuControllerImpl implements MenuController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         // TODO Auto-generated method stub
     }
 

@@ -5,6 +5,7 @@ import sgf.helpers.ImgTileSize;
 import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.managers.GameManager;
 import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
@@ -36,12 +37,15 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private boolean isControllerSet;
     private final int tileSize;
     private boolean ready;
+    private final GameManager gameManager;
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
+     * @param gameManager is the manager for the game.
      */
-    public EnemyViewImpl(final int matrixSize) {
+    public EnemyViewImpl(final int matrixSize, final GameManager gameManager) {
+        this.gameManager = gameManager;
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageEnemyController = new EnemyImageManager();
@@ -108,14 +112,16 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (isControllerSet) {
             this.ready = true;
             this.setVisible(true);
+            this.gameManager.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 
     @Override
-    public void stopView() {
-        this.enemyController.stopController();
+    public void stop() {
+        this.enemyController.stop();
         this.enemyList.forEach(x -> x.stopThread());
+        this.setVisible(false);
     }
 }

@@ -127,7 +127,7 @@ public class ShopViewImpl extends AbstractShopView {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
         if (this.ready) {
             this.ready = false;
             this.removeAll();

@@ -94,7 +94,7 @@ public class TurretControllerImpl implements TurretController {
     }
 
     @Override
-    public void stopController() { }
+    public void stop() { }
 
     @Override
     public boolean isTurretSelected() {

@@ -39,7 +39,7 @@ public class BulletControllerImpl implements BulletController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         this.active = false;
         this.semaphore.acquireUninterruptibly();        // Semaphore needed to make sure no elements are added/removed while the foreach is running.
         this.bullets.forEach(BulletManager::eliminate);

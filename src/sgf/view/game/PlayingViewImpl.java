@@ -85,7 +85,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     }
 
     @Override
-    public void stopView() {
-        // TODO Auto-generated method stub
+    public void stop() {
+        this.setVisible(false);
     }
 }

@@ -78,7 +78,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener 
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
         this.ready = false;
         this.setVisible(false);
     }

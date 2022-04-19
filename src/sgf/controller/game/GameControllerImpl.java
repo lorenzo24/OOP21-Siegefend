@@ -63,7 +63,7 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         this.threadRun = false;
     }
 }

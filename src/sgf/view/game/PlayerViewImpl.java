@@ -53,7 +53,8 @@ public class PlayerViewImpl extends AbstractPlayerView {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
+        this.ready = false;
         this.setVisible(false);
     }
 

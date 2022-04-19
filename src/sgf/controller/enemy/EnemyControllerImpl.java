@@ -110,7 +110,7 @@ public class EnemyControllerImpl implements EnemyController {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         this.threadRun = false;
     }
 

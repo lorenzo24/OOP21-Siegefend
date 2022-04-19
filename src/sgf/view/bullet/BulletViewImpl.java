@@ -1,16 +1,15 @@
 package sgf.view.bullet;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
-
 import sgf.controller.bullet.BulletController;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BulletImageManager;
+import sgf.managers.GameManager;
 import sgf.managers.ImageLoaderManager;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.Position;
@@ -28,12 +27,16 @@ public class BulletViewImpl extends AbstractBulletView {
     private final int tileSize;
     private final BufferedImage image;
     private final ImageLoaderManager<Integer> imgManager;
+    private final GameManager gameManager;
 
     /**
      * Constructor for creating an instance of a {@code BulletViewImpl}.
      * @param matrixSize the size of map in tiles
+     * @param gameManager is the manager for the game.
      */
-    public BulletViewImpl(final int matrixSize) {
+    public BulletViewImpl(final int matrixSize, final GameManager gameManager) {
+        this.gameManager = gameManager;
+        
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.semaphore = LockClass.getBulletSemaphore();
@@ -77,13 +80,14 @@ public class BulletViewImpl extends AbstractBulletView {
         if (this.isControllerSet) {
             this.ready = true;
             this.setVisible(true);
+            gameManager.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
         this.ready = false;
         this.setVisible(false);
     }
