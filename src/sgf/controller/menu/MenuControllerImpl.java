@@ -57,9 +57,7 @@ import sgf.view.turret.AbstractTurretView;
 import sgf.view.turret.TurretViewImpl;
 
 /**
- * 
- * 
- *
+ * Controller class for the menu.
  */
 public class MenuControllerImpl implements MenuController {
 
@@ -71,9 +69,10 @@ public class MenuControllerImpl implements MenuController {
     private final MusicController musicController;
 
     /**
-     * 
-     * @param leaderboardManager
-     * @param player
+     * Creates a new instance of the class.
+     * @param leaderboardManager the {@link LeaderboardManager}
+     * @param player the {@link Player}
+     * @param musicController the {@link MusicController}
      */
     public MenuControllerImpl(final LeaderboardManager leaderboardManager, final Player player, final MusicController musicController) {
         this.leaderboardManager = leaderboardManager;
@@ -97,8 +96,6 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
-        //final Player player = new PlayerImpl("DEFAULT");
-        //final PlayerController playerController = new PlayerControllerImpl(player, this.leaderboardManager);
         final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
         final Level level = new LevelImpl(waves, map);
@@ -107,10 +104,6 @@ public class MenuControllerImpl implements MenuController {
         final MapController mapController = new MapControllerImpl(map);
         final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
         final Shop shop = new ShopImpl(tLoader);
-        /*
-         * At the start only the menu, settings and levels view will be created.
-         * All these other views and controllers will be created when someone clicks on a level.
-         */
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
         final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboardManager);
@@ -164,13 +157,12 @@ public class MenuControllerImpl implements MenuController {
         // TODO Auto-generated method stub
     }
 
-
-
     @Override
     public Leaderboard getLeaderboard() {
         return this.leaderboardManager.getLeaderboard();
     }
 
+    @Override
     public PlayerController getPlayerController() {
         return this.playerController;
     }
@@ -179,5 +171,4 @@ public class MenuControllerImpl implements MenuController {
     public MusicController getMusicController() {
         return this.musicController;
     }
-
 }
