@@ -9,13 +9,12 @@ public final class LockClass {
     private static final Semaphore ENEMY_SEMAPHORE = new Semaphore(1);
     private static final Semaphore TURRET_SEMAPHORE = new Semaphore(1);
     private static final Semaphore BULLET_SEMAPHORE = new Semaphore(1);
-    // the same thing must be done for bullets
 
     private LockClass() { }
 
     /**
      * Returns the enemies' semaphore.
-     * @return a semaphore
+     * @return the enemies' semaphore
      */
     public static Semaphore getEnemySemaphore() {
         return ENEMY_SEMAPHORE;
@@ -23,7 +22,7 @@ public final class LockClass {
 
     /**
      * Returns the turrets' semaphore.
-     * @return a semaphore
+     * @return the turrets' semaphore
      */
     public static Semaphore getTurretSemaphore() {
         return TURRET_SEMAPHORE;
@@ -31,7 +30,7 @@ public final class LockClass {
 
     /**
      * Returns the bullets' semaphore.
-     * @return a semaphore
+     * @return the bullets' semaphore
      */
     public static Semaphore getBulletSemaphore() {
         return BULLET_SEMAPHORE;

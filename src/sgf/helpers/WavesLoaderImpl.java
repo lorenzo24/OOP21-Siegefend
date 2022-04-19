@@ -26,7 +26,6 @@ public class WavesLoaderImpl implements WavesLoader {
     private final List<Wave> waves = new ArrayList<>();
     private List<Enemy> waveEnemies;
     private final EnemyFactory enemyFactory;
-    private final PositionConverter converter;
 
     /**
      * Constructor that sets the initial position and level id.
@@ -36,8 +35,8 @@ public class WavesLoaderImpl implements WavesLoader {
     public WavesLoaderImpl(final Map map, final int levelId) {
         this.waveEnemies = new ArrayList<>();
         this.enemyFactory = new EnemyFactoryImpl();
-        this.converter = new PositionConverter(ImgTileSize.getTileSize());
-        this.startPosition = this.converter.convertToPosition(map.getStartTile());
+        final PositionConverter converter = new PositionConverter(ImgTileSize.getTileSize());
+        this.startPosition = converter.convertToPosition(map.getStartTile());
         this.readAllWaves(levelId);
     }
 

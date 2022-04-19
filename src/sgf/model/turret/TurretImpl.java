@@ -2,12 +2,10 @@ package sgf.model.turret;
 
 import java.util.Objects;
 import java.util.Optional;
-
 import sgf.model.bullet.Bullet;
 import sgf.model.bullet.BulletFactory;
 import sgf.model.bullet.BulletFactoryImpl;
 import sgf.model.enemies.Enemy;
-import sgf.model.enemies.EnemyImpl;
 import sgf.model.map.Position;
 
 /**

@@ -6,18 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import sgf.controller.shop.ShopController;
+import sgf.model.game.Stoppable;
 import sgf.model.turret.Turret;
+import sgf.utilities.ThreadObserver;
 
 /**
  * View of the shop for use within a {@link JFrame}.
  */
-public class ShopViewImpl extends AbstractShopView {
+public class ShopViewImpl extends AbstractShopView implements Stoppable {
 
     /**
      * 
@@ -119,6 +118,7 @@ public class ShopViewImpl extends AbstractShopView {
     @Override
     public void start() {
         if (this.isControllerSet) {
+            ThreadObserver.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);
@@ -128,7 +128,7 @@ public class ShopViewImpl extends AbstractShopView {
     }
 
     @Override
-    public void stopView() {
+    public void stop() {
         if (this.ready) {
             this.ready = false;
             this.removeAll();

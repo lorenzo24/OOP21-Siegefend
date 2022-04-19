@@ -19,7 +19,7 @@ public interface EnemyManager {
     void disappear();
 
     /**
-     * Stop the thread.
+     * Stops the thread.
      */
     void stopThread();
 }

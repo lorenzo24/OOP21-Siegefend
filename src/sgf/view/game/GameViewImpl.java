@@ -2,8 +2,8 @@ package sgf.view.game;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-
 import sgf.controller.game.GameController;
+import sgf.utilities.ThreadObserver;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.map.AbstractMapView;
@@ -30,7 +30,8 @@ public class GameViewImpl extends AbstractGameView {
      * @param turretView
      * @param bulletView
      */
-    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView, final AbstractBulletView bulletView) { // TODO: add TurretView, BulletView.
+    public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView, 
+            final AbstractBulletView bulletView) { 
         super();
         // this.mapPanel = new MapViewImpl(map);
         //this.enemyPanel = new EnemyViewImpl(size, map.getMapSize(), enemyList);
@@ -68,6 +69,7 @@ public class GameViewImpl extends AbstractGameView {
     @Override
     public void start() {
         if (this.isControllerSet) {
+            ThreadObserver.register(this);
             this.setLayout(new BorderLayout());
             this.add(mapPanel);
             this.mapPanel.setOpaque(false);
@@ -88,7 +90,8 @@ public class GameViewImpl extends AbstractGameView {
     }
 
     @Override
-    public void stopView() {
-        // TODO Auto-generated method stub
+    public void stop() {
+        this.ready = false;
+        this.setVisible(false);
     }
 }

@@ -9,7 +9,7 @@ import sgf.utilities.Pair;
 
 
 /**
- * Class that managed the classification.
+ * Class that managed the {@link Leaderboard}.
  */
 public class LeaderboardImpl implements Leaderboard {
     private final Map<String, Pair<String, Integer>> mapScore = new HashMap<>();
@@ -21,7 +21,7 @@ public class LeaderboardImpl implements Leaderboard {
     }
 
     @Override
-    public Path getP() {
+    public Path getPath() {
         return this.p;
     }
 

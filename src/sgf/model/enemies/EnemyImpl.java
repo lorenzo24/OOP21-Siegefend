@@ -1,11 +1,10 @@
 package sgf.model.enemies;
 
 import java.util.Objects;
-
 import sgf.model.map.Position;
 
 /**
- * This class represents the implementation of the interface Enemy.
+ * This class represents the implementation of the interface {@link Enemy}.
  */
 public class EnemyImpl implements Enemy {
     private final Position position;
@@ -18,11 +17,11 @@ public class EnemyImpl implements Enemy {
     private final EnemyType enemyType;
 
     /**
-     * Creates an enemy.
-     * @param position Is the position in pixel occupied by the enemy.
-     * @param hp Is the enemy's health.
+     * Creates an {@link Enemy}.
+     * @param position Is the position in pixel occupied by the {@link Enemy}.
+     * @param hp Is the {@link Enemy} health.
      * @param speed Is the movement speed parameter.
-     * @param enemyType Denotes the type of the enemy.
+     * @param enemyType Denotes the type of the {@link Enemy}.
      */
     public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
         this.position = new Position(position);
@@ -88,7 +87,7 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public int hashCode() {
-        return Objects.hash(enemyType, position);
+        return Objects.hash(this.enemyType, this.position);
     }
 
     @Override
@@ -103,7 +102,7 @@ public class EnemyImpl implements Enemy {
             return false;
         }
         final EnemyImpl other = (EnemyImpl) obj;
-        return enemyType == other.enemyType && Objects.equals(position, other.position);
+        return this.enemyType == other.enemyType && Objects.equals(this.position, other.position);
     }
 
     @Override

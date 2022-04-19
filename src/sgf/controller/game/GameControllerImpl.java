@@ -1,7 +1,6 @@
 package sgf.controller.game;
 
 import sgf.managers.GameManager;
-import sgf.model.game.Pausable;
 import sgf.view.game.AbstractGameView;
 import sgf.view.game.GameView;
 
@@ -9,7 +8,7 @@ import sgf.view.game.GameView;
  * This class refers to the implementation of the interface GameController.
  * The goal of this class is to manage the whole game thread.
  */
-public class GameControllerImpl implements GameController, Pausable {
+public class GameControllerImpl implements GameController {
     private AbstractGameView gameView;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private boolean isControllerSet;
@@ -21,7 +20,6 @@ public class GameControllerImpl implements GameController, Pausable {
      */
     public GameControllerImpl(final GameManager gameManager) {
         this.gameManager = gameManager;
-        this.gameManager.register(this);
     }
 
     private void startGameThread() {
@@ -65,8 +63,7 @@ public class GameControllerImpl implements GameController, Pausable {
     }
 
     @Override
-    public void stopController() {
+    public void stop() {
         this.threadRun = false;
-        this.gameManager.deregister(this);
     }
 }

@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import sgf.controller.game.PlayingController;
+import sgf.managers.GameManager;
+import sgf.utilities.ThreadObserver;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.turret.AbstractTurretView;
@@ -36,7 +38,8 @@ public class PlayingViewImpl extends AbstractPlayingView {
      * @param turretView
      * @param bulletView
      */
-    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView, final AbstractTurretView turretView, final AbstractBulletView bulletView) {
+    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView, 
+            final AbstractTurretView turretView, final AbstractBulletView bulletView, final GameManager gameManager) {
         this.gameView = gameView;
         this.shopView = shopView;
         this.playerView = playerView;
@@ -57,6 +60,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     public void start() {
         if (isControllerSet) {
             this.setLayout(new BorderLayout());
+            ThreadObserver.register(this);
             this.add(this.playerView, BorderLayout.NORTH);
             this.add(this.gameView, BorderLayout.CENTER);
             this.add(this.shopView, BorderLayout.SOUTH);
@@ -83,7 +87,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     }
 
     @Override
-    public void stopView() {
-        // TODO Auto-generated method stub
+    public void stop() {
+        this.setVisible(false);
     }
 }
