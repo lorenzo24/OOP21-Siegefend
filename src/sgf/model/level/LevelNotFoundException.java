@@ -5,10 +5,7 @@ package sgf.model.level;
  */
 public class LevelNotFoundException extends RuntimeException {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7784510802991699526L;
 
     /**
      * Creates an empty new instance of {@code LevelNotFoundException}.

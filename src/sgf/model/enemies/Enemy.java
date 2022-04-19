@@ -26,8 +26,8 @@ public interface Enemy {
     double getSpeed();
 
     /**
-     * Returns the type of the enemy.
-     * @return the enemy type.
+     * Returns the {@link EnemyType}.
+     * @return the {@link EnemyType}.
      */
     EnemyType getEnemyType();
 
