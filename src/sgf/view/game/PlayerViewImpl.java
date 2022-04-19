@@ -15,6 +15,7 @@ import sgf.utilities.ThreadObserver;
  */
 public class PlayerViewImpl extends AbstractPlayerView {
 
+    private static final int COLUMN = 5;
     /**
      * 
      */
@@ -76,7 +77,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        ((FlowLayout) this.getLayout()).setHgap(this.getParent().getWidth() / 4);               //TODO: boh.
+        ((FlowLayout) this.getLayout()).setHgap(this.getParent().getWidth() / COLUMN);
         this.revalidate();
     }
 
