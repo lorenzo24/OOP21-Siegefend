@@ -14,9 +14,8 @@ import javax.swing.JPanel;
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
     private static final double INITIAL_SIZE_PERC = 0.95;        // Initial frame size compared to the screen.
-    private static final double MIN_SIZE_PERC = 0.95;    // Minimum resizing acceptable size compared to the screen. // TODO ciccio.
+    private static final int MIN_SCREEN_DIMENSION = 720;    // Minimum resizing acceptable size compared to the screen. // TODO ciccio.
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final JPanel view;
 
     /**
      * Window constructor.
@@ -26,17 +25,16 @@ public class ScreenGame extends JFrame {
         this.setTitle("SIEGEFEND");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);      // Window closing will be managed with a JDialog.
         this.setFrameSize();    // Private method that sets up minimum and initial window size.
-        this.view = view;
-        this.getContentPane().add(this.view);       // Adds main game panel to this frame.
+        this.getContentPane().add(view);       // Adds main game panel to this frame.
         this.windowClosing();   // Private method that manages the window closing by showing a confirm dialog.
         this.setVisible(true);
     }
 
     private void setFrameSize() {
         final double height = this.screenSize.getHeight();
-        final Dimension minimumSize = new Dimension((int) (height * MIN_SIZE_PERC), (int) (height * MIN_SIZE_PERC));
-        this.setMinimumSize(minimumSize);
-        this.setSize((int) (this.screenSize.getHeight() * INITIAL_SIZE_PERC), (int) (this.screenSize.getHeight() * INITIAL_SIZE_PERC));
+        final Dimension minDimension = new Dimension(MIN_SCREEN_DIMENSION, MIN_SCREEN_DIMENSION); 
+        this.setMinimumSize(minDimension);
+        this.setSize((int) (height * INITIAL_SIZE_PERC), (int) (height * INITIAL_SIZE_PERC));
     }
 
     // Methods that shows a JDialog when the user tries to close the game.
