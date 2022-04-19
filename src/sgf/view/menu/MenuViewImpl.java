@@ -46,7 +46,6 @@ public class MenuViewImpl extends AbstractMenuView {
     private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
     private final LevelLoader levelLoader;
     
-    private int test100 = 200;
 
     @Override
     public void setController(final MenuController controller) {
@@ -145,8 +144,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private StartMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 50));
-            //this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            this.setBorder(BorderFactory.createEmptyBorder(test100, test100/2, test100, test100/2));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             titleLabel = new JLabel("Siegefend");
@@ -193,7 +191,7 @@ public class MenuViewImpl extends AbstractMenuView {
             buttonsPanel.add(optionsButton);
             buttonsPanel.add(leaderboardButton);
             buttonsPanel.add(creditsButton);
-            buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
+            //buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
             buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
 
             this.add(titleLabel);
@@ -208,8 +206,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private LevelMenu(){
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
-            // per fabio: this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            this.setBorder(BorderFactory.createEmptyBorder(test100, test100/2, test100, test100/2));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             // Username panel
@@ -283,8 +280,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private OptionsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            // per fabio: this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            this.setBorder(BorderFactory.createEmptyBorder(test100, test100/2, test100, test100/2));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
             goBackButton = new MenuButton("Go back");
@@ -341,8 +337,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private CreditsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
-            // per fabio: this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            this.setBorder(BorderFactory.createEmptyBorder(test100, test100/2, test100, test100/2));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
             creditsText = "The team that made Siegefend a reality:\n\n\n\n\n"
