@@ -1,5 +1,7 @@
 package sgf.model.map;
 
+import java.util.Objects;
+
 /**
  * Represents a pair of spatial coordinates on the map. 
  */
@@ -70,11 +72,6 @@ public class Position {
         this.setY(y);
     }
 
-    @Override
-    public String toString() {
-        return "Position [x=" + x + ", y=" + y + "]";
-    }
-
     /**
      * Calculates the distance from another position.
      * @param pos the other position
@@ -91,5 +88,31 @@ public class Position {
      */
     public double getAngle(final Position target) {
         return Math.atan2(target.getY() - this.getY(), target.getX() - this.getX());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Position other = (Position) obj;
+        return Double.doubleToLongBits(x) == Double.doubleToLongBits(other.x)
+                && Double.doubleToLongBits(y) == Double.doubleToLongBits(other.y);
+    }
+
+    @Override
+    public String toString() {
+        return "Position [x=" + x + ", y=" + y + "]";
     }
 }

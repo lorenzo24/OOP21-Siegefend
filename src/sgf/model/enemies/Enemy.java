@@ -60,5 +60,5 @@ public interface Enemy {
      * Steps done by one enemy.
      * @return the steps done.
      */
-    long getSteps();
+    Double getSteps();
 }

@@ -1,5 +1,7 @@
 package sgf.model.enemies;
 
+import java.util.Objects;
+
 import sgf.model.map.Position;
 
 /**
@@ -7,7 +9,7 @@ import sgf.model.map.Position;
  */
 public class EnemyImpl implements Enemy {
     private final Position position;
-    private long stepsDone;
+    private double stepsDone;
     private double hp;
     private final double maxHp;
     private double hpPercent;
@@ -80,7 +82,34 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public long getSteps() {
+    public Double getSteps() {
         return this.stepsDone;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enemyType, position);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EnemyImpl other = (EnemyImpl) obj;
+        return enemyType == other.enemyType && Objects.equals(position, other.position);
+    }
+
+    @Override
+    public String toString() {
+        return "EnemyImpl [position=" + position + ", stepsDone=" + stepsDone + ", hp=" + hp + ", maxHp=" + maxHp
+                + ", hpPercent=" + hpPercent + ", speed=" + speed + ", points=" + points + ", enemyType=" + enemyType
+                + "]";
     }
 }
