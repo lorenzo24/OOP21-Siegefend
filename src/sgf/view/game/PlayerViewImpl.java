@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import sgf.controller.game.PlayerController;
-import sgf.managers.GameManager;
 import sgf.utilities.ThreadObserver;
 
 /**
@@ -22,14 +21,12 @@ public class PlayerViewImpl extends AbstractPlayerView {
     private static final long serialVersionUID = -1277354176566275849L;
     private boolean isControllerSet = false;
     private PlayerController playerController;
-    private boolean ready = false;
     private JLabel labelHP;
     private JLabel labelMoney;
     private JLabel labelScore;
 
     /**
      * 
-     * @param gameManager
      */
     public PlayerViewImpl() {
         super();
@@ -50,7 +47,6 @@ public class PlayerViewImpl extends AbstractPlayerView {
             this.setVisible(true);
             ThreadObserver.register(this);
             setup();
-            this.ready = true;
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
@@ -58,7 +54,6 @@ public class PlayerViewImpl extends AbstractPlayerView {
 
     @Override
     public void stop() {
-        this.ready = false;
         this.setVisible(false);
     }
 

@@ -6,13 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import sgf.controller.shop.ShopController;
-import sgf.managers.GameManager;
 import sgf.model.game.Stoppable;
 import sgf.model.turret.Turret;
 import sgf.utilities.ThreadObserver;

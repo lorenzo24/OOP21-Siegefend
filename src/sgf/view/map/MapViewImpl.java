@@ -1,8 +1,6 @@
 package sgf.view.map;
 
 import java.awt.Graphics;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import sgf.controller.map.MapController;
 import sgf.model.map.Map;

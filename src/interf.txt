@@ -1,5 +1,0 @@
-[FixedDirectionBullet]
-[FixedTargetBullet]
-[MovingTargetBullet]
-GameApp
-GameView

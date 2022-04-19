@@ -2,9 +2,7 @@ package sgf.view.game;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-
 import sgf.controller.game.GameController;
-import sgf.managers.GameManager;
 import sgf.utilities.ThreadObserver;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.enemy.AbstractEnemyView;
