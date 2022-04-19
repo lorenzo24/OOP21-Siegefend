@@ -37,6 +37,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final int STANDARD_VGAP = 15;
     private static final int START_MENU_VGAP = 50;
     private boolean isControllerSet;
+    private boolean isLeaderboardCreated;
     private boolean ready;
     private MenuController menuController;
     private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
@@ -57,6 +58,7 @@ public class MenuViewImpl extends AbstractMenuView {
     public MenuViewImpl(final LevelLoader l) {
         super();
         this.levelLoader = l;
+        this.isLeaderboardCreated = false;
         this.setVisible(true);
     }
 
@@ -187,14 +189,12 @@ public class MenuViewImpl extends AbstractMenuView {
             }).forEach(this::add);
 
             // Creates a button to go back to the start menu
-            final MenuButton goBackButton = new MenuButton("Go back");
-            goBackButton.addActionListener(new ActionListener() {
+            this.add(new GoBackButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
                 }
-            });
-            this.add(goBackButton);
+            }));
 
         }
 
@@ -209,14 +209,13 @@ public class MenuViewImpl extends AbstractMenuView {
     private final class OptionsMenu extends JPanel {
         private static final long serialVersionUID = -5193173354110468925L;
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
-        private final MenuButton musicButton, goBackButton;
+        private final MenuButton musicButton;
 
         private OptionsMenu() {
             this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, STANDARD_VGAP));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             musicButton = new MenuButton("Music is currently ON");     // Music is enabled by default.
-            goBackButton = new MenuButton("Go back");
 
             musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
 
@@ -227,15 +226,13 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
 
-            goBackButton.addActionListener(new ActionListener() {
+            this.add(musicButton);
+            this.add(new GoBackButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
                 }
-            });
-
-            this.add(musicButton);
-            this.add(goBackButton);
+            }));
         }
 
         private void updateMusicButton() {
@@ -259,7 +256,16 @@ public class MenuViewImpl extends AbstractMenuView {
         private static final long serialVersionUID = -569715702442061004L;
 
         LeaderboardMenu() {
+            this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, STANDARD_VGAP));
+            this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            this.add(new GoBackButton("Go Back", new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    goBack();
+                }
+            }), -1);
         }
     }
 
@@ -269,7 +275,6 @@ public class MenuViewImpl extends AbstractMenuView {
     private final class CreditsMenu extends JPanel {
         private static final long serialVersionUID = 6332858745374471601L;
         private final ScrollingText scrollingCredits;
-        private final MenuButton goBackButton;
         private final String creditsText;
 
         private CreditsMenu() {
@@ -285,23 +290,21 @@ public class MenuViewImpl extends AbstractMenuView {
                     + "Giacomo Leo Bertuccioli\n\n\n\n\n"
                     + "Thank you for playing Siegefend!";
             scrollingCredits = new ScrollingText(creditsText);
-            goBackButton = new MenuButton("Go back");
-            goBackButton.addActionListener(new ActionListener() {
+
+            this.add(scrollingCredits);
+            this.add(new GoBackButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
                 }
-            });
-
-            this.add(scrollingCredits);
-            this.add(goBackButton);
+            }));
         }
     }
 
     private void goBack() {
         removeExtraPanels();
         menuPanel.setVisible(true);
-        this.add(menuPanel);
+        //this.add(menuPanel);
     }
 
     @Override
@@ -317,6 +320,7 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     private void beginGame(final int level) {
+        this.removeAll();
         this.add(this.menuController.loadPlayingView(level));
         this.revalidate();
         this.repaint();
@@ -324,25 +328,26 @@ public class MenuViewImpl extends AbstractMenuView {
 
     @Override
     public void showLeaderboard() {
-        leaderboardPanel = new LeaderboardMenu();
         menuPanel.setVisible(false);
         this.createTable();
         this.add(leaderboardPanel);
-        this.revalidate();
-        this.repaint();
     }
 
     private void createTable() {
-        final String[] columnNames = { "DATE", "NAME", "SCORE" };
-        final JTable table = new JTable(this.convertToMatrix(), columnNames);
-        table.setBackground(Color.decode(BACKGROUND_COLOR));                    // table background
-        //table.setGridColor(Color.green);                                      // grid border
-        table.setForeground(Color.WHITE);                                       // text color
-        table.setEnabled(false);                                                // disable edit
-        final JScrollPane sp = new JScrollPane(table);
-        sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
-        this.leaderboardPanel.setLayout(new BorderLayout());
-        this.leaderboardPanel.add(sp, BorderLayout.CENTER);
+        if (!this.isLeaderboardCreated) {
+            this.isLeaderboardCreated = true;
+            final String[] columnNames = { "DATE", "NAME", "SCORE" };
+            final JTable table = new JTable(this.convertToMatrix(), columnNames);
+            table.setBackground(Color.decode(BACKGROUND_COLOR));                    // table background
+            //table.setGridColor(Color.green);                                      // grid border
+            table.setForeground(Color.WHITE);                                       // text color
+            table.setEnabled(false);                                                // disable edit
+            final JScrollPane sp = new JScrollPane(table);
+            sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
+            //this.leaderboardPanel.setLayout(new BorderLayout());
+            //this.leaderboardPanel.add(sp, BorderLayout.CENTER);
+            this.leaderboardPanel.add(sp, 0);
+        }
     }
 
     private Object[][] convertToMatrix() {
@@ -388,6 +393,7 @@ public class MenuViewImpl extends AbstractMenuView {
         menuPanel = new StartMenu();
         levelPanel = new LevelMenu();
         optionsPanel = new OptionsMenu();
+        leaderboardPanel = new LeaderboardMenu();
         creditsPanel = new CreditsMenu();
 
         this.setLayout(new BorderLayout());
