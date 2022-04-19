@@ -24,7 +24,7 @@ public class ScrollingText extends JPanel implements ActionListener {
     private int textY;
 
     /**
-     * Basic Constructor.
+     * Creates a new instance of the class.
      * @param text the text we want to display
      */
     public ScrollingText(final String text) {
