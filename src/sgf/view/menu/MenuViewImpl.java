@@ -29,14 +29,13 @@ import sgf.utilities.ThreadObserver;
 public class MenuViewImpl extends AbstractMenuView {
 
     private static final long serialVersionUID = 5001578289309695664L;
+    private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
+    private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
+    private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+    private static final int BORDER = 50;
     private boolean isControllerSet;
     private boolean ready;
     private MenuController menuController;
-    private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
-    private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
-    private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
-    private static final int BORDER = 50;
-    //private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
     private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
     private final LevelLoader levelLoader;
 
@@ -49,17 +48,18 @@ public class MenuViewImpl extends AbstractMenuView {
     }
 
     /**
-     * 
-     * @param l
+     * Creates a new instance of the class.
+     * @param l the level we want to load
      */
     public MenuViewImpl(final LevelLoader l) {
         super();
         this.levelLoader = l;
-        //levelPanel = new LevelMenu();
-
         this.setVisible(true);
     }
 
+    /**
+     * Represents the home screen.
+     */
     private final class StartMenu extends JPanel {
         private static final long serialVersionUID = 6719773034661190037L;
         private final JPanel buttonsPanel;
@@ -115,7 +115,6 @@ public class MenuViewImpl extends AbstractMenuView {
             buttonsPanel.add(optionsButton);
             buttonsPanel.add(leaderboardButton);
             buttonsPanel.add(creditsButton);
-            //buttonsPanel.setBorder(BorderFactory.createEmptyBorder(50, 25, 50, 25));
             buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
 
             this.add(titleLabel);
@@ -123,6 +122,9 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
+    /**
+     * Lets the user select the level he wants to play and input his username.
+     */
     private final class LevelMenu extends JPanel {
         private static final long serialVersionUID = -8092993900595318140L;
         private boolean isUsernameSet;
@@ -198,6 +200,9 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
+    /**
+     * Contains all the options that the user can freely change.
+     */
     private final class OptionsMenu extends JPanel {
         private static final long serialVersionUID = -5193173354110468925L;
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
@@ -207,7 +212,7 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setLayout(new GridLayout(2, 1, 15, 15));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
-            musicButton = new MenuButton("Music is currently ON");     // Music is enabled by default
+            musicButton = new MenuButton("Music is currently ON");     // Music is enabled by default.
             goBackButton = new MenuButton("Go back");
 
             musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
@@ -244,10 +249,10 @@ public class MenuViewImpl extends AbstractMenuView {
 
     }
 
+    /**
+     * Contains the leaderboard.
+     */
     private class LeaderboardMenu extends JPanel {
-        /**
-         * 
-         */
         private static final long serialVersionUID = -569715702442061004L;
 
         LeaderboardMenu() {
@@ -255,6 +260,9 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
+    /**
+     * Contains the credits of the game.
+     */
     private final class CreditsMenu extends JPanel {
         private static final long serialVersionUID = 6332858745374471601L;
         private final ScrollingText scrollingCredits;
@@ -292,7 +300,6 @@ public class MenuViewImpl extends AbstractMenuView {
         menuPanel.setVisible(true);
         this.add(menuPanel);
     }
-
 
     @Override
     public void showLevelPicker() {
