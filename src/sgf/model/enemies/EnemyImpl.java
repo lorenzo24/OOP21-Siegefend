@@ -9,7 +9,7 @@ import sgf.model.map.Position;
  */
 public class EnemyImpl implements Enemy {
     private final Position position;
-    private long stepsDone;
+    private double stepsDone;
     private double hp;
     private final double maxHp;
     private double hpPercent;
@@ -82,7 +82,7 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public long getSteps() {
+    public Double getSteps() {
         return this.stepsDone;
     }
 
