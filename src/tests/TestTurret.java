@@ -2,17 +2,9 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-
-import sgf.helpers.MapLoaderImpl;
 import sgf.helpers.TurretsLoader;
 import sgf.helpers.TurretsLoaderImpl;
-import sgf.helpers.WavesLoader;
-import sgf.helpers.WavesLoaderImpl;
-import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
 
