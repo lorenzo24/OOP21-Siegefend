@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import sgf.helpers.ImageLoader;
 import sgf.helpers.ImgTileSize;
+import sgf.managers.ImageLoaderManager;
 import sgf.managers.TileImageManager;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
@@ -20,7 +20,7 @@ public class MapControllerImpl implements MapController {
     private MapView mapView;    // Linked View class.
     private final int tileSize;
     private final BufferedImage mapImage;    // Map to be shown after the creation process.
-    private final ImageLoader<TileType> tileManager;   // Field that contains all the links between tile types and corresponding images.
+    private final ImageLoaderManager<TileType> tileManager;   // Field that contains all the links between tile types and corresponding images.
     private boolean isControllerSet;
 
     /**

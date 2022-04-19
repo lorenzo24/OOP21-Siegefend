@@ -11,7 +11,8 @@
 .mtj.tmp/
 
 # Package Files #
-*.war
+*classification.json
+.war
 *.nar
 *.ear
 *.zip

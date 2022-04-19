@@ -2,16 +2,11 @@ package sgf.managers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import sgf.controller.game.PlayerController;
-import sgf.controller.game.PlayerControllerImpl;
-import sgf.controller.turret.TurretController;
 import sgf.model.game.GameStatus;
 import sgf.model.game.Pausable;
-import sgf.model.game.Player;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
-import sgf.model.map.GridPosition;
 
 /**
  * This class is the implementation of the interface GameManager.

@@ -1,1 +1,29 @@
-[{"fireRate":10.0,"price":200,"range":100.0,"ID":0,"position":null,"bulletSpeed":1.0,"bulletDamage":50.0},{"fireRate":5.0,"price":250,"range":200.0,"ID":1,"position":null,"bulletSpeed":2.0,"bulletDamage":25.0},{"fireRate":30.0,"price":500,"range":50.0,"ID":2,"position":null,"bulletSpeed":1.0,"bulletDamage":100.0}]
+[
+  {
+    "fireRate": 0.75,
+    "price": 200,
+    "range": 250.0,
+    "ID": 0,
+    "position": null,
+    "bulletSpeed": 150.0,
+    "bulletDamage": 30.0
+  },
+  {
+    "fireRate": 0.4,
+    "price": 250,
+    "range": 200.0,
+    "ID": 1,
+    "position": null,
+    "bulletSpeed": 200.0,
+    "bulletDamage": 90.0
+  },
+  {
+    "fireRate": 1.5,
+    "price": 400,
+    "range": 350.0,
+    "ID": 2,
+    "position": null,
+    "bulletSpeed": 200.0,
+    "bulletDamage": 15.0
+  }
+]

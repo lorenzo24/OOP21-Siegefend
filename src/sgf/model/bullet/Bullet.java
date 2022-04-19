@@ -9,34 +9,45 @@ import sgf.model.map.Position;
 public interface Bullet {
 
     /**
-     * @return speed.
+     * Returns the id of the bullet.
+     * @return the id of the bullet
+     */
+    int getID();
+
+    /**
+     * Returns the speed of the bullet.
+     * @return the speed of the bullet
      */
     double getSpeed();
 
     /**
-     * @return bullet's position.
+     * Returns the bullet's position.
+     * @return the bullet's position
      */
     Position getPosition();
 
     /**
-     * @return target's position.
+     * Returns the target's position.
+     * @return the target's position
      */
     Position getTargetPosition();
 
     /**
-     * @return damage. 
+     * Returns the bullet's damage.
+     * @return the bullet's damage
      */
     double getDamage();
 
     /**
-     * @return the current target. 
+     * Returns the target of the bullet.
+     * @return the target of the bullet
      */
     Enemy getTarget();
 
     /**
      * Moves the bullet to the given coordinate.
-     * @param x the 
-     * @param y
+     * @param x the new x coordinate
+     * @param y the new y coordinate
      */
     void move(double x, double y);
 

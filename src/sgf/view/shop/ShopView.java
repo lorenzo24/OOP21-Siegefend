@@ -4,7 +4,7 @@ import sgf.controller.shop.ShopController;
 import sgf.view.View;
 
 /**
- *
+ * Interfaces for the view of the shop.
  */
 public interface ShopView extends View<ShopController> {
 

@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 /**
- * 
+ * Abstract class for the view of the shop based on {@link JPanel}.
  */
 public abstract class AbstractShopView extends JPanel implements ShopView {
 

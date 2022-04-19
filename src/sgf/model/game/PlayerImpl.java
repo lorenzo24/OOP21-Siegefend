@@ -8,7 +8,7 @@ public class PlayerImpl implements Player {
     /**
      * Indicates Player's Max health.
      */
-    public static final int MAX_HP = 20;
+    public static final int MAX_HP = 10;
     /**
      * Indicates the amount of money the player starts with.
      */
@@ -35,6 +35,12 @@ public class PlayerImpl implements Player {
         this.money = STARTING_MONEY;
         this.score = STARTING_SCORE;
         this.playerName = playerName;
+    }
+    /**
+     * Basic constructor used when no username is provided.
+     */
+    public PlayerImpl() {
+        this("Unknown");
     }
 
     @Override

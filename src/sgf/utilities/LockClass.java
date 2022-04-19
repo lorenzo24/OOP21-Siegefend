@@ -3,17 +3,18 @@ package sgf.utilities;
 import java.util.concurrent.Semaphore;
 
 /**
- * Class that represents a semaphore for the mutual exclusion.
+ * Class which contains semaphores shared by other classes.
  */
 public final class LockClass {
     private static final Semaphore ENEMY_SEMAPHORE = new Semaphore(1);
     private static final Semaphore TURRET_SEMAPHORE = new Semaphore(1);
+    private static final Semaphore BULLET_SEMAPHORE = new Semaphore(1);
     // the same thing must be done for bullets
 
     private LockClass() { }
 
     /**
-     * Returns the enemy's semaphore.
+     * Returns the enemies' semaphore.
      * @return a semaphore
      */
     public static Semaphore getEnemySemaphore() {
@@ -21,10 +22,18 @@ public final class LockClass {
     }
 
     /**
-     * Returns the turret's semaphore.
+     * Returns the turrets' semaphore.
      * @return a semaphore
      */
     public static Semaphore getTurretSemaphore() {
         return TURRET_SEMAPHORE;
+    }
+
+    /**
+     * Returns the bullets' semaphore.
+     * @return a semaphore
+     */
+    public static Semaphore getBulletSemaphore() {
+        return BULLET_SEMAPHORE;
     }
 }

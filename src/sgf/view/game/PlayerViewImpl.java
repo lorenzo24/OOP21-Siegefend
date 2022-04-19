@@ -1,12 +1,10 @@
 package sgf.view.game;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-
-import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import sgf.controller.game.PlayerController;
 
 /**
@@ -15,6 +13,10 @@ import sgf.controller.game.PlayerController;
  */
 public class PlayerViewImpl extends AbstractPlayerView {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1277354176566275849L;
     private boolean isControllerSet = false;
     private PlayerController playerController;
     private boolean ready = false;
@@ -78,5 +80,11 @@ public class PlayerViewImpl extends AbstractPlayerView {
         this.labelHP.setText("HP: " + this.playerController.getPlayer().getCurrentHP() + "/" + this.playerController.getPlayer().getMaxHP());
         this.labelMoney.setText("Money: " + this.playerController.getPlayer().getMoney());
         this.labelScore.setText("Score: " + this.playerController.getPlayer().getScore());
+    }
+
+    @Override
+    public void loseGame() {
+        JOptionPane.showMessageDialog(new JFrame(), "You lost the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.ERROR_MESSAGE);
+        System.exit(0); // TODO MIGLIORARE.
     }
 }

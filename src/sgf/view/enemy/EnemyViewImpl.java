@@ -1,11 +1,11 @@
 package sgf.view.enemy;
 
 import sgf.controller.enemy.EnemyController;
-import sgf.helpers.ImageLoader;
 import sgf.helpers.ImgTileSize;
 import sgf.managers.BarLifeImageManager;
 import sgf.managers.EnemyImageManager;
 import sgf.managers.EnemyManager;
+import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
@@ -14,9 +14,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import  java.util.List;
-import javax.swing.SwingUtilities;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Panel for enemy's movement and appearance.
@@ -25,11 +25,11 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private static final long serialVersionUID = 6345414040020937047L;
     private static final int RGB_MAX = 255;     // Maximum value that a RGB parameter must assume.
     private static final int BAR_HEIGHT = 8;
-    private EnemyController enemyController;
-    private final ImageLoader<EnemyType> imageEnemyController;      // Contains the links between enemy type and images.
-    private final ImageLoader<Integer> imageBarController;
-    private final BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
-    private List<EnemyManager> enemyList;       // List of enemies to be showed.
+    private transient EnemyController enemyController;
+    private final transient ImageLoaderManager<EnemyType> imageEnemyController;      // Contains the links between enemy type and images.
+    private final transient ImageLoaderManager<Integer> imageBarController;
+    private final transient BufferedImage image;  // Empty image of total panel size to replace and hide previous effective enemy image.
+    private transient List<EnemyManager> enemyList;       // List of enemies to be showed.
     private boolean isControllerSet;
     private final int tileSize;
     private boolean ready;
@@ -92,6 +92,12 @@ public class EnemyViewImpl extends AbstractEnemyView {
             this.enemyController = controller;
             this.enemyList = this.enemyController.getManagerList();
         }
+    }
+
+    @Override
+    public void winGame() {
+        JOptionPane.showMessageDialog(new JFrame(), "You win the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0); // TODO MIGLIORARE.
     }
 
     @Override
