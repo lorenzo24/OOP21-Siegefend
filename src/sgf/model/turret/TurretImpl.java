@@ -1,11 +1,13 @@
 package sgf.model.turret;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import sgf.model.bullet.Bullet;
 import sgf.model.bullet.BulletFactory;
 import sgf.model.bullet.BulletFactoryImpl;
 import sgf.model.enemies.Enemy;
+import sgf.model.enemies.EnemyImpl;
 import sgf.model.map.Position;
 
 /**
@@ -126,8 +128,36 @@ public class TurretImpl implements Turret, Cloneable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(angle, bulletDamage, bulletFactory, bulletSpeed, fireRate, id, position, price, range,
+                state, target);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TurretImpl other = (TurretImpl) obj;
+        return Double.doubleToLongBits(angle) == Double.doubleToLongBits(other.angle)
+                && Double.doubleToLongBits(bulletDamage) == Double.doubleToLongBits(other.bulletDamage)
+                && Objects.equals(bulletFactory, other.bulletFactory)
+                && Double.doubleToLongBits(bulletSpeed) == Double.doubleToLongBits(other.bulletSpeed)
+                && Double.doubleToLongBits(fireRate) == Double.doubleToLongBits(other.fireRate) && id == other.id
+                && Objects.equals(position, other.position) && price == other.price
+                && Double.doubleToLongBits(range) == Double.doubleToLongBits(other.range) && state == other.state
+                && Objects.equals(target, other.target);
+    }
+
+    @Override
     public String toString() {
-        return "TurretImpl [id=" + id + ", position=" + position + ", range=" + range + ", price=" + price
+        return "TurretImpl [ID=" + id + ", position=" + position + ", range=" + range + ", price=" + price
                 + ", fireRate=" + fireRate + ", bulletSpeed=" + bulletSpeed + ", bulletDamage=" + bulletDamage + "]";
     }
 }

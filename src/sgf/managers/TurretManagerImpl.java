@@ -103,18 +103,19 @@ public class TurretManagerImpl implements TurretManager, Pausable {
         LockClass.getEnemySemaphore().acquireUninterruptibly();
         final Position currentPosition = this.getTurret().getPosition();
         final var closest = this.enemyController.getManagerList().stream()
-                                             .filter(e -> e.getEnemy().getHP() > 0) // Ignores enemies with HP lower or equal to 0
-                                             .map(e -> Pair.from(e, currentPosition.distanceTo(e.getEnemy().getPosition())))
+                                             .filter(e -> e.getEnemy().getHP() > 0 && turret.getPosition().distanceTo(e.getEnemy().getPosition()) <= this.turret.getRange()) // Ignores enemies with HP lower or equal to 0
+                                             .map(e -> Pair.from(e, e.getEnemy().getSteps()))
                                              .min(new Comparator<Pair<EnemyManager, Double>>() {
                                                  public int compare(final Pair<EnemyManager, Double> p1, final Pair<EnemyManager, Double> p2) {
-                                                     return Double.compare(p1.getY(), p2.getY());
+                                                     return Double.compare(p2.getY(), p1.getY());
                                                  }
                                              });
         LockClass.getEnemySemaphore().release();
-        if (closest.isPresent() && closest.get().getY() <= this.turret.getRange()) {
+        if (closest.isPresent()) {
             this.turret.setTarget(closest.get().getX().getEnemy());
         } else {
             this.turret.setTarget(null);
+            //System.out.println("No target found");
         }
     }
 

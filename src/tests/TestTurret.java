@@ -60,7 +60,7 @@ public class TestTurret {
     }
 
     /**
-     * Checks if the getClone() method works correctly.
+     * Tests if the getClone() method works correctly.
      */
     @Test
     public void getCloneTest() {

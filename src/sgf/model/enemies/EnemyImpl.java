@@ -9,7 +9,7 @@ import sgf.model.map.Position;
  */
 public class EnemyImpl implements Enemy {
     private final Position position;
-    private long stepsDone;
+    private double stepsDone;
     private double hp;
     private final double maxHp;
     private double hpPercent;
@@ -82,13 +82,13 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public long getSteps() {
+    public Double getSteps() {
         return this.stepsDone;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(enemyType);
+        return Objects.hash(enemyType, position);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class EnemyImpl implements Enemy {
             return false;
         }
         final EnemyImpl other = (EnemyImpl) obj;
-        return enemyType == other.enemyType;
+        return enemyType == other.enemyType && Objects.equals(position, other.position);
     }
 
     @Override
