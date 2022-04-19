@@ -29,13 +29,10 @@ import sgf.helpers.LevelLoader;
 import sgf.utilities.Pair;
 
 /**
- *
+ * View of the menu.
  */
 public class MenuViewImpl extends AbstractMenuView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 5001578289309695664L;
     private boolean isControllerSet;
     private boolean ready;
@@ -44,7 +41,8 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
     private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
     private static final int BORDER = 50;
-    private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
+    //private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
+    private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
     private final LevelLoader levelLoader;
 
     @Override
