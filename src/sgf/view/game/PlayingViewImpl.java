@@ -8,6 +8,7 @@ import java.awt.event.ComponentListener;
 
 import sgf.controller.game.PlayingController;
 import sgf.managers.GameManager;
+import sgf.utilities.ThreadObserver;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.shop.AbstractShopView;
 import sgf.view.turret.AbstractTurretView;
@@ -29,7 +30,6 @@ public class PlayingViewImpl extends AbstractPlayingView {
     private final AbstractTurretView turretView;
     private final AbstractBulletView bulletView;
     private boolean isControllerSet;
-    private final GameManager gameManager;
 
 
     /**
@@ -47,7 +47,6 @@ public class PlayingViewImpl extends AbstractPlayingView {
         this.playerView = playerView;
         this.turretView = turretView;
         this.bulletView = bulletView;
-        this.gameManager = gameManager;
         this.setVisible(false);
     }
 
@@ -63,7 +62,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     public void start() {
         if (isControllerSet) {
             this.setLayout(new BorderLayout());
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             this.add(this.playerView, BorderLayout.NORTH);
             this.add(this.gameView, BorderLayout.CENTER);
             this.add(this.shopView, BorderLayout.SOUTH);

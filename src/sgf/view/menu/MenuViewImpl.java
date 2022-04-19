@@ -54,6 +54,7 @@ import sgf.model.game.Leaderboard;
 import sgf.model.game.Player;
 import sgf.model.game.PlayerImpl;
 import sgf.utilities.Pair;
+import sgf.utilities.ThreadObserver;
 import sgf.view.ScreenGame;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.enemy.EnemyViewImpl;
@@ -82,7 +83,6 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 200);
     private JPanel menuPanel, levelPanel, leaderboardPanel;
     private final LevelLoader levelLoader;
-    private final GameManager gameManager;
 
     @Override
     public void setController(final MenuController controller) {
@@ -96,9 +96,8 @@ public class MenuViewImpl extends AbstractMenuView {
      * 
      * @param l
      */
-    public MenuViewImpl(final LevelLoader l, final GameManager gameManager) {
+    public MenuViewImpl(final LevelLoader l) {
         super();
-        this.gameManager = gameManager;
         this.levelLoader = l;
         levelPanel = new LevelPicker();
         this.setVisible(true);
@@ -328,7 +327,7 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void start() {
         if (this.isControllerSet) {
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);

@@ -14,6 +14,7 @@ import sgf.managers.ImageLoaderManager;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.Position;
 import sgf.utilities.LockClass;
+import sgf.utilities.ThreadObserver;
 
 /**
  *
@@ -27,15 +28,13 @@ public class BulletViewImpl extends AbstractBulletView {
     private final int tileSize;
     private final BufferedImage image;
     private final ImageLoaderManager<Integer> imgManager;
-    private final GameManager gameManager;
 
     /**
      * Constructor for creating an instance of a {@code BulletViewImpl}.
      * @param matrixSize the size of map in tiles
      * @param gameManager is the manager for the game.
      */
-    public BulletViewImpl(final int matrixSize, final GameManager gameManager) {
-        this.gameManager = gameManager;
+    public BulletViewImpl(final int matrixSize) {
         
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
@@ -80,7 +79,7 @@ public class BulletViewImpl extends AbstractBulletView {
         if (this.isControllerSet) {
             this.ready = true;
             this.setVisible(true);
-            gameManager.register(this);
+            ThreadObserver.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }

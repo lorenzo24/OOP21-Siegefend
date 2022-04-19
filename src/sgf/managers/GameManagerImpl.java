@@ -12,7 +12,7 @@ import sgf.model.level.Wave;
 /**
  * This class is the implementation of the interface GameManager.
  */
-public class GameManagerImpl implements GameManager, Stoppable {
+public class GameManagerImpl implements GameManager {
     private final PlayerController playerController;
     private final LevelManager levelManager;
     private final List<Stoppable> stoppableList;
@@ -46,15 +46,5 @@ public class GameManagerImpl implements GameManager, Stoppable {
     @Override
     public Wave getCurrentWave() {
         return this.levelManager.getCurrentWave();
-    }
-
-    @Override
-    public void stop() {
-        this.stoppableList.forEach(Stoppable::stop);
-    }
-
-    @Override
-    public void register(final Stoppable stoppable) {
-        this.stoppableList.add(stoppable);
     }
 }

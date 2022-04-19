@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import sgf.controller.game.PlayerController;
 import sgf.managers.GameManager;
+import sgf.utilities.ThreadObserver;
 
 /**
  * 
@@ -25,15 +26,13 @@ public class PlayerViewImpl extends AbstractPlayerView {
     private JLabel labelHP;
     private JLabel labelMoney;
     private JLabel labelScore;
-    private final GameManager gameManager;
 
     /**
      * 
      * @param gameManager
      */
-    public PlayerViewImpl(final GameManager gameManager) {
+    public PlayerViewImpl() {
         super();
-        this.gameManager = gameManager;
         this.setVisible(false);
     }
 
@@ -49,7 +48,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     public void start() {
         if (isControllerSet) {
             this.setVisible(true);
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             setup();
             this.ready = true;
         } else {

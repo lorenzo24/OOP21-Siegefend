@@ -10,6 +10,7 @@ import sgf.controller.map.MapController;
 import sgf.managers.GameManager;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
+import sgf.utilities.ThreadObserver;
 
 /**
  * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
@@ -24,18 +25,16 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener {
     //private Consumer<MouseEvent> mouseHandler;  // Manager for user click into grid tiles.
     private boolean isControllerSet;
     private boolean ready;
-    private final GameManager gameManager;
 
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
      * @param map The logic map of the current level
      * @param gameManager 
      */
-    public MapViewImpl(final Map map, final GameManager gameManager) {
+    public MapViewImpl(final Map map) {
         this.map = map;
         this.matrixSize = map.getSize();
         this.setVisible(false);
-        this.gameManager = gameManager;
     }
 
     /**
@@ -77,7 +76,7 @@ public class MapViewImpl extends AbstractMapView implements ComponentListener {
     @Override
     public void start() {
         if (isControllerSet) {
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             this.addComponentListener(this);
             this.ready = true;
             this.setVisible(true);

@@ -10,38 +10,40 @@ import javax.swing.Timer;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.turret.TurretController;
 import sgf.model.enemies.Enemy;
+import sgf.model.game.Stoppable;
 import sgf.model.map.Position;
 import sgf.model.turret.Turret;
 import sgf.utilities.Pair;
+import sgf.utilities.ThreadObserver;
 
 /**
  * 
  * 
  *
  */
-public class TurretManagerImpl implements TurretManager {
+public class TurretManagerImpl implements TurretManager, Stoppable {
 
     private static final int UPDATE_DELAY = 20;
     private final Turret turret;
     private volatile boolean isThreadRunning = true;
     private Thread gameThread;
     private final EnemyController enemyController;
-    private final GameManager gameManager;
     private final ActionListener fire;                          // Used for shooting.
     private final TurretController turretController;
     private final Timer bulletTimer;
+    private final GameManager gameManager;
 
     /**
      * 
      * @param turret
      * @param turretController
      * @param enemyController
-     * @param gameManager
      */
     public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController, final GameManager gameManager) {
+        this.gameManager = gameManager;
         this.turret = turret;
         this.enemyController = enemyController;
-        this.gameManager = gameManager;
+        ThreadObserver.register(this);
         this.turretController = turretController;
         this.fire = new ActionListener() {
             @Override
@@ -148,6 +150,12 @@ public class TurretManagerImpl implements TurretManager {
     @Override
     public int sell() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void stop() {
+        this.isThreadRunning = false;
+        this.gameThread.interrupt();
     }
 
 }

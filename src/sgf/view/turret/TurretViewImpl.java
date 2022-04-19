@@ -25,6 +25,7 @@ import sgf.model.map.TileType;
 import sgf.model.turret.Turret;
 import sgf.utilities.LockClass;
 import sgf.utilities.PositionConverter;
+import sgf.utilities.ThreadObserver;
 
 /**
  * 
@@ -43,7 +44,6 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
     private final PositionConverter posConverter;
     private final Map map;
     private Turret clickedTurret;
-    private final GameManager gameManager;
 
     /**
      * 
@@ -51,8 +51,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
      * @param semaphore
      * @param gameManager
      */
-    public TurretViewImpl(final Map map, final Semaphore semaphore, final GameManager gameManager) {
-        this.gameManager = gameManager;
+    public TurretViewImpl(final Map map, final Semaphore semaphore) {
         this.setVisible(false);
         this.map = map;
         this.matrixSize = map.getSize();
@@ -74,7 +73,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
     @Override
     public void start() {
         if (this.isControllerSet) {
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             this.ready = true;
             this.setVisible(true);
             this.addMouseListener(this);

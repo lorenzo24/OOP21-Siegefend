@@ -14,6 +14,7 @@ import sgf.controller.shop.ShopController;
 import sgf.managers.GameManager;
 import sgf.model.game.Stoppable;
 import sgf.model.turret.Turret;
+import sgf.utilities.ThreadObserver;
 
 /**
  *
@@ -29,14 +30,11 @@ public class ShopViewImpl extends AbstractShopView implements Stoppable {
     private ShopController shopController;
     private boolean isControllerSet;
     private boolean ready;
-    private final GameManager gameManager;
 
     /**
      * Constructor for creating a new instance of {@code ShopViewImpl}.
-     * @param gameManager useful in order to stop this view.
      */
-    public ShopViewImpl(final GameManager gameManager) {
-        this.gameManager = gameManager;
+    public ShopViewImpl() {
         this.setLayout(new BorderLayout());
         this.setVisible(false);
     }
@@ -123,7 +121,7 @@ public class ShopViewImpl extends AbstractShopView implements Stoppable {
     @Override
     public void start() {
         if (this.isControllerSet) {
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);

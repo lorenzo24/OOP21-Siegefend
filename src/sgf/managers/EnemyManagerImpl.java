@@ -5,17 +5,19 @@ import sgf.controller.enemy.EnemyController;
 import sgf.controller.game.PlayerController;
 import sgf.helpers.ImgTileSize;
 import sgf.model.enemies.Enemy;
+import sgf.model.game.Stoppable;
 import sgf.model.map.Direction;
 import sgf.model.map.GridPosition;
 import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.utilities.Pair;
 import sgf.utilities.PositionConverter;
+import sgf.utilities.ThreadObserver;
 
 /**
  * Class that manages each single enemy.
  */
-public class EnemyManagerImpl implements EnemyManager {
+public class EnemyManagerImpl implements EnemyManager, Stoppable {
     private static final int ENEMY_SPEED = 10;
     private final int imgSize = ImgTileSize.getTileSize();
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
@@ -36,7 +38,9 @@ public class EnemyManagerImpl implements EnemyManager {
      * @param playerController the controller of the player
      * @param gameManager the manager of the game
      */
-    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, final PlayerController playerController, final GameManager gameManager) {
+    public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, 
+            final PlayerController playerController) {
+        ThreadObserver.register(this);
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;
@@ -143,5 +147,11 @@ public class EnemyManagerImpl implements EnemyManager {
     @Override
     public void stopThread() {
         this.threadRun = false;
+    }
+
+    @Override
+    public void stop() {
+        this.stopThread();
+        //this.gameThread.interrupt();
     }
 }

@@ -10,6 +10,7 @@ import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
+import sgf.utilities.ThreadObserver;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -37,15 +38,13 @@ public class EnemyViewImpl extends AbstractEnemyView {
     private boolean isControllerSet;
     private final int tileSize;
     private boolean ready;
-    private final GameManager gameManager;
 
     /**
      * Constructor that sets the image, image controller and list of enemies.
      * @param matrixSize Is the size that the enemy's image must have.
      * @param gameManager is the manager for the game.
      */
-    public EnemyViewImpl(final int matrixSize, final GameManager gameManager) {
-        this.gameManager = gameManager;
+    public EnemyViewImpl(final int matrixSize) {
         this.tileSize = ImgTileSize.getTileSize();
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.imageEnemyController = new EnemyImageManager();
@@ -112,7 +111,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (isControllerSet) {
             this.ready = true;
             this.setVisible(true);
-            this.gameManager.register(this);
+            ThreadObserver.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }

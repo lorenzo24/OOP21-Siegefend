@@ -34,9 +34,4 @@ public interface GameManager {
      * @return the wave being executed
      */
     Wave getCurrentWave();
-
-    /**
-     * hhg.
-     */
-    void register(Stoppable stoppable);
 }
