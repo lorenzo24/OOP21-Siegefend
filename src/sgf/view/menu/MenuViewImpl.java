@@ -145,7 +145,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private class LevelMenu extends JPanel {
         private boolean isUsernameSet;
 
-        LevelMenu(){
+        private LevelMenu(){
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
             this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
@@ -221,7 +221,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
         private final MenuButton musicButton, goBackButton;
 
-        OptionsMenu() {
+        private OptionsMenu() {
             this.setLayout(new GridLayout(2, 1, 15, 15));
             this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
