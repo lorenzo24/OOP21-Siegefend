@@ -61,11 +61,12 @@ public class MenuViewImpl extends AbstractMenuView {
         super();
         this.levelLoader = l;
         //levelPanel = new LevelMenu();
-        
+
         this.setVisible(true);
     }
 
     private final class StartMenu extends JPanel {
+        private static final long serialVersionUID = 6719773034661190037L;
         private final JPanel buttonsPanel;
         private final MenuButton startButton, optionsButton, leaderboardButton, creditsButton;
         private final JLabel titleLabel;
@@ -126,12 +127,12 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(buttonsPanel);
         }
     }
-    
 
-    private class LevelMenu extends JPanel {
+    private final class LevelMenu extends JPanel {
+        private static final long serialVersionUID = -8092993900595318140L;
         private boolean isUsernameSet;
 
-        private LevelMenu(){
+        private LevelMenu() {
             this.isUsernameSet = false;
             this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
@@ -202,7 +203,8 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    private class OptionsMenu extends JPanel {
+    private final class OptionsMenu extends JPanel {
+        private static final long serialVersionUID = -5193173354110468925L;
         private static final String MUSIC_OFF_COLOR = "#EF476F", MUSIC_ON_COLOR = "#00A676";
         private final MenuButton musicButton, goBackButton;
 
@@ -210,7 +212,7 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setLayout(new GridLayout(2, 1, 15, 15));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
-            musicButton = (new MenuButton("Music is currently ON"));     // Music is enabled by default
+            musicButton = new MenuButton("Music is currently ON");     // Music is enabled by default
             goBackButton = new MenuButton("Go back");
 
             musicButton.setBackground(Color.decode(MUSIC_ON_COLOR));
@@ -258,7 +260,8 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    private class CreditsMenu extends JPanel {
+    private final class CreditsMenu extends JPanel {
+        private static final long serialVersionUID = 6332858745374471601L;
         private final ScrollingText scrollingCredits;
         private final MenuButton goBackButton;
         private final String creditsText;
@@ -288,22 +291,13 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(goBackButton);
         }
     }
-    
+
     private void goBack() {
         removeExtraPanels();
         menuPanel.setVisible(true);
         this.add(menuPanel);
     }
 
-    /*
-     * No longer needed, now there is the method goBack().
-    public void showStartMenu() {
-        hideExtraPanels();
-        menuPanel.setVisible(true);
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
-        this.add(menuPanel);
-    }
-    */
 
     @Override
     public void showLevelPicker() {
@@ -313,6 +307,7 @@ public class MenuViewImpl extends AbstractMenuView {
         this.add(levelPanel);
     }
 
+    @Override
     public void showOptions() {
         menuPanel.setVisible(false);
         this.optionsPanel.setVisible(true);
@@ -329,6 +324,7 @@ public class MenuViewImpl extends AbstractMenuView {
         this.repaint();
     }
 
+    @Override
     public void showLeaderboard() {
         leaderboardPanel = new LeaderboardMenu();
         menuPanel.setVisible(false);
@@ -369,35 +365,28 @@ public class MenuViewImpl extends AbstractMenuView {
 
     @Override
     public void showCredits() {
-        // TODO: Use Scrolling Text
-        // JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
         menuPanel.setVisible(false);
         this.creditsPanel.setVisible(true);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(creditsPanel);
     }
-    
+
     /**
      * Hides all panels that are not null (except the main menu).
      */
     public void removeExtraPanels() {
         if (levelPanel != null) {
             this.remove(levelPanel);
-            //levelPanel.setVisible(false);
         }
         if (optionsPanel != null) {
-            //optionsPanel.setVisible(false);
             this.remove(optionsPanel);
         }
         if (leaderboardPanel != null) {
             this.remove(leaderboardPanel);
-            //leaderboardPanel.setVisible(false);
         }
         if (creditsPanel != null) {
             this.remove(creditsPanel);
-            //leaderboardPanel.setVisible(false);
         }
-        // credits
     }
 
     private void setup() {
@@ -427,6 +416,4 @@ public class MenuViewImpl extends AbstractMenuView {
         // TODO Auto-generated method stub
 
     }
-
-
 }
