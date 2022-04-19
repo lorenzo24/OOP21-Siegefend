@@ -91,6 +91,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     @Override
     public void loseGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You lost the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.ERROR_MESSAGE);
-        System.exit(0); // TODO MIGLIORARE.
+        ThreadObserver.stop();
+        System.exit(0); 
     }
 }

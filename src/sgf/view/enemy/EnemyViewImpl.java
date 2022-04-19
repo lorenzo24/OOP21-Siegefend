@@ -103,7 +103,8 @@ public class EnemyViewImpl extends AbstractEnemyView {
     @Override
     public void winGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You win the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0); // TODO MIGLIORARE.
+        ThreadObserver.stop();
+        System.exit(0); 
     }
 
     @Override
