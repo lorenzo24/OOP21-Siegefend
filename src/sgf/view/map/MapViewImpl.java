@@ -62,7 +62,6 @@ public class MapViewImpl extends AbstractMapView {
     public void start() {
         if (isControllerSet) {
             ThreadObserver.register(this);
-            this.addComponentListener(this);
             this.ready = true;
             this.setVisible(true);
         } else {

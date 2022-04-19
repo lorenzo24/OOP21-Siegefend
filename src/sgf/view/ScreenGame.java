@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import sgf.utilities.ThreadObserver;
+
 /**
  * This class represents a simple screen game (JFrame).
  */
