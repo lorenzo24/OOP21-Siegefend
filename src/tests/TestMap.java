@@ -35,7 +35,6 @@ public class TestMap {
     public void checkCorrectEndTile() {
         final MapLoader mapLoader = new MapLoaderImpl(1);
         final Map map = mapLoader.getMap();
-        System.out.println(mapLoader.getMap().getEndTile());
         assertEquals(map.getEndTile(), new GridPosition(END_TILE_ROW, END_TILE_COLUMN));
     }
 

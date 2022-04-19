@@ -28,6 +28,7 @@ public class TestEnemy {
     private static final int TANK_LIFE  = 200;
     private static final int HELICOPTER_LIFE  = 100;
     private static final int POSITION  = 5;
+    private static final int NUMBER_WAVES  = 5;
     private final EnemyFactory factory = new  EnemyFactoryImpl();
 
     /**
@@ -56,11 +57,10 @@ public class TestEnemy {
     /**
      * File loaded has a number 9 on it and this number doesn't correspond to an enemy.
      */
-    @SuppressWarnings("unused")
     @Test(expected = IllegalArgumentException.class)
     public void loadEnemiesTests() {
         final Map map = new MapLoaderImpl(1).getMap();
-        final WavesLoader loader = new WavesLoaderImpl(map, 0);
+        new WavesLoaderImpl(map, 0);
     }
 
     /**
@@ -69,7 +69,7 @@ public class TestEnemy {
     @Test(expected = IllegalStateException.class)
     public void loadEmptyFilesTests() {
         final Map map = new MapLoaderImpl(1).getMap();
-        final WavesLoader loader = new WavesLoaderImpl(map, -1);
+        new WavesLoaderImpl(map, -1);
     }
 
     /**
@@ -79,7 +79,7 @@ public class TestEnemy {
     public void numberWaveTests() {
         final Map map = new MapLoaderImpl(1).getMap();
         final WavesLoader loader = new WavesLoaderImpl(map, 1);
-        assertEquals(loader.getWaves().size(), 2);
+        assertEquals(loader.getWaves().size(), NUMBER_WAVES);
     }
 
     /**
@@ -90,6 +90,7 @@ public class TestEnemy {
         final Map map = new MapLoaderImpl(1).getMap();
         final WavesLoader loader = new WavesLoaderImpl(map, 1);
         final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map));
+        level.nextWave();
         level.nextWave();
         level.nextWave();
         level.nextWave();
