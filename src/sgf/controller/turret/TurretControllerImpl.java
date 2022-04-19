@@ -55,8 +55,6 @@ public class TurretControllerImpl implements TurretController {
         this.enemyController = enemyController;
         this.gameManager = gameManager;
         this.bulletController = bulletController;
-//        turrets.put(new GridPosition(4, 4), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(4, 4)), 100, 0, 0, 0, 0)); // test
-//        turrets.put(new GridPosition(11, 8), new TurretImpl(0, new PositionConverter(ImgTileSize.getTileSize()).convertToPosition(new GridPosition(11, 8)), 100, 0, 0, 0, 0)); // test rotation
     }
 
     @Override
