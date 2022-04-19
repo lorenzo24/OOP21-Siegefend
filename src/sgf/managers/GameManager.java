@@ -1,8 +1,6 @@
 package sgf.managers;
 
 import sgf.controller.game.PlayerController;
-import sgf.model.game.GameStatus;
-import sgf.model.game.Stoppable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
 

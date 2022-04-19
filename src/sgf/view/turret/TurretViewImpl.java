@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.Semaphore;
 import sgf.controller.turret.TurretController;
 import sgf.helpers.ImgTileSize;
-import sgf.managers.GameManager;
 import sgf.managers.TurretImageManager;
 import sgf.model.game.Stoppable;
 import sgf.model.map.GridPosition;
@@ -29,6 +28,10 @@ import sgf.utilities.ThreadObserver;
  *
  */
 public class TurretViewImpl extends AbstractTurretView implements MouseListener, Stoppable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5374324545913407109L;
     private boolean isControllerSet;
     private TurretController turretController;
     private boolean ready;
