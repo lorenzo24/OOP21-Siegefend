@@ -33,6 +33,9 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
     private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
     private static final int BORDER = 50;
+    private static final int STANDARD_HGAP = 15;
+    private static final int STANDARD_VGAP = 15;
+    private static final int START_MENU_VGAP = 50;
     private boolean isControllerSet;
     private boolean ready;
     private MenuController menuController;
@@ -67,7 +70,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private final JLabel titleLabel;
 
         private StartMenu() {
-            this.setLayout(new GridLayout(2, 1, 15, 50));
+            this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, START_MENU_VGAP));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
@@ -110,7 +113,7 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
 
-            buttonsPanel = new JPanel(new GridLayout(4, 1, 15, 15));
+            buttonsPanel = new JPanel(new GridLayout(4, 1, STANDARD_HGAP, STANDARD_VGAP));
             buttonsPanel.add(startButton);
             buttonsPanel.add(optionsButton);
             buttonsPanel.add(leaderboardButton);
@@ -131,7 +134,7 @@ public class MenuViewImpl extends AbstractMenuView {
 
         private LevelMenu() {
             this.isUsernameSet = false;
-            this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
+            this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, STANDARD_HGAP, STANDARD_VGAP)); // +2 = playerPanel + goBackButton.
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
@@ -209,7 +212,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private final MenuButton musicButton, goBackButton;
 
         private OptionsMenu() {
-            this.setLayout(new GridLayout(2, 1, 15, 15));
+            this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, STANDARD_VGAP));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             musicButton = new MenuButton("Music is currently ON");     // Music is enabled by default.
@@ -270,7 +273,7 @@ public class MenuViewImpl extends AbstractMenuView {
         private final String creditsText;
 
         private CreditsMenu() {
-            this.setLayout(new GridLayout(2, 1, 15, 15));
+            this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, STANDARD_VGAP));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
@@ -304,23 +307,16 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);
-        this.levelPanel.setVisible(true);
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(levelPanel);
     }
 
     @Override
     public void showOptions() {
         menuPanel.setVisible(false);
-        this.optionsPanel.setVisible(true);
-        this.revalidate();
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(optionsPanel);
-        this.repaint();
     }
 
     private void beginGame(final int level) {
-        this.levelPanel.setVisible(false);
         this.add(this.menuController.loadPlayingView(level));
         this.revalidate();
         this.repaint();
@@ -330,7 +326,6 @@ public class MenuViewImpl extends AbstractMenuView {
     public void showLeaderboard() {
         leaderboardPanel = new LeaderboardMenu();
         menuPanel.setVisible(false);
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.createTable();
         this.add(leaderboardPanel);
         this.revalidate();
@@ -368,15 +363,13 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showCredits() {
         menuPanel.setVisible(false);
-        this.creditsPanel.setVisible(true);
-        this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(creditsPanel);
     }
 
     /**
      * Hides all panels that are not null (except the main menu).
      */
-    public void removeExtraPanels() {
+    private void removeExtraPanels() {
         if (levelPanel != null) {
             this.remove(levelPanel);
         }
