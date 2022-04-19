@@ -43,7 +43,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
     private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
-    private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null;
+    private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null, creditsPanel = null;
     private final LevelLoader levelLoader;
 
     @Override
@@ -328,6 +328,37 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setBackground(Color.decode(BACKGROUND_COLOR));
         }
     }
+
+    private class CreditsMenu extends JPanel {
+        private final ScrollingText scrollingCredits;
+        private final MenuButton goBackButton;
+        private final String creditsText;
+
+        private CreditsMenu() {
+            this.setLayout(new GridLayout(2, 1, 15, 15));
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            creditsText = "The team that made Siegefend a reality:\n\n\n\n\n"
+                    + "Lorenzo Gessi\n\n\n"
+                    + "Andrea Bedei\n\n\n"
+                    + "Fabio Notaro\n\n\n"
+                    + "Luca Venturi\n\n\n"
+                    + "Giacomo Leo Bertuccioli\n\n\n\n\n"
+                    + "Thank you for playing Siegefend!";
+            scrollingCredits = new ScrollingText(creditsText);
+            goBackButton = new MenuButton("Go back");
+            goBackButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    goBack();
+                }
+            });
+
+            this.add(scrollingCredits);
+            this.add(goBackButton);
+        }
+    }
     
     private void goBack() {
         removeExtraPanels();
@@ -410,7 +441,11 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showCredits() {
         // TODO: Use Scrolling Text
-        JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
+        // JOptionPane.showMessageDialog(null, "Lorenzo Gessi\nFabio Notaro\nLuca Venturi\nAndrea Bedei\nGiacomo Leo Bertuccioli", "Credits", 1);
+        menuPanel.setVisible(false);
+        this.creditsPanel.setVisible(true);
+        this.setBackground(Color.decode(BACKGROUND_COLOR));
+        this.add(creditsPanel);
     }
     
     /**
@@ -429,6 +464,10 @@ public class MenuViewImpl extends AbstractMenuView {
             this.remove(leaderboardPanel);
             //leaderboardPanel.setVisible(false);
         }
+        if (creditsPanel != null) {
+            this.remove(creditsPanel);
+            //leaderboardPanel.setVisible(false);
+        }
         // credits
     }
 
@@ -436,6 +475,7 @@ public class MenuViewImpl extends AbstractMenuView {
         menuPanel = new StartMenu();
         levelPanel = new LevelMenu();
         optionsPanel = new OptionsMenu();
+        creditsPanel = new CreditsMenu();
 
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
