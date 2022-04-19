@@ -7,11 +7,12 @@ import java.awt.Image;
 import javax.swing.JLabel;
 
 /**
- *
+ * Label for displaying an image.
  */
 public class ImageCanvas extends JLabel {
 
     private final Image image;
+    private static final int PREF_SIZE = 100;
 
     /**
      * 
@@ -19,17 +20,14 @@ public class ImageCanvas extends JLabel {
     private static final long serialVersionUID = 1326241868157403551L;
 
     /**
-     * 
-     * @param image
+     * Creates a new instance of the class.
+     * @param image an image
      */
     public ImageCanvas(final Image image) {
         this.image = image;
-        this.setPreferredSize(new Dimension(100, 100));
+        this.setPreferredSize(new Dimension(PREF_SIZE, PREF_SIZE));
     }
 
-    /**
-     * 
-     */
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
