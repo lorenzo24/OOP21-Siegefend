@@ -40,8 +40,9 @@ public class MenuViewImpl extends AbstractMenuView {
     private boolean isControllerSet;
     private boolean ready;
     private MenuController menuController;
-    private static final String BACKGROUND_COLOR = "#293132";
+    private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100); // OG: 200
+    private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
     private JPanel menuPanel = null, levelPanel = null, leaderboardPanel = null, optionsPanel = null;
     private final LevelLoader levelLoader;
 
@@ -140,7 +141,8 @@ public class MenuViewImpl extends AbstractMenuView {
             this.add(menuPanel, BorderLayout.CENTER);
         }
     }
-
+    
+    /*
     private class LevelPicker extends JPanel {
         private static final long serialVersionUID = -8864115627664618752L;
         private boolean isUsernameSet;
@@ -148,7 +150,7 @@ public class MenuViewImpl extends AbstractMenuView {
         LevelPicker() {
             this.isUsernameSet = false;
             final JPanel playerPanel = new JPanel(new GridLayout(1, 3, 3, 3));
-            final JPanel levelsListPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber() + 1, 1, 3, 3));
+            final JPanel levelPanel = new JPanel(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 3, 3));
             final Font levelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
 
             final JLabel usernameLabel = new JLabel("Insert username:");
@@ -176,11 +178,12 @@ public class MenuViewImpl extends AbstractMenuView {
                 }
             });
             playerPanel.add(setUsernameButton);
+            
 
             playerPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-            levelsListPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
-            levelsListPanel.setBackground(Color.decode(BACKGROUND_COLOR));
-            levelsListPanel.add(playerPanel);
+            levelPanel.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            levelPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+            levelPanel.add(playerPanel);
             Stream.iterate(1, i -> i + 1)
             .limit(levelLoader.getLevelsNumber())
             .map(i -> {
@@ -195,18 +198,103 @@ public class MenuViewImpl extends AbstractMenuView {
                     }
                 });
                 return b;
-            }).forEach(levelsListPanel::add);      // Without levelsListPanel -> .forEach(this::add);
+            }).forEach(levelPanel::add);      // Without levelsListPanel -> .forEach(this::add);
+            
+            final MenuButton goBackButton = new MenuButton("Go back");
 
+            goBackButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    goBack();
+                }
+            });
+            levelPanel.add(goBackButton);
 
 
             this.setBackground(Color.decode(BACKGROUND_COLOR));
             this.setLayout(new BorderLayout());
             //this.setLayout(new GridLayout(2, 1, 8, 100));
             //this.add(playerPanel, BorderLayout.CENTER);
-            this.add(levelsListPanel, BorderLayout.CENTER);
+            //this.add(playerPanel, BorderLayout.CENTER);
+            this.add(levelPanel, BorderLayout.CENTER);
         }
 
         private boolean checkUsername() {
+            return this.isUsernameSet;
+        }
+    }
+    */
+    
+    private class LevelPicker extends JPanel {
+        private boolean isUsernameSet;
+
+        LevelPicker(){
+            this.isUsernameSet = false;
+            this.setLayout(new GridLayout(levelLoader.getLevelsNumber() + 2, 1, 15, 15)); // +2 = playerPanel + goBackButton.
+            this.setBorder(BorderFactory.createEmptyBorder(200, 100, 200, 100));
+            this.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            // Username panel
+            final JPanel playerPanel = new JPanel(new GridLayout(1, 3, 3, 3));
+            playerPanel.setBackground(Color.decode(BACKGROUND_COLOR));
+
+            final JLabel usernameLabel = new JLabel("Insert username:");
+            usernameLabel.setVerticalAlignment(SwingConstants.CENTER);
+            usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            usernameLabel.setFont(INMENU_FONT);
+            usernameLabel.setForeground(Color.decode(TEXT_COLOR));
+            playerPanel.add(usernameLabel);
+
+            final JTextField inputField = new JTextField();
+            inputField.setFont(INMENU_FONT);
+            playerPanel.add(inputField);
+
+            final MenuButton setUsernameButton = new MenuButton("Set");
+            setUsernameButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    if (!inputField.getText().isEmpty()) {
+                        menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
+                        JOptionPane.showMessageDialog(null, "Username updated!", "Update", 1);
+                        isUsernameSet = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No text detected, please write something.", "Update", 1);
+                    }
+                }
+            });
+            playerPanel.add(setUsernameButton);
+            this.add(playerPanel);
+
+            // Dynamically creates a button for each level we have
+            Stream.iterate(1, i -> i + 1)
+                    .limit(levelLoader.getLevelsNumber())
+                    .map(i -> {
+                        final JButton b = new MenuButton("Livello" + i);
+                        b.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(final ActionEvent e) {
+                                if (!isUsernameSet()) {
+                                    JOptionPane.showMessageDialog(null, "No username provided, you will use the default one.", "Update", 1);
+                                }
+                                MenuViewImpl.this.beginGame(i);
+                            }
+                        });
+                        return b;
+            }).forEach(this::add);
+
+            // Creates a button to go back to the start menu
+            final MenuButton goBackButton = new MenuButton("Go back");
+            goBackButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(final ActionEvent e) {
+                    goBack();
+                }
+            });
+            this.add(goBackButton);
+
+        }
+
+        private boolean isUsernameSet() {
             return this.isUsernameSet;
         }
     }
@@ -293,12 +381,14 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showLevelPicker() {
         menuPanel.setVisible(false);
+        this.levelPanel.setVisible(true);
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(levelPanel);
     }
-    
+
     public void showOptions() {
         menuPanel.setVisible(false);
+        this.optionsPanel.setVisible(true);
         this.revalidate();
         this.setBackground(Color.decode(BACKGROUND_COLOR));
         this.add(optionsPanel);
