@@ -23,7 +23,7 @@ public class TurretsLoaderImpl implements TurretsLoader {
     private final Map<Integer, Turret> turrets;
 
     /**
-     * Constructor to loads the turrets.
+     * Constructor to load the {@link Turret}.
      */
     public TurretsLoaderImpl() {
         this.turrets = new HashMap<>();
@@ -35,6 +35,7 @@ public class TurretsLoaderImpl implements TurretsLoader {
         return this.turrets;
     }
 
+    @SuppressWarnings("unchecked")
     private void readFile() {
         final Path p = FileSystems.getDefault().getPath("res" + File.separator + "turret" + File.separator + "turrets.json");
         final File f = p.toFile();
@@ -43,16 +44,12 @@ public class TurretsLoaderImpl implements TurretsLoader {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
             array.forEach(x -> parseTurretObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
-        } catch (org.json.simple.parser.ParseException e) {
-                e.printStackTrace(); 
-        } catch (FileNotFoundException e) {
+        } catch (org.json.simple.parser.ParseException |  IOException e) {
             e.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
         }
     }
 
-    // Convert an record to one element of the map.
+    // Converts a record to one element of the map.
     private void parseTurretObject(final JSONObject record) {
         final JSONObject turret = (JSONObject) record;
         final double fireRate = Double.parseDouble(turret.get("fireRate").toString());
