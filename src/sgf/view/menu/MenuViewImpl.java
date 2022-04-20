@@ -136,33 +136,28 @@ public class MenuViewImpl extends AbstractMenuView {
             titleLabel.setFont(TITLE_FONT);
             titleLabel.setForeground(Color.decode(TEXT_COLOR));
 
-            startButton = new MenuButton("Start game");
-            optionsButton = new MenuButton("Options");
-            leaderboardButton = new MenuButton("Leaderboard");
-            creditsButton = new MenuButton("Credits");
-
-            startButton.addActionListener(new ActionListener() {
+            startButton = new MenuButton("Start game", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     showLevelPicker();
                 }
             });
 
-            optionsButton.addActionListener(new ActionListener() {
+            optionsButton = new MenuButton("Options", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     showOptions();
                 }
             });
 
-            leaderboardButton.addActionListener(new ActionListener() {
+            leaderboardButton = new MenuButton("Leaderboard", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     showLeaderboard();
                 }
             });
 
-            creditsButton.addActionListener(new ActionListener() {
+            creditsButton = new MenuButton("Credits", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     showCredits();
@@ -243,7 +238,7 @@ public class MenuViewImpl extends AbstractMenuView {
             }).forEach(this::add);
 
             // Creates a button to go back to the start menu
-            this.add(new GoBackButton("Go Back", new ActionListener() {
+            this.add(new MenuButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -281,7 +276,7 @@ public class MenuViewImpl extends AbstractMenuView {
             });
 
             this.add(musicButton);
-            this.add(new GoBackButton("Go Back", new ActionListener() {
+            this.add(new MenuButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -314,7 +309,7 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
-            this.add(new GoBackButton("Go Back", new ActionListener() {
+            this.add(new MenuButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -346,7 +341,7 @@ public class MenuViewImpl extends AbstractMenuView {
             scrollingCredits = new ScrollingText(creditsText);
 
             this.add(scrollingCredits);
-            this.add(new GoBackButton("Go Back", new ActionListener() {
+            this.add(new MenuButton("Go Back", new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
