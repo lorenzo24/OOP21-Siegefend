@@ -22,7 +22,7 @@ public interface TurretController extends Controller<TurretView> {
 
     /**
      * Returns the turret placed at the given position.
-     * @param gpos the given position
+     * @param gpos the given {@link GridPosition}
      * @return the turret, otherwise an empty optional
      */
     Optional<Turret> getTurretAt(GridPosition gpos); 
@@ -52,4 +52,5 @@ public interface TurretController extends Controller<TurretView> {
      * @param bullet the bullet created
      */
     void bulletCreated(Bullet bullet);
+
 }

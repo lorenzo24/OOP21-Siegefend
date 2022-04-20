@@ -22,15 +22,15 @@ import sgf.view.turret.TurretView;
  */
 public class TurretControllerImpl implements TurretController {
 
-    @SuppressWarnings("unused")
-    private TurretView turretView;
-    private boolean isViewSet;
+    private final int tileSize;
     private final ShopController shopController;
     private final java.util.Map<GridPosition, TurretManager> turrets;
     private final Semaphore semaphore;
-    private final int tileSize;
     private final EnemyController enemyController;
     private final BulletController bulletController;
+    @SuppressWarnings("unused")
+    private TurretView turretView;
+    private boolean isViewSet;
 
     /**
      * Creates a new instance of the class.
