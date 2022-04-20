@@ -16,11 +16,12 @@ public class LevelImpl implements Level {
      * Creation of a level.
      * @param waves Are the waves in the level.
      * @param map Is the level map.
+     * @param levelID Is the {@link Level} ID.
      */
-    public LevelImpl(final List<Wave> waves, final Map map) {
+    public LevelImpl(final List<Wave> waves, final Map map, final int levelID) {
         this.waves = waves;
         this.map = map;
-        this.levelID = 1;
+        this.levelID = levelID;
     }
 
     @Override
