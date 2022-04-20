@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Optional;
 import javax.swing.Timer;
-
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.turret.TurretController;
 import sgf.model.enemies.Enemy;
@@ -26,8 +25,6 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     private volatile boolean isThreadRunning = true;
     private Thread gameThread;
     private final EnemyController enemyController;
-    private final ActionListener fire;                        // Used for shooting.
-    private final TurretController turretController;
     private final Timer bulletTimer;
 
     /**
@@ -40,16 +37,14 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
         this.turret = turret;
         this.enemyController = enemyController;
         ThreadAndViewObservable.register(this);
-        this.turretController = turretController;
-        this.fire = new ActionListener() {
+        this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (turret.getTarget() != null) {
                     turretController.bulletCreated(getTurret().createBullet());
                 }
             }
-        };
-        this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), fire);
+        });
         this.startTurretThread();
     }
 
@@ -104,18 +99,20 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
                 public void run() {
                     while (isThreadRunning) {
                         try {
-                            final Optional<Enemy> target = getTurret().getTarget();
+                            final Optional<Enemy> target = turret.getTarget();
                             if (target.isEmpty() || target.get().getHP() <= 0) {        // Checks if there is a target and if there is one, it checks its HP.
                                 bulletTimer.stop();
                                 findTarget();
                             } else {
-                                if (getTurret().getPosition().distanceTo(target.get().getPosition()) <= getTurret().getRange()) {       // Checks if the target is inside the turret's range.
-                                    pointToTarget(target.get().getPosition());        // rotation
+                                final Position turretPosition = turret.getPosition();
+                                final Position targetPosition = target.get().getPosition();
+                                if (turretPosition.distanceTo(targetPosition) <= turret.getRange()) {       // Checks if the target is inside the turret's range.
+                                    pointToTarget(targetPosition);                      // rotation
                                     if (!bulletTimer.isRunning()) {
                                         bulletTimer.start();
                                     }
                                 } else {
-                                    getTurret().setTarget(null);
+                                    turret.setTarget(null);
                                 }
                             }
                             Thread.sleep(UPDATE_DELAY);
