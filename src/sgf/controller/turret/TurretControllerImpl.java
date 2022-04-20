@@ -20,9 +20,7 @@ import sgf.utilities.PositionConverter;
 import sgf.view.turret.TurretView;
 
 /**
- * 
- * 
- *
+ * Controller class for the view of turrets.
  */
 public class TurretControllerImpl implements TurretController {
 
@@ -38,13 +36,13 @@ public class TurretControllerImpl implements TurretController {
     private final BulletController bulletController;
 
     /**
-     * 
-     * @param map
-     * @param shopController
-     * @param semaphore
-     * @param enemyController
-     * @param gameManager
-     * @param bulletController
+     * Creates a new instance of the class.
+     * @param map the {@link Map}
+     * @param shopController the {@link ShopController}
+     * @param semaphore the {@link Semaphore}
+     * @param enemyController the {@link EnemyController}
+     * @param gameManager the {@link GameManager}
+     * @param bulletController the {@link BulletController}
      */
     public TurretControllerImpl(final Map map, final ShopController shopController, final Semaphore semaphore, final EnemyController enemyController, final GameManager gameManager, final BulletController bulletController) {
         this.map = map;

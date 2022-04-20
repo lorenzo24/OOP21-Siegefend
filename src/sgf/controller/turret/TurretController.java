@@ -3,7 +3,6 @@ package sgf.controller.turret;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
-
 import sgf.controller.Controller;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.GridPosition;
@@ -11,7 +10,7 @@ import sgf.model.turret.Turret;
 import sgf.view.turret.TurretView;
 
 /**
- * Manages the turrets' view.
+ * Manages the TurretView.
  */
 public interface TurretController extends Controller<TurretView> {
 
