@@ -26,7 +26,7 @@ public class LevelLoaderImpl implements LevelLoader {
         // Creates the chosen level by loading the corresponding map and waves.
         final Map map = new MapLoaderImpl(levelID).getMap();
         final List<Wave> waves = new WavesLoaderImpl(map, levelID).getWaves();
-        return new LevelImpl(waves, map);
+        return new LevelImpl(waves, map, levelID);
     }
 
     @Override

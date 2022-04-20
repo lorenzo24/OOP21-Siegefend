@@ -97,7 +97,7 @@ public class MenuControllerImpl implements MenuController {
     public AbstractPlayingView loadPlayingView(final int levelNum) {
         final Map map = new MapLoaderImpl(levelNum).getMap();
         final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();
-        final Level level = new LevelImpl(waves, map);
+        final Level level = new LevelImpl(waves, map, levelNum);
         final LevelManager levelManager = new LevelManagerImpl(level);
         final GameManager gameManager = new GameManagerImpl(playerController, levelManager);
         final MapController mapController = new MapControllerImpl(map);
