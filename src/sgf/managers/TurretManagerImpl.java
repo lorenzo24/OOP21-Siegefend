@@ -16,7 +16,6 @@ import sgf.utilities.LockClass;
 import sgf.utilities.Pair;
 import sgf.utilities.ThreadObserver;
 
-
 /**
  * Class that manages a turret.
  */
