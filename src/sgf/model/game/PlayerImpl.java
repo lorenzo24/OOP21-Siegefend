@@ -12,7 +12,7 @@ public class PlayerImpl implements Player {
     /**
      * Indicates the amount of money the player starts with.
      */
-    public static final int STARTING_MONEY = 500;       //TODO: set this so that the player can buy at least 1 turret.
+    public static final int STARTING_MONEY = 500;
     /**
      * How many HP the player looses by default each time he takes damage.
      */

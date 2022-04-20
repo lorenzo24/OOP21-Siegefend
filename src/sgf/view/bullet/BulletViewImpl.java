@@ -24,13 +24,13 @@ public class BulletViewImpl extends AbstractBulletView {
      * 
      */
     private static final long serialVersionUID = 4332476576224943846L;
-    private BulletController bulletController;
+    private transient BulletController bulletController;
     private boolean isControllerSet;
     private boolean ready;
     private final Semaphore semaphore;
     private final int tileSize;
-    private final BufferedImage image;
-    private final ImageLoaderManager<Integer> imgManager;
+    private final transient BufferedImage image;
+    private final transient ImageLoaderManager<Integer> imgManager;
 
     /**
      * Constructor for creating an instance of a {@code BulletViewImpl}.

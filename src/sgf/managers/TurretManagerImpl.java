@@ -26,7 +26,7 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     private volatile boolean isThreadRunning = true;
     private Thread gameThread;
     private final EnemyController enemyController;
-    private final ActionListener fire;                          // Used for shooting.
+    private final ActionListener fire;                        // Used for shooting.
     private final TurretController turretController;
     private final Timer bulletTimer;
 

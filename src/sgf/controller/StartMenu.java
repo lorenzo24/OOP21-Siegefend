@@ -5,14 +5,14 @@ import sgf.view.MenuStarter;
 /**
  * Class starter the game.
  */
-public class StartMenu {
+public final class StartMenu {
 
     /**
-     * 
-     * @param args
+     * Class starter.
+     * @param args from command line.
      */
-    public static void main(final String... args) {
-        final MenuStarter m = new MenuStarter();
+    public void main(final String... args) {
+        new MenuStarter();
     }
 
 }
