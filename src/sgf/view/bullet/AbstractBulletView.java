@@ -7,9 +7,6 @@ import javax.swing.JPanel;
  */
 public abstract class AbstractBulletView extends JPanel implements BulletView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -3642743455879075160L;
 
 }

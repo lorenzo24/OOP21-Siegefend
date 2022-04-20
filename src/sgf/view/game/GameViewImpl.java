@@ -14,6 +14,7 @@ import sgf.view.turret.AbstractTurretView;
  */
 public class GameViewImpl extends AbstractGameView {
     private static final long serialVersionUID = -5124611364267300243L;
+    @SuppressWarnings("unused")
     private GameController gameController;
     private final AbstractMapView mapPanel;             // Panel that contains map grid of tiles.
     private final AbstractEnemyView enemyPanel;         // Panel that contains enemies in movement.
@@ -51,7 +52,7 @@ public class GameViewImpl extends AbstractGameView {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         if (this.ready) {
-            mapPanel.repaint();                         //TODO: might be useless.
+            mapPanel.repaint();
             enemyPanel.repaint();
             turretPanel.repaint();
             bulletPanel.repaint();

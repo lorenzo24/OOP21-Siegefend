@@ -16,10 +16,10 @@ import sgf.view.bullet.BulletView;
 public class BulletControllerImpl implements BulletController {
 
     private boolean isViewSet;
+    @SuppressWarnings("unused")
     private BulletView bulletView;
     private final List<BulletManager> bullets;
     private final Semaphore semaphore;
-    private boolean active;
 
     /**
      * Creates a new instance of the class.
@@ -34,13 +34,11 @@ public class BulletControllerImpl implements BulletController {
         if (!isViewSet) {
             this.isViewSet = true;
             this.bulletView = view;
-            this.active = true;
         }
     }
 
     @Override
     public void stop() {
-        this.active = false;
         this.semaphore.acquireUninterruptibly();        // Semaphore needed to make sure no elements are added/removed while the foreach is running.
         this.bullets.forEach(BulletManager::eliminate);
         this.semaphore.release();

@@ -9,24 +9,20 @@ import sgf.controller.game.PlayerController;
 import sgf.utilities.ThreadAndViewObservable;
 
 /**
- * 
- *
+ * Player View Class.
  */
 public class PlayerViewImpl extends AbstractPlayerView {
 
     private static final int COLUMN = 5;
-    /**
-     * 
-     */
     private static final long serialVersionUID = -1277354176566275849L;
-    private boolean isControllerSet = false;
+    private boolean isControllerSet;
     private PlayerController playerController;
     private JLabel labelHP;
     private JLabel labelMoney;
     private JLabel labelScore;
 
     /**
-     * 
+     * Constructor that set the View.
      */
     public PlayerViewImpl() {
         super();

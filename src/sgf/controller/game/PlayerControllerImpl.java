@@ -32,8 +32,8 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public void changeHP(final int offset) {                            //TODO: change these "copy-paste-rename" methods into something better.
-        final int newAmount = this.player.getCurrentHP() + offset;      //TODO: when the HP is changed, check if 0 or less, if 0 the player loses.
+    public void changeHP(final int offset) {
+        final int newAmount = this.player.getCurrentHP() + offset;
         if (newAmount > 0) {
             this.player.setCurrentHP(newAmount);
         } else {

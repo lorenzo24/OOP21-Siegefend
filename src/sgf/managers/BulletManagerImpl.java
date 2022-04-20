@@ -9,7 +9,7 @@ import sgf.utilities.ThreadAndViewObservable;
  * Manages a bullet, moving it towards an enemy and inflicting damage when reaching it.
  */
 public class BulletManagerImpl implements BulletManager, Stoppable {
-    private Bullet bullet;
+    private final Bullet bullet;
     private Thread thread;
     private final BulletController bulletController;
     private static final int UPDATE_DELAY = 20;
