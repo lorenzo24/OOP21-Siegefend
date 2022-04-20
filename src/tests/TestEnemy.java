@@ -29,6 +29,7 @@ public class TestEnemy {
     private static final int HELICOPTER_LIFE  = 100;
     private static final int POSITION  = 5;
     private static final int NUMBER_WAVES  = 5;
+    private static final int LEVEL_ID = 1;
     private final EnemyFactory factory = new  EnemyFactoryImpl();
 
     /**
@@ -59,7 +60,7 @@ public class TestEnemy {
      */
     @Test(expected = IllegalArgumentException.class)
     public void loadEnemiesTests() {
-        final Map map = new MapLoaderImpl(1).getMap();
+        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
         new WavesLoaderImpl(map, 0);
     }
 
@@ -68,7 +69,7 @@ public class TestEnemy {
      */
     @Test(expected = IllegalStateException.class)
     public void loadEmptyFilesTests() {
-        final Map map = new MapLoaderImpl(1).getMap();
+        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
         new WavesLoaderImpl(map, -1);
     }
 
@@ -77,8 +78,8 @@ public class TestEnemy {
      */
     @Test
     public void numberWaveTests() {
-        final Map map = new MapLoaderImpl(1).getMap();
-        final WavesLoader loader = new WavesLoaderImpl(map, 1);
+        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
+        final WavesLoader loader = new WavesLoaderImpl(map, LEVEL_ID);
         assertEquals(loader.getWaves().size(), NUMBER_WAVES);
     }
 
@@ -87,9 +88,9 @@ public class TestEnemy {
      */
     @Test (expected = NoSuchElementException.class)
     public void nextWaveTests() {
-        final Map map = new MapLoaderImpl(1).getMap();
-        final WavesLoader loader = new WavesLoaderImpl(map, 1);
-        final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map));
+        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
+        final WavesLoader loader = new WavesLoaderImpl(map, LEVEL_ID);
+        final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map, LEVEL_ID));
         level.nextWave();
         level.nextWave();
         level.nextWave();
@@ -102,9 +103,9 @@ public class TestEnemy {
      */
     @Test
     public void nextEnemyTests() {
-        final Map map = new MapLoaderImpl(1).getMap();
-        final WavesLoader loader = new WavesLoaderImpl(map, 1);
-        final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map));
+        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
+        final WavesLoader loader = new WavesLoaderImpl(map, LEVEL_ID);
+        final LevelManager level = new LevelManagerImpl(new LevelImpl(loader.getWaves(), map, LEVEL_ID));
         assertNotEquals(level.getNextEnemy(), Optional.empty());
         assertEquals(level.getNextEnemy(), Optional.empty());
     }
