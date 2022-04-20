@@ -2,6 +2,7 @@ package sgf.view.menu;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -27,5 +28,15 @@ public class MenuButton extends JButton {
         this.setForeground(Color.decode(TEXT_COLOR));
         this.setBackground(Color.decode(BUTTON_COLOR));
     }
- 
+
+    /**
+     * Creates a button with text and an action listener.
+     * @param text the text of the button
+     * @param actionListener the action listener we want to add to the button
+     */
+    public MenuButton(final String text, final ActionListener actionListener) {
+        this(text);
+        this.addActionListener(actionListener);
+    }
+
 }

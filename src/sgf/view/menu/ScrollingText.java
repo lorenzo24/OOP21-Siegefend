@@ -20,6 +20,7 @@ public class ScrollingText extends JPanel implements ActionListener {
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
     private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
     private static final int TEXT_Y = 660;
+    private static final int INCREMENT_Y = 28;
     private final String text;
     private int textY;
 
@@ -53,7 +54,8 @@ public class ScrollingText extends JPanel implements ActionListener {
         for (final String line : text.split("\n")) {
             final int stringLength = (int) g2d.getFontMetrics().getStringBounds(line, g2d).getWidth();
             final int x = getWidth() / 2 - stringLength / 2;
-            g2d.drawString(line, x, y += 28);
+            y = y + INCREMENT_Y;
+            g2d.drawString(line, x, y);
         }
     }
 
