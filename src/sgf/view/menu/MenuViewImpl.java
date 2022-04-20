@@ -38,6 +38,7 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final int START_MENU_VGAP = 50;
     private boolean isControllerSet;
     private boolean isLeaderboardCreated;
+    @SuppressWarnings("unused")
     private boolean ready;
     private MenuController menuController;
     private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
@@ -60,6 +61,59 @@ public class MenuViewImpl extends AbstractMenuView {
         this.levelLoader = l;
         this.isLeaderboardCreated = false;
         this.setVisible(true);
+    }
+
+    @Override
+    public void start() {
+        if (this.isControllerSet) {
+            ThreadObserver.register(this);
+            this.setup();
+            this.ready = true;
+            this.setVisible(true);
+        } else {
+            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
+        }
+    }
+
+    @Override
+    public void stop() {
+        this.ready = false;
+        this.setVisible(false);
+    }
+
+    @Override
+    public void showLevelPicker() {
+        menuPanel.setVisible(false);
+        this.add(levelPanel);
+        this.remove(menuPanel);
+    }
+
+    @Override
+    public void showOptions() {
+        menuPanel.setVisible(false);
+        this.add(optionsPanel);
+        this.remove(menuPanel);
+    }
+
+    @Override
+    public void showLeaderboard() {
+        menuPanel.setVisible(false);
+        this.createTable();
+        this.add(leaderboardPanel);
+        this.remove(menuPanel);
+    }
+
+    @Override
+    public void showCredits() {
+        menuPanel.setVisible(false);
+        this.add(creditsPanel);
+        this.remove(menuPanel);
+    }
+
+    private void goBack() {
+        this.removeAll();
+        this.add(menuPanel);
+        menuPanel.setVisible(true);
     }
 
     /**
@@ -116,11 +170,11 @@ public class MenuViewImpl extends AbstractMenuView {
             });
 
             buttonsPanel = new JPanel(new GridLayout(4, 1, STANDARD_HGAP, STANDARD_VGAP));
+            buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
             buttonsPanel.add(startButton);
             buttonsPanel.add(optionsButton);
             buttonsPanel.add(leaderboardButton);
             buttonsPanel.add(creditsButton);
-            buttonsPanel.setBackground(Color.decode(BACKGROUND_COLOR));
 
             this.add(titleLabel);
             this.add(buttonsPanel);
@@ -301,36 +355,11 @@ public class MenuViewImpl extends AbstractMenuView {
         }
     }
 
-    private void goBack() {
-        removeExtraPanels();
-        menuPanel.setVisible(true);
-        //this.add(menuPanel);
-    }
-
-    @Override
-    public void showLevelPicker() {
-        menuPanel.setVisible(false);
-        this.add(levelPanel);
-    }
-
-    @Override
-    public void showOptions() {
-        menuPanel.setVisible(false);
-        this.add(optionsPanel);
-    }
-
     private void beginGame(final int level) {
         this.removeAll();
         this.add(this.menuController.loadPlayingView(level));
         this.revalidate();
         this.repaint();
-    }
-
-    @Override
-    public void showLeaderboard() {
-        menuPanel.setVisible(false);
-        this.createTable();
-        this.add(leaderboardPanel);
     }
 
     private void createTable() {
@@ -344,8 +373,6 @@ public class MenuViewImpl extends AbstractMenuView {
             table.setEnabled(false);                                                // disable edit
             final JScrollPane sp = new JScrollPane(table);
             sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
-            //this.leaderboardPanel.setLayout(new BorderLayout());
-            //this.leaderboardPanel.add(sp, BorderLayout.CENTER);
             this.leaderboardPanel.add(sp, 0);
         }
     }
@@ -365,30 +392,6 @@ public class MenuViewImpl extends AbstractMenuView {
         return matrix;
     }
 
-    @Override
-    public void showCredits() {
-        menuPanel.setVisible(false);
-        this.add(creditsPanel);
-    }
-
-    /**
-     * Hides all panels that are not null (except the main menu).
-     */
-    private void removeExtraPanels() {
-        if (levelPanel != null) {
-            this.remove(levelPanel);
-        }
-        if (optionsPanel != null) {
-            this.remove(optionsPanel);
-        }
-        if (leaderboardPanel != null) {
-            this.remove(leaderboardPanel);
-        }
-        if (creditsPanel != null) {
-            this.remove(creditsPanel);
-        }
-    }
-
     private void setup() {
         menuPanel = new StartMenu();
         levelPanel = new LevelMenu();
@@ -399,23 +402,5 @@ public class MenuViewImpl extends AbstractMenuView {
         this.setLayout(new BorderLayout());
         this.add(menuPanel, BorderLayout.CENTER);
         menuPanel.setVisible(true);
-    }
-
-    @Override
-    public void start() {
-        if (this.isControllerSet) {
-            ThreadObserver.register(this);
-            this.setup();
-            this.ready = true;
-            this.setVisible(true);
-        } else {
-            throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
-        }
-    }
-
-    @Override
-    public void stop() {
-        this.ready = false;
-        this.setVisible(false);
     }
 }
