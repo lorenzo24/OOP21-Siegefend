@@ -1,6 +1,5 @@
 package sgf.controller.game;
 
-import sgf.managers.GameManager;
 import sgf.view.game.AbstractGameView;
 import sgf.view.game.GameView;
 
@@ -12,15 +11,6 @@ public class GameControllerImpl implements GameController {
     private AbstractGameView gameView;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private boolean isControllerSet;
-    private final GameManager gameManager;
-
-    /**
-     * 
-     * @param gameManager
-     */
-    public GameControllerImpl(final GameManager gameManager) {
-        this.gameManager = gameManager;
-    }
 
     private void startGameThread() {
         final Thread gameThread = new Thread(new Runnable() {

@@ -62,6 +62,7 @@ import sgf.view.turret.TurretViewImpl;
 public class MenuControllerImpl implements MenuController {
 
     private boolean isControllerSet;
+    @SuppressWarnings("unused")
     private AbstractMenuView menuView;
     private final LeaderboardManager leaderboardManager;
     private final PlayerController playerController;
@@ -112,7 +113,7 @@ public class MenuControllerImpl implements MenuController {
         final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());
         final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
-        final GameController gameController = new GameControllerImpl(gameManager);
+        final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView, bulletView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
         final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView, bulletView, gameManager);
