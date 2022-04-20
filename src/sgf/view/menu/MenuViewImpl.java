@@ -224,7 +224,7 @@ public class MenuViewImpl extends AbstractMenuView {
             Stream.iterate(1, i -> i + 1)
                     .limit(levelLoader.getLevelsNumber())
                     .map(i -> {
-                        final JButton b = new MenuButton("Livello" + i);
+                        final JButton b = new MenuButton("Level " + i);
                         b.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(final ActionEvent e) {
