@@ -3,7 +3,7 @@ package sgf.managers;
 import sgf.controller.bullet.BulletController;
 import sgf.model.bullet.Bullet;
 import sgf.model.game.Stoppable;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * Manages a bullet, moving it towards an enemy and inflicting damage when reaching it.
@@ -23,7 +23,7 @@ public class BulletManagerImpl implements BulletManager, Stoppable {
      * @param bulletController the controller for the bullet view
      */
     public BulletManagerImpl(final Bullet bullet, final BulletController bulletController) {
-        ThreadObserver.register(this);
+        ThreadAndViewObservable.register(this);
         this.bullet = bullet;
         this.bulletController = bulletController;
         this.active = true;

@@ -12,7 +12,7 @@ import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.utilities.Pair;
 import sgf.utilities.PositionConverter;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * Class that manages each single enemy.
@@ -39,7 +39,7 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
      */
     public EnemyManagerImpl(final Enemy enemy, final LevelManager levelManager, final EnemyController enemyController, 
             final PlayerController playerController) {
-        ThreadObserver.register(this);
+        ThreadAndViewObservable.register(this);
         this.enemy = enemy;
         this.map = levelManager.getMap();
         this.enemyController = enemyController;

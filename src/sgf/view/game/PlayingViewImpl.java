@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import sgf.controller.game.PlayingController;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 import sgf.view.shop.AbstractShopView;
 
 /**
@@ -45,7 +45,7 @@ public class PlayingViewImpl extends AbstractPlayingView {
     public void start() {
         if (isControllerSet) {
             this.setLayout(new BorderLayout());
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.add(this.playerView, BorderLayout.NORTH);
             this.add(this.gameView, BorderLayout.CENTER);
             this.add(this.shopView, BorderLayout.SOUTH);

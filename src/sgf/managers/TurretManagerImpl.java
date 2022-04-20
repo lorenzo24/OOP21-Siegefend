@@ -14,7 +14,7 @@ import sgf.model.map.Position;
 import sgf.model.turret.Turret;
 import sgf.utilities.LockClass;
 import sgf.utilities.Pair;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * Class that manages a turret.
@@ -39,7 +39,7 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController) {
         this.turret = turret;
         this.enemyController = enemyController;
-        ThreadObserver.register(this);
+        ThreadAndViewObservable.register(this);
         this.turretController = turretController;
         this.fire = new ActionListener() {
             @Override
