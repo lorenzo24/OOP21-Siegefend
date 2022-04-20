@@ -1,7 +1,6 @@
 package sgf.controller.menu;
 
 import java.util.List;
-
 import sgf.controller.bullet.BulletController;
 import sgf.controller.bullet.BulletControllerImpl;
 import sgf.controller.enemy.EnemyController;
