@@ -111,13 +111,12 @@ public class MenuControllerImpl implements MenuController {
         final AbstractShopView shopView = new ShopViewImpl();
         final BulletController bulletController = new BulletControllerImpl();
         final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());
-        final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
+        final TurretController turretController = new TurretControllerImpl(shopController, LockClass.getTurretSemaphore(), enemyController, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl();
         final AbstractGameView gameView = new GameViewImpl(mapView, enemyView, turretView, bulletView);
         final PlayingController playingController = new PlayingControllerImpl(gameManager);
-        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView, turretView, bulletView, gameManager);
-
+        final AbstractPlayingView playingView = new PlayingViewImpl(gameView, shopView, playerView);
 
         /**
          * Linking.

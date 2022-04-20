@@ -5,46 +5,31 @@ import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import sgf.controller.game.PlayingController;
-import sgf.managers.GameManager;
 import sgf.utilities.ThreadObserver;
-import sgf.view.bullet.AbstractBulletView;
 import sgf.view.shop.AbstractShopView;
-import sgf.view.turret.AbstractTurretView;
 
 /**
  * View that contains the game, shop (and upgrade) views.
  */
 public class PlayingViewImpl extends AbstractPlayingView {
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 3857488179024724379L;
-
+    @SuppressWarnings("unused")
     private PlayingController playingController;
     private final AbstractGameView gameView;
     private final AbstractShopView shopView;
     private final AbstractPlayerView playerView;
-    private final AbstractTurretView turretView;
-    private final AbstractBulletView bulletView;
     private boolean isControllerSet;
 
-
     /**
-     * 
-     * @param gameView
-     * @param shopView
-     * @param playerView
-     * @param turretView
-     * @param bulletView
+     * Creates a new instance of the class.
+     * @param gameView the {@link GameView}
+     * @param shopView the {@link ShopView}
+     * @param playerView the {@link PlayerView}
      */
-    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView, 
-            final AbstractTurretView turretView, final AbstractBulletView bulletView, final GameManager gameManager) {
+    public PlayingViewImpl(final AbstractGameView gameView, final AbstractShopView shopView, final AbstractPlayerView playerView) {
         this.gameView = gameView;
         this.shopView = shopView;
         this.playerView = playerView;
-        this.turretView = turretView;
-        this.bulletView = bulletView;
         this.setVisible(false);
     }
 

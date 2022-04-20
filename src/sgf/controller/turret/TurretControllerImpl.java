@@ -9,12 +9,10 @@ import sgf.controller.bullet.BulletController;
 import sgf.controller.enemy.EnemyController;
 import sgf.controller.shop.ShopController;
 import sgf.helpers.ImgTileSize;
-import sgf.managers.GameManager;
 import sgf.managers.TurretManager;
 import sgf.managers.TurretManagerImpl;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.GridPosition;
-import sgf.model.map.Map;
 import sgf.model.turret.Turret;
 import sgf.utilities.PositionConverter;
 import sgf.view.turret.TurretView;
@@ -24,34 +22,29 @@ import sgf.view.turret.TurretView;
  */
 public class TurretControllerImpl implements TurretController {
 
+    @SuppressWarnings("unused")
     private TurretView turretView;
     private boolean isViewSet;
-    private final Map map;
     private final ShopController shopController;
     private final java.util.Map<GridPosition, TurretManager> turrets;
     private final Semaphore semaphore;
     private final int tileSize;
     private final EnemyController enemyController;
-    private final GameManager gameManager;
     private final BulletController bulletController;
 
     /**
      * Creates a new instance of the class.
-     * @param map the {@link Map}
      * @param shopController the {@link ShopController}
      * @param semaphore the {@link Semaphore}
      * @param enemyController the {@link EnemyController}
-     * @param gameManager the {@link GameManager}
      * @param bulletController the {@link BulletController}
      */
-    public TurretControllerImpl(final Map map, final ShopController shopController, final Semaphore semaphore, final EnemyController enemyController, final GameManager gameManager, final BulletController bulletController) {
-        this.map = map;
+    public TurretControllerImpl(final ShopController shopController, final Semaphore semaphore, final EnemyController enemyController, final BulletController bulletController) {
         this.shopController = shopController;
         this.semaphore = semaphore;
         this.turrets = new HashMap<>();
         this.tileSize = ImgTileSize.getTileSize();
         this.enemyController = enemyController;
-        this.gameManager = gameManager;
         this.bulletController = bulletController;
     }
 
@@ -69,7 +62,7 @@ public class TurretControllerImpl implements TurretController {
             final Optional<Turret> t = shopController.buy();
             if (t.isPresent()) {
                 semaphore.acquireUninterruptibly();
-                final TurretManager newTurretManager = new TurretManagerImpl(t.get().getClone(), this, this.enemyController, this.gameManager);
+                final TurretManager newTurretManager = new TurretManagerImpl(t.get().getClone(), this, this.enemyController);
                 newTurretManager.getTurret().setPosition(new PositionConverter(this.tileSize).convertToPosition(gpos));
                 turrets.put(new GridPosition(gpos), newTurretManager);
                 semaphore.release();

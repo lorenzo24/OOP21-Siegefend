@@ -29,17 +29,14 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
     private final ActionListener fire;                          // Used for shooting.
     private final TurretController turretController;
     private final Timer bulletTimer;
-    private final GameManager gameManager;
 
     /**
      * Creates a new instance of the class.
      * @param turret the {@link Turret}
      * @param turretController the {@link TurretController}
      * @param enemyController the {@link EnemyController}
-     * @param gameManager the {@link GameManager}
      */
-    public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController, final GameManager gameManager) {
-        this.gameManager = gameManager;
+    public TurretManagerImpl(final Turret turret, final TurretController turretController, final EnemyController enemyController) {
         this.turret = turret;
         this.enemyController = enemyController;
         ThreadObserver.register(this);
