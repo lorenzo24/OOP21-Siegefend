@@ -62,6 +62,7 @@ import sgf.view.turret.TurretViewImpl;
 public class MenuControllerImpl implements MenuController {
 
     private boolean isControllerSet;
+    @SuppressWarnings("unused")
     private AbstractMenuView menuView;
     private final LeaderboardManager leaderboardManager;
     private final PlayerController playerController;
