@@ -27,7 +27,6 @@ import sgf.utilities.ThreadObserver;
  * View of the menu.
  */
 public class MenuViewImpl extends AbstractMenuView {
-
     private static final long serialVersionUID = 5001578289309695664L;
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
@@ -36,21 +35,14 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final int STANDARD_HGAP = 15;
     private static final int STANDARD_VGAP = 15;
     private static final int START_MENU_VGAP = 50;
-    private boolean isControllerSet;
-    private boolean isLeaderboardCreated;
+    private static final String GO_BACK_BUTTON_TEXT = "Go Back";
     @SuppressWarnings("unused")
     private boolean ready;
+    private boolean isControllerSet;
+    private boolean isLeaderboardCreated;
+    private final LevelLoader levelLoader;
     private MenuController menuController;
     private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
-    private final LevelLoader levelLoader;
-
-    @Override
-    public void setController(final MenuController controller) {
-        if (!isControllerSet) {
-            this.isControllerSet = true;
-            this.menuController = controller;
-        }
-    }
 
     /**
      * Creates a new instance of the class.
@@ -61,6 +53,14 @@ public class MenuViewImpl extends AbstractMenuView {
         this.levelLoader = l;
         this.isLeaderboardCreated = false;
         this.setVisible(true);
+    }
+
+    @Override
+    public void setController(final MenuController controller) {
+        if (!isControllerSet) {
+            this.isControllerSet = true;
+            this.menuController = controller;
+        }
     }
 
     @Override
@@ -238,7 +238,7 @@ public class MenuViewImpl extends AbstractMenuView {
             }).forEach(this::add);
 
             // Creates a button to go back to the start menu
-            this.add(new MenuButton("Go Back", new ActionListener() {
+            this.add(new MenuButton(GO_BACK_BUTTON_TEXT, new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -276,7 +276,7 @@ public class MenuViewImpl extends AbstractMenuView {
             });
 
             this.add(musicButton);
-            this.add(new MenuButton("Go Back", new ActionListener() {
+            this.add(new MenuButton(GO_BACK_BUTTON_TEXT, new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -309,7 +309,7 @@ public class MenuViewImpl extends AbstractMenuView {
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
-            this.add(new MenuButton("Go Back", new ActionListener() {
+            this.add(new MenuButton(GO_BACK_BUTTON_TEXT, new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -341,7 +341,7 @@ public class MenuViewImpl extends AbstractMenuView {
             scrollingCredits = new ScrollingText(creditsText);
 
             this.add(scrollingCredits);
-            this.add(new MenuButton("Go Back", new ActionListener() {
+            this.add(new MenuButton(GO_BACK_BUTTON_TEXT, new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
@@ -362,9 +362,8 @@ public class MenuViewImpl extends AbstractMenuView {
             this.isLeaderboardCreated = true;
             final String[] columnNames = { "DATE", "NAME", "SCORE" };
             final JTable table = new JTable(this.convertToMatrix(), columnNames);
-            table.setBackground(Color.decode(BACKGROUND_COLOR));                    // table background
-            //table.setGridColor(Color.green);                                      // grid border
-            table.setForeground(Color.WHITE);                                       // text color
+            table.setBackground(Color.decode(BACKGROUND_COLOR));
+            table.setForeground(Color.decode(TEXT_COLOR));
             table.setEnabled(false);                                                // disable edit
             final JScrollPane sp = new JScrollPane(table);
             sp.getViewport().setBackground(Color.decode(BACKGROUND_COLOR));         // sp background
