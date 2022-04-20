@@ -19,36 +19,28 @@ import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.map.TileType;
 import sgf.model.turret.Turret;
-import sgf.utilities.PositionConverter;
 import sgf.utilities.ThreadObserver;
 
 /**
- * 
- * 
- *
+ * View of a turret.
  */
 public class TurretViewImpl extends AbstractTurretView implements MouseListener, Stoppable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5374324545913407109L;
-    private boolean isControllerSet;
-    private TurretController turretController;
-    private boolean ready;
-    private final BufferedImage image;
+    private static final long serialVersionUID = 5374324545913407109L; 
     private final int matrixSize;
     private final int tileSize;
+    private final BufferedImage image;
     private final Semaphore semaphore;
     private final TurretImageManager imgManager;
-    private final PositionConverter posConverter;
     private final Map map;
+    private boolean isControllerSet;
+    private boolean ready;
+    private TurretController turretController;
     private Turret clickedTurret;
 
     /**
-     * 
-     * @param map
-     * @param semaphore
-     * @param gameManager
+     * Creates a new instance of the class.
+     * @param map the {@link Map}
+     * @param semaphore the {@link Semaphore}
      */
     public TurretViewImpl(final Map map, final Semaphore semaphore) {
         this.setVisible(false);
@@ -58,7 +50,6 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
         this.image = new BufferedImage(matrixSize * this.tileSize, matrixSize * this.tileSize, BufferedImage.TYPE_INT_ARGB);
         this.semaphore = semaphore;
         this.imgManager = new TurretImageManager();
-        posConverter = new PositionConverter(this.tileSize);
     }
 
     @Override
@@ -87,48 +78,11 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
         this.setVisible(false);
     }
 
-    @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        if (this.ready) {
-            final var gImage = (Graphics2D) this.image.getGraphics();
-            gImage.setBackground(new Color(0, 0, 0, 0));
-            gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());
-            this.drawTurrets(gImage);
-            // Draws a circle representing the range of the turret
-            if (clickedTurret != null) {
-                final Position p = clickedTurret.getPosition();
-                gImage.setStroke(new BasicStroke(3));
-                gImage.setColor(Color.LIGHT_GRAY);
-                gImage.drawOval((int) (p.getX() - clickedTurret.getRange() + this.tileSize / 2), (int) (p.getY() - clickedTurret.getRange() + this.tileSize / 2), 
-                                (int) clickedTurret.getRange() * 2, (int) clickedTurret.getRange() * 2);
-            }
-            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
-        }
-    }
-
-    private void drawTurrets(final Graphics2D gImage) {
-        semaphore.acquireUninterruptibly();
-        final var iterator = this.turretController.getTurretsIterator();
-        while (iterator.hasNext()) {
-            final var entry = iterator.next();
-            final int entryID = entry.getValue().getID();
-            final Position p = entry.getValue().getPosition();
-            final int origW = imgManager.getImage(entryID).getWidth(null);
-            final int origH = imgManager.getImage(entryID).getHeight(null);
-            final BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
-            final double scaleX = (double) bimg.getWidth() / origW;
-            final double scaleY = (double) bimg.getHeight() / origH;
-            gImage.drawImage(bimg, (int) (p.getX() - (this.tileSize * (scaleX - 1) / 2)), (int) (p.getY() - (this.tileSize * (scaleY - 1) / 2)), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
-        }
-        semaphore.release();
-    }
-
     /**
-     * 
-     * @param img
-     * @param rads
-     * @return
+     * Returns a rotated image.
+     * @param img the {@link Image} we want to rotate.
+     * @param rads the rotation angle in radians
+     * @return the rotated image
      */
     public static BufferedImage rotateImage(final Image img, final double rads) {
         final double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
@@ -169,12 +123,6 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
         }
     }
 
-    // Taken a value and the dimension in refers to, it returns an integer value that is the corresponding tile position in the dimension.
-    private int convertCoordinate(final int x, final double dimension) {
-        final double sizeOfASingleTile = dimension / this.matrixSize;
-        return (int) (x / sizeOfASingleTile);
-    }
-
     @Override
     public void mousePressed(final MouseEvent e) { }
 
@@ -187,4 +135,46 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
     @Override
     public void mouseExited(final MouseEvent e) { }
 
+    @Override
+    protected void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        if (this.ready) {
+            final var gImage = (Graphics2D) this.image.getGraphics();
+            gImage.setBackground(new Color(0, 0, 0, 0));
+            gImage.clearRect(0, 0, this.image.getWidth(), this.image.getHeight());
+            this.drawTurrets(gImage);
+            // Draws a circle representing the range of the turret
+            if (clickedTurret != null) {
+                final Position p = clickedTurret.getPosition();
+                gImage.setStroke(new BasicStroke(3));
+                gImage.setColor(Color.LIGHT_GRAY);
+                gImage.drawOval((int) (p.getX() - clickedTurret.getRange() + this.tileSize / 2), (int) (p.getY() - clickedTurret.getRange() + this.tileSize / 2), 
+                                (int) clickedTurret.getRange() * 2, (int) clickedTurret.getRange() * 2);
+            }
+            g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+        }
+    }
+
+    private void drawTurrets(final Graphics2D gImage) {
+        semaphore.acquireUninterruptibly();
+        final var iterator = this.turretController.getTurretsIterator();
+        while (iterator.hasNext()) {
+            final var entry = iterator.next();
+            final int entryID = entry.getValue().getID();
+            final Position p = entry.getValue().getPosition();
+            final int origW = imgManager.getImage(entryID).getWidth(null);
+            final int origH = imgManager.getImage(entryID).getHeight(null);
+            final BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
+            final double scaleX = (double) bimg.getWidth() / origW;
+            final double scaleY = (double) bimg.getHeight() / origH;
+            gImage.drawImage(bimg, (int) (p.getX() - (this.tileSize * (scaleX - 1) / 2)), (int) (p.getY() - (this.tileSize * (scaleY - 1) / 2)), (int) (this.tileSize * scaleX), (int) (this.tileSize * scaleY), null);
+        }
+        semaphore.release();
+    }
+
+    // Taken a value and the dimension in refers to, it returns an integer value that is the corresponding tile position in the dimension.
+    private int convertCoordinate(final int x, final double dimension) {
+        final double sizeOfASingleTile = dimension / this.matrixSize;
+        return (int) (x / sizeOfASingleTile);
+    }
 }
