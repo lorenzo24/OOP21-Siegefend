@@ -17,6 +17,7 @@ import sgf.view.map.MapView;
  */
 public class MapControllerImpl implements MapController {
     private final Map map;
+    @SuppressWarnings("unused")
     private MapView mapView;    // Linked View class.
     private final int tileSize;
     private final BufferedImage mapImage;    // Map to be shown after the creation process.
@@ -30,7 +31,8 @@ public class MapControllerImpl implements MapController {
     public MapControllerImpl(final Map map) {
         this.map = map;
         this.tileSize = ImgTileSize.getTileSize();
-        this.mapImage = new BufferedImage(this.map.getSize() * this.tileSize, this.map.getSize() * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Complete map is empty at the beginning.
+        this.mapImage = new BufferedImage(this.map.getSize() * this.tileSize, 
+                this.map.getSize() * this.tileSize, BufferedImage.TYPE_INT_RGB);   // Complete map is empty at the beginning.
         this.tileManager = new TileImageManager();
         this.createImage();
     }
@@ -53,7 +55,7 @@ public class MapControllerImpl implements MapController {
         }
     }
  
-    // Method that creates the complete map as a matrix of tiles reading which type each of them has supposed to be. 
+    // Method that creates the complete map as a matrix of tiles reading which type each of them is supposed to be. 
     private void createImage() {
         final Graphics g = this.mapImage.getGraphics();
         for (int row = 0; row < this.map.getSize(); row++) {

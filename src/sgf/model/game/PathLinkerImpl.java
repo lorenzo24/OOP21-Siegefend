@@ -17,7 +17,7 @@ public class PathLinkerImpl implements PathLinker {
     private final Map<Integer, String> mapBarLife;
 
     /**
-     * Simple constructor that class methods to fill its fields.
+     * Simple constructor that fills this class fields.
      */
     public PathLinkerImpl() {
         this.mapEnemy = new HashMap<>();

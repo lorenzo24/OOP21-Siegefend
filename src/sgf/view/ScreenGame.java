@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import sgf.utilities.ThreadObserver;
 
 /**
- * This class represents a simple screen game (JFrame).
+ * This class represents the screen game (JFrame).
  */
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
@@ -47,7 +47,7 @@ public class ScreenGame extends JFrame {
                 final int choise = JOptionPane.showConfirmDialog(new JFrame(), 
                         "Do you really want to quit? \nYour score won't be saved into the leaderborad!", "QUITTING", JOptionPane.YES_NO_OPTION);
                 if (choise == JOptionPane.YES_OPTION) {
-                    ThreadObserver.stop();
+                    ThreadObserver.stop();      // Just before closing all managers' threads and all views are stopped.
                     System.exit(0);
                 }
             }

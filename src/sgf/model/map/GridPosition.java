@@ -20,8 +20,7 @@ public class GridPosition {
     }
 
     /**
-     * Creates a new instance of {@code GridPosition} from another
-     * instance of GridPosition.
+     * Creates a new instance of {@code GridPosition} from another instance of GridPosition.
      * @param gpos the instance of GridPosition to copy
      */
     public GridPosition(final GridPosition gpos) {
@@ -29,7 +28,7 @@ public class GridPosition {
     }
 
     /**
-     * Method that gives the column of the position.
+     * Method that gives the column of the {@link Position}.
      * @return the current column of the position.
      */
     public int getColumn() {
@@ -37,7 +36,7 @@ public class GridPosition {
     }
 
     /**
-     * Method that sets a new value for the column of the position.
+     * Method that sets a new value for the column of the {@link Position}.
      * @param column The new value for the column.
      */
     public void setColumn(final int column) {
@@ -45,7 +44,7 @@ public class GridPosition {
     }
 
     /**
-     * Method that gives the row of the position.
+     * Method that gives the row of the {@link Position}.
      * @return the current row of the position.
      */
     public int getRow() {
@@ -53,7 +52,7 @@ public class GridPosition {
     }
 
     /**
-     * Sets a new value for the row of the position.
+     * Sets a new value for the row of the {@link Position}.
      * @param row The new value for the row
      */
     public void setRow(final int row) {
@@ -61,7 +60,7 @@ public class GridPosition {
     }
 
     /**
-     * Sets new values for both the column and row of the position.
+     * Sets new values for both the column and row of the {@link Position}.
      * @param column The new value for the column
      * @param row The new value for the row
      */

@@ -19,28 +19,28 @@ import sgf.model.map.TileImpl;
 import sgf.model.map.TileType;
 
 /**
- * This is a class of utility that reads a matrix from file which represents the map structure. 
- * After that, it can fill correctly the map implementation field that links every grid position to the correspondent tile.
+ * This is a class of utility that reads a matrix from file which represents the {@link Map} structure. 
+ * After that, it can fill correctly the map implementation field that links every {@link GridPosition} to the correspondent {@link Tile}.
  */
 public class MapLoaderImpl implements MapLoader {
     private final Map map;
     private final java.util.Map<Integer, TileType> numbersToTypes;
-    private int mapRows;        // At the end of the reading it will be the map size.
-    // Boolean variables to check the given map integrity (has start and end tile and has a path).
+    private int mapRows;        // When reading over, it will contain the map size.
+
+    // Boolean variables to check the given map integrity (has start tile and end tile).
     private boolean isSetStart;
     private boolean isSetEnd;
-    private boolean isPathPresent;
 
     /**
-     * Simple constructor.
-     * @param levelId Denotes, according to the level, which map file has to be loaded.
+     * Simple constructor that initializes the fields.
+     * @param levelId Denotes, according to the {@link Level}, which map file has to be loaded.
      */
     public MapLoaderImpl(final int levelId) {
         this.map = new MapImpl();
         numbersToTypes = new HashMap<>();
         this.mapRows = 0;
         this.createLinks();
-        this.readMapStructureFromFile(levelId); // Methods that reads map structure from file and create the correspondent map.
+        this.readMapStructureFromFile(levelId); // Method that reads map structure from file and create the correspondent map.
         this.findMovementPath();        // Method that fills the field Direction in every tile.
     }
 
@@ -63,7 +63,7 @@ public class MapLoaderImpl implements MapLoader {
         final String file;
         if (levelId > 0) {      // If parameter > 0 it loads an actual level, not a test (a map with error).
             file = "res" + File.separator + "maps" + File.separator + "mapLevel" + levelId + ".txt";
-        } else {        // If parameter <= 0 we must load a map with error to test it, so it must change folder.
+        } else {        // If parameter <= 0 it loads a map with error to test it, so it must change folder.
             file = "res" + File.separator + "tests" + File.separator + "mapLevel" + levelId + ".txt";
         }
         final Path p = FileSystems.getDefault().getPath(file);
@@ -106,11 +106,11 @@ public class MapLoaderImpl implements MapLoader {
 
     // Method that, by observing the path, fill the field Direction of every tiles in the path.
     private void findMovementPath() {
-        GridPosition currentTile = this.map.getStartTile();     // This algorithms starts from the start of the path.
+        GridPosition currentTile = this.map.getStartTile();     // This algorithm starts from the start of the path.
         final Set<GridPosition> tilesAlreadyChecked = new HashSet<>();    // Contains the tiles already checked, so that we can ignore them.
         Direction lastDirection = null; // It saves the last direction set, so we can have the direction also for the very last tile of the path.
 
-        // For every tile of the path we check its neighbors to find which one is path. Then, by a simple compare we can set up the field direction of ebery path tile.
+        // For every tile of the path we check its neighbors to find which one is path. Then, by a simple compare we can set up the field direction of every path tile.
         while (!currentTile.equals(this.map.getEndTile())) {
             for (final var neighbor : this.findNeighbors(currentTile).entrySet()) {
                 // For every neighbor tile that has not been already checked we check if its type is Path.
@@ -139,7 +139,7 @@ public class MapLoaderImpl implements MapLoader {
         return result;
     }
 
-    // Method that checks if a given grid position is acceptable (in matrix size limits) and if it corresponds to a path tile.
+    // Method that checks if a given grid position is acceptable (if is into matrix size limits) and if it corresponds to a path tile.
     private boolean isPath(final GridPosition neighbour) {
         final int row = neighbour.getRow();
         final int column = neighbour.getColumn();

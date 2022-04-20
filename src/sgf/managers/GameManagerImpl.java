@@ -1,9 +1,6 @@
 package sgf.managers;
 
-import java.util.ArrayList;
-import java.util.List;
 import sgf.controller.game.PlayerController;
-import sgf.model.game.Stoppable;
 import sgf.model.level.Level;
 import sgf.model.level.Wave;
 
@@ -13,15 +10,13 @@ import sgf.model.level.Wave;
 public class GameManagerImpl implements GameManager {
     private final PlayerController playerController;
     private final LevelManager levelManager;
-    private final List<Stoppable> stoppableList;
 
     /**
      * Constructor that initializes the fields.
-     * @param pController
-     * @param levelManager
+     * @param pController is the {@link PlayerController}, useful for a getter.
+     * @param levelManager is the {@link LevelManager}, useful for a getter.
      */
     public GameManagerImpl(final PlayerController pController, final LevelManager levelManager) {
-        this.stoppableList = new ArrayList<>();
         this.playerController = pController;
         this.levelManager = levelManager;
     }

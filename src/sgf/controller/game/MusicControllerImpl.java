@@ -19,7 +19,7 @@ public class MusicControllerImpl implements MusicController {
     private Clip c;
 
     /**
-     * Constructor that makes the sound beginning with first sound. 
+     * Constructor that makes the music beginning with first track. 
      */
     public MusicControllerImpl() {
         this.musicOn = true;
@@ -44,7 +44,7 @@ public class MusicControllerImpl implements MusicController {
         return this.musicOn;
     }
 
-    // This method open an audio stream and start the music file.
+    // This method opens an audio stream and start the music file.
     private void play(final String fileName) {
         final String musicFile = "res" + File.separator + "musics" + File.separator + fileName + ".wav";
         final File file = new File(musicFile);
@@ -57,7 +57,7 @@ public class MusicControllerImpl implements MusicController {
             }
     }
 
-    // Thread that plays and changes music while music is on.
+    // Thread that plays and changes track.
     private void thread() {
         final Thread t = new Thread(new Runnable() {
             @Override

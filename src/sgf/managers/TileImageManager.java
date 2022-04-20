@@ -3,11 +3,10 @@ package sgf.managers;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
-
 import sgf.model.map.TileType;
 
 /**
- * This class contains the links between tile types and corresponding images.
+ * This class contains the links between every {@link TileType} and the corresponding images.
  */
 public class TileImageManager extends AbstractImageLoaderManager<TileType> {
     // Map that contains all the correspondences between tile types and the corresponding images.

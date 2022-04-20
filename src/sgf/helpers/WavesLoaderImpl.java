@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyFactory;
 import sgf.model.enemies.EnemyFactoryImpl;
@@ -28,8 +27,8 @@ public class WavesLoaderImpl implements WavesLoader {
     private final EnemyFactory enemyFactory;
 
     /**
-     * Constructor that sets the initial position and level id.
-     * @param map Is the map of the level.
+     * Constructor that sets the initial position and {@link Level} id.
+     * @param map Is the {@link Map} of the level.
      * @param levelId Is the levelId.
      */
     public WavesLoaderImpl(final Map map, final int levelId) {
@@ -49,7 +48,7 @@ public class WavesLoaderImpl implements WavesLoader {
         final String file;
         if (levelId > 0) {      // If levelID > 0 it must load an actual level (not a wrong level for testing).
             file = "res" + File.separator + "levels" + File.separator + "level" + levelId + ".txt";
-        } else {        // If levelId <= 0 it must load a wrong test for testing, so it must use another folder.
+        } else {        // If levelId <= 0 it must load a wrong file for testing, so it must use another folder.
             file = "res" + File.separator + "tests" + File.separator + "level" + levelId + ".txt";
         }
         final Path p = FileSystems.getDefault().getPath(file);

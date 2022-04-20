@@ -1,7 +1,7 @@
 package sgf.model.map;
 
 /**
- * Represents the game map. The map is made has a structure of matrix of tiles.
+ * Represents the game map. The map is made as a structure of matrix of tiles.
  */
 public interface Map {
     /**
@@ -11,24 +11,17 @@ public interface Map {
     int getSize();
 
     /**
-     * The map has a field that contains the links between grid positions and tiles. This method returns it.
+     * The map has a field that contains the links between every {@link GridPosition} and its {@link Tile}. This method returns it.
      * @return the field tiles in map implementation class.
      */
     java.util.Map<GridPosition, Tile> getTiles();
 
     /**
-     * This method helps getting a {@link Tile} from a grid position.
-     * @param position Is the position in the grid of the interested {@link Tile}.
+     * This method helps getting a {@link Tile} from a {@link GridPosition}.
+     * @param position Is the {@link Position} in the grid of the interested {@link Tile}.
      * @return the tile from the given grid position.
      */
     Tile getTileFromGridPosition(GridPosition position);
-
-    /**
-     * This method helps getting a {@link Tile} from a given {@link Position}.
-     * @param position Is the position of the interested {@link Tile}.
-     * @return the tile from the given {@link Position}.
-     */
-    Tile getTileFromPosition(Position position);
 
     /**
      * The map has e reference to the tile from which the enemies movement start.

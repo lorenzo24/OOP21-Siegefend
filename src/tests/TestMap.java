@@ -19,7 +19,7 @@ public class TestMap {
     private static final int NO_PATH_FILE = -3;   // File in res folder without path is called "mapLevel-3".
 
     /**
-     * Checks if a correct and known map (the level 1's map) sets correctly its start tile.
+     * Checks if a correct and known {@link Map} (the level 1's map) sets correctly its start {@link Tile}.
      */
     @Test
     public void checkCorrectStartTile() {
@@ -29,7 +29,7 @@ public class TestMap {
     }
 
     /**
-     * Checks if a correct and known map (the level 1's map) sets correctly its end tile.
+     * Checks if a correct and known {@link Map} (the level 1's map) sets correctly its end {@link Tile}.
      */
     @Test
     public void checkCorrectEndTile() {
@@ -39,7 +39,7 @@ public class TestMap {
     }
 
     /**
-     * Checks if a correct and known map (the level 1's map) has the right size (number of cells per side).
+     * Checks if a correct and known {@link Map} (the level 1's map) has the right size (number of cells per side).
      */
     @Test
     public void checkCorrectSize() {
@@ -48,7 +48,7 @@ public class TestMap {
     }
 
     /**
-     * File loaded shows a number 9 and there is no cell that corresponds to this number.
+     * File loaded shows a number 9 and there is no {@link Tile} that corresponds to this number.
      */
     @Test(expected = IllegalArgumentException.class)
     public void checkIncorrectReading() {
@@ -56,7 +56,7 @@ public class TestMap {
     }
 
     /**
-     * File loaded hasn't got the start tile (number 3).
+     * File loaded hasn't got the start {@link Tile} (number 3).
      */
     @Test(expected = IllegalStateException.class)
     public void checkNoStartTile() {
@@ -64,7 +64,7 @@ public class TestMap {
     }
 
     /**
-     * File loaded hasn't got the end tile (number 4).
+     * File loaded hasn't got the end {@link Tile} (number 4).
      */
     @Test(expected = IllegalStateException.class)
     public void checkNoEndTile() {
@@ -80,7 +80,7 @@ public class TestMap {
     }
 
     /**
-     * Empty file loaded. 
+     * {@link Map} loaded has no path. 
      */
     @Test(expected = IllegalStateException.class)
     public void checkNoPathFile() {

@@ -16,7 +16,7 @@ public interface GameManager {
     PlayerController getPlayerController();
 
     /**
-     * Returns the manager for the current level.
+     * Returns the manager for the current {@link Level}.
      * @return a {@link LevelManager}
      */
     LevelManager getLevelManager();

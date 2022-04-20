@@ -11,8 +11,8 @@ import sgf.view.map.MapView;
 public interface MapController extends Controller<MapView> {
 
     /**
-     * Simple getter for field of type Map..
-     * @return the game map intended as correspondences between GridPositions and Tiles.
+     * Simple getter for field of type Map.
+     * @return the game {@link Map} intended as correspondences between {@link GridPosition} and {@link Tile}.
      */
     Map getMap();
 

@@ -10,8 +10,8 @@ public class PositionConverter {
     private final int tileSize;
 
     /**
-     * Creates a new instance of the class with a certain tile size.
-     * @param tileSize the size of a tile on the map
+     * Creates a new instance of the class with a certain {@link Tile} size.
+     * @param tileSize the size of a tile on the {@link Map}.
      */
     public PositionConverter(final int tileSize) {
         this.tileSize = tileSize;
@@ -29,7 +29,7 @@ public class PositionConverter {
     /**
      * Converts a {@link Position} to a {@link GridPosition}.
      * @param position the {@code Position} to convert
-     * @return the corresponding GridPosition.
+     * @return the corresponding {@link GridPosition}.
      */
     public GridPosition convertToGridPosition(final Position position) {
         return new GridPosition((int) position.getY() / tileSize, (int) position.getX() / tileSize);

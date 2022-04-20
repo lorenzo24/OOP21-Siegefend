@@ -12,7 +12,6 @@ import sgf.model.map.Map;
  * Implementation of interface LevelLoader.
  */
 public class LevelLoaderImpl implements LevelLoader {
-
     private final int levelsNumber;
 
     /**
