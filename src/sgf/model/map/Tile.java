@@ -3,7 +3,7 @@ package sgf.model.map;
 import java.util.Optional;
 
 /**
- * Represents a single tile on the map.
+ * Represents a single tile on the {@link Map}.
  */
 public interface Tile {
     /**
@@ -13,7 +13,7 @@ public interface Tile {
     TileType getTileType();
 
     /**
-     * Every tile denotes the direction of movement. If there is none, it contains an empty {@link Optional}.
+     * Every tile denotes the {@link Direction} of movement. If there is none, it contains an empty {@link Optional}.
      * @return an {@link Optional} containing the {@link Direction} if present, {@code Optional.empty} otherwise.
      */
     Optional<Direction> getTileDirection();
@@ -25,7 +25,7 @@ public interface Tile {
     boolean canContainTurret();
 
     /**
-     * Method that sets up the tile's direction. It is useful to enemy's movement path finding.
+     * Method that sets up the tile's {@link Direction}. It is useful to {@link Enemy}'s movement path finding.
      * @param direction Is the direction that the interested tile must have.
      */
     void setDirection(Direction direction);

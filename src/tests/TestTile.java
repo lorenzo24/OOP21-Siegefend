@@ -13,7 +13,7 @@ import sgf.model.map.TileType;
 public class TestTile {
 
     /**
-     * Checks if grass tile can actually contain a turret.
+     * Checks if grass {@link Tile} can actually contain a {@link Turret}.
      */
     @Test
     public void checkGrassContainsTurret() {
@@ -22,7 +22,7 @@ public class TestTile {
     }
 
     /**
-     * Ensure that a water tile cannot contain a turret.
+     * Ensure that a water {@link Tile} cannot contain a {@link Turret}.
      */
     @Test
     public void checkWaterNotContainsTurret() {
@@ -31,7 +31,7 @@ public class TestTile {
     }
 
     /**
-     * Ensure that a path tile cannot contain a turret.
+     * Ensure that a path {@link Tile} cannot contain a {@link Turret}.
      */
     @Test
     public void checkPathNotContainsTurret() {

@@ -35,11 +35,6 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public Tile getTileFromPosition(final Position position) {  // TODO Maybe to be deleted?
-        return null;
-    }
-
-    @Override
     public GridPosition getStartTile() {
         return this.startTile;
     }

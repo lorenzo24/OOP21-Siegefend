@@ -3,7 +3,7 @@ package sgf.helpers;
 import sgf.model.map.Map;
 
 /**
- *  Interface that loads the map.
+ *  Interface for the map loading from file.
  */
 public interface MapLoader {
 

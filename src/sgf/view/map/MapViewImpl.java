@@ -7,13 +7,12 @@ import sgf.model.map.Map;
 import sgf.utilities.ThreadObserver;
 
 /**
- * This class is responsible for the process of map showing. It involves 2 steps: a calculation 
+ * This class is responsible for the process of {@link Map} showing. It involves 2 steps: a calculation
  * and composition of a grid and the creation and appearance of the corresponding final map image.
- */
+**/
 public class MapViewImpl extends AbstractMapView {
     private static final long serialVersionUID = -7141712951441617040L;
     private MapController mapController;
-    private final Map map;
     private final int matrixSize;       // Number of tiles in each grid size.
     private BufferedImage completeMap;    // Map to be shown after creation process.
     private boolean isControllerSet;
@@ -22,10 +21,8 @@ public class MapViewImpl extends AbstractMapView {
     /**
      * Constructor that initializes fields and links this panel with mouse listener.
      * @param map The logic map of the current level
-     * @param gameManager 
      */
     public MapViewImpl(final Map map) {
-        this.map = map;
         this.matrixSize = map.getSize();
         this.setVisible(false);
     }

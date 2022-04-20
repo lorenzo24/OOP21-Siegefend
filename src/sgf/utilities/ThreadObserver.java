@@ -6,8 +6,7 @@ import java.util.List;
 import sgf.model.game.Stoppable;
 
 /**
- * 
- *
+ * Class useful for Observer pattern implementation.
  */
 public final class ThreadObserver {
     private static final List<Stoppable> STOPPABLE_LIST = new ArrayList<>();
@@ -16,7 +15,7 @@ public final class ThreadObserver {
     }
 
     /**
-     * 
+     * This method is used to register every Manager and View.
      * @param stoppable
      */
     public static void register(final Stoppable stoppable) {
@@ -24,7 +23,7 @@ public final class ThreadObserver {
     }
 
     /**
-     * 
+     * This method is called just before exiting the game to stop every Manager thread and every View.
      */
     public static void stop() {
         STOPPABLE_LIST.forEach(Stoppable::stop);
