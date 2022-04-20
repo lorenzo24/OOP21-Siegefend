@@ -9,7 +9,7 @@ import sgf.managers.ImageLoaderManager;
 import sgf.model.enemies.Enemy;
 import sgf.model.enemies.EnemyType;
 import sgf.utilities.LockClass;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -96,7 +96,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
     @Override
     public void winGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You won the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.INFORMATION_MESSAGE);
-        ThreadObserver.stop();
+        ThreadAndViewObservable.stop();
         System.exit(0); 
     }
 
@@ -105,7 +105,7 @@ public class EnemyViewImpl extends AbstractEnemyView {
         if (isControllerSet) {
             this.ready = true;
             this.setVisible(true);
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }

@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import sgf.controller.shop.ShopController;
 import sgf.model.game.Stoppable;
 import sgf.model.turret.Turret;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * View of the shop for use within a {@link JFrame}.
@@ -118,7 +118,7 @@ public class ShopViewImpl extends AbstractShopView implements Stoppable {
     @Override
     public void start() {
         if (this.isControllerSet) {
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);

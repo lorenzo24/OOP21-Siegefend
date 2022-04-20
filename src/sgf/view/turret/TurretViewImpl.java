@@ -19,7 +19,7 @@ import sgf.model.map.Map;
 import sgf.model.map.Position;
 import sgf.model.map.TileType;
 import sgf.model.turret.Turret;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * View of a turret.
@@ -64,7 +64,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
     @Override
     public void start() {
         if (this.isControllerSet) {
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.ready = true;
             this.setVisible(true);
             this.addMouseListener(this);

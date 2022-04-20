@@ -6,12 +6,12 @@ import java.util.List;
 import sgf.model.game.Stoppable;
 
 /**
- * Class useful for Observer pattern implementation.
+ * Class useful for Observer pattern implementation. This is the observable part.
  */
-public final class ThreadObserver {
+public final class ThreadAndViewObservable {
     private static final List<Stoppable> STOPPABLE_LIST = new ArrayList<>();
 
-    private ThreadObserver() {
+    private ThreadAndViewObservable() {
     }
 
     /**

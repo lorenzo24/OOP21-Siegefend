@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import sgf.controller.map.MapController;
 import sgf.model.map.Map;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * This class is responsible for the process of {@link Map} showing. It involves 2 steps: a calculation
@@ -56,7 +56,7 @@ public class MapViewImpl extends AbstractMapView {
     @Override
     public void start() {
         if (isControllerSet) {
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.ready = true;
             this.setVisible(true);
         } else {

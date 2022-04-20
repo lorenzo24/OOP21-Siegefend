@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import sgf.controller.menu.MenuController;
 import sgf.helpers.LevelLoader;
 import sgf.utilities.Pair;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * View of the menu.
@@ -66,7 +66,7 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void start() {
         if (this.isControllerSet) {
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.setup();
             this.ready = true;
             this.setVisible(true);

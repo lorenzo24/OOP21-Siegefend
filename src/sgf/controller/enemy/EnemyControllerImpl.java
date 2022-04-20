@@ -11,7 +11,7 @@ import sgf.model.enemies.Enemy;
 import sgf.model.game.Player;
 import sgf.model.game.Stoppable;
 import sgf.utilities.LockClass;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 import sgf.view.enemy.EnemyView;
 
 /**
@@ -39,7 +39,7 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
         this.levelManager = levelManager;
         this.playerManager = playerManager;
         this.managerList = new ArrayList<>();
-        ThreadObserver.register(this);
+        ThreadAndViewObservable.register(this);
         this.startRunWaves(); // Thread method.
     }
 

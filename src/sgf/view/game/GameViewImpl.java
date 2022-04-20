@@ -3,7 +3,7 @@ package sgf.view.game;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import sgf.controller.game.GameController;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 import sgf.view.bullet.AbstractBulletView;
 import sgf.view.enemy.AbstractEnemyView;
 import sgf.view.map.AbstractMapView;
@@ -69,7 +69,7 @@ public class GameViewImpl extends AbstractGameView {
     @Override
     public void start() {
         if (this.isControllerSet) {
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             this.setLayout(new BorderLayout());
             this.add(mapPanel);
             this.mapPanel.setOpaque(false);

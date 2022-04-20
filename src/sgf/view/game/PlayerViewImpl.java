@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import sgf.controller.game.PlayerController;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     public void start() {
         if (isControllerSet) {
             this.setVisible(true);
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
             setup();
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
@@ -86,7 +86,7 @@ public class PlayerViewImpl extends AbstractPlayerView {
     @Override
     public void loseGame() {
         JOptionPane.showMessageDialog(new JFrame(), "You lost the game, your progress will be saved and the game will close!!!", "The end", JOptionPane.ERROR_MESSAGE);
-        ThreadObserver.stop();
+        ThreadAndViewObservable.stop();
         System.exit(0); 
     }
 }

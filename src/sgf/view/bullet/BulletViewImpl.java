@@ -13,7 +13,7 @@ import sgf.managers.ImageLoaderManager;
 import sgf.model.bullet.Bullet;
 import sgf.model.map.Position;
 import sgf.utilities.LockClass;
-import sgf.utilities.ThreadObserver;
+import sgf.utilities.ThreadAndViewObservable;
 
 /**
  *
@@ -80,7 +80,7 @@ public class BulletViewImpl extends AbstractBulletView {
         if (this.isControllerSet) {
             this.ready = true;
             this.setVisible(true);
-            ThreadObserver.register(this);
+            ThreadAndViewObservable.register(this);
         } else {
             throw new IllegalStateException("Cannot invoke start() if the controller has not been set.");
         }
