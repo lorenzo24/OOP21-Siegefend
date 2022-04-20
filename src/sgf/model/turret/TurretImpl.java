@@ -13,17 +13,17 @@ import sgf.model.map.Position;
  */
 public class TurretImpl implements Turret, Cloneable {
 
-    private final int id;
-    private Position position;
     private final double range;
-    private final int price;
     private final double fireRate;
-    private Enemy target;
-    private boolean state;
     private final double bulletSpeed;
     private final double bulletDamage;
+    private final int id;
+    private final int price;
     private final BulletFactory bulletFactory;
+    private boolean state;
     private double angle;
+    private Position position;
+    private Enemy target;
 
     /**
      * Creates a new instance of Turret.
@@ -32,6 +32,8 @@ public class TurretImpl implements Turret, Cloneable {
      * @param range the range of the turret
      * @param price the price of the turret
      * @param fireRate the fire rate of the turret
+     * @param bulletSpeed the speed of the {@link Bullet}
+     * @param bulletDamage the damage of the {@link Bullet}
      */
     public TurretImpl(final int id, final Position position, final double range, final int price, final double fireRate, final double bulletSpeed, final double bulletDamage) {
         this.id = id;
@@ -158,4 +160,5 @@ public class TurretImpl implements Turret, Cloneable {
         return "TurretImpl [ID=" + id + ", position=" + position + ", range=" + range + ", price=" + price
                 + ", fireRate=" + fireRate + ", bulletSpeed=" + bulletSpeed + ", bulletDamage=" + bulletDamage + "]";
     }
+
 }

@@ -1,7 +1,6 @@
 package sgf.controller.bullet;
 
 import java.util.Iterator;
-
 import sgf.controller.Controller;
 import sgf.managers.BulletManager;
 import sgf.model.bullet.Bullet;
@@ -29,4 +28,5 @@ public interface BulletController extends Controller<BulletView>  {
      * @return an iterator of bullets
      */
     Iterator<Bullet> getBulletsIterator();
+
 }

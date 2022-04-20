@@ -1,7 +1,6 @@
 package sgf.model.turret;
 
 import java.util.Optional;
-
 import sgf.model.bullet.Bullet;
 import sgf.model.enemies.Enemy;
 import sgf.model.map.Position;
@@ -10,6 +9,7 @@ import sgf.model.map.Position;
  * Represents a turret that can be placed on the map.
  */
 public interface Turret {
+
     /**
      * Returns the ID of the turret.
      * @return the ID of the turret
@@ -36,14 +36,14 @@ public interface Turret {
     double getRange();
 
     /**
-     * 
-     * @return
+     * Returns the angle of the turret.
+     * @return the angle
      */
     double getAngle();
 
     /**
-     * 
-     * @param angle
+     * Sets the angle of the turret.
+     * @param angle the angle
      */
     void setAngle(double angle);
 
@@ -73,13 +73,13 @@ public interface Turret {
 
     /**
      * Returns the target of the turret.
-     * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise.
+     * @return An {@link Optional} containing the enemy if present, {@code Optional.empty()} otherwise
      */
     Optional<Enemy> getTarget();
 
     /**
-     * 
-     * @param target
+     * Sets the target of the turret.
+     * @param target the target
      */
     void setTarget(Enemy target);
 
@@ -96,4 +96,5 @@ public interface Turret {
      * @return the cloned {@link Turret}
      */
     Turret getClone();
+
 }

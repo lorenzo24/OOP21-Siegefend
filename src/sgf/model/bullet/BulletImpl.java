@@ -10,8 +10,8 @@ public class BulletImpl implements Bullet {
 
     private final int id;
     private final double speed;
-    private final Position position;
     private final double damage;
+    private final Position position;
     private Enemy target;
 
     /**

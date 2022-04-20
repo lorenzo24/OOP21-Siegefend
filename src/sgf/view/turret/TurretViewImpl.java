@@ -25,6 +25,7 @@ import sgf.utilities.ThreadObserver;
  * View of a turret.
  */
 public class TurretViewImpl extends AbstractTurretView implements MouseListener, Stoppable {
+
     private static final long serialVersionUID = 5374324545913407109L; 
     private final int matrixSize;
     private final int tileSize;
@@ -80,7 +81,7 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
 
     /**
      * Returns a rotated image.
-     * @param img the {@link Image} we want to rotate.
+     * @param img the {@link Image} we want to rotate
      * @param rads the rotation angle in radians
      * @return the rotated image
      */
@@ -177,4 +178,5 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
         final double sizeOfASingleTile = dimension / this.matrixSize;
         return (int) (x / sizeOfASingleTile);
     }
+
 }
