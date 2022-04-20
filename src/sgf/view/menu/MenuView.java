@@ -9,7 +9,7 @@ import sgf.view.View;
 public interface MenuView extends View<MenuController> {
 
     /**
-     * Shows the panel containing the levels of the game and that lets the user input his username. 
+     * Shows the panel that lets the user select the level he wants to play and input his username.
      */
     void showLevelPicker();
 

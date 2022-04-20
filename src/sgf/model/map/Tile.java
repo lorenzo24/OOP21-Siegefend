@@ -2,8 +2,6 @@ package sgf.model.map;
 
 import java.util.Optional;
 
-import sgf.model.turret.Turret;
-
 /**
  * Represents a single tile on the map.
  */

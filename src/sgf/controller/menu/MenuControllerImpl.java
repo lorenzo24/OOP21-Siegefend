@@ -64,7 +64,6 @@ public class MenuControllerImpl implements MenuController {
     private boolean isControllerSet;
     private AbstractMenuView menuView;
     private final LeaderboardManager leaderboardManager;
-    private final Player player;
     private final PlayerController playerController;
     private final MusicController musicController;
 
@@ -76,8 +75,7 @@ public class MenuControllerImpl implements MenuController {
      */
     public MenuControllerImpl(final LeaderboardManager leaderboardManager, final Player player, final MusicController musicController) {
         this.leaderboardManager = leaderboardManager;
-        this.player = player;
-        this.playerController = new PlayerControllerImpl(this.player, this.leaderboardManager);
+        this.playerController = new PlayerControllerImpl(player, this.leaderboardManager);
         this.musicController = musicController;
     }
 
@@ -96,22 +94,22 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public AbstractPlayingView loadPlayingView(final int levelNum) {
-        final Map map = new MapLoaderImpl(levelNum).getMap();  // 1 to be generalized.
-        final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();      // 1 to be generalized.
+        final Map map = new MapLoaderImpl(levelNum).getMap();
+        final List<Wave> waves = new WavesLoaderImpl(map, levelNum).getWaves();
         final Level level = new LevelImpl(waves, map);
         final LevelManager levelManager = new LevelManagerImpl(level);
         final GameManager gameManager = new GameManagerImpl(playerController, levelManager);
         final MapController mapController = new MapControllerImpl(map);
-        final TurretsLoader tLoader = new TurretsLoaderImpl(); // Test loader.
+        final TurretsLoader tLoader = new TurretsLoaderImpl();
         final Shop shop = new ShopImpl(tLoader);
         final AbstractPlayerView playerView = new PlayerViewImpl();
         final AbstractMapView mapView = new MapViewImpl(map);
-        final EnemyController enemyController = new EnemyControllerImpl(levelManager, gameManager, playerController, this.leaderboardManager);
+        final EnemyController enemyController = new EnemyControllerImpl(levelManager, playerController, this.leaderboardManager);
         final AbstractEnemyView enemyView = new EnemyViewImpl(map.getSize());
         final ShopController shopController = new ShopControllerImpl(gameManager, shop);
         final AbstractShopView shopView = new ShopViewImpl();
         final BulletController bulletController = new BulletControllerImpl();
-        final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());     // Use AbstractBulletView as type once created.
+        final AbstractBulletView bulletView = new BulletViewImpl(map.getSize());
         final TurretController turretController = new TurretControllerImpl(map, shopController, LockClass.getTurretSemaphore(), enemyController, gameManager, bulletController);
         final AbstractTurretView turretView = new TurretViewImpl(map, LockClass.getTurretSemaphore());
         final GameController gameController = new GameControllerImpl(gameManager);

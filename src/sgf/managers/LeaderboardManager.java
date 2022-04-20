@@ -3,25 +3,25 @@ package sgf.managers;
 import sgf.model.game.Leaderboard;
 
 /**
- * Interface that managed the leaderboard.
+ * Interface that manages the leaderboard.
  */
 public interface LeaderboardManager {
 
     /**
-     * Write the score of the player in the file.
+     * Writes the score of the {@link Player} in the file.
      */
     void writeScore();
 
     /**
-     * Add the new score of the player.
-     * @param name Is the name of the player.
-     * @param score Is the score of the player. 
+     * Adds the new score of the {@link Player}.
+     * @param name Is the name of the {@link Player}.
+     * @param score Is the score of the {@link Player}. 
      */
     void addScore(String name, int score);
 
     /**
-     * Returns the leaderboard.
-     * @return the leaderboard.
+     * Returns the {@link Leaderboard}.
+     * @return the {@link Leaderboard}.
      */
     Leaderboard getLeaderboard();
 }

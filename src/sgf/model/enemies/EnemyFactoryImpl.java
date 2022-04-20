@@ -3,7 +3,7 @@ package sgf.model.enemies;
 import sgf.model.map.Position;
 
 /**
- * Class that creates various enemy types.
+ * Class that creates various {@link Enemy} types.
  */
 public class EnemyFactoryImpl implements EnemyFactory {
     // Constant of parameters of the enemies.

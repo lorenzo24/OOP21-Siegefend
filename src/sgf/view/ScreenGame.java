@@ -16,7 +16,7 @@ import sgf.utilities.ThreadObserver;
 public class ScreenGame extends JFrame {
     private static final long serialVersionUID = 8030357690780926273L;
     private static final double INITIAL_SIZE_PERC = 0.9;        // Initial frame size compared to the screen.
-    private static final int MIN_SCREEN_DIMENSION = 800;    // Minimum resizing acceptable size compared to the screen. // TODO ciccio.
+    private static final int MIN_SCREEN_DIMENSION = 800;    // Minimum resizing acceptable size of screen.
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     /**

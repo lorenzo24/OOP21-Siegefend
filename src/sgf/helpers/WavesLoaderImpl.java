@@ -54,6 +54,9 @@ public class WavesLoaderImpl implements WavesLoader {
         }
         final Path p = FileSystems.getDefault().getPath(file);
         try {
+            if (Files.lines(p).count() == 0L) {
+                throw new IllegalStateException();
+            }
             Files.lines(p).forEach(x -> read(x));
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +84,7 @@ public class WavesLoaderImpl implements WavesLoader {
             this.waveEnemies.add(this.enemyFactory.createHelicopter(startPosition));
             break;
         default:
-            break;
+            throw new IllegalArgumentException("Enemy code read in file cannot be encoded");
         }
     }
 }

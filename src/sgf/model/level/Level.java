@@ -22,14 +22,14 @@ public interface Level {
     List<Wave> getWaves();
 
     /**
-     * Simple getter for the field that contains the level ID.
-     * @return the ID of the level.
+     * Simple getter for the field that contains the {@link Level} ID.
+     * @return the ID of the {@link Level}.
      */
     int getLevelId();
 
     /**
-     * Returns the number of waves.
-     * @return the number of waves.
+     * Returns the number of {@link Wave}.
+     * @return the number of {@link Wave}.
      */
     int getNumberOfWaves();
 

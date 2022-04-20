@@ -1,16 +1,18 @@
 package sgf.managers;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map.Entry;
+import java.util.TimeZone;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import sgf.model.game.Leaderboard;
 import sgf.model.game.LeaderboardImpl;
 import sgf.utilities.Pair;
@@ -24,14 +26,15 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     private final File f;
 
     /**
-     * Reads from file the loaderboard.
+     * Reads from file the {@link Leaderboard}.
      */
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
-        this.f = this.leaderboard.getP().toFile();
+        this.f = this.leaderboard.getPath().toFile();
         this.readScore();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void writeScore() {
         this.clearFile();
@@ -50,6 +53,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
     }
 
     // Create one element of one record.
+    @SuppressWarnings("unchecked")
     private JSONObject createJsonElem(final Entry<String, Pair<String, Integer>> x) {
         final JSONObject elem = new JSONObject();
         elem.put("date", x.getKey());
@@ -75,6 +79,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void readScore() {
         if (this.f.length() == 0) { // If file of leaderboard is empty not do any.
             return;
@@ -84,12 +89,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
             array.forEach(x -> parsePlayerObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (org.json.simple.parser.ParseException e) {
-            System.out.print("Leaderboard not loaded, file corrupt");
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            System.err.print("Leaderboard not loaded, file corrupt");
         }
     }
 
@@ -103,7 +106,10 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
 
     @Override
     public void addScore(final String name, final int score) { // Add a score to the leaderboard.
-        this.leaderboard.addRecord(LocalDateTime.now().toString(), name, score);
+        final SimpleDateFormat dateFormat = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Rome"));
+        dateFormat.applyPattern("yyyy-MM-dd E 'at' HH:mm:ss.SSS z");
+        this.leaderboard.addRecord(dateFormat.format(new Date()), name, score);
     }
 
     @Override
