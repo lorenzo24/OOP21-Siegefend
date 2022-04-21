@@ -29,6 +29,13 @@ import sgf.utilities.ThreadAndViewObservable;
 public class MenuViewImpl extends AbstractMenuView {
     private static final long serialVersionUID = 5001578289309695664L;
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
+    private final String CREDITS_TEXT = "The team that made Siegefend a reality:\n\n\n\n\n"
+                                        + "Lorenzo Gessi\n\n\n"
+                                        + "Andrea Bedei\n\n\n"
+                                        + "Fabio Notaro\n\n\n"
+                                        + "Luca Venturi\n\n\n"
+                                        + "Giacomo Leo Bertuccioli\n\n\n\n\n"
+                                        + "Thank you for playing Siegefend!";
     private static final Font TITLE_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 100);
     private static final Font INMENU_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
     private static final int BORDER = 50;
@@ -36,11 +43,12 @@ public class MenuViewImpl extends AbstractMenuView {
     private static final int STANDARD_VGAP = 15;
     private static final int START_MENU_VGAP = 50;
     private static final String GO_BACK_BUTTON_TEXT = "Go Back";
+    private final LevelLoader levelLoader;
+    private final ScrollingText scrollingCredits;
     @SuppressWarnings("unused")
     private boolean ready;
     private boolean isControllerSet;
     private boolean isLeaderboardCreated;
-    private final LevelLoader levelLoader;
     private MenuController menuController;
     private JPanel menuPanel, levelPanel, leaderboardPanel, optionsPanel, creditsPanel;
 
@@ -52,6 +60,7 @@ public class MenuViewImpl extends AbstractMenuView {
         super();
         this.levelLoader = l;
         this.isLeaderboardCreated = false;
+        this.scrollingCredits = new ScrollingText(CREDITS_TEXT);
         this.setVisible(true);
     }
 
@@ -106,6 +115,8 @@ public class MenuViewImpl extends AbstractMenuView {
     @Override
     public void showCredits() {
         menuPanel.setVisible(false);
+        scrollingCredits.restart();  // restart the credit roll everytime we open the credits section
+        this.creditsPanel.add(scrollingCredits, 0);
         this.add(creditsPanel);
         this.remove(menuPanel);
     }
@@ -323,30 +334,18 @@ public class MenuViewImpl extends AbstractMenuView {
      */
     private final class CreditsMenu extends JPanel {
         private static final long serialVersionUID = 6332858745374471601L;
-        private final ScrollingText scrollingCredits;
-        private final String creditsText;
 
         private CreditsMenu() {
             this.setLayout(new GridLayout(2, 1, STANDARD_HGAP, STANDARD_VGAP));
             this.setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER / 2, BORDER, BORDER / 2));
             this.setBackground(Color.decode(BACKGROUND_COLOR));
 
-            creditsText = "The team that made Siegefend a reality:\n\n\n\n\n"
-                    + "Lorenzo Gessi\n\n\n"
-                    + "Andrea Bedei\n\n\n"
-                    + "Fabio Notaro\n\n\n"
-                    + "Luca Venturi\n\n\n"
-                    + "Giacomo Leo Bertuccioli\n\n\n\n\n"
-                    + "Thank you for playing Siegefend!";
-            scrollingCredits = new ScrollingText(creditsText);
-
-            this.add(scrollingCredits);
             this.add(new MenuButton(GO_BACK_BUTTON_TEXT, new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
                     goBack();
                 }
-            }));
+            }), -1);
         }
     }
 
