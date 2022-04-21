@@ -68,7 +68,10 @@ public class ScrollingText extends JPanel implements ActionListener {
         repaint();
     }
 
-    private void restart() {
+    /**
+     * Sets textY to the start value.
+     */
+    public void restart() {
         textY = TEXT_Y;
     }
 }
