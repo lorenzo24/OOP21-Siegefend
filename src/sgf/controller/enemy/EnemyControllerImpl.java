@@ -89,7 +89,9 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
 
     private void loadNextEnemy() {
         final Enemy enemy = this.levelManager.getNextEnemy().orElseThrow();
+        LockClass.getEnemySemaphore().acquireUninterruptibly();
         this.managerList.add(new EnemyManagerImpl(enemy, this.levelManager, this, this.playerManager)); // Creates a managerList of the enemy that has been cretaed.
+        LockClass.getEnemySemaphore().release();
     }
 
     @Override
