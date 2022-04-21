@@ -22,15 +22,12 @@ public final class AppStart {
     }
 
     /**
-     * 
-     * @param args
+     * Main method.
+     * @param args the value(s) passed by the command line.
      */
-    public static void main(final String[] args) {
+    public static void main(final String... args) {
         final LeaderboardManager leaderboardManager = new LeaderboardManagerImpl();
-        /* ** */
         final Player player = new PlayerImpl();
-        //final PlayerController playerController = new PlayerControllerImpl(player, leaderboardManager);
-        /* ** */
         final MusicController m = new MusicControllerImpl();
         final LevelLoader levelLoader = new LevelLoaderImpl();
         final MenuController menuController = new MenuControllerImpl(leaderboardManager, player, m);

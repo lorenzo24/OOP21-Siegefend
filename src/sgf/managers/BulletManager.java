@@ -3,7 +3,7 @@ package sgf.managers;
 import sgf.model.bullet.Bullet;
 
 /**
- *
+ * Interface of bullet Manager.
  */
 public interface BulletManager {
     /**

@@ -151,7 +151,6 @@ public class MenuControllerImpl implements MenuController {
 
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
     }
 
     @Override

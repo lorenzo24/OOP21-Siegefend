@@ -16,13 +16,10 @@ import sgf.utilities.LockClass;
 import sgf.utilities.ThreadAndViewObservable;
 
 /**
- *
+ * Bullet's view.
  */
 public class BulletViewImpl extends AbstractBulletView {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4332476576224943846L;
     private transient BulletController bulletController;
     private boolean isControllerSet;

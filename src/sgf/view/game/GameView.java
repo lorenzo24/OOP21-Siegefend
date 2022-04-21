@@ -4,7 +4,7 @@ import sgf.controller.game.GameController;
 import sgf.view.View;
 
 /**
- * 
+ * View of the game.
  */
 public interface GameView extends View<GameController> {
 

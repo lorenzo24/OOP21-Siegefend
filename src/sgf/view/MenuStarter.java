@@ -23,7 +23,7 @@ public class MenuStarter extends JFrame {
 
 
     /**
-     * 
+     * Menu constructor.
      */
     public MenuStarter() {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

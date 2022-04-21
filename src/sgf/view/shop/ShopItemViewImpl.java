@@ -16,11 +16,7 @@ import sgf.model.turret.Turret;
  */
 public final class ShopItemViewImpl extends AbstractShopItemView {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 7221690707904379136L;
     private static final String BUY = "Buy";
     private static final String CANCEL = "Cancel";
 

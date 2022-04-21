@@ -8,7 +8,7 @@ import sgf.view.game.AbstractPlayingView;
 import sgf.view.game.PlayingView;
 
 /**
- * 
+ * Managed the playing view.
  */
 public class PlayingControllerImpl implements PlayingController {
 
@@ -17,8 +17,8 @@ public class PlayingControllerImpl implements PlayingController {
     private boolean isControllerSet;
 
     /**
-     * 
-     * @param gameManager
+     * Constructor that set the gameManager.
+     * @param gameManager Is the gameManager.
      */
     public PlayingControllerImpl(final GameManager gameManager) {
         this.gameManager = gameManager;
@@ -45,26 +45,23 @@ public class PlayingControllerImpl implements PlayingController {
 
     @Override
     public void showUpgrades(final Turret t) {
-        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException();
 
     }
 
     @Override
     public void hideUpgrades() {
-        // TODO Auto-generated method stub
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean buy(final Turret t) {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean upgradeTurret(final Turret upgrade) {
-        // TODO Auto-generated method stub
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override

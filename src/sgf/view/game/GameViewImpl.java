@@ -20,7 +20,6 @@ public class GameViewImpl extends AbstractGameView {
     private final AbstractEnemyView enemyPanel;         // Panel that contains enemies in movement.
     private final AbstractTurretView turretPanel;       // Panel that contains turrets.
     private final AbstractBulletView bulletPanel;       // Panel that contains bullets.
-    // the same thing must be done for bullets
     private boolean isControllerSet;
     private boolean ready;
 
@@ -34,8 +33,6 @@ public class GameViewImpl extends AbstractGameView {
     public GameViewImpl(final AbstractMapView mapView, final AbstractEnemyView enemyView, final AbstractTurretView turretView, 
             final AbstractBulletView bulletView) { 
         super();
-        // this.mapPanel = new MapViewImpl(map);
-        //this.enemyPanel = new EnemyViewImpl(size, map.getMapSize(), enemyList);
         this.mapPanel = mapView;
         this.enemyPanel = enemyView;
         this.turretPanel = turretView;
@@ -76,7 +73,7 @@ public class GameViewImpl extends AbstractGameView {
             this.mapPanel.setOpaque(false);
             this.mapPanel.setLayout(new BorderLayout());
             this.mapPanel.add(enemyPanel);
-            this.enemyPanel.setOpaque(false);       // The enemy's empty panel is set to be transparent so it doesn't cover the map's panel.
+            this.enemyPanel.setOpaque(false);
             this.enemyPanel.setLayout(new BorderLayout());
             this.enemyPanel.add(turretPanel);
             this.turretPanel.setOpaque(false);

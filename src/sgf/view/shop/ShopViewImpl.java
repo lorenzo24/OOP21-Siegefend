@@ -18,9 +18,6 @@ import sgf.utilities.ThreadAndViewObservable;
  */
 public class ShopViewImpl extends AbstractShopView implements Stoppable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 6030584324069338830L;
     private List<AbstractShopItemView> turretInfo;
     private AbstractShopItemView selected;

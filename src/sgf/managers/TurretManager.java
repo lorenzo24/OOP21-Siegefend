@@ -7,18 +7,6 @@ import sgf.model.turret.Turret;
  */
 public interface TurretManager {
 
-    /*
-     * It might be better to have a different class/interface named Upgrade which
-     * contains the new turret (or just the new parameters (Stats) ) which also points
-     * to the next upgrade like in a linked list, and then rewrite the methods in this interface 
-     * around that.
-     */
-
-    /*
-     * Most likely the GameController will not work directly with turrets but just with the TurretController,
-     * and if it needs the turret itself it can just use a method to retrieve it.
-     */
-
     /**
      * Returns the {@link Turret} associated with the {@code TurretController}.
      * @return the turret associated with the controller.

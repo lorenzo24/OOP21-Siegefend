@@ -11,13 +11,9 @@ import javax.swing.JLabel;
  */
 public class ImageCanvas extends JLabel {
 
+    private static final long serialVersionUID = 1326241868157403551L;
     private final Image image;
     private static final int PREF_SIZE = 100;
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1326241868157403551L;
 
     /**
      * Creates a new instance of the class.
