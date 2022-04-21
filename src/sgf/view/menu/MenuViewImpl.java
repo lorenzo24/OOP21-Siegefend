@@ -219,10 +219,16 @@ public class MenuViewImpl extends AbstractMenuView {
             setUsernameButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
-                    if (!inputField.getText().isEmpty()) {
-                        menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
-                        JOptionPane.showMessageDialog(null, "Username updated!", "Update", 1);
-                        isUsernameSet = true;
+                    if (!inputField.getText().isEmpty()) {      // Checks if the input field is not empty
+                        if ("Unknown".equals(inputField.getText())) {
+                            JOptionPane.showMessageDialog(null, "This username is not valid, please try a new one.", "Attention", 1);
+                        } else if (!inputField.getText().equals(menuController.getPlayerController().getPlayer().getPlayerName())) { // If this same username hasn't been already setted
+                            menuController.getPlayerController().getPlayer().setPlayerName(inputField.getText());
+                            JOptionPane.showMessageDialog(null, "The username has been updated!", "Update", 1);
+                            isUsernameSet = true; 
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This same username has already been setted!", "Attention", 1);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "No text detected, please write something.", "Update", 1);
                     }
