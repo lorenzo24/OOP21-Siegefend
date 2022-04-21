@@ -29,7 +29,7 @@ import sgf.utilities.ThreadAndViewObservable;
 public class MenuViewImpl extends AbstractMenuView {
     private static final long serialVersionUID = 5001578289309695664L;
     private static final String BACKGROUND_COLOR = "#293132", TEXT_COLOR = "#F7F9F9";
-    private final String CREDITS_TEXT = "The team that made Siegefend a reality:\n\n\n\n\n"
+    private static final String CREDITS_TEXT = "The team that made Siegefend a reality:\n\n\n\n\n"
                                         + "Lorenzo Gessi\n\n\n"
                                         + "Andrea Bedei\n\n\n"
                                         + "Fabio Notaro\n\n\n"
