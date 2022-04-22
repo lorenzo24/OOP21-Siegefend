@@ -1,6 +1,5 @@
 package sgf.model.game;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import sgf.utilities.Pair;
