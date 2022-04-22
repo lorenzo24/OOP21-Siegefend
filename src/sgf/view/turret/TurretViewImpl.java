@@ -163,8 +163,8 @@ public class TurretViewImpl extends AbstractTurretView implements MouseListener,
             final var entry = iterator.next();
             final int entryID = entry.getValue().getID();
             final Position p = entry.getValue().getPosition();
-            final int origW = imgManager.getImage(entryID).getWidth(null);
-            final int origH = imgManager.getImage(entryID).getHeight(null);
+            final int origW = this.imgManager.getImage(entryID).getWidth(null);
+            final int origH = this.imgManager.getImage(entryID).getHeight(null);
             final BufferedImage bimg = rotateImage(imgManager.getImage(entryID), entry.getValue().getAngle());
             final double scaleX = (double) bimg.getWidth() / origW;
             final double scaleY = (double) bimg.getHeight() / origH;
