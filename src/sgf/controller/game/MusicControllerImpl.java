@@ -12,6 +12,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Controller for the music that manages the tracks random choice.
+ * We thank Alex-Productions for the creation and free distribution of "Extreme Trap Racing Music" (our sound3.wav).
  */
 public class MusicControllerImpl implements MusicController {
     private static final int SONGS_NUMBER = 3;
