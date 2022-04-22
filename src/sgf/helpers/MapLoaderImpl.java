@@ -1,7 +1,12 @@
 package sgf.helpers;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,17 +67,21 @@ public class MapLoaderImpl implements MapLoader {
     private void readMapStructureFromFile(final int levelId) {
         final String file;
         if (levelId > 0) {      // If parameter > 0 it loads an actual level, not a test (a map with error).
-            file = "res" + File.separator + "maps" + File.separator + "mapLevel" + levelId + ".txt";
+            file = "maps" + File.separator + "mapLevel" + levelId + ".txt";
         } else {        // If parameter <= 0 it loads a map with error to test it, so it must change folder.
-            file = "res" + File.separator + "tests" + File.separator + "mapLevel" + levelId + ".txt";
+            file = "tests" + File.separator + "mapLevel" + levelId + ".txt";
         }
-        final Path p = FileSystems.getDefault().getPath(file);
-        try {
-            Files.lines(p).forEach(s -> read(s));
-            this.map.setMapSize(this.mapRows);
+        //      final Path p = FileSystems.getDefault().getPath(file);
+        try (InputStream is = ClassLoader.getSystemResourceAsStream(file)) {
+            try (BufferedReader r = new BufferedReader(new InputStreamReader(is))) {
+                r.lines().forEach(s -> read(s));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.map.setMapSize(this.mapRows);
         if (!this.isSetStart || !this.isSetEnd) {       // If the file .txt has no 3 or 4 (start or end tile).
             throw new IllegalStateException("Given matrix has no start or end tile!");
         }

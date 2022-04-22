@@ -1,7 +1,12 @@
 package sgf.helpers;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,16 +52,30 @@ public class WavesLoaderImpl implements WavesLoader {
     private void readAllWaves(final int levelId) {
         final String file;
         if (levelId > 0) {      // If levelID > 0 it must load an actual level (not a wrong level for testing).
-            file = "res" + File.separator + "levels" + File.separator + "level" + levelId + ".txt";
+            file = "levels" + File.separator + "level" + levelId + ".txt";
         } else {        // If levelId <= 0 it must load a wrong file for testing, so it must use another folder.
-            file = "res" + File.separator + "tests" + File.separator + "level" + levelId + ".txt";
+            file = "tests" + File.separator + "level" + levelId + ".txt";
         }
-        final Path p = FileSystems.getDefault().getPath(file);
-        try {
-            if (Files.lines(p).count() == 0L) {
-                throw new IllegalStateException();
+//        Path p = null;
+//        try {
+//            p = Path.of(new URI(ClassLoader.getSystemResource(file).getPath()));
+//        } catch (URISyntaxException e1) {
+//            e1.printStackTrace();
+//        }
+//        try {
+//            if (Files.lines(p).count() == 0L) {
+//                throw new IllegalStateException();
+//            }
+//            Files.lines(p).forEach(x -> read(x));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        try (InputStream is = ClassLoader.getSystemResourceAsStream(file)) {
+            try (BufferedReader r = new BufferedReader(new InputStreamReader(is))) {
+                r.lines().forEach(s -> read(s));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            Files.lines(p).forEach(x -> read(x));
         } catch (IOException e) {
             e.printStackTrace();
         }

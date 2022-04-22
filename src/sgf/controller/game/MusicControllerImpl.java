@@ -2,6 +2,7 @@ package sgf.controller.game;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -46,9 +47,9 @@ public class MusicControllerImpl implements MusicController {
 
     // This method opens an audio stream and start the music file.
     private void play(final String fileName) {
-        final String musicFile = "res" + File.separator + "musics" + File.separator + fileName + ".wav";
-        final File file = new File(musicFile);
-            try (AudioInputStream a = AudioSystem.getAudioInputStream(file)) {
+        final String musicFile = "musics" + File.separator + fileName + ".wav";
+        final InputStream stream = ClassLoader.getSystemResourceAsStream(musicFile);
+            try (AudioInputStream a = AudioSystem.getAudioInputStream(stream)) {
                 c = AudioSystem.getClip();
                 c.open(a);
                 c.start();

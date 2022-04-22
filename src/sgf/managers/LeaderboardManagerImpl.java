@@ -30,7 +30,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
      */
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
-        this.f = this.leaderboard.getPath().toFile();
+        this.f = this.leaderboard.getPath().toFile();   // TODO: convert to classkiader use or something
         this.readScore();
     }
 

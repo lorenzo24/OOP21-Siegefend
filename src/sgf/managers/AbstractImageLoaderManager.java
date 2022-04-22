@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.imageio.ImageIO;
 import sgf.model.game.PathLinker;
 import sgf.model.game.PathLinkerImpl;
@@ -19,7 +21,9 @@ public abstract class AbstractImageLoaderManager<T> implements ImageLoaderManage
     @Override
     public Image loadRightImage(final String pngFile) {
         try {
-            return ImageIO.read(new File("res" + File.separator + pngFile));
+            try (InputStream is = ClassLoader.getSystemResourceAsStream(pngFile)) {
+                return ImageIO.read(is);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB); // In case of error returns an empty image.

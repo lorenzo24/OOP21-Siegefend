@@ -1,8 +1,14 @@
 package sgf.helpers;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -36,10 +42,12 @@ public class TurretsLoaderImpl implements TurretsLoader {
 
     @SuppressWarnings("unchecked")
     private void readFile() {
-        final Path p = FileSystems.getDefault().getPath("res" + File.separator + "turret" + File.separator + "turrets.json");
-        final File f = p.toFile();
+//        final Path p = FileSystems.getDefault().getPath("res" + File.separator + "turret" + File.separator + "turrets.json");
+//        final File f = p.toFile();
+//        final URL url = ClassLoader.getSystemResource("res" + File.separator + "turret" + File.separator + "turrets.json");
+        final InputStream is = ClassLoader.getSystemResourceAsStream("turret" + File.separator + "turrets.json");
         final JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(f)) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             final Object obj = parser.parse(reader);
             final JSONArray array = (JSONArray) obj;
             array.forEach(x -> parseTurretObject((JSONObject) x)); // Every record in the file will be converted to one entry of the map.
