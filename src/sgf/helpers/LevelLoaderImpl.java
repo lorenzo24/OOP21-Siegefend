@@ -1,6 +1,7 @@
 package sgf.helpers;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Stream;
@@ -41,13 +42,15 @@ public class LevelLoaderImpl implements LevelLoader {
 //                .filter(file -> !file.isDirectory())
 //                .count();
         final URL folderUrl = ClassLoader.getSystemResource("levels"); // Restituisce un URL invalido (il file/directory corrispondente non esiste a quanto pare.
-        final File f = new File(folderUrl.getPath());
-        System.out.println(f.isFile());         // All tests
-        System.out.println(f.isDirectory());
-        System.out.println(f.isAbsolute());
-        System.out.println(f.exists());
-        return (int) Stream.of(new File(folderUrl.getPath()).listFiles())
-                           .filter(file -> !file.isDirectory())
-                           .count();
+        File f;
+        try {
+            f = new File(folderUrl.toURI());
+            return (int) Stream.of(f.listFiles())
+                               .filter(file -> !file.isDirectory())
+                               .count();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
