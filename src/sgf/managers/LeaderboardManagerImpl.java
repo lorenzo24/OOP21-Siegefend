@@ -34,7 +34,7 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
         this.leaderboard = new LeaderboardImpl();
         URI uri;
         try {
-            uri = new URI(ClassLoader.getSystemResource("").toURI().toString() + "classification.json");
+            uri = new URI(ClassLoader.getSystemResource("").toURI().toString() + this.leaderboard.getPath());
         } catch (URISyntaxException e) {
             e.printStackTrace();
             uri = null;

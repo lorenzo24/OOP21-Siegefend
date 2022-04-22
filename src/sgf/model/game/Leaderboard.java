@@ -28,6 +28,6 @@ public interface Leaderboard {
      * Gets the path.
      * @return The path of the leaderboard.
      */
-    Path getPath();
+    String getPath();
 
 }
