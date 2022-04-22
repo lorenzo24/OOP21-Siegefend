@@ -48,14 +48,19 @@ public class MusicControllerImpl implements MusicController {
     // This method opens an audio stream and start the music file.
     private void play(final String fileName) {
         final String musicFile = "musics" + File.separator + fileName + ".wav";
-        final InputStream stream = ClassLoader.getSystemResourceAsStream(musicFile);
-            try (AudioInputStream a = AudioSystem.getAudioInputStream(stream)) {
-                c = AudioSystem.getClip();
-                c.open(a);
-                c.start();
-            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                e.printStackTrace();
-            }
+        try (InputStream stream = ClassLoader.getSystemResourceAsStream(musicFile)) {
+            System.out.println(musicFile);
+            System.out.println(stream);
+                try (AudioInputStream a = AudioSystem.getAudioInputStream(stream)) {
+                    c = AudioSystem.getClip();
+                    c.open(a);
+                    c.start();
+                } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                    e.printStackTrace();
+                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Thread that plays and changes track.

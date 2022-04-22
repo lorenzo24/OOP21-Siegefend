@@ -1,9 +1,17 @@
 package sgf.managers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +38,29 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
      */
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
-        this.f = this.leaderboard.getPath().toFile();   // TODO: convert to classkiader use or something
-        this.readScore();
+        final URL fileURL = ClassLoader.getSystemResource("classification.json");
+        URI uri;
+        if (fileURL != null) {
+            try {
+                uri = fileURL.toURI();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                uri = null;
+            }
+        } else {
+            try {
+                uri = new URI(ClassLoader.getSystemResource("").toURI().toString() + "classification.json");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                uri = null;
+            }
+        }
+        if (uri != null) {
+            this.f = new File(uri);
+            this.readScore();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -43,13 +72,13 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
             .sorted((x, y) -> y.getValue().getY() - x.getValue().getY())
             .forEach(x -> {
                 jsonElements.add(this.createJsonElem(x));
-                try (FileWriter file = new FileWriter(this.f)) {
-                    file.write(jsonElements.toJSONString()); 
-                    file.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        });
+            });
+        try (FileWriter writer = new FileWriter(this.f)) {
+            writer.write(jsonElements.toJSONString());
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Create one element of one record.
