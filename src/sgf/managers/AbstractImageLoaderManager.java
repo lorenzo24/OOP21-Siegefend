@@ -2,6 +2,7 @@ package sgf.managers;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,7 +22,7 @@ public abstract class AbstractImageLoaderManager<T> implements ImageLoaderManage
     public Image loadRightImage(final String pngFile) {
         try {
             try (InputStream is = ClassLoader.getSystemResourceAsStream(pngFile)) {
-                return ImageIO.read(is);
+                return ImageIO.read(new BufferedInputStream(is));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -33,7 +33,7 @@ public class PathLinkerImpl implements PathLinker {
     }
 
     private void createBulletMap() {
-        final String folder = "bullets" + File.separator;
+        final String folder = "bullets/";
         this.mapBullet.put(0, folder + "bullet.png");
         this.mapBullet.put(1, folder + "bullet2.png");
         this.mapBullet.put(2, folder + "bullet3.png");
@@ -41,7 +41,7 @@ public class PathLinkerImpl implements PathLinker {
 
     private void createEnemyMap() {
         // Links every enemy type with the correct image that will be shown.
-        final String folder = "enemies" + File.separator;
+        final String folder = "enemies/";
         this.mapEnemy.put(EnemyType.TANK, folder + "tank.png");
         this.mapEnemy.put(EnemyType.PLANE, folder + "plane.png");
         this.mapEnemy.put(EnemyType.HELICOPTER, folder + "helicopter.png");
@@ -49,7 +49,7 @@ public class PathLinkerImpl implements PathLinker {
 
     private void createTileMap() {
         // Links every tile type with the correct image that will be shown.
-        final String folder = "mapTiles" + File.separator;
+        final String folder = "mapTiles/";
         this.mapTile.put(TileType.GRASS, folder + "grass.png");
         this.mapTile.put(TileType.PATH, folder + "sand.png");
         this.mapTile.put(TileType.START_PATH, folder + "start.png");
@@ -59,14 +59,14 @@ public class PathLinkerImpl implements PathLinker {
 
     private void createTurretMap() {
         // Links every turret number with the correct image that will be shown.
-        final String turretPath = "turret" + File.separator;
+        final String turretPath = "turret/";
         this.mapTurret.put(0, turretPath + "turret.png");
         this.mapTurret.put(1, turretPath + "turret1.png");
         this.mapTurret.put(2, turretPath + "turret2.png");
     }
 
     private void createLifeBarMap() {
-        this.mapBarLife.put(0, "enemies" + File.separator + "lifeBar.png");
+        this.mapBarLife.put(0, "enemies/lifeBar.png");
     }
 
     @Override
