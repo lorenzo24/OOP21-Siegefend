@@ -33,22 +33,12 @@ public class LeaderboardManagerImpl implements LeaderboardManager {
      */
     public LeaderboardManagerImpl() {
         this.leaderboard = new LeaderboardImpl();
-        final URL fileURL = ClassLoader.getSystemResource("classification.json");
         URI uri;
-        if (fileURL != null) {
-            try {
-                uri = fileURL.toURI();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-                uri = null;
-            }
-        } else {
-            try {
-                uri = new URI(ClassLoader.getSystemResource("").toURI().toString() + "classification.json");
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-                uri = null;
-            }
+        try {
+            uri = new URI(ClassLoader.getSystemResource("").toURI().toString() + "classification.json");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            uri = null;
         }
         if (uri != null) {
             this.f = new File(uri);
