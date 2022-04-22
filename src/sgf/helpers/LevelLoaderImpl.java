@@ -1,11 +1,7 @@
 package sgf.helpers;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 import sgf.model.level.Level;
