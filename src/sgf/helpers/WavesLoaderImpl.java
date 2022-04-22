@@ -47,9 +47,9 @@ public class WavesLoaderImpl implements WavesLoader {
     private void readAllWaves(final int levelId) {
         final String file;
         if (levelId > 0) {      // If levelID > 0 it must load an actual level (not a wrong level for testing).
-            file = "levels" + File.separator + "level" + levelId + ".txt";
+            file = "levels/level" + levelId + ".txt";
         } else {        // If levelId <= 0 it must load a wrong file for testing, so it must use another folder.
-            file = "tests" + File.separator + "level" + levelId + ".txt";
+            file = "tests/level" + levelId + ".txt";
         }
 //        Path p = null;
 //        try {

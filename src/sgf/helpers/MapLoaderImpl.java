@@ -62,9 +62,9 @@ public class MapLoaderImpl implements MapLoader {
     private void readMapStructureFromFile(final int levelId) {
         final String file;
         if (levelId > 0) {      // If parameter > 0 it loads an actual level, not a test (a map with error).
-            file = "maps" + File.separator + "mapLevel" + levelId + ".txt";
+            file = "maps/mapLevel" + levelId + ".txt";
         } else {        // If parameter <= 0 it loads a map with error to test it, so it must change folder.
-            file = "tests" + File.separator + "mapLevel" + levelId + ".txt";
+            file = "tests/mapLevel" + levelId + ".txt";
         }
         //      final Path p = FileSystems.getDefault().getPath(file);
         try (InputStream is = ClassLoader.getSystemResourceAsStream(file)) {
