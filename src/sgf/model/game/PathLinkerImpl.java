@@ -1,6 +1,5 @@
 package sgf.model.game;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import sgf.model.enemies.EnemyType;
