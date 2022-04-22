@@ -50,8 +50,6 @@ public class MusicControllerImpl implements MusicController {
     private void play(final String fileName) {
         final String musicFile = "musics/" + fileName + ".wav";
         try (InputStream stream = ClassLoader.getSystemResourceAsStream(musicFile)) {
-            System.out.println(musicFile);
-            System.out.println(stream);
                 try (AudioInputStream a = AudioSystem.getAudioInputStream(new BufferedInputStream(stream))) {
                     c = AudioSystem.getClip();
                     c.open(a);
