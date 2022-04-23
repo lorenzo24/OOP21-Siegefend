@@ -64,20 +64,20 @@ public class EnemyViewImpl extends AbstractEnemyView {
             LockClass.getEnemySemaphore().acquireUninterruptibly();
             this.enemyList.forEach(x -> {
                 final var enemy = x.getEnemy();
-                this.drowSprite(gImage, enemy);
-                this.drowLifeBar(gImage, enemy);
+                this.drawSprite(gImage, enemy);
+                this.drawLifeBar(gImage, enemy);
             });
             LockClass.getEnemySemaphore().release();
     }
 
-    private void drowLifeBar(final Graphics2D gImage, final Enemy enemy) {
+    private void drawLifeBar(final Graphics2D gImage, final Enemy enemy) {
         gImage.drawImage(this.imageBarController.getImage(0),
                 (int) enemy.getPosition().getX(),
                 (int) enemy.getPosition().getY(),
                 (int) (this.tileSize * enemy.getPercentHp()), BAR_HEIGHT, null);
     }
 
-    private void drowSprite(final Graphics2D gImage, final Enemy enemy) {
+    private void drawSprite(final Graphics2D gImage, final Enemy enemy) {
         gImage.drawImage(this.imageEnemyController.getImage(enemy.getEnemyType()),
                 (int) enemy.getPosition().getX(),
                 (int) enemy.getPosition().getY(),
