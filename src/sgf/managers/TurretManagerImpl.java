@@ -40,7 +40,7 @@ public class TurretManagerImpl implements TurretManager, Stoppable {
         this.bulletTimer = new Timer((int) (1000 / getTurret().getFireRate()), new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (turret.getTarget() != null) {
+                if (turret.getTarget().isPresent()) {
                     turretController.bulletCreated(getTurret().createBullet());
                 }
             }
