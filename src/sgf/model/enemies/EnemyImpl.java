@@ -13,7 +13,7 @@ public class EnemyImpl implements Enemy {
     private double hp;
     private final double maxHp;
     private double hpPercent;
-    private double reward;
+    private final double reward;
     private final double speed;
     private final Semaphore enemySemaphore;
     private final EnemyType enemyType;
