@@ -7,6 +7,7 @@ import sgf.model.map.Position;
  */
 public class EnemyFactoryImpl implements EnemyFactory {
     // Constant of parameters of the enemies.
+    static final double MULTIPLIER = 0.1; 
     static final double HP_PLANE = 100;
     static final double SPEED_PLANE = 2;
     static final double HP_HELICOPTER = 150;
@@ -15,18 +16,18 @@ public class EnemyFactoryImpl implements EnemyFactory {
     static final double SPEED_TANK = 1;
 
     @Override
-    public Enemy createHelicopter(final Position position) {
-        return new EnemyImpl(position, HP_PLANE, SPEED_PLANE, EnemyType.HELICOPTER);
+    public Enemy createHelicopter(final Position position, final int waveNumber) {
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_HELICOPTER, waveNumber), SPEED_HELICOPTER, EnemyType.HELICOPTER);
     }
 
     @Override
-    public Enemy createPlane(final Position position) {
-        return new EnemyImpl(position, HP_HELICOPTER, SPEED_HELICOPTER, EnemyType.PLANE);
+    public Enemy createPlane(final Position position, final int waveNumber) {
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_PLANE, waveNumber), SPEED_PLANE, EnemyType.PLANE);
     }
 
     @Override
-    public Enemy createTank(final Position position) {
-        return new EnemyImpl(position, HP_TANK, SPEED_TANK, EnemyType.TANK);
+    public Enemy createTank(final Position position, final int waveNumber) {
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_TANK, waveNumber), SPEED_TANK, EnemyType.TANK);
     }
 
     @Override
@@ -42,5 +43,9 @@ public class EnemyFactoryImpl implements EnemyFactory {
     @Override
     public Enemy createGeneralTank(final Position position, final double hp, final double speed) {
         return new EnemyImpl(position, hp, speed, EnemyType.TANK);
+    }
+
+    private double calculateDynamicHP(final double originalHP, final int n) {
+        return originalHP * (1 + (MULTIPLIER * n));
     }
 }

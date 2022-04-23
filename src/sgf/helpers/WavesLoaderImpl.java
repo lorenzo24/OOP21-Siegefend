@@ -50,23 +50,9 @@ public class WavesLoaderImpl implements WavesLoader {
         } else {        // If levelId <= 0 it must load a wrong file for testing, so it must use another folder.
             file = "tests/level" + levelId + ".txt";
         }
-//        Path p = null;
-//        try {
-//            p = Path.of(new URI(ClassLoader.getSystemResource(file).getPath()));
-//        } catch (URISyntaxException e1) {
-//            e1.printStackTrace();
-//        }
-//        try {
-//            if (Files.lines(p).count() == 0L) {
-//                throw new IllegalStateException();
-//            }
-//            Files.lines(p).forEach(x -> read(x));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         try (InputStream is = ClassLoader.getSystemResourceAsStream(file)) {
             try (BufferedReader r = new BufferedReader(new InputStreamReader(is))) {
-                r.lines().forEach(s -> read(s));
+                r.lines().forEach(s -> this.read(s));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -87,13 +73,13 @@ public class WavesLoaderImpl implements WavesLoader {
     private void addEnemyToWave(final String enemy) {
         switch (enemy) {
         case "1":
-            this.waveEnemies.add(this.enemyFactory.createTank(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createTank(startPosition, this.waves.size()));
             break;
         case "2":
-            this.waveEnemies.add(this.enemyFactory.createPlane(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createPlane(startPosition, this.waves.size()));
             break;
         case "3":
-            this.waveEnemies.add(this.enemyFactory.createHelicopter(startPosition));
+            this.waveEnemies.add(this.enemyFactory.createHelicopter(startPosition, this.waves.size()));
             break;
         default:
             throw new IllegalArgumentException("Enemy code read in file cannot be encoded");

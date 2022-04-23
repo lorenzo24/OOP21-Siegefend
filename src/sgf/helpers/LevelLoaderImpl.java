@@ -55,22 +55,7 @@ public class LevelLoaderImpl implements LevelLoader {
 
     // This method counts how many files are there into the folder res/levels.
     private int countMapFiles() throws IOException {
-        //        return (int) Stream.of(new File("res" + File.separator + "levels").listFiles())
-        //                .filter(file -> !file.isDirectory())
-        //                .count();
-
-        //        final URL folderUrl = ClassLoader.getSystemResource("levels");
-        //        File f;
-        //        try {
-        //            f = new File(folderUrl.toURI());
-        //            return (int) Stream.of(f.listFiles())
-        //                               .filter(file -> !file.isDirectory())
-        //                               .count();
-        //        } catch (URISyntaxException e) {
-        //            e.printStackTrace();
-        //        }
         int count = 0;
-
         URI uri = null;
         try {
             uri = ClassLoader.getSystemResource("levels").toURI();

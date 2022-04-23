@@ -24,9 +24,9 @@ import sgf.model.map.Position;
 public class TestEnemy {
 
     private static final double DELTA = 0.1;  // Delta for double numbers.
-    private static final int PLANE_LIFE  = 50;
-    private static final int TANK_LIFE  = 200;
-    private static final int HELICOPTER_LIFE  = 100;
+    private static final int PLANE_LIFE  = 100;
+    private static final int TANK_LIFE  = 225;
+    private static final int HELICOPTER_LIFE  = 150;
     private static final int POSITION  = 5;
     private static final int NUMBER_WAVES  = 5;
     private static final int LEVEL_ID = 1;
@@ -37,11 +37,11 @@ public class TestEnemy {
      */
     @Test
     public void lifeTests() {
-        Enemy enemy = this.factory.createPlane(new Position(0, 0));
+        Enemy enemy = this.factory.createPlane(new Position(0, 0), 0);
         assertTrue(check(enemy.getHP(), PLANE_LIFE));
-        enemy = this.factory.createTank(new Position(0, 0));
+        enemy = this.factory.createTank(new Position(0, 0), 0);
         assertTrue(check(enemy.getHP(), TANK_LIFE));
-        enemy = this.factory.createHelicopter(new Position(0, 0));
+        enemy = this.factory.createHelicopter(new Position(0, 0), 0);
         assertTrue(check(enemy.getHP(), HELICOPTER_LIFE));
     }
 
@@ -50,7 +50,7 @@ public class TestEnemy {
      */
     @Test
     public void moveTests() {
-       final Enemy enemy = this.factory.createTank(new Position(0, 0));
+       final Enemy enemy = this.factory.createTank(new Position(0, 0), 0);
        enemy.move(POSITION, POSITION);
        assertTrue(check(enemy.getPosition().getX(), POSITION) && check(enemy.getPosition().getY(), POSITION));
     }
@@ -62,15 +62,6 @@ public class TestEnemy {
     public void loadEnemiesTests() {
         final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
         new WavesLoaderImpl(map, 0);
-    }
-
-    /**
-     * Checks if is loaded an empty file.
-     */
-    @Test(expected = IllegalStateException.class)
-    public void loadEmptyFilesTests() {
-        final Map map = new MapLoaderImpl(LEVEL_ID).getMap();
-        new WavesLoaderImpl(map, -1);
     }
 
     /**

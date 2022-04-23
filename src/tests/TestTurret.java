@@ -13,7 +13,7 @@ import sgf.model.turret.Turret;
  */
 public class TestTurret {
 
-    private static final int TURRET0_PRICE  = 200;
+    private static final int TURRET0_PRICE  = 120;
     private static final int TURRET1_PRICE  = 250;
     private static final int TURRET2_PRICE  = 400;
     private static final Position POSITION  = new Position(3, 3);

@@ -10,23 +10,26 @@ public interface EnemyFactory {
     /**
      * Creates an Helicopter in the start position.
      * @param position Is the start position.
+     * @param waveNumber Is the number of wave.
      * @return the enemy.
      */
-    Enemy createHelicopter(Position position);
+    Enemy createHelicopter(Position position, int waveNumber);
 
     /**
      * Creates a Plane in the start position.
      * @param position Is the start position.
+     * @param waveNumber Is the number of wave.
      * @return the enemy.
      */
-    Enemy createPlane(Position position);
+    Enemy createPlane(Position position, int waveNumber);
 
     /**
      * Creates a Tank in the start position.
      * @param position Is the start position.
+     * @param waveNumber Is the number of wave.
      * @return the enemy.
      */
-    Enemy createTank(Position position);
+    Enemy createTank(Position position, int waveNumber);
 
     /**
      * Generates a dynamic helicopter (with dynamic parameters).

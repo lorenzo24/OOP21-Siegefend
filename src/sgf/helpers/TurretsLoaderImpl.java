@@ -35,9 +35,6 @@ public class TurretsLoaderImpl implements TurretsLoader {
 
     @SuppressWarnings("unchecked")
     private void readFile() {
-//        final Path p = FileSystems.getDefault().getPath("res" + File.separator + "turret" + File.separator + "turrets.json");
-//        final File f = p.toFile();
-//        final URL url = ClassLoader.getSystemResource("res" + File.separator + "turret" + File.separator + "turrets.json");
         final InputStream is = ClassLoader.getSystemResourceAsStream("turret/turrets.json");
         final JSONParser parser = new JSONParser();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
