@@ -71,8 +71,8 @@ public class EnemyControllerImpl implements EnemyController, Stoppable {
     // Checks if the level is over.
     private void checkIfStopThread() {
         final Player player = this.playerManager.getPlayer();
-        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty() || player.getCurrentHP() == 0) {
-            this.threadRun = false;
+        if (!this.levelManager.hasNextWave() && this.managerList.isEmpty() && player.getCurrentHP() > 0) {
+            this.stop();
             this.leaderboard.addScore(player.getPlayerName(), player.getScore());
             this.leaderboard.writeScore();
             this.enemyView.winGame();

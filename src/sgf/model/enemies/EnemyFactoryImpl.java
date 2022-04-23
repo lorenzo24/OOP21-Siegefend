@@ -7,7 +7,7 @@ import sgf.model.map.Position;
  */
 public class EnemyFactoryImpl implements EnemyFactory {
     // Constant of parameters of the enemies.
-    static final double MULTIPLIER = 0.1; 
+    static final double MULTIPLIER = 0.2; 
     static final double HP_PLANE = 100;
     static final double SPEED_PLANE = 2;
     static final double HP_HELICOPTER = 150;
@@ -17,32 +17,32 @@ public class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createHelicopter(final Position position, final int waveNumber) {
-        return new EnemyImpl(position, this.calculateDynamicHP(HP_HELICOPTER, waveNumber), SPEED_HELICOPTER, EnemyType.HELICOPTER);
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_HELICOPTER, waveNumber), SPEED_HELICOPTER, HP_HELICOPTER, EnemyType.HELICOPTER);
     }
 
     @Override
     public Enemy createPlane(final Position position, final int waveNumber) {
-        return new EnemyImpl(position, this.calculateDynamicHP(HP_PLANE, waveNumber), SPEED_PLANE, EnemyType.PLANE);
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_PLANE, waveNumber), SPEED_PLANE, HP_PLANE, EnemyType.PLANE);
     }
 
     @Override
     public Enemy createTank(final Position position, final int waveNumber) {
-        return new EnemyImpl(position, this.calculateDynamicHP(HP_TANK, waveNumber), SPEED_TANK, EnemyType.TANK);
+        return new EnemyImpl(position, this.calculateDynamicHP(HP_TANK, waveNumber), SPEED_TANK, HP_TANK, EnemyType.TANK);
     }
 
     @Override
-    public Enemy createDynamicHelicopter(final Position position, final double hp, final double speed) {
-        return new EnemyImpl(position, hp, speed, EnemyType.HELICOPTER);
+    public Enemy createDynamicHelicopter(final Position position, final double hp, final double speed, final double reward) {
+        return new EnemyImpl(position, hp, speed, reward, EnemyType.HELICOPTER);
     }
 
     @Override
-    public Enemy createDynamicPlane(final Position position, final double hp, final double speed) {
-        return new EnemyImpl(position, hp, speed, EnemyType.PLANE);
+    public Enemy createDynamicPlane(final Position position, final double hp, final double speed, final double reward) {
+        return new EnemyImpl(position, hp, speed, reward, EnemyType.PLANE);
     }
 
     @Override
-    public Enemy createGeneralTank(final Position position, final double hp, final double speed) {
-        return new EnemyImpl(position, hp, speed, EnemyType.TANK);
+    public Enemy createGeneralTank(final Position position, final double hp, final double speed, final double reward) {
+        return new EnemyImpl(position, hp, speed, reward, EnemyType.TANK);
     }
 
     private double calculateDynamicHP(final double originalHP, final int n) {

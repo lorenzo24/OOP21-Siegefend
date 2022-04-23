@@ -13,8 +13,8 @@ public class EnemyImpl implements Enemy {
     private double hp;
     private final double maxHp;
     private double hpPercent;
+    private double reward;
     private final double speed;
-    private final double points;
     private final Semaphore enemySemaphore;
     private final EnemyType enemyType;
 
@@ -23,15 +23,16 @@ public class EnemyImpl implements Enemy {
      * @param position Is the position in pixel occupied by the {@link Enemy}.
      * @param hp Is the {@link Enemy} health.
      * @param speed Is the movement speed parameter.
+     * @param reward Is the reward of the enemy.
      * @param enemyType Denotes the type of the {@link Enemy}.
      */
-    public EnemyImpl(final Position position, final double hp, final double speed, final EnemyType enemyType) {
+    public EnemyImpl(final Position position, final double hp, final double speed, final double reward, final EnemyType enemyType) {
         this.position = new Position(position);
         this.hp = hp;
         this.maxHp = hp;
         this.speed = speed;
         this.enemyType = enemyType;
-        this.points = hp * speed;
+        this.reward = reward;
         this.stepsDone = 0;
         this.calculateHp();
         this.enemySemaphore = new Semaphore(1);
@@ -82,12 +83,12 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public double getPoints() {
-        return this.points;
+        return this.maxHp * this.speed;
     }
 
     @Override
     public double getReward() {
-        return this.maxHp;
+        return this.reward;
     }
 
     @Override
@@ -118,7 +119,7 @@ public class EnemyImpl implements Enemy {
     @Override
     public String toString() {
         return "EnemyImpl [position=" + position + ", stepsDone=" + stepsDone + ", hp=" + hp + ", maxHp=" + maxHp
-                + ", hpPercent=" + hpPercent + ", speed=" + speed + ", points=" + points + ", enemyType=" + enemyType
+                + ", hpPercent=" + hpPercent + ", speed=" + speed + ", enemyType=" + enemyType
                 + "]";
     }
 

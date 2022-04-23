@@ -13,6 +13,7 @@ public class PlayerControllerImpl implements PlayerController {
     private final Player player;
     private PlayerView playerView;
     private boolean isControllerSet;
+    private boolean lose = true;
     private final LeaderboardManager leaderboard;
 
     /**
@@ -32,11 +33,14 @@ public class PlayerControllerImpl implements PlayerController {
     }
 
     @Override
-    public void changeHP(final int offset) {
+    public synchronized void changeHP(final int offset) {
         final int newAmount = this.player.getCurrentHP() + offset;
         if (newAmount > 0) {
             this.player.setCurrentHP(newAmount);
-        } else {
+        } else if (this.lose) {
+            this.player.setCurrentHP(0);
+            this.playerView.update();
+            this.lose = false;
             this.leaderboard.addScore(this.player.getPlayerName(), this.player.getScore());
             this.leaderboard.writeScore();
             this.playerView.loseGame();

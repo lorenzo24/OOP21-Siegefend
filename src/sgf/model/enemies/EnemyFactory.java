@@ -36,25 +36,28 @@ public interface EnemyFactory {
      * @param position Is the spawning position.
      * @param hp Is the helicopter's life.
      * @param speed Is the helicopter's speed of movement.
+     * @param reward Is the reward of the enemy.
      * @return the enemy.
      */
-    Enemy createDynamicHelicopter(Position position, double hp, double speed);
+    Enemy createDynamicHelicopter(Position position, double hp, double speed, double reward);
 
     /**
      * Generates a dynamic plane (with dynamic parameters).
      * @param position Is the spawning position.
      * @param hp Is the life.
      * @param speed Is the speed of movement.
+     * @param reward Is the reward of the enemy.
      * @return the enemy.
      */
-    Enemy createDynamicPlane(Position position, double hp, double speed);
+    Enemy createDynamicPlane(Position position, double hp, double speed, double reward);
 
     /**
      * Generate a dynamic tank (with dynamic parameters).
      * @param position Is the spawning position.
      * @param hp Is the life.
      * @param speed Is the speed of movement.
+     * @param reward Is the reward of the enemy.
      * @return the enemy.
      */
-    Enemy createGeneralTank(Position position, double hp, double speed);
+    Enemy createGeneralTank(Position position, double hp, double speed, double reward);
 }

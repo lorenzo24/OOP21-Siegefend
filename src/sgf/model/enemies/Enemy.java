@@ -61,7 +61,7 @@ public interface Enemy {
      * @return the steps done.
      */
     double getSteps();
-    
+
     /**
      * Get the enemy reward.
      * @return the reward.
