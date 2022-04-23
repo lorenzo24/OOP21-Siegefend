@@ -18,7 +18,7 @@ import sgf.view.enemy.EnemyView;
  * Class Waves thread that spawns enemies of the waves.
  */
 public class EnemyControllerImpl implements EnemyController, Stoppable {
-    private static final int THREAD_SPEED = 2000; 
+    private static final int THREAD_SPEED = 1500; 
     private boolean isControllerSet;
     private volatile boolean threadRun = true; // Boolean that manages the thread loop.
     private EnemyView enemyView;

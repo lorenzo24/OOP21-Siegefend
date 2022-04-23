@@ -8,10 +8,10 @@ import sgf.model.map.Position;
 public class EnemyFactoryImpl implements EnemyFactory {
     // Constant of parameters of the enemies.
     static final double HP_PLANE = 100;
-    static final double SPEED_PLANE = 1;
-    static final double HP_HELICOPTER = 50;
-    static final double SPEED_HELICOPTER = 2;
-    static final double HP_TANK = 200;
+    static final double SPEED_PLANE = 2;
+    static final double HP_HELICOPTER = 150;
+    static final double SPEED_HELICOPTER = 1;
+    static final double HP_TANK = 225;
     static final double SPEED_TANK = 1;
 
     @Override

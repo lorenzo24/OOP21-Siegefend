@@ -86,7 +86,12 @@ public class EnemyImpl implements Enemy {
     }
 
     @Override
-    public Double getSteps() {
+    public double getReward() {
+        return this.maxHp;
+    }
+
+    @Override
+    public double getSteps() {
         return this.stepsDone;
     }
 
@@ -116,4 +121,5 @@ public class EnemyImpl implements Enemy {
                 + ", hpPercent=" + hpPercent + ", speed=" + speed + ", points=" + points + ", enemyType=" + enemyType
                 + "]";
     }
+
 }

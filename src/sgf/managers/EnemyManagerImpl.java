@@ -138,7 +138,7 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
     }
 
     private void unitDeath() {
-        this.playerController.changeMoney((int) this.enemy.getPoints());
+        this.playerController.changeMoney((int) this.enemy.getReward());
         this.playerController.changeScore((int) this.enemy.getPoints());
         this.disappear();
     }
@@ -150,8 +150,7 @@ public class EnemyManagerImpl implements EnemyManager, Stoppable {
 
     @Override
     public String toString() {
-        return "EnemyManagerImpl [threadRun=" + threadRun + ", enemy=" + enemy + ", stepsDone=" + stepsDone
-                + ", lastDir=" + lastDir + "]";
+        return "EnemyManagerImpl [threadRun=" + this.threadRun + ", enemy=" + this.enemy + ", lastDir=" + this.lastDir + "]";
     }
 
     @Override
