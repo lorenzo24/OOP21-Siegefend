@@ -246,7 +246,7 @@ public class MenuViewImpl extends AbstractMenuView {
                             @Override
                             public void actionPerformed(final ActionEvent e) {
                                 if (!isUsernameSet()) {
-                                    JOptionPane.showMessageDialog(null, "No username provided, you will use the default one.", "Update", 1);
+                                    JOptionPane.showMessageDialog(null, "No username provided, you will use the default one (which is \"Unknown\").", "Update", 1);
                                 }
                                 MenuViewImpl.this.beginGame(i);
                             }
