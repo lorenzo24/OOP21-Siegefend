@@ -10,7 +10,7 @@ import sgf.utilities.Pair;
  */
 public class LeaderboardImpl implements Leaderboard {
     private final Map<String, Pair<String, Integer>> mapScore = new HashMap<>();
-    private final String path = "classification.json";
+    private static final String PATH = "classification.json";
 
     @Override
     public Map<String, Pair<String, Integer>> getMapScore() {
@@ -19,7 +19,7 @@ public class LeaderboardImpl implements Leaderboard {
 
     @Override
     public String getPath() {
-        return this.path;
+        return PATH;
     }
 
     @Override
