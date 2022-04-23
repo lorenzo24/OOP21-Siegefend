@@ -1,6 +1,7 @@
 package sgf.model.enemies;
 
 import java.util.Objects;
+import java.util.concurrent.Semaphore;
 import sgf.model.map.Position;
 
 /**
@@ -14,6 +15,7 @@ public class EnemyImpl implements Enemy {
     private double hpPercent;
     private final double speed;
     private final double points;
+    private final Semaphore enemySemaphore;
     private final EnemyType enemyType;
 
     /**
@@ -32,6 +34,7 @@ public class EnemyImpl implements Enemy {
         this.points = hp * speed;
         this.stepsDone = 0;
         this.calculateHp();
+        this.enemySemaphore = new Semaphore(1);
     }
 
     private void calculateHp() {
@@ -71,8 +74,10 @@ public class EnemyImpl implements Enemy {
 
     @Override
     public void damageSuffered(final double damage) {
+        this.enemySemaphore.acquireUninterruptibly();
         this.hp -= damage;
         this.calculateHp();
+        this.enemySemaphore.release();
     }
 
     @Override
