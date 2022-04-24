@@ -1,5 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![License](https://img.shields.io/badge/License-EPL_2.0-red.svg)](https://opensource.org/licenses/EPL-2.0)
+![Info](https://img.shields.io/badge/Report%20made%20using-LaTeX-blue)
 # Siegefend
 Siegefend is a tower defense game whose goal is to resist the siege by placing turrets all along the route, so that these will knock down waves of enemies and prevent them from reaching the end of the path.
 
